@@ -1,0 +1,23 @@
+Loading flattened interim data...
+Loaded 84623 rows
+Global median observed APPEL_OFFRE duration (months): 6.0
+Wrote cleaned dataset -> /home/senghakrou/survival-analysis/data/processed/boamp_clean_m0_no_enrichment.csv (84623 rows)
+APPEL_OFFRE total (all sectors): 58292
+APPEL_OFFRE digital scope (CPV-or-keyword, used as M0 sources): 3159
+APPEL_OFFRE digital scope (CPV-division-only, sensitivity check): 1882
+Wrote M0 source population -> /home/senghakrou/survival-analysis/data/processed/boamp_m0_sources.csv (3159 rows)
+
+=== Preprocess summary ===
+Total cleaned notices: 84623
+notice_type_normalized
+APPEL_OFFRE    58292
+ATTRIBUTION    22560
+OTHER           3771
+Name: count, dtype: int64
+APPEL_OFFRE source population: 3159
+Study end date (max publication_date observed): 2026-07-13 00:00:00
+buyer_key_type distribution:
+buyer_key_type
+NAME_FALLBACK    61585
+RAW_SIRET        23038
+Name: count, dtype: int64

@@ -1,0 +1,71 @@
+[fetch] 2024-01 (2024-01-01 .. 2024-01-31)
+  saved 8728 records -> boamp_202401.json
+[fetch] 2024-02 (2024-02-01 .. 2024-02-29)
+  saved 12094 records -> boamp_202402.json
+[fetch] 2024-03 (2024-03-01 .. 2024-03-31)
+  saved 12258 records -> boamp_202403.json
+[fetch] 2024-04 (2024-04-01 .. 2024-04-30)
+  saved 12711 records -> boamp_202404.json
+[fetch] 2024-05 (2024-05-01 .. 2024-05-31)
+  saved 11226 records -> boamp_202405.json
+[fetch] 2024-06 (2024-06-01 .. 2024-06-30)
+  saved 12435 records -> boamp_202406.json
+[fetch] 2024-07 (2024-07-01 .. 2024-07-31)
+  saved 13428 records -> boamp_202407.json
+[fetch] 2024-08 (2024-08-01 .. 2024-08-31)
+  saved 8840 records -> boamp_202408.json
+[fetch] 2024-09 (2024-09-01 .. 2024-09-30)
+  saved 10896 records -> boamp_202409.json
+[fetch] 2024-10 (2024-10-01 .. 2024-10-31)
+  saved 13491 records -> boamp_202410.json
+[fetch] 2024-11 (2024-11-01 .. 2024-11-30)
+  saved 9810 records -> boamp_202411.json
+[fetch] 2024-12 (2024-12-01 .. 2024-12-31)
+  saved 10708 records -> boamp_202412.json
+[fetch] 2025-01 (2025-01-01 .. 2025-01-31)
+  saved 11648 records -> boamp_202501.json
+[fetch] 2025-02 (2025-02-01 .. 2025-02-28)
+  saved 11209 records -> boamp_202502.json
+[fetch] 2025-03 (2025-03-01 .. 2025-03-31)
+  saved 12181 records -> boamp_202503.json
+[fetch] 2025-04 (2025-04-01 .. 2025-04-30)
+  saved 13043 records -> boamp_202504.json
+[fetch] 2025-05 (2025-05-01 .. 2025-05-31)
+  saved 11237 records -> boamp_202505.json
+[fetch] 2025-06 (2025-06-01 .. 2025-06-30)
+  saved 11561 records -> boamp_202506.json
+[fetch] 2025-07 (2025-07-01 .. 2025-07-31)
+  saved 13536 records -> boamp_202507.json
+[fetch] 2025-08 (2025-08-01 .. 2025-08-31)
+  saved 8807 records -> boamp_202508.json
+[fetch] 2025-09 (2025-09-01 .. 2025-09-30)
+  saved 10860 records -> boamp_202509.json
+[fetch] 2025-10 (2025-10-01 .. 2025-10-31)
+  saved 12628 records -> boamp_202510.json
+[fetch] 2025-11 (2025-11-01 .. 2025-11-30)
+  saved 9900 records -> boamp_202511.json
+[fetch] 2025-12 (2025-12-01 .. 2025-12-31)
+  saved 10813 records -> boamp_202512.json
+[fetch] 2026-01 (2026-01-01 .. 2026-01-31)
+  saved 10402 records -> boamp_202601.json
+[fetch] 2026-02 (2026-02-01 .. 2026-02-28)
+  saved 9210 records -> boamp_202602.json
+[fetch] 2026-03 (2026-03-01 .. 2026-03-31)
+  saved 11623 records -> boamp_202603.json
+[fetch] 2026-04 (2026-04-01 .. 2026-04-30)
+  saved 10685 records -> boamp_202604.json
+[fetch] 2026-05 (2026-05-01 .. 2026-05-31)
+  saved 8927 records -> boamp_202605.json
+[fetch] 2026-06 (2026-06-01 .. 2026-06-30)
+  saved 10761 records -> boamp_202606.json
+[fetch] 2026-07 (2026-07-01 .. 2026-07-13)
+  saved 5116 records -> boamp_202607.json
+
+Wrote metadata -> /home/senghakrou/survival-analysis/data/raw/boamp/download_metadata.json
+Wrote summary -> /home/senghakrou/survival-analysis/reports/tables/boamp_download_summary.csv
+
+=== Download complete ===
+Raw files: 31
+Raw notices (with cross-month dupes): 340772
+Retained unique notices: 340772
+Failed months: 0

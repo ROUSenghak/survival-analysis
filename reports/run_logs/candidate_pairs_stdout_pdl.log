@@ -1,0 +1,25 @@
+Loading M0 source population...
+Loaded 3159 APPEL_OFFRE source rows
+Eligible (non-missing buyer_key) sources: 3159
+Observed (non-imputed) duration median: 6.0 months
+TEMPORAL_WINDOW_MONTHS derived as clip(0.5 * median_duration, 6, 24) = 6
+TF-IDF matrix: (3159, 7299)
+Processing 790 buyer groups...
+
+Generated 6137 raw candidate pairs
+Wrote candidate pairs -> /home/senghakrou/survival-analysis/data/processed/boamp_m0_candidate_pairs.csv
+
+=== Candidate pair summary ===
+TEMPORAL_WINDOW_MONTHS used: 6
+Eligible sources: 3159
+Sources with >=1 candidate: 1236
+Total candidate pairs: 6137
+count    6137.000000
+mean        0.250497
+std         0.110876
+min         0.060000
+25%         0.171744
+50%         0.240778
+75%         0.308204
+max         0.938148
+Name: m0_composite_score, dtype: float64

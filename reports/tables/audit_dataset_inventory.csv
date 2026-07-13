@@ -1,0 +1,11 @@
+dataset,path,description,unit_of_observation,creation_script,row_count,column_count,current_or_stale,sha256
+raw_pdl_json,data/raw/boamp/pdl,monthly raw JSON,monthly export,download_boamp.py,140,,current,
+raw_national_archive,data/raw/boamp_national_2024_2026_archive,superseded national raw JSON,monthly export,none active,32,,stale/superseded,
+interim_flattened,data/interim/boamp_raw_flattened.csv,flattened notices,notice,parse_boamp.py,84623,42.0,current,451931d739e16fc5b7d5a1664ea8a803de9e1a48ea89e1a2b58a3bc0387935a0
+cleaned_notices,data/processed/boamp_clean_m0_no_enrichment.csv,cleaned all notices,notice,preprocess_boamp_m0.py,84623,93.0,current,3e69c5176e229fcc31e814baf9450c4bbccb22ad9b3e6201d208de79697f9e25
+m0_sources,data/processed/boamp_m0_sources.csv,M0 digital APPEL_OFFRE sources,source notice,preprocess_boamp_m0.py,3159,22.0,current,9fc77d7ca6da0fb3914a90284ca3da0b3eeb7bcc238e907b27d1dd305a36e9a8
+candidate_pairs,data/processed/boamp_m0_candidate_pairs.csv,blocked/scored pairs,source-candidate pair,build_m0_candidate_pairs.py,6137,19.0,current,3ce33cb13531046f56ee96e472f5cac1222e923357245d6eb8637866884aecdd
+links_broad,data/processed/boamp_m0_links_broad.csv,broad links,accepted link,run_m0_linkage.py,927,21.0,current,eefb87ea5dc70b5f5b9251c7c3717998d0cff4ad1dfb671fe653ac8a23b46aef
+links_balanced,data/processed/boamp_m0_links_balanced.csv,reference balanced links,accepted link,run_m0_linkage.py,618,21.0,current,59fd8434baed5aab6963c8c793c289e6b045514f3b740e878c3b6604dfba7458
+links_strict,data/processed/boamp_m0_links_strict.csv,strict links,accepted link,run_m0_linkage.py,309,21.0,current,127addcae15ec9b98837a5276edac060fdba626a75175f878a1cecb777a640e2
+survival_balanced,data/processed/boamp_survival_m0_balanced.csv,reference survival handoff,source notice,run_m0_linkage.py,3159,18.0,current,93c05a0c767b7264f2ed7669c7b70775f1ec86b7eeddbcee8adfe4a3c958a687

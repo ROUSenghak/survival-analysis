@@ -1,0 +1,13 @@
+check,value,note
+survival_rows,3159.0,rows in balanced survival handoff
+duplicated_survival_notice_ids,0.0,must be zero
+events,618.0,event rows
+balanced_links,618.0,accepted links
+events_equal_links,1.0,1 pass
+event_rows_missing_candidate,0.0,must be zero
+censored_rows_with_candidate,0.0,must be zero
+nonpositive_time,0.0,must be zero
+event_ids_not_in_links,0.0,must be zero
+links_not_in_survival,0.0,must be zero
+max_abs_event_time_gap_diff,0.0,event time equals link gap_months
+events_after_study_end,0.0,must be zero

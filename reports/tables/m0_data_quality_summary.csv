@@ -1,0 +1,9 @@
+metric,value
+n_eligible_sources,3159.0
+n_candidate_pairs_total,6137.0
+avg_candidates_per_source,4.965210355987055
+sources_without_candidates,1923.0
+broad_event_count,927.0
+balanced_event_count,618.0
+strict_event_count,309.0
+top_buyer_balanced_events_max,125.0

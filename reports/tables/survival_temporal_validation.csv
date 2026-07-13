@@ -1,0 +1,9 @@
+variant,train_n,train_events,test_n,test_events,test_c_index,error
+balanced,2082,516,1077,102,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+broad,2082,782,1077,145,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+strict,2082,259,1077,50,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+no_temporal_score_reference_pool,2082,506,1077,112,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+forward_24m_no_duration,2082,805,1077,300,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+window_9m,2082,572,1077,121,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+window_12m,2082,617,1077,137,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run
+window_18m,2082,678,1077,156,,deferred: sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run

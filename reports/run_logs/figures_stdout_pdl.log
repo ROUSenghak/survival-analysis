@@ -1,0 +1,16 @@
+Saved 01_notice_count_by_year.pdf / .png
+Saved 02_appel_offre_count_by_year.pdf / .png
+Saved 03_buyer_key_type_by_year.pdf / .png
+/home/senghakrou/survival-analysis/scripts/make_figures.py:121: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  cpv_cov = sources.groupby("publication_year").apply(lambda g: 1 - g["cpv_clean"].isna().mean())
+Saved 04_cpv_coverage_by_year.pdf / .png
+/home/senghakrou/survival-analysis/scripts/make_figures.py:132: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  dur_missing = sources.groupby("publication_year").apply(
+Saved 05_duration_missingness_by_year.pdf / .png
+Saved 06_candidate_count_distribution.pdf / .png
+Saved 07_m0_score_distribution.pdf / .png
+Saved 08_event_count_by_variant.pdf / .png
+Saved 09_event_count_by_year_balanced.pdf / .png
+Saved 10_top_buyer_event_counts.pdf / .png
+
+All figures written to /home/senghakrou/survival-analysis/reports/figures

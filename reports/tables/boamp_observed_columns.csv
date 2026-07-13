@@ -1,0 +1,43 @@
+column,dtype,non_null_count,non_null_rate,sample_values
+idweb,object,84623,1.0,15-28783 | 15-31324 | 15-32027
+id,object,84623,1.0,15_28783 | 15_31324 | 15_32027
+objet,object,84622,1.0,"fourniture de café avec mise à disposition des machines, pots et pichets à Saint Nazaire | Prestation d'assurance pour les besoins de la ville de Pont St Martin | mise en service de vélos neufs classiques et pliants à Angers"
+filename,object,84623,1.0,BOAMP-J-AO_2015_062009 | BOAMP-J-AO_2015_063003 | BOAMP-J-AO_2015_064003
+famille,object,84623,1.0,JOUE | FNS | MAPA
+famille_libelle,object,84623,1.0,Marchés européens | Marchés entre 90 k€ et seuils européens | Marchés <90 k€ (MAPA)
+code_departement,object,84623,1.0,44 | 44;85;72;79 | 49
+code_departement_prestation,float64,8113,0.0959,44.0 | 49.0 | 85.0
+dateparution,object,84623,1.0,2015-03-03 | 2015-03-04 | 2015-03-05
+datefindiffusion,object,84623,1.0,2015-04-13 | 2015-04-14 | 2015-04-23
+datelimitereponse,object,38297,0.4526,2015-04-13T15:00:00+00:00 | 2015-04-13T11:00:00+00:00 | 2015-04-14T11:00:00+00:00
+nomacheteur,object,84623,1.0,Centre Hospitalier de Saint-Nazaire | MAIRIE DE PONT ST MARTIN | Ville d'Angers
+titulaire,object,17926,0.2118,ANDRE BTP (Mandataire du groupement) | Société PAVY;Société VITRES ET VERRES | Lyonnaise des Eaux;Lyonnaise des Eaux;Saur
+perimetre,object,84623,1.0,DIRECTIVE-18 | CMP-2006 | DIRECTIVE-81
+type_procedure,object,78374,0.9262,OUVERT | CONCOURS_RESTREINT | RESTREINT
+soustype_procedure,object,444,0.0052,SANS_PUB_PREALABLE | AVEC_PUB_PREALABLE | ACCELERE
+procedure_libelle,object,84623,1.0,Procédure Ouverte | Procédure Concours restreint | Procédure Restreinte
+nature,object,84623,1.0,APPEL_OFFRE | ATTRIBUTION | INTENTION_CONCLURE
+sousnature,object,42822,0.506,STANDARD | CONCOURS | CONCESSION
+nature_libelle,object,84623,1.0,Avis de marché | Résultat de marché | Avis d'intention de conclure
+sousnature_libelle,object,5461,0.0645,Rectificatif | Concours | Concession
+nature_categorise,object,84623,1.0,appeloffre/standard | attribution/standard | intentionconclure/standard
+nature_categorise_libelle,object,84623,1.0,Avis de marché/ | Résultat de marché/ | Avis d'intention de conclure/
+descripteur_code,object,84610,0.9998,88 | 20 | 359
+descripteur_libelle,object,84610,0.9998,Denrées alimentaires | Assurance | Véhicules
+type_marche,object,71923,0.8499,FOURNITURES | SERVICES | TRAVAUX
+type_marche_facette,object,71923,0.8499,Fournitures | Services | Travaux
+type_avis,object,81124,0.9587,5;1 | 10;6 | 7
+annonce_lie,object,25485,0.3012,15-37631 | 13-128541 | 14-151069
+annonces_anterieures,object,20820,0.246,"{""REFERENCE"": {""IDWEB"": ""15-37631"", ""TYPE_AVIS"": {""FAMILLE"": {""FNS"": """"}, ""PERIMETRE"": {""CMP-2006"": """"}, ""NATURE"": {""APPEL_OFFRE"": """"}, ""STATUT"": {""INITIAL"": """"}}}, ""REFERENCE_PUBLICATION"": {""PUBLICATION_ELECTRONIQUE"": {""DATE_PUBLICATION"": ""2015-03-13"", ""DATE_FIN_DIFFUSION"": ""2015-04-07""}}} | {""REFERENCE"": {""IDWEB"": ""13-128541"", ""TYPE_AVIS"": {""FAMILLE"": {""JOUE"": """"}, ""PERIMETRE"": {""DIRECTIVE-18"": """"}, ""NATURE"": {""APPEL_OFFRE"": """"}, ""STATUT"": {""INITIAL"": """"}}}, ""REFERENCE_PUBLICATION"": [{""PUBLICATION_PAPIER"": {""TYPE_EDITION"": ""A"", ""NUM_PARUTION"": ""136"", ""NUM_ANNONCE"": ""156"", ""DATE_PUBLICATION"": ""2013-07-17""}}, {""PUBLICATION_JOUE"": {""ANNEE"": ""2013"", ""NUM_PARUTION"": ""137"", ""NUM_ANNONCE"": ""237283"", ""DATE_PUBLICATION"": ""2013-07-17""}}]} | {""REFERENCE"": {""IDWEB"": ""14-151069"", ""TYPE_AVIS"": {""FAMILLE"": {""JOUE"": """"}, ""PERIMETRE"": {""DIRECTIVE-18"": """"}, ""NATURE"": {""APPEL_OFFRE"": """"}, ""STATUT"": {""INITIAL"": """"}}}, ""REFERENCE_PUBLICATION"": [{""PUBLICATION_PAPIER"": {""TYPE_EDITION"": ""A"", ""NUM_PARUTION"": ""193"", ""NUM_ANNONCE"": ""214"", ""DATE_PUBLICATION"": ""2014-10-08""}}, {""PUBLICATION_JOUE"": {""ANNEE"": ""2014"", ""NUM_PARUTION"": ""194"", ""NUM_ANNONCE"": ""341814"", ""DATE_PUBLICATION"": ""2014-10-09""}}]}"
+source_schema,object,72529,0.8571,Boamp_v230.xsd | Boamp_v240.xsd | 3.2.5
+url_avis,object,84623,1.0,https://www.boamp.fr/pages/avis/?q=idweb:15-28783 | https://www.boamp.fr/pages/avis/?q=idweb:15-31324 | https://www.boamp.fr/pages/avis/?q=idweb:15-32027
+etat,object,84623,1.0,INITIAL | RECTIFICATIF | ANNULATION
+schema_family,object,84623,1.0,LEGACY | EFORMS
+siret_candidates_raw,object,23038,0.2722,23440003400026 | 22850001300658 | 22720002900014
+siren_candidates_raw,float64,0,0.0,
+cpv_candidates_raw,object,59503,0.7032,15861000 | 66515200;66516000;66514110;66512000;66513100 | 50000000
+duration_months_raw,float64,11547,0.1365,12.0 | 4.0 | 15.0
+duration_source_key,object,11547,0.1365,FNSimple/initial/natureMarche/dureeMois | EFORMS/ContractNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:TenderValidityPeriod/cbc:DurationMeasure | MAPA/initial/duree/nbMois
+notice_id_raw,object,84623,1.0,15-28783 | 15-31324 | 15-32027
+source_file,object,84623,1.0,boamp_201503.json | boamp_201504.json | boamp_201505.json
+raw_record_hash,object,84623,1.0,4fc4faf047968d0862bb6d966fbdf61c6b20178131b1107c13bce02619e65cde | 2c963ba9c2f72b06cf5e6e50bd09f534801b5dd089c46c4206fca1a8ae0a5dec | c6fbb9bb34f9987efcba94b3673f2dd9e2778e450ec4ad450fe410adc15e07f1

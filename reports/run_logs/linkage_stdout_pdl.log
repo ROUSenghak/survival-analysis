@@ -1,0 +1,10 @@
+Derived thresholds from rank-1 composite score distribution: {'broad': 0.26420166983556403, 'balanced': 0.32302169365652333, 'strict': 0.39308340344166265}
+Wrote /home/senghakrou/survival-analysis/data/processed/boamp_m0_links_broad.csv (927 links)
+Wrote /home/senghakrou/survival-analysis/data/processed/boamp_m0_links_balanced.csv (618 links)
+Wrote /home/senghakrou/survival-analysis/data/processed/boamp_m0_links_strict.csv (309 links)
+Wrote survival dataset -> /home/senghakrou/survival-analysis/data/processed/boamp_survival_m0_balanced.csv (3159 rows, 618 events)
+
+=== Linkage summary ===
+broad: threshold=0.2642, events=927, rate=0.2934
+balanced: threshold=0.3230, events=618, rate=0.1956
+strict: threshold=0.3931, events=309, rate=0.0978

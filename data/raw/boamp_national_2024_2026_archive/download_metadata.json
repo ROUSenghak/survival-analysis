@@ -1,0 +1,302 @@
+{
+  "source_url": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/exports/json",
+  "source_dataset": "boamp (DILA Opendatasoft Explore API v2.1)",
+  "catalog_url": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp",
+  "extraction_date": "2026-07-13T10:15:00",
+  "requested_period": {
+    "start": "2024-01-01",
+    "end": "2026-07-13"
+  },
+  "actual_period_note": "actual per-record dateparution range computed in parse_boamp.py from the retrieved data; requested period above is the query bound",
+  "select_fields": [
+    "idweb",
+    "id",
+    "objet",
+    "filename",
+    "famille",
+    "famille_libelle",
+    "code_departement",
+    "code_departement_prestation",
+    "dateparution",
+    "datefindiffusion",
+    "datelimitereponse",
+    "nomacheteur",
+    "titulaire",
+    "perimetre",
+    "type_procedure",
+    "soustype_procedure",
+    "procedure_libelle",
+    "nature",
+    "sousnature",
+    "nature_libelle",
+    "sousnature_libelle",
+    "nature_categorise",
+    "nature_categorise_libelle",
+    "descripteur_code",
+    "descripteur_libelle",
+    "type_marche",
+    "type_marche_facette",
+    "type_avis",
+    "annonce_lie",
+    "annonces_anterieures",
+    "source_schema",
+    "donnees",
+    "url_avis",
+    "etat"
+  ],
+  "raw_file_count": 31,
+  "raw_notice_count_with_dupes": 340772,
+  "duplicate_notice_count": 0,
+  "retained_notice_count": 340772,
+  "failed_requests": [],
+  "per_month_summary": [
+    {
+      "year": 2024,
+      "month": 1,
+      "file": "boamp_202401.json",
+      "record_count": 8728,
+      "new_ids": 8728,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "file": "boamp_202402.json",
+      "record_count": 12094,
+      "new_ids": 12094,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "file": "boamp_202403.json",
+      "record_count": 12258,
+      "new_ids": 12258,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "file": "boamp_202404.json",
+      "record_count": 12711,
+      "new_ids": 12711,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "file": "boamp_202405.json",
+      "record_count": 11226,
+      "new_ids": 11226,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "file": "boamp_202406.json",
+      "record_count": 12435,
+      "new_ids": 12435,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "file": "boamp_202407.json",
+      "record_count": 13428,
+      "new_ids": 13428,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "file": "boamp_202408.json",
+      "record_count": 8840,
+      "new_ids": 8840,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "file": "boamp_202409.json",
+      "record_count": 10896,
+      "new_ids": 10896,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "file": "boamp_202410.json",
+      "record_count": 13491,
+      "new_ids": 13491,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "file": "boamp_202411.json",
+      "record_count": 9810,
+      "new_ids": 9810,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "file": "boamp_202412.json",
+      "record_count": 10708,
+      "new_ids": 10708,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "file": "boamp_202501.json",
+      "record_count": 11648,
+      "new_ids": 11648,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "file": "boamp_202502.json",
+      "record_count": 11209,
+      "new_ids": 11209,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 3,
+      "file": "boamp_202503.json",
+      "record_count": 12181,
+      "new_ids": 12181,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "file": "boamp_202504.json",
+      "record_count": 13043,
+      "new_ids": 13043,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 5,
+      "file": "boamp_202505.json",
+      "record_count": 11237,
+      "new_ids": 11237,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "file": "boamp_202506.json",
+      "record_count": 11561,
+      "new_ids": 11561,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "file": "boamp_202507.json",
+      "record_count": 13536,
+      "new_ids": 13536,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "file": "boamp_202508.json",
+      "record_count": 8807,
+      "new_ids": 8807,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "file": "boamp_202509.json",
+      "record_count": 10860,
+      "new_ids": 10860,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "file": "boamp_202510.json",
+      "record_count": 12628,
+      "new_ids": 12628,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "file": "boamp_202511.json",
+      "record_count": 9900,
+      "new_ids": 9900,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "file": "boamp_202512.json",
+      "record_count": 10813,
+      "new_ids": 10813,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "file": "boamp_202601.json",
+      "record_count": 10402,
+      "new_ids": 10402,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "file": "boamp_202602.json",
+      "record_count": 9210,
+      "new_ids": 9210,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "file": "boamp_202603.json",
+      "record_count": 11623,
+      "new_ids": 11623,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "file": "boamp_202604.json",
+      "record_count": 10685,
+      "new_ids": 10685,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "file": "boamp_202605.json",
+      "record_count": 8927,
+      "new_ids": 8927,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 6,
+      "file": "boamp_202606.json",
+      "record_count": 10761,
+      "new_ids": 10761,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "file": "boamp_202607.json",
+      "record_count": 5116,
+      "new_ids": 5116,
+      "duplicate_ids_vs_prior_months": 0
+    }
+  ]
+}

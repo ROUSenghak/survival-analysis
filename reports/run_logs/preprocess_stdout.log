@@ -1,0 +1,21 @@
+Loading flattened interim data...
+Loaded 340772 rows
+Global median observed APPEL_OFFRE duration (months): 6.0
+Wrote cleaned dataset -> /home/senghakrou/survival-analysis/data/processed/boamp_clean_m0_no_enrichment.csv (340772 rows)
+Wrote M0 source population -> /home/senghakrou/survival-analysis/data/processed/boamp_m0_sources.csv (234871 rows)
+
+=== Preprocess summary ===
+Total cleaned notices: 340772
+notice_type_normalized
+APPEL_OFFRE    234871
+ATTRIBUTION     89752
+OTHER           16149
+Name: count, dtype: int64
+APPEL_OFFRE source population: 234871
+Study end date (max publication_date observed): 2026-07-13 00:00:00
+buyer_key_type distribution:
+buyer_key_type
+NAME_FALLBACK    206081
+RAW_SIRET        134687
+MISSING               4
+Name: count, dtype: int64

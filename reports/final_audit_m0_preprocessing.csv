@@ -1,0 +1,35 @@
+check,target,status
+raw data present,data/raw/boamp/pdl/download_metadata.json,PASS
+raw data present,data/raw/boamp/pdl/boamp_201501.json,PASS
+raw data present,data/raw/boamp/pdl/boamp_202607.json,PASS
+metadata exists,data/raw/boamp/pdl/download_metadata.json,PASS
+flattened data exists,data/interim/boamp_raw_flattened.csv,PASS
+cleaned M0 data exists,data/processed/boamp_clean_m0_no_enrichment.csv,PASS
+source population exists,data/processed/boamp_m0_sources.csv,PASS
+candidate pairs exist,data/processed/boamp_m0_candidate_pairs.csv,PASS
+M0 links (broad) exist,data/processed/boamp_m0_links_broad.csv,PASS
+M0 links (balanced) exist,data/processed/boamp_m0_links_balanced.csv,PASS
+M0 links (strict) exist,data/processed/boamp_m0_links_strict.csv,PASS
+survival dataset exists,data/processed/boamp_survival_m0_balanced.csv,PASS
+schema summary table exists,reports/tables/boamp_source_schema_summary.csv,PASS
+download summary table exists,reports/tables/boamp_download_summary.csv,PASS
+observed columns table exists,reports/tables/boamp_observed_columns.csv,PASS
+method summary table exists,reports/tables/m0_method_summary.csv,PASS
+event counts table exists,reports/tables/m0_event_counts.csv,PASS
+score distribution table exists,reports/tables/m0_score_distribution_summary.csv,PASS
+buyer key type table exists,reports/tables/m0_buyer_key_type_summary.csv,PASS
+data quality table exists,reports/tables/m0_data_quality_summary.csv,PASS
+quality checks table exists,reports/tables/m0_preprocessing_quality_checks.csv,PASS
+figures exist,reports/figures/01_notice_count_by_year.png,PASS
+figures exist,reports/figures/07_m0_score_distribution.pdf,PASS
+figures exist,reports/figures/10_top_buyer_event_counts.png,PASS
+report exists,reports/boamp_m0_preprocessing_report.md,PASS
+source trace exists,reports/source_values_used.csv,PASS
+run log exists,reports/run_logs/run_log.md,PASS
+retained_notice_count == cleaned_notice_count,84623 vs 84623,PASS
+m0_event_count_broad consistent (quality_checks vs method_summary),927 vs 927,PASS
+m0_event_count_balanced consistent (quality_checks vs method_summary),618 vs 618,PASS
+m0_event_count_strict consistent (quality_checks vs method_summary),309 vs 309,PASS
+boamp_m0_links_balanced.csv row count == m0_event_count_balanced,618 vs 618,PASS
+survival dataset event count == m0_event_count_balanced,618 vs 618,PASS
+no external SIREN/SIRET enrichment used,"no calls to INSEE SIRENE API / data.gouv.fr entreprise search / any external company database anywhere in scripts/ or src/ (SIRET/SIREN sourced only from BOAMP's own `donnees` field; SIREN also derived by truncating a valid raw SIRET, documented as internal cleaning, not enrichment)",PASS

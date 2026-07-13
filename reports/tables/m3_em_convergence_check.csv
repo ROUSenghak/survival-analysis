@@ -1,0 +1,2 @@
+best_run_label,best_loglik,warm_start_loglik,loglik_delta_warm_vs_best,jaccard_warm_vs_best_r_gt_half,n_restarts_total
+warm_start,40975.500128681066,40975.500128681066,0.0,1.0,6

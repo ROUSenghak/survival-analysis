@@ -1,0 +1,2 @@
+TP_hat,FN_hat,n_linked_balanced,n_omega,precision_hat,recall_hat,scope_caveat
+281.3357906345801,829.0769344576779,618,6137,0.455235907175696,0.2533614612631583,"Recall_hat is defined relative to Omega (all 6,137 candidate pairs, i.e. pairs surviving buyer_key + temporal-window blocking) only. It structurally excludes the 1,923 of 3,159 eligible sources that had zero candidates in blocking, so it cannot bound recall against all possible true renewals - only against renewals that could in principle have been found given the current blocking rule."

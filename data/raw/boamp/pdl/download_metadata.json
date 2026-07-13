@@ -1,0 +1,1175 @@
+{
+  "source_url": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/exports/json",
+  "source_dataset": "boamp (DILA Opendatasoft Explore API v2.1)",
+  "catalog_url": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp",
+  "extraction_date": "2026-07-13T11:25:37",
+  "requested_period": {
+    "start": "2015-01-01",
+    "end": "2026-07-13"
+  },
+  "actual_period_note": "actual per-record dateparution range computed in parse_boamp.py from the retrieved data; requested period above is the query bound",
+  "scope_tag": "pays_de_la_loire",
+  "departments": [
+    "44",
+    "49",
+    "53",
+    "72",
+    "85"
+  ],
+  "geographic_field": "code_departement",
+  "select_fields": [
+    "idweb",
+    "id",
+    "objet",
+    "filename",
+    "famille",
+    "famille_libelle",
+    "code_departement",
+    "code_departement_prestation",
+    "dateparution",
+    "datefindiffusion",
+    "datelimitereponse",
+    "nomacheteur",
+    "titulaire",
+    "perimetre",
+    "type_procedure",
+    "soustype_procedure",
+    "procedure_libelle",
+    "nature",
+    "sousnature",
+    "nature_libelle",
+    "sousnature_libelle",
+    "nature_categorise",
+    "nature_categorise_libelle",
+    "descripteur_code",
+    "descripteur_libelle",
+    "type_marche",
+    "type_marche_facette",
+    "type_avis",
+    "annonce_lie",
+    "annonces_anterieures",
+    "source_schema",
+    "donnees",
+    "url_avis",
+    "etat"
+  ],
+  "raw_file_count": 139,
+  "raw_notice_count_with_dupes": 84623,
+  "duplicate_notice_count": 0,
+  "retained_notice_count": 84623,
+  "failed_requests": [],
+  "per_month_summary": [
+    {
+      "year": 2015,
+      "month": 1,
+      "file": "boamp_201501.json",
+      "record_count": 0,
+      "new_ids": 0,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 2,
+      "file": "boamp_201502.json",
+      "record_count": 0,
+      "new_ids": 0,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 3,
+      "file": "boamp_201503.json",
+      "record_count": 707,
+      "new_ids": 707,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 4,
+      "file": "boamp_201504.json",
+      "record_count": 714,
+      "new_ids": 714,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 5,
+      "file": "boamp_201505.json",
+      "record_count": 568,
+      "new_ids": 568,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 6,
+      "file": "boamp_201506.json",
+      "record_count": 719,
+      "new_ids": 719,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 7,
+      "file": "boamp_201507.json",
+      "record_count": 772,
+      "new_ids": 772,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 8,
+      "file": "boamp_201508.json",
+      "record_count": 352,
+      "new_ids": 352,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 9,
+      "file": "boamp_201509.json",
+      "record_count": 603,
+      "new_ids": 603,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 10,
+      "file": "boamp_201510.json",
+      "record_count": 629,
+      "new_ids": 629,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 11,
+      "file": "boamp_201511.json",
+      "record_count": 530,
+      "new_ids": 530,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2015,
+      "month": 12,
+      "file": "boamp_201512.json",
+      "record_count": 550,
+      "new_ids": 550,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 1,
+      "file": "boamp_201601.json",
+      "record_count": 520,
+      "new_ids": 520,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 2,
+      "file": "boamp_201602.json",
+      "record_count": 555,
+      "new_ids": 555,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 3,
+      "file": "boamp_201603.json",
+      "record_count": 749,
+      "new_ids": 749,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 4,
+      "file": "boamp_201604.json",
+      "record_count": 412,
+      "new_ids": 412,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 5,
+      "file": "boamp_201605.json",
+      "record_count": 685,
+      "new_ids": 685,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 6,
+      "file": "boamp_201606.json",
+      "record_count": 691,
+      "new_ids": 691,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 7,
+      "file": "boamp_201607.json",
+      "record_count": 730,
+      "new_ids": 730,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 8,
+      "file": "boamp_201608.json",
+      "record_count": 356,
+      "new_ids": 356,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 9,
+      "file": "boamp_201609.json",
+      "record_count": 565,
+      "new_ids": 565,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 10,
+      "file": "boamp_201610.json",
+      "record_count": 609,
+      "new_ids": 609,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 11,
+      "file": "boamp_201611.json",
+      "record_count": 521,
+      "new_ids": 521,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2016,
+      "month": 12,
+      "file": "boamp_201612.json",
+      "record_count": 589,
+      "new_ids": 589,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "file": "boamp_201701.json",
+      "record_count": 607,
+      "new_ids": 607,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "file": "boamp_201702.json",
+      "record_count": 546,
+      "new_ids": 546,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "file": "boamp_201703.json",
+      "record_count": 676,
+      "new_ids": 676,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "file": "boamp_201704.json",
+      "record_count": 636,
+      "new_ids": 636,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "file": "boamp_201705.json",
+      "record_count": 642,
+      "new_ids": 642,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "file": "boamp_201706.json",
+      "record_count": 677,
+      "new_ids": 677,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 7,
+      "file": "boamp_201707.json",
+      "record_count": 674,
+      "new_ids": 674,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 8,
+      "file": "boamp_201708.json",
+      "record_count": 423,
+      "new_ids": 423,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 9,
+      "file": "boamp_201709.json",
+      "record_count": 537,
+      "new_ids": 537,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 10,
+      "file": "boamp_201710.json",
+      "record_count": 672,
+      "new_ids": 672,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 11,
+      "file": "boamp_201711.json",
+      "record_count": 549,
+      "new_ids": 549,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2017,
+      "month": 12,
+      "file": "boamp_201712.json",
+      "record_count": 537,
+      "new_ids": 537,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 1,
+      "file": "boamp_201801.json",
+      "record_count": 583,
+      "new_ids": 583,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 2,
+      "file": "boamp_201802.json",
+      "record_count": 620,
+      "new_ids": 620,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 3,
+      "file": "boamp_201803.json",
+      "record_count": 672,
+      "new_ids": 672,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 4,
+      "file": "boamp_201804.json",
+      "record_count": 639,
+      "new_ids": 639,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 5,
+      "file": "boamp_201805.json",
+      "record_count": 543,
+      "new_ids": 543,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 6,
+      "file": "boamp_201806.json",
+      "record_count": 690,
+      "new_ids": 690,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 7,
+      "file": "boamp_201807.json",
+      "record_count": 650,
+      "new_ids": 650,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 8,
+      "file": "boamp_201808.json",
+      "record_count": 436,
+      "new_ids": 436,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 9,
+      "file": "boamp_201809.json",
+      "record_count": 567,
+      "new_ids": 567,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 10,
+      "file": "boamp_201810.json",
+      "record_count": 670,
+      "new_ids": 670,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 11,
+      "file": "boamp_201811.json",
+      "record_count": 576,
+      "new_ids": 576,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2018,
+      "month": 12,
+      "file": "boamp_201812.json",
+      "record_count": 530,
+      "new_ids": 530,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 1,
+      "file": "boamp_201901.json",
+      "record_count": 641,
+      "new_ids": 641,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 2,
+      "file": "boamp_201902.json",
+      "record_count": 669,
+      "new_ids": 669,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 3,
+      "file": "boamp_201903.json",
+      "record_count": 829,
+      "new_ids": 829,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 4,
+      "file": "boamp_201904.json",
+      "record_count": 623,
+      "new_ids": 623,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 5,
+      "file": "boamp_201905.json",
+      "record_count": 731,
+      "new_ids": 731,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 6,
+      "file": "boamp_201906.json",
+      "record_count": 655,
+      "new_ids": 655,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 7,
+      "file": "boamp_201907.json",
+      "record_count": 772,
+      "new_ids": 772,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 8,
+      "file": "boamp_201908.json",
+      "record_count": 487,
+      "new_ids": 487,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 9,
+      "file": "boamp_201909.json",
+      "record_count": 571,
+      "new_ids": 571,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 10,
+      "file": "boamp_201910.json",
+      "record_count": 727,
+      "new_ids": 727,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 11,
+      "file": "boamp_201911.json",
+      "record_count": 527,
+      "new_ids": 527,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2019,
+      "month": 12,
+      "file": "boamp_201912.json",
+      "record_count": 595,
+      "new_ids": 595,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 1,
+      "file": "boamp_202001.json",
+      "record_count": 659,
+      "new_ids": 659,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 2,
+      "file": "boamp_202002.json",
+      "record_count": 607,
+      "new_ids": 607,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 3,
+      "file": "boamp_202003.json",
+      "record_count": 773,
+      "new_ids": 773,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 4,
+      "file": "boamp_202004.json",
+      "record_count": 592,
+      "new_ids": 592,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 5,
+      "file": "boamp_202005.json",
+      "record_count": 544,
+      "new_ids": 544,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 6,
+      "file": "boamp_202006.json",
+      "record_count": 571,
+      "new_ids": 571,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 7,
+      "file": "boamp_202007.json",
+      "record_count": 611,
+      "new_ids": 611,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 8,
+      "file": "boamp_202008.json",
+      "record_count": 390,
+      "new_ids": 390,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 9,
+      "file": "boamp_202009.json",
+      "record_count": 501,
+      "new_ids": 501,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 10,
+      "file": "boamp_202010.json",
+      "record_count": 645,
+      "new_ids": 645,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 11,
+      "file": "boamp_202011.json",
+      "record_count": 560,
+      "new_ids": 560,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2020,
+      "month": 12,
+      "file": "boamp_202012.json",
+      "record_count": 604,
+      "new_ids": 604,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 1,
+      "file": "boamp_202101.json",
+      "record_count": 582,
+      "new_ids": 582,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 2,
+      "file": "boamp_202102.json",
+      "record_count": 652,
+      "new_ids": 652,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 3,
+      "file": "boamp_202103.json",
+      "record_count": 726,
+      "new_ids": 726,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 4,
+      "file": "boamp_202104.json",
+      "record_count": 678,
+      "new_ids": 678,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 5,
+      "file": "boamp_202105.json",
+      "record_count": 571,
+      "new_ids": 571,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 6,
+      "file": "boamp_202106.json",
+      "record_count": 651,
+      "new_ids": 651,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 7,
+      "file": "boamp_202107.json",
+      "record_count": 685,
+      "new_ids": 685,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 8,
+      "file": "boamp_202108.json",
+      "record_count": 381,
+      "new_ids": 381,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 9,
+      "file": "boamp_202109.json",
+      "record_count": 653,
+      "new_ids": 653,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 10,
+      "file": "boamp_202110.json",
+      "record_count": 708,
+      "new_ids": 708,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 11,
+      "file": "boamp_202111.json",
+      "record_count": 495,
+      "new_ids": 495,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2021,
+      "month": 12,
+      "file": "boamp_202112.json",
+      "record_count": 596,
+      "new_ids": 596,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 1,
+      "file": "boamp_202201.json",
+      "record_count": 565,
+      "new_ids": 565,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 2,
+      "file": "boamp_202202.json",
+      "record_count": 638,
+      "new_ids": 638,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 3,
+      "file": "boamp_202203.json",
+      "record_count": 787,
+      "new_ids": 787,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 4,
+      "file": "boamp_202204.json",
+      "record_count": 661,
+      "new_ids": 661,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 5,
+      "file": "boamp_202205.json",
+      "record_count": 712,
+      "new_ids": 712,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 6,
+      "file": "boamp_202206.json",
+      "record_count": 683,
+      "new_ids": 683,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 7,
+      "file": "boamp_202207.json",
+      "record_count": 695,
+      "new_ids": 695,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 8,
+      "file": "boamp_202208.json",
+      "record_count": 384,
+      "new_ids": 384,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 9,
+      "file": "boamp_202209.json",
+      "record_count": 665,
+      "new_ids": 665,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 10,
+      "file": "boamp_202210.json",
+      "record_count": 735,
+      "new_ids": 735,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 11,
+      "file": "boamp_202211.json",
+      "record_count": 563,
+      "new_ids": 563,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2022,
+      "month": 12,
+      "file": "boamp_202212.json",
+      "record_count": 624,
+      "new_ids": 624,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 1,
+      "file": "boamp_202301.json",
+      "record_count": 643,
+      "new_ids": 643,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 2,
+      "file": "boamp_202302.json",
+      "record_count": 574,
+      "new_ids": 574,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 3,
+      "file": "boamp_202303.json",
+      "record_count": 767,
+      "new_ids": 767,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 4,
+      "file": "boamp_202304.json",
+      "record_count": 755,
+      "new_ids": 755,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 5,
+      "file": "boamp_202305.json",
+      "record_count": 640,
+      "new_ids": 640,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 6,
+      "file": "boamp_202306.json",
+      "record_count": 791,
+      "new_ids": 791,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 7,
+      "file": "boamp_202307.json",
+      "record_count": 778,
+      "new_ids": 778,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 8,
+      "file": "boamp_202308.json",
+      "record_count": 402,
+      "new_ids": 402,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 9,
+      "file": "boamp_202309.json",
+      "record_count": 708,
+      "new_ids": 708,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 10,
+      "file": "boamp_202310.json",
+      "record_count": 759,
+      "new_ids": 759,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 11,
+      "file": "boamp_202311.json",
+      "record_count": 625,
+      "new_ids": 625,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2023,
+      "month": 12,
+      "file": "boamp_202312.json",
+      "record_count": 649,
+      "new_ids": 649,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 1,
+      "file": "boamp_202401.json",
+      "record_count": 531,
+      "new_ids": 531,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 2,
+      "file": "boamp_202402.json",
+      "record_count": 726,
+      "new_ids": 726,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 3,
+      "file": "boamp_202403.json",
+      "record_count": 658,
+      "new_ids": 658,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 4,
+      "file": "boamp_202404.json",
+      "record_count": 707,
+      "new_ids": 707,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 5,
+      "file": "boamp_202405.json",
+      "record_count": 604,
+      "new_ids": 604,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 6,
+      "file": "boamp_202406.json",
+      "record_count": 745,
+      "new_ids": 745,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 7,
+      "file": "boamp_202407.json",
+      "record_count": 713,
+      "new_ids": 713,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 8,
+      "file": "boamp_202408.json",
+      "record_count": 394,
+      "new_ids": 394,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 9,
+      "file": "boamp_202409.json",
+      "record_count": 587,
+      "new_ids": 587,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 10,
+      "file": "boamp_202410.json",
+      "record_count": 692,
+      "new_ids": 692,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 11,
+      "file": "boamp_202411.json",
+      "record_count": 563,
+      "new_ids": 563,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "file": "boamp_202412.json",
+      "record_count": 627,
+      "new_ids": 627,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 1,
+      "file": "boamp_202501.json",
+      "record_count": 706,
+      "new_ids": 706,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 2,
+      "file": "boamp_202502.json",
+      "record_count": 627,
+      "new_ids": 627,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 3,
+      "file": "boamp_202503.json",
+      "record_count": 728,
+      "new_ids": 728,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 4,
+      "file": "boamp_202504.json",
+      "record_count": 725,
+      "new_ids": 725,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 5,
+      "file": "boamp_202505.json",
+      "record_count": 693,
+      "new_ids": 693,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 6,
+      "file": "boamp_202506.json",
+      "record_count": 643,
+      "new_ids": 643,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 7,
+      "file": "boamp_202507.json",
+      "record_count": 720,
+      "new_ids": 720,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 8,
+      "file": "boamp_202508.json",
+      "record_count": 409,
+      "new_ids": 409,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 9,
+      "file": "boamp_202509.json",
+      "record_count": 643,
+      "new_ids": 643,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "file": "boamp_202510.json",
+      "record_count": 698,
+      "new_ids": 698,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 11,
+      "file": "boamp_202511.json",
+      "record_count": 610,
+      "new_ids": 610,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2025,
+      "month": 12,
+      "file": "boamp_202512.json",
+      "record_count": 608,
+      "new_ids": 608,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 1,
+      "file": "boamp_202601.json",
+      "record_count": 580,
+      "new_ids": 580,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "file": "boamp_202602.json",
+      "record_count": 497,
+      "new_ids": 497,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "file": "boamp_202603.json",
+      "record_count": 654,
+      "new_ids": 654,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 4,
+      "file": "boamp_202604.json",
+      "record_count": 562,
+      "new_ids": 562,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 5,
+      "file": "boamp_202605.json",
+      "record_count": 503,
+      "new_ids": 503,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 6,
+      "file": "boamp_202606.json",
+      "record_count": 608,
+      "new_ids": 608,
+      "duplicate_ids_vs_prior_months": 0
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "file": "boamp_202607.json",
+      "record_count": 319,
+      "new_ids": 319,
+      "duplicate_ids_vs_prior_months": 0
+    }
+  ]
+}

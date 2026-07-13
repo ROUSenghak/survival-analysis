@@ -1,0 +1,27 @@
+check_name,scientific_question,status,evidence_in_code,evidence_in_outputs,main_assumptions,problems_found,priority
+Eligibility definition,Which source contracts can enter linkage?,IMPLEMENTED AND VERIFIED,preprocess_boamp_m0.py,boamp_m0_sources.csv,APPEL_OFFRE digital scope; nonmissing buyer key for candidate generation,duration imputation affects estimated end dates,P1
+Blocking coverage,How many eligible sources can be compared?,PARTIALLY IMPLEMENTED,build_m0_candidate_pairs.py,audit_blocking_coverage.csv,same buyer_key and duration-centered temporal window,zero-candidate causes were absent before audit,P1
+Candidate-pool diagnostics,Are candidate pools ambiguous?,PARTIALLY IMPLEMENTED,candidate rank/margin columns,audit_candidate_source_diagnostics.csv,top two scores summarize ambiguity,no source-level table before audit,P1
+Duplicate-candidate analysis,Is one candidate reused by many sources?,PARTIALLY IMPLEMENTED,run_m0_linkage.py duplicate count,audit_duplicate_candidate_*.csv,many-to-one may be valid for lots/frameworks,examples/distribution absent before audit,P1
+Score and margin diagnostics,Which components drive decisions?,PARTIALLY IMPLEMENTED,m0_score_distribution_summary.csv,audit_score_component_distributions.csv,internal scores are not validation,accepted/rejected/runner-up populations absent before audit,P1
+Threshold sensitivity,Do cutoffs alter events?,IMPLEMENTED BUT INCONSISTENT,eval_m6a_threshold_sensitivity.py,m6a_threshold_*.csv,percentile thresholds,hardcoded eligible denominator and limited breakdown,P1
+Temporal-window sensitivity,Does the window drive links?,NOT IMPLEMENTED,none found,pending eval_m6d_temporal_window_sensitivity.py,rerun candidate generation for each W,single 6-month window only,P1
+Feature ablation,Which components change rankings?,PARTIALLY IMPLEMENTED,eval_m6b_feature_ablation.py,m6b_feature_ablation.csv,"drop component, renormalize, rerank",missing selected-candidate/event-status/survival summaries,P2
+Weight sensitivity,Do manual weights matter?,NOT IMPLEMENTED,none found,none,weights are manual,no perturbation grid,P2
+Fellegi-Sunter mixture,Model-based precision conditional on Omega?,IMPLEMENTED AND VERIFIED,eval_m3_fellegi_sunter_mixture.py,m3_*.csv,unsupervised beta mixture,not verified accuracy; beta imperfect for discrete variables,P2
+Semi-synthetic corruption/recovery,Robustness to field degradation?,IMPLEMENTED BUT INCONSISTENT,eval_m4_corruption_recovery.py,m4_*.csv,"strict links are reference subset, not truth",fixed candidate pool when corrupted fields may affect blocking,P2
+Duration-leakage audit,Does duration mechanically construct events?,NOT IMPLEMENTED,duration used in preprocessing/linkage/survival,pending eval_duration_leakage.py,"duration defines expected end, temporal score, survival timing",risk not quantified,P1
+Placebo/negative controls,Do links separate from plausible nonmatches?,NOT IMPLEMENTED,none found,none,internal score separation is not truth,no runner-up/random/date-shift placebo,P2
+Manual-validation readiness,Can humans label a balanced sample?,NOT IMPLEMENTED,none found,manual_validation_sample_unlabeled.csv,do not fabricate labels,no annotation sample/guide before audit,P1
+Survival-time/censoring construction,Are event/censoring times coherent?,PARTIALLY IMPLEMENTED,run_m0_linkage.py,audit_survival_construction_checks.csv,event time uses candidate-source gap_months,request says source start date; code uses publication-date gap,P1
+Censoring diagnostics,Are censored rows different?,NOT IMPLEMENTED,none found,audit_censoring_diagnostics.csv,administrative censoring differs from linkage failure,no SMD/balance table before audit,P1
+Event counts/model complexity,Enough events per model?,PARTIALLY IMPLEMENTED,m0_event_counts.csv,pending survival_event_complexity.csv,events per parameter should be checked,no model complexity table,P1
+Proportional hazards,Does Cox PH hold?,NOT IMPLEMENTED,none found,pending survival_ph_diagnostics.csv,Schoenfeld residuals where supported,no Cox model yet,P2
+Functional form,Are continuous effects linear?,NOT IMPLEMENTED,none found,pending survival_functional_form.csv,duration may be nonlinear/circular,no transform/spline check,P2
+Dependence within buyer,Are SEs buyer-robust?,NOT IMPLEMENTED,none found,pending survival_cox_models.csv,cluster by buyer_key,no robust buyer inference,P2
+Temporal validation,Do predictions generalize over time?,NOT IMPLEMENTED,none found,pending survival_temporal_validation.csv,avoid censoring-dominated split,no validation,P3
+Alternative event definitions,Are conclusions robust to definitions?,PARTIALLY IMPLEMENTED,broad/balanced/strict; eval_m6c,m6c_km_summary.csv,alternative definitions should rebuild links,only broad/strict KM by CPV exists,P1
+Downstream robustness,Do survival conclusions survive uncertainty?,PARTIALLY IMPLEMENTED,eval_m6c_variant_km_robustness.py,m6c_*.csv,KM/RMST only,no Cox/AFT/prediction robustness,P2
+Ranking stability,Are segment/buyer rankings stable?,PARTIALLY IMPLEMENTED,eval_m6c rank correlation,m6c_km_rank_correlation.csv,few CPV divisions,no buyer/top-risk stability,P3
+Bootstrap uncertainty,How large is pipeline uncertainty?,NOT IMPLEMENTED,none found,none,full-pipeline bootstrap costly,not implemented,P3
+Operational prediction calibration,Are 12/24m risks calibrated?,NOT IMPLEMENTED,none found,pending survival_predictions_12_24m.csv,against constructed proxy event only,not implemented,P3

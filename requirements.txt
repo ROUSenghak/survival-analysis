@@ -1,0 +1,34 @@
+# BOAMP M0 preprocessing pipeline — dependencies
+# Tested with Python 3.12 (WSL Ubuntu 24.04)
+
+pandas>=2.3
+numpy>=2.0
+requests>=2.31
+tqdm>=4.66
+pyarrow>=17.0
+beautifulsoup4>=4.12
+python-dateutil>=2.9
+rapidfuzz>=3.9  # installed but not used by the current scripts: buyer_key
+                # fallback uses exact normalized-name matching (see
+                # src/utils/identifiers.py), not fuzzy matching - fuzzy
+                # buyer-name matching is listed as a possible next step in
+                # reports/boamp_m0_preprocessing_report.md, section 16
+scikit-learn>=1.5
+matplotlib>=3.9
+
+# lxml is listed as a suggested dependency in case an XML fallback parser is
+# ever needed. The BOAMP source actually used in this project (Opendatasoft
+# Explore API v2.1, `boamp` dataset) returns JSON, so lxml is not required by
+# the current scripts and is not installed by default.
+# lxml>=5.0
+
+# sentence-transformers was evaluated for M0 text similarity (Step 7) but was
+# NOT installed/used: the corpus size for the retrieved study period
+# (~340k notices) makes CPU-only transformer embedding impractical for a
+# first deterministic linkage pass, and it pulls in a heavy torch dependency.
+# TF-IDF + cosine similarity (scikit-learn, already listed above) is used
+# instead. See reports/boamp_m0_preprocessing_report.md, section "M0 scoring".
+# sentence-transformers>=3.0
+
+scipy>=1.14
+lifelines>=0.30

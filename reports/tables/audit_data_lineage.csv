@@ -1,0 +1,8 @@
+stage,official_path,script,upstream_dependencies
+raw BOAMP data,data/raw/boamp/pdl/boamp_YYYYMM.json,download_boamp.py,"DILA API by month, PdL departments"
+flattening,data/interim/boamp_raw_flattened.csv,parse_boamp.py,raw JSON
+filter/preprocess,data/processed/boamp_clean_m0_no_enrichment.csv,preprocess_boamp_m0.py,flattened CSV
+eligible sources,data/processed/boamp_m0_sources.csv,preprocess_boamp_m0.py,cleaned notices
+candidate generation,data/processed/boamp_m0_candidate_pairs.csv,build_m0_candidate_pairs.py,M0 sources
+accepted links,data/processed/boamp_m0_links_balanced.csv,run_m0_linkage.py,candidate pairs
+survival handoff,data/processed/boamp_survival_m0_balanced.csv,run_m0_linkage.py,sources + links

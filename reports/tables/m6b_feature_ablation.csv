@@ -1,0 +1,5 @@
+dropped_component,renormalized_weights,ablated_threshold_p50,n_linked_ablated,n_intersection_with_real_balanced,n_union_with_real_balanced,jaccard_vs_real_balanced
+time,"text=0.4667, cpv=0.4000, buyer=0.1333",0.18711672513969796,618,495,741,0.6680161943319838
+text,"cpv=0.4615, time=0.3846, buyer=0.1538",0.44524748138414366,618,502,734,0.6839237057220708
+cpv,"text=0.5000, time=0.3571, buyer=0.1429",0.42559440384071345,618,530,706,0.7507082152974505
+buyer,"text=0.3889, cpv=0.3333, time=0.2778",0.2835443505244368,618,587,649,0.9044684129429892
