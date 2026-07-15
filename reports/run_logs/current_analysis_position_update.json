@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-07-15",
+  "purpose": "Record the current reporting decision after the M2 hybrid-text experiment was removed.",
+  "decision": {
+    "primary_specification": "M0_BALANCED_OFFICIAL",
+    "sensitivity_specification": "M1_BUYER_SIREN_ENRICHED",
+    "profile_audit_role": "manual-review and conflict-detection evidence only",
+    "event_interpretation": "constructed proxy recurrence, not verified legal renewal"
+  },
+  "updated_files": [
+    "README.md",
+    "reports/current_analysis_position.md"
+  ],
+  "evidence_tables": [
+    "reports/tables/m0_m1_linkage_comparison.csv",
+    "reports/tables/m0_m1_link_status_changes.csv",
+    "reports/tables/m1_incremental_recovery_mechanisms.csv",
+    "reports/tables/m1_incremental_link_score_diagnostics.csv",
+    "reports/tables/m1_final_consistency_audit.csv",
+    "reports/tables/m1_profile_final_consistency_audit.csv"
+  ],
+  "m0_headline": {
+    "eligible_sources": 3159,
+    "sources_with_candidates": 1236,
+    "candidate_pairs": 6137,
+    "accepted_links": 618,
+    "proxy_recurrence_rate": 0.195632
+  },
+  "m1_sensitivity_headline": {
+    "eligible_sources": 3159,
+    "sources_with_candidates": 1504,
+    "candidate_pairs": 8228,
+    "accepted_links": 847,
+    "proxy_recurrence_rate": 0.268123,
+    "incremental_links": 273,
+    "link_set_jaccard_vs_m0": 0.64422
+  },
+  "unvalidated_items": [
+    "manual labels for M0/M1 validation samples",
+    "credibility of incremental M1 links",
+    "historical-alias links",
+    "candidate-reuse adjudication"
+  ]
+}

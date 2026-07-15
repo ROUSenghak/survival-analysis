@@ -1,0 +1,99 @@
+{
+  "execution_date": "2026-07-15",
+  "source_page": "https://www.data.gouv.fr/datasets/liste-des-profils-d-acheteurs-par-entites-adjudicatrices",
+  "resource_url": "https://static.data.gouv.fr/resources/liste-des-profils-d-acheteurs-par-entites-adjudicatrices/20230203-160919/profils-acheteurs.csv",
+  "local_csv": "data/raw/procurement_profiles/profils-acheteurs.csv",
+  "sha256": "9ae27f71b2fd335eb93de3d409ad01e1c2f5b4f9baca07efec559f2c4204d189",
+  "input_counts": {
+    "profile_rows": 23260,
+    "m1_candidate_pairs": 8228,
+    "m1_links": 847,
+    "m1_incremental_links": 273
+  },
+  "output_counts": {
+    "profile_audited_candidate_pairs": 8228,
+    "profile_audited_links": 847,
+    "profile_audited_survival_rows": 3159
+  },
+  "profile_evidence_categories": {
+    "NO_PROFILE_EVIDENCE": 2423,
+    "NEUTRAL_SHARED_PLATFORM": 593,
+    "STRONG_SUPPORT": 110,
+    "AMBIGUOUS": 29,
+    "WEAK_SUPPORT": 4
+  },
+  "threshold_reused": 0.3230216936565233,
+  "final_checks": [
+    {
+      "check": "no_unexplained_many_to_many_merge",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "no_duplicated_profile_audited_candidate_pairs",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "no_loss_of_raw_profile_urls",
+      "passed": true,
+      "value": "raw fields preserved"
+    },
+    {
+      "check": "deterministic_url_normalization_columns_present",
+      "passed": true,
+      "value": "derived fields present"
+    },
+    {
+      "check": "profile_domains_not_used_as_legal_identifiers",
+      "passed": true,
+      "value": "domains only annotate/filter explicit conflicts"
+    },
+    {
+      "check": "generic_platforms_do_not_create_buyer_matches",
+      "passed": true,
+      "value": "profile-audited variant only removes explicit historical-alias conflicts"
+    },
+    {
+      "check": "explicit_conflicts_traceable",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "buyer_identity_provenance_for_every_evaluated_alias",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "every_accepted_profile_audited_link_exists_in_candidate_table",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "survival_events_correspond_to_accepted_links",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "censored_rows_do_not_contain_accepted_candidates",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "event_and_censoring_times_positive",
+      "passed": true,
+      "value": 0.0328515111695138
+    },
+    {
+      "check": "m0_outputs_remain_reference_inputs",
+      "passed": true,
+      "value": "M0 files read only"
+    },
+    {
+      "check": "m1_outputs_remain_reference_inputs",
+      "passed": true,
+      "value": "M1 files read only"
+    }
+  ],
+  "reproduce": "python3 scripts/build_m1_profile_domain_audit.py"
+}

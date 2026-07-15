@@ -210,3 +210,32 @@ pass. Headline results: candidate pairs 6,137; M0 events - broad 927
 (29.3%), balanced 618 (19.6%), strict 309 (9.8%); full methodology,
 scope rationale, and limitations in
 `reports/boamp_m0_preprocessing_report.md`.
+
+---
+
+## Note — 2026-07-15 (notebook-front-end regeneration; no new retrieval)
+
+Not a new pipeline run: the raw data, scope, and rules are unchanged from
+Run 2. Preprocessing, candidate generation, linkage, and the evaluation
+analyses were re-executed through the notebook front-ends
+(`notebooks/05/07/08`, then `11/12/14/15/16`), which had been introduced
+after Run 2 as the primary interactive workflow (scripts remain the batch
+backend). Outcome: key datasets are **byte-identical** to the audited Run 2
+script outputs — SHA-256 of `boamp_m0_sources.csv`,
+`boamp_m0_candidate_pairs.csv`, and `boamp_survival_m0_balanced.csv` match
+`reports/tables/audit_dataset_inventory.csv` exactly; all headline numbers
+(3,159 sources; 6,137 pairs; 927/618/309 events; thresholds
+0.2642/0.3230/0.3931) are unchanged.
+
+Same day, the reports were reviewed against the regenerated outputs and
+restructured: `boamp_m0_technical_report.tex` gained explicit research
+questions, a computational-workflow/run-flow section (documenting the
+duplicated script/notebook implementation of stages 3-5), literature
+references, an implementation-status classification, an expanded worked
+example, and the nb14/nb15/nb16 diagnostic figures; a factual error in its
+KM-by-CPV section was corrected (division 32 has the *lowest* RMST under
+broad, i.e. fastest-recurring, not the highest);
+`boamp_m0_preprocessing_report.md` was rewritten to read standalone
+instead of as a diff against superseded Run 1; stale "RUN_SCRIPT toggle"
+descriptions of notebooks 14-16 were corrected in
+`linkage_quality_evaluation.tex`; both PDFs rebuilt.

@@ -34,7 +34,9 @@ This report follows three rules.
     \item Survival findings are reported as conditional on the constructed BOAMP proxy event, not as facts about legal renewal behavior.
 \end{enumerate}
 
-The main machine-readable audit outputs are stored in \texttt{reports/tables/}. Notebook front-ends are provided in \texttt{notebooks/13\_*} through \texttt{notebooks/16\_*}; scripts remain the reproducible backend.
+The main machine-readable audit outputs are stored in \texttt{reports/tables/}. Notebooks 14--16 contain the temporal-window, duration-leakage, and survival-robustness analyses inline (14 and 15 import the M0 scoring machinery from \texttt{scripts/}, so the linkage rule has a single definition there); notebook 13 is a viewer over \texttt{scripts/audit\_current\_project.py}; the remaining audit scripts (\texttt{eval\_m6a/b/c}) are script-only.
+
+\paragraph{Relationship to other documents.} This is the focused credibility-audit companion. The master technical reference --- which subsumes this audit and adds the data dictionary, the full M0 algorithm specification with worked examples, the survival results, and a current implementation-status classification --- is \texttt{reports/boamp\_m0\_technical\_report.pdf}. \texttt{reports/credibility\_audit\_report.md} is the short executive summary of this document.
 
 \section{Data Lineage and Official Datasets}
 
@@ -307,6 +309,45 @@ Window 18 mo & 834 & 73.6\% & 0.890 & 51.4 \\
 
 The broad and strict event definitions also produce different CPV-division rankings. In the earlier broad-versus-strict KM robustness table, division 32 moved from fastest-renewing under broad to slowest-renewing under strict, so segment ranking is not stable enough for confirmatory claims.
 
+\subsection{Quantitative Survival-Sensitivity Conclusion}
+
+The quantitative survival conclusion is deliberately modest. Under the M0
+balanced reference, 618 of 3,159 sources are linked to a constructed
+proxy-recurrence event, with 80.4\% censoring, no reached median survival,
+$S(24)=0.914$, and RMST at 60 months of 53.5 months. Because the
+Kaplan--Meier curve does not cross 50\%, RMST is the appropriate
+descriptive survival summary, not median survival.
+
+The temporal-window sensitivity is moderate in the survival summaries but
+large in the underlying event identities. Moving from the 6-month reference
+window to an 18-month window raises the event rate from 19.6\% to 26.4\%
+and lowers RMST$_{60}$ from 53.5 to 51.4 months. However, the link-set
+Jaccard overlap falls to 0.453 and 306 source event statuses change. The
+wider-window curve is therefore not simply a more complete version of the
+reference curve; it is based on a materially different constructed event.
+
+The duration-design checks are more severe. Removing the temporal score
+while keeping the reference candidate pool preserves the event count at 618
+but changes 246 source event statuses and lowers link-set overlap to 0.414.
+Replacing the duration-centered design with a forward 24-month no-duration
+window produces 1,105 events, lowers overlap to 0.064, changes 901 source
+event statuses, and reduces the median event time from 37.7 to 5.8 months.
+In the duration-only Cox audit, the clustered hazard ratio for
+$\log(1+\text{duration})$ is 0.620 in the balanced reference and 0.698 in
+the no-temporal-score reference-pool design, but reverses to 1.344 under
+the forward 24-month no-duration design.
+
+Among parametric AFT models fit to the balanced reference, the log-normal
+model fits better than the Weibull model (AIC 7,949.0 vs. 8,059.8;
+concordance 0.725 vs. 0.714). This comparison is still conditional on the
+constructed M0 event and should not be interpreted as validation of true
+renewal timing.
+
+In short, the survival results are directionally informative but not
+definitive. They should be reported as robustness diagnostics for a
+constructed BOAMP proxy-recurrence event, not as stable evidence of verified
+renewal timing or as causal evidence about duration.
+
 \subsection{Cox and AFT Diagnostics}
 
 Cluster-robust Cox models by buyer were fitted as diagnostics. Sparse CPV categories caused convergence and separation warnings in some model fits. This is itself an audit finding: the current source population does not support a high-dimensional categorical Cox model as a clean confirmatory analysis without collapsing sparse categories or imposing stronger regularization.
@@ -392,12 +433,12 @@ python3 scripts/run_survival_analysis.py
 
 For notebook-centered work, use:
 \begin{itemize}
-    \item \texttt{notebooks/13\_audit\_current\_project.ipynb};
+    \item \texttt{notebooks/13\_audit\_current\_project.ipynb} --- a viewer over \texttt{audit\_current\_project.py} with a \texttt{RUN\_SCRIPT} toggle (default: read existing outputs; set true to regenerate);
     \item \texttt{notebooks/14\_eval\_m6d\_temporal\_window\_sensitivity.ipynb};
     \item \texttt{notebooks/15\_eval\_duration\_leakage.ipynb};
     \item \texttt{notebooks/16\_survival\_robustness.ipynb}.
 \end{itemize}
-Each notebook has a \texttt{RUN\_SCRIPT} toggle. The default review mode reads current generated tables; setting the toggle to true regenerates the corresponding outputs.
+Notebooks 14--16 contain the analysis code inline and regenerate the corresponding link/survival datasets and \texttt{reports/tables/} outputs directly when executed, with results and diagnostic figures displayed in the notebook (figures \texttt{nb14\_*}, \texttt{nb15\_*}, \texttt{nb16\_*} under \texttt{reports/figures/}). The 2026-07-15 notebook regeneration reproduced the audited 2026-07-13 script outputs byte-for-byte for the key datasets (SHA-256 match against \texttt{audit\_dataset\_inventory.csv}).
 
 \section{Conclusion}
 

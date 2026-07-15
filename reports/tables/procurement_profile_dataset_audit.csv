@@ -1,0 +1,29 @@
+metric,value
+source_page,https://www.data.gouv.fr/datasets/liste-des-profils-d-acheteurs-par-entites-adjudicatrices
+resource_url_downloaded,https://static.data.gouv.fr/resources/liste-des-profils-d-acheteurs-par-entites-adjudicatrices/20230203-160919/profils-acheteurs.csv
+producer,DonnéesPubliques.org
+license,lov2
+download_date,2026-07-15
+dataset_last_modified,2023-02-03T16:22:21.129000+00:00
+resource_last_modified,2023-02-03T16:11:03.087000+00:00
+local_filename,data/raw/procurement_profiles/profils-acheteurs.csv
+resource_sha1_metadata,1fb05acd271b3828ebd258c3de64689d95077e97
+local_sha256,9ae27f71b2fd335eb93de3d409ad01e1c2f5b4f9baca07efec559f2c4204d189
+row_count,23260
+column_count,5
+coverage_date_min_observed,2015-03-02
+coverage_date_max_observed,2020-12-31
+coverage_period_metadata,"{""end"": ""2022-12-31"", ""start"": ""2015-01-01""}"
+distinct_raw_buyer_names,15724
+distinct_normalized_buyer_names,15039
+distinct_profile_domains,4700
+distinct_participation_domains,900
+duplicate_full_rows,0
+exact_duplicate_buyer_profile_participation_pairs,1715
+buyer_names_with_multiple_profile_domains,3782
+profile_domains_with_multiple_buyer_names,926
+malformed_profile_url_rows,396
+malformed_participation_url_rows,22
+email_like_url_values,56
+multiple_values_in_url_fields,16
+row_unit_interpretation,buyer-name / profile-domain / participation-domain summary row with latest observed BOAMP date and latest-site indicator; no notice identifier

@@ -1,0 +1,68 @@
+{
+  "dataset_hf_id": "Data-Gouv-ML/jointure-boamp-siren-cote-acheteurs-2024-2025-et-2026",
+  "dataset_hf_sha": "4bff9b1c5d2f4ad12834174e042828b7e52013d9",
+  "download_date": "2026-07-15",
+  "m0_balanced_threshold_reused": 0.3230216936565233,
+  "outputs": [
+    "data/processed/boamp_clean_m1_buyer_enriched_all_notices.csv",
+    "data/processed/boamp_clean_m1_buyer_enriched.csv",
+    "data/processed/boamp_m1_candidate_pairs.csv",
+    "data/processed/boamp_m1_links_balanced.csv",
+    "data/processed/boamp_survival_m1_balanced.csv",
+    "reports/tables/m0_m1_linkage_comparison.csv",
+    "reports/tables/m1_incremental_links.csv",
+    "reports/tables/m1_manual_validation_sample_unlabeled.csv"
+  ],
+  "final_checks": [
+    {
+      "check": "no_accidental_many_to_many_notice_merge",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "no_duplicated_notice_ids_in_m1_sources",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "no_silent_overwrite_of_boamp_siret",
+      "passed": true,
+      "value": "buyer_siret_clean preserved; enriched SIREN kept separately"
+    },
+    {
+      "check": "every_enriched_identifier_has_provenance",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "conflict_rows_traceable",
+      "passed": true,
+      "value": 1002
+    },
+    {
+      "check": "every_accepted_m1_link_exists_in_candidate_table",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "every_event_row_has_valid_candidate",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "censored_rows_do_not_contain_accepted_candidates",
+      "passed": true,
+      "value": 0
+    },
+    {
+      "check": "event_and_censoring_times_are_positive",
+      "passed": true,
+      "value": 0.0328515111695138
+    },
+    {
+      "check": "m0_reference_files_present_for_hash_trace",
+      "passed": true,
+      "value": "boamp_m0_sources.csv:9fc77d7ca6da0fb3914a90284ca3da0b3eeb7bcc238e907b27d1dd305a36e9a8;boamp_m0_candidate_pairs.csv:3ce33cb13531046f56ee96e472f5cac1222e923357245d6eb8637866884aecdd;boamp_m0_links_balanced.csv:59fd8434baed5aab6963c8c793c289e6b045514f3b740e878c3b6604dfba7458;boamp_survival_m0_balanced.csv:93c05a0c767b7264f2ed7669c7b70775f1ec86b7eeddbcee8adfe4a3c958a687"
+    }
+  ]
+}

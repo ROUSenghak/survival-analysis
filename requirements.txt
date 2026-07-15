@@ -16,6 +16,13 @@ rapidfuzz>=3.9  # installed but not used by the current scripts: buyer_key
 scikit-learn>=1.5
 matplotlib>=3.9
 
+# Notebook front-ends and reproducible notebook execution.
+notebook>=7.6
+jupyterlab>=4.6
+nbformat>=5.10
+nbclient>=0.11
+nbconvert>=7.17
+
 # lxml is listed as a suggested dependency in case an XML fallback parser is
 # ever needed. The BOAMP source actually used in this project (Opendatasoft
 # Explore API v2.1, `boamp` dataset) returns JSON, so lxml is not required by

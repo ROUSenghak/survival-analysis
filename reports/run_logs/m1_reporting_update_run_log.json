@@ -1,0 +1,13 @@
+{
+  "generated_figures": [
+    "reports/figures/m1_enrichment_profile_pipeline.png",
+    "reports/figures/m1_enrichment_profile_pipeline.pdf",
+    "reports/figures/m1_reproducible_runflow.png",
+    "reports/figures/m1_reproducible_runflow.pdf"
+  ],
+  "generated_report": "reports/m1_integrated_enrichment_pipeline_report.md",
+  "updated_reports": [
+    "reports/m1_buyer_enrichment_report.md",
+    "reports/m1_profile_audit_report.md"
+  ]
+}

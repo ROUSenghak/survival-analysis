@@ -1,0 +1,6 @@
+column,dtype,non_null_count,non_null_rate,sample_values
+nom_acheteur,object,23260,1.0,#FRANCE 2023 | 'Sécurité sociale dans les mines' | 12ème BSMAT - site de Neuvy-Pailloux | 1947 | 1959
+site_profil_acheteur,object,23214,0.9980223559759244,www.maximilien.fr | marches.maximilien.fr | www.achatpublic.com | www.marches-publics.gouv.fr | www.centraledesmarches.com
+site_proposition,object,4457,0.1916165090283749,marches.maximilien.fr | www.marches-publics.gouv.fr | demat.centraledesmarches.com | www.voixdelain.fr | chambres-agriculture.fr
+date_dernier_avis,object,23260,1.0,2018-10-21 | 2018-07-14 | 2015-04-08 | 2018-08-01 | 2018-11-01
+dernier_site_en_date,object,23260,1.0,1 | 0

@@ -20,7 +20,9 @@
 \large Detailed Technical Reference for Data Audit, Preprocessing, Recurrence-Linking
 Algorithm, and Survival Analysis}
 \author{Gigalis Predictive-Modeling Internship --- Current Independent Study}
-\date{Current generated results: repository state of July 2026}
+\date{Repository state of July 2026 (outputs last regenerated 2026-07-15 via the
+notebook front-ends; key datasets byte-identical to the audited 2026-07-13
+script run)}
 
 \begin{document}
 \maketitle
@@ -70,20 +72,51 @@ renewal probability.
 \section*{How to read this report}
 This document is the single, comprehensive technical reference for the
 current repository state. It is organized the way a handoff document should
-be: Section~\ref{sec:scope} gives the business framing; Sections
-\ref{sec:data}--\ref{sec:dq} document the raw data and its quality;
-Sections \ref{sec:pipeline}--\ref{sec:output} document preprocessing and the
-M0 linking algorithm mechanically, with a full worked example in
-Section~\ref{sec:worked}; Section~\ref{sec:reliability} consolidates the
-credibility diagnostics (blocking coverage, score margins, an unsupervised
-Fellegi--Sunter precision/recall estimate, corruption-recovery robustness);
-Sections \ref{sec:survival-methods}--\ref{sec:sensitivity} document the
-survival analysis, its methods, results, and robustness under alternative
-event definitions; Section~\ref{sec:conclusions} states plainly what is and
-is not supported by the current evidence. All figures and tables reflect the
+be: Section~\ref{sec:scope} gives the business framing, the objectives, and
+the research questions; Section~\ref{sec:workflow} documents the
+computational workflow and run flow as they actually exist in the
+repository, including where implementation is duplicated between scripts
+and notebooks; Sections \ref{sec:data}--\ref{sec:dq} document the raw data
+and its quality; Sections \ref{sec:pipeline}--\ref{sec:output} document
+preprocessing and the M0 linking algorithm mechanically, with a full worked
+example in Section~\ref{sec:worked}; Section~\ref{sec:reliability}
+consolidates the credibility diagnostics (blocking coverage, score margins,
+an unsupervised Fellegi--Sunter precision/recall estimate,
+corruption-recovery robustness); Sections
+\ref{sec:survival-methods}--\ref{sec:sensitivity} document the survival
+analysis, its methods, results, and robustness under alternative event
+definitions; Section~\ref{sec:status} classifies every method by its
+implementation status (verified / pending validation / partial / deferred /
+proposed); Section~\ref{sec:conclusions} states plainly what is and is not
+supported by the current evidence. All figures and tables reflect the
 current repository run; every number quoted here is reproduced in a
 machine-readable CSV under \texttt{reports/tables/} or
 \texttt{data/processed/}, referenced inline.
+
+\paragraph{Relationship to the other documents in \texttt{reports/}.}
+This report is the master reference and subsumes the others.
+\texttt{boamp\_m0\_preprocessing\_report.md} is the standalone
+data-retrieval and preprocessing report (Sections
+\ref{sec:data}--\ref{sec:pipeline} here, in more operational detail);
+\texttt{linkage\_quality\_evaluation.tex/.pdf} is the focused
+credibility-audit companion (Sections
+\ref{sec:diagnostics}--\ref{sec:sensitivity} here);
+\texttt{credibility\_audit\_report.md} is its short machine-checkable
+executive summary; \texttt{run\_logs/run\_log.md} is the append-only
+execution history. Where documents overlap, they were checked for numerical
+consistency against the same generated tables; no document reports a value
+the others contradict.
+
+\paragraph{Epistemic labeling convention.} Throughout, claims are separated
+into four kinds: (i) \emph{literature-standard} methods, cited to their
+sources in the bibliography; (ii) \emph{project-specific methodological
+choices} (e.g.\ score weights, threshold percentiles), which are documented
+decisions, not fitted or externally justified quantities; (iii)
+\emph{data- or compute-constrained} choices (e.g.\ TF-IDF instead of
+transformer embeddings, the Pays-de-la-Loire re-scoping), where the
+constraint is stated; and (iv) \emph{proposed improvements}, which are not
+implemented and are listed only in Sections \ref{sec:status} and
+\ref{sec:repro}.
 
 \tableofcontents
 
@@ -134,6 +167,157 @@ no INSEE SIRENE API call, no data.gouv.fr entreprise search, no external
 company database. Every identifier used is a BOAMP-provided value that is
 only format/checksum-validated, never looked up or inferred externally
 (Section~\ref{sec:buyerkey}).
+
+\subsection{Objectives and Research Questions}
+\label{sec:rq}
+The study's operational objective is a documented, reproducible,
+BOAMP-only pipeline that turns raw procurement notices into a
+contract-level survival dataset suitable for time-to-recurrence modeling.
+The research questions actually addressed by the current implementation
+are:
+\begin{enumerate}
+  \item[\textbf{RQ1.}] \emph{Can recurrence of a procurement need be
+  operationalized from BOAMP alone?} --- i.e.\ can a transparent,
+  deterministic rule link an initial call for tenders to a plausible later
+  re-tender by the same buyer, without external enrichment or supervised
+  learning? (Sections \ref{sec:pipeline}--\ref{sec:output}.)
+  \item[\textbf{RQ2.}] \emph{How reliable are the BOAMP fields the rule
+  depends on} --- buyer identifiers, CPV codes, and especially the declared
+  contract duration? This includes the internship guide's Week-1
+  ``scientific question'' on duration-field reliability.
+  (Sections \ref{sec:data}--\ref{sec:dq}.)
+  \item[\textbf{RQ3.}] \emph{What does the time-to-recurrence distribution
+  of the constructed proxy event look like}, and which observable covariates
+  associate with the recurrence hazard? (Sections
+  \ref{sec:survival-methods}--\ref{sec:results}.)
+  \item[\textbf{RQ4.}] \emph{How credible and how stable are these
+  answers} under internal diagnostics (model-based precision/recall,
+  corruption stress tests) and under perturbations of the event definition
+  itself (thresholds, temporal windows, duration-independent designs)?
+  (Sections \ref{sec:reliability}, \ref{sec:sensitivity}.)
+\end{enumerate}
+The short answers, defended in the body of the report, are: RQ1 --- yes,
+mechanically, but only as a \emph{proxy} signal whose external accuracy is
+unmeasured; RQ2 --- buyer identifiers and durations are weak (72.8\%
+name-fallback keys; 88.0\% imputed durations), CPV is moderate and decaying
+in recent years; RQ3 --- the proxy recurrence is a slow event (median
+survival undefined; RMST$_{60}$ = 53.5 months) whose strongest apparent
+covariate effects are entangled with the linkage design; RQ4 --- internally
+coherent but materially sensitive to the temporal design, with a
+demonstrated duration-circularity artifact that is the report's
+highest-priority caveat.
+
+\section{Computational Workflow and Run Flow}
+\label{sec:workflow}
+
+\subsection{Observed Pipeline Structure}
+The repository implements a linear data pipeline followed by a fan-out of
+evaluation analyses. The persisted datasets and their producer scripts are
+inventoried in Table~\ref{tab:lineage} (Section~\ref{sec:construction});
+the execution order, reconstructed from script input/output declarations
+and \texttt{reports/tables/audit\_data\_lineage.csv}, is:
+\begin{enumerate}
+  \item \textbf{Retrieval} (\texttt{scripts/download\_boamp.py}): DILA
+  Opendatasoft API $\rightarrow$ \texttt{data/raw/boamp/pdl/boamp\_YYYYMM.json}
+  (139 monthly files + a download manifest; raw files are never
+  overwritten).
+  \item \textbf{Flattening} (\texttt{scripts/parse\_boamp.py}): raw JSON
+  $\rightarrow$ \texttt{data/interim/boamp\_raw\_flattened.csv} (84{,}623
+  notices $\times$ 42 columns), via the adaptive schema extractor in
+  \texttt{src/utils/boamp\_schema.py}.
+  \item \textbf{Preprocessing} (notebook \texttt{05} / script
+  \texttt{preprocess\_boamp\_m0.py}): cleaned notice table
+  (\texttt{boamp\_clean\_m0\_no\_enrichment.csv}, 93 columns) and the
+  digital-scope source population (\texttt{boamp\_m0\_sources.csv},
+  3{,}159 rows).
+  \item \textbf{Candidate generation and scoring} (notebook \texttt{07} /
+  script \texttt{build\_m0\_candidate\_pairs.py}): blocked, scored pairs
+  (\texttt{boamp\_m0\_candidate\_pairs.csv}, 6{,}137 rows).
+  \item \textbf{Linkage and survival handoff} (notebook \texttt{08} /
+  script \texttt{run\_m0\_linkage.py}): broad/balanced/strict link files
+  and the reference survival dataset
+  (\texttt{boamp\_survival\_m0\_balanced.csv}), plus the
+  \texttt{m0\_*.csv} quality tables.
+  \item \textbf{Evaluation fan-out} (consumes stages 3--5, never mutates
+  them): repository audit (\texttt{audit\_current\_project.py} / notebook
+  \texttt{13}), Fellegi--Sunter mixture (notebook \texttt{11} / script
+  \texttt{eval\_m3\_*}), corruption recovery (notebook \texttt{12} /
+  \texttt{eval\_m4\_*}), threshold/ablation/variant-KM sensitivity
+  (\texttt{eval\_m6a/b/c\_*}, script-only), temporal-window sensitivity
+  (notebook \texttt{14} / \texttt{eval\_m6d\_*}), duration leakage
+  (notebook \texttt{15} / \texttt{eval\_duration\_leakage.py}), and the
+  survival analysis (notebook \texttt{16} /
+  \texttt{run\_survival\_analysis.py}). Sensitivity runs write their own
+  link/survival datasets (\texttt{boamp\_m0\_links\_window\_*m.csv},
+  \texttt{boamp\_survival\_m0\_*.csv}) --- these are sensitivity artifacts,
+  not replacements for the balanced reference handoff.
+  \item \textbf{Reporting utilities}: \texttt{make\_figures.py},
+  \texttt{make\_evaluation\_figures.py}, \texttt{make\_report\_figures.py}
+  (figures 01--18), and the report-assembly helpers
+  \texttt{\_build\_schema\_summary.py}, \texttt{\_build\_source\_trace.py},
+  \texttt{\_build\_final\_audit.py}.
+\end{enumerate}
+
+\subsection{Dual Script/Notebook Implementation --- Observed State}
+\label{sec:dualimpl}
+The pipeline exists in two forms, and the relationship between them is not
+uniform. This is reported as observed, not idealized:
+\begin{itemize}
+  \item \textbf{Stages 3--5 are implemented twice.} Notebooks
+  \texttt{05}/\texttt{07}/\texttt{08} contain the preprocessing, candidate
+  generation, and linkage logic \emph{inline} (they do not import the
+  scripts), while scripts \texttt{preprocess\_boamp\_m0.py},
+  \texttt{build\_m0\_candidate\_pairs.py}, and \texttt{run\_m0\_linkage.py}
+  implement the same logic as a headless batch backend. Both write the same
+  official output files. The duplication is a maintenance risk (a rule
+  changed in one place could silently diverge from the other), but as of
+  the current run the two implementations are \emph{verified equivalent in
+  output}: the 2026-07-15 notebook regeneration reproduced the audited
+  2026-07-13 script outputs byte-for-byte (SHA-256 of
+  \texttt{boamp\_m0\_sources.csv}, \texttt{boamp\_m0\_candidate\_pairs.csv},
+  and \texttt{boamp\_survival\_m0\_balanced.csv} match
+  \texttt{reports/tables/audit\_dataset\_inventory.csv} exactly).
+  \item \textbf{Stage-6 notebooks 14 and 15 share code with the scripts.}
+  They \texttt{import build\_m0\_candidate\_pairs} and
+  \texttt{run\_m0\_linkage} from \texttt{scripts/}, so the M0 scoring rule
+  used in the temporal-window and duration-leakage sensitivity analyses has
+  a single definition.
+  \item \textbf{Notebooks 11, 12, and 16 are inline analyses} (no script
+  import); notebook \texttt{13} is the only remaining thin viewer, with a
+  \texttt{RUN\_SCRIPT} toggle over \texttt{audit\_current\_project.py}.
+  \item \textbf{Evaluation scripts \texttt{m6a}/\texttt{m6b}/\texttt{m6c}
+  have no notebook counterpart}; they are script-only.
+\end{itemize}
+
+\subsection{Run History}
+Two full pipeline runs are logged in
+\texttt{reports/run\_logs/run\_log.md}. \textbf{Run 1} (2026-07-13)
+retrieved a national, all-sector, 2024--2026 corpus (340{,}772 notices);
+it is \emph{superseded}: its raw files were moved to
+\texttt{data/raw/boamp\_national\_2024\_2026\_archive/} and none of its
+outputs remain in the active lineage. \textbf{Run 2} (2026-07-13, the
+current run) re-scoped retrieval to the internship guide's recommended
+bundle (Pays de la Loire, digital/ICT, 2015--latest) and produced every
+dataset and result in this report. A third event --- the 2026-07-15
+migration of preprocessing/linkage/analysis into the notebook front-ends
+and full regeneration of outputs --- reproduced Run 2's results exactly but
+is \emph{not} logged as a run-log entry; adding one is a suggested
+improvement below.
+
+\subsection{Suggested Workflow Clarifications (Not Implemented)}
+These are proposals, clearly separated from the observed state: (i) extract
+the stage-3--5 logic duplicated between notebooks
+\texttt{05}/\texttt{07}/\texttt{08} and their scripts into shared
+\texttt{src/} modules imported by both, as notebooks 14/15 already do for
+scoring; (ii) append a run-log entry for the notebook migration and for any
+future regeneration; (iii) refresh
+\texttt{audit\_credibility\_implementation\_matrix.csv}, whose
+\texttt{status} column records the state \emph{before} the credibility
+audit (several items marked ``NOT IMPLEMENTED'' there, e.g.\ the
+duration-leakage audit and PH diagnostics, have since been implemented ---
+Section~\ref{sec:status} gives the current classification); (iv) add
+notebook front-ends (or retire) the script-only \texttt{m6a/b/c}
+evaluations for consistency with the notebook-first workflow.
 
 \section{Input Data and Column Dictionary}
 \label{sec:data}
@@ -535,6 +719,24 @@ embeddings would now be tractable --- listed as a next step in
 \section{Recurrence-Linking Algorithm (M0)}
 \label{sec:algo}
 
+\subsection{Position in the Record-Linkage Literature}
+Methodologically, M0 is a \emph{record-linkage} problem in the classical
+sense of Fellegi and Sunter \cite{fellegi1969}: deciding, from a vector of
+field-comparison scores, whether two records refer to the same underlying
+entity --- here, the same recurring procurement need rather than the same
+person or firm. The two standard ingredients both appear in M0 in
+deterministic form: \emph{blocking} (restricting comparisons to pairs
+sharing a cheap, high-precision key --- here the buyer key plus a temporal
+window \cite{christen2012}) and \emph{comparison-vector scoring} (here a
+fixed linear combination rather than estimated log-likelihood ratios).
+What is project-specific is (i) the target relation itself --- recurrence
+of a need, which has no ground-truth registry to link against, unlike
+classical deduplication --- and (ii) the deterministic, fully documented
+weights, chosen for auditability over statistical optimality. The
+probabilistic Fellegi--Sunter machinery is used in this project only
+\emph{diagnostically}, as an unsupervised mixture re-analysis of M0's
+comparison vectors (Section~\ref{sec:fs}), not as the linkage rule.
+
 \subsection{Notation}
 Let $i$ index an eligible source notice (non-\texttt{MISSING} buyer key)
 and $j$ a later candidate notice from the \emph{same} buyer key. Each
@@ -560,8 +762,8 @@ $\Omega$ contains 6{,}137 pairs covering 1{,}236 of the 3{,}159 eligible
 sources (39.1\% blocking coverage, Section~\ref{sec:diagnostics}).
 
 \subsection{Step 2 --- Component Scores}
-\textbf{Text similarity} is TF-IDF cosine similarity between source and
-candidate object text:
+\textbf{Text similarity} is TF-IDF \cite{salton1988} cosine similarity
+between source and candidate object text:
 \begin{equation}
 s_{\text{text}}(i,j) = \frac{\mathbf v_i \cdot \mathbf v_j}{\lVert \mathbf v_i\rVert \lVert \mathbf v_j\rVert} \in [0,1].
 \end{equation}
@@ -895,11 +1097,35 @@ months (the division-35 observed median), giving
 $\hat e = 2015\text{-}12\text{-}07 + 48\text{ mo} = 2019\text{-}12\text{-}07$.
 
 Three same-buyer candidates fell inside the $\pm 6$-month window around
-$\hat e$. The best-scoring candidate was \texttt{19-141668}, published
+$\hat e$; their full scored rows, exactly as stored in
+\texttt{boamp\_m0\_candidate\_pairs.csv}, are:
+
+\begin{table}[h!]
+\centering
+\caption{Complete candidate pool for source \texttt{15-139094}
+(\texttt{data/processed/boamp\_m0\_candidate\_pairs.csv}).}
+\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Candidate & Gap (mo) & $s_{\text{time}}$ & $s_{\text{text}}$ & $s_{\text{cpv}}$ & $s_{\text{buyer}}$ & $S(i,j)$ & Rank \\
+\midrule
+\texttt{19-141668} & 48.29 & 0.5675 & 0.1336 & 0.6 & 0.6 & \textbf{0.4286} & 1 \\
+\texttt{20-72017} & 56.80 & 0.0145 & 0.3058 & 0.6 & 0.6 & 0.3507 & 2 \\
+\texttt{19-108347} & 46.02 & 0.1897 & 0.0090 & 0.0 & 0.6 & 0.1106 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The best-scoring candidate is \texttt{19-141668}, published
 2019-09-19, object ``\emph{Acquisition d'un simulateur de feux r\'eels avec
 traitement des fum\'ees destin\'e \`a la formation des sapeurs-pompiers du
 SDIS de la Vend\'ee}'' (a fire-training simulator), CPV \texttt{35110000}
-(division 35, class 3511, category 35110).
+(division 35, class 3511, category 35110). Note how the pool illustrates
+the scoring trade-offs: the rank-2 candidate actually has \emph{higher}
+text similarity (0.306 vs.\ 0.134) but lands at the far edge of the
+temporal window ($s_{\text{time}}=0.014$), while the rank-3 candidate is
+temporally closer but nearly text-orthogonal and in a different CPV
+division ($s_{\text{cpv}}=0$).
 
 \begin{table}[h!]
 \centering
@@ -921,8 +1147,18 @@ $S(i,j)$ & $0.35(0.1336)+0.30(0.6)+0.25(0.5675)+0.10(0.6)$ & \textbf{0.4286} \\
 \end{table}
 This pair had a margin of 0.078 over the second-best of 3 candidates and
 was selected as source \texttt{15-139094}'s best match; because
-$0.4286 \geq \tau_{\text{balanced}}=0.3230$, the source is recorded as
-\texttt{event}=1 with \texttt{time\_to\_event\_or\_censor\_months}=48.29.
+$0.4286 \geq \tau_{\text{balanced}}=0.3230$ (and also $\geq
+\tau_{\text{strict}}=0.3931$), the source is recorded as \texttt{event}=1
+with \texttt{time\_to\_event\_or\_censor\_months}=48.29 in
+\texttt{boamp\_survival\_m0\_balanced.csv}. Downstream, this row
+contributes one event at $t=48.29$ months to the balanced Kaplan--Meier
+curve of Figure~\ref{fig:kmoverall}, one uncensored observation to the
+division-35 stratum in Figure~\ref{fig:kmcpv}, and one
+\texttt{dur\_was\_imputed}=\texttt{True} event to the Cox model of
+Section~\ref{sec:cox} --- and, because its 48-month duration was itself
+imputed, it is also a concrete instance of the duration-circularity
+mechanism audited in Section~\ref{sec:leakage}: the imputed duration
+placed the search window that found the candidate that became the event.
 This example is instructive precisely because the text score is low
 (0.134, well below the accepted-link mean of 0.305): the link survives on
 the combination of CPV-class agreement and near-exact temporal alignment
@@ -1022,8 +1258,12 @@ sensitivity check used throughout Section~\ref{sec:sensitivity}.
 
 \subsection{Unsupervised Fellegi--Sunter Latent-Mixture Diagnostic}
 \label{sec:fs}
-An unsupervised two-class Beta mixture (match class $M$, non-match class
-$U$) was fitted by EM over the comparison vectors
+Following the latent-class reading of the Fellegi--Sunter model
+\cite{fellegi1969}, in which match ($M$) and non-match ($U$) parameters can
+be estimated without labeled data via the EM algorithm
+\cite{dempster1977,winkler1988}, an unsupervised two-class Beta mixture
+(match class $M$, non-match class $U$) was fitted by EM over the comparison
+vectors
 $\gamma_j=(s_{\text{text}},s_{\text{cpv}},s_{\text{time}},s_{\text{buyer}})$
 of \emph{all} 6{,}137 pairs in $\Omega$, not only rank-1 winners
 (Figure~\ref{fig:betamix}). This is a model-based internal diagnostic, not
@@ -1154,18 +1394,32 @@ Let $T_i^{\text{obs}} = \min(T_i, C_i)$ and $\delta_i = \mathbf 1[T_i \leq
 C_i]$, stored as \texttt{time\_to\_event\_or\_censor\_months} and
 \texttt{event}.
 
-\textbf{Kaplan--Meier estimator.} $\hat S(t) = \prod_{j:t_j\leq t}(1 -
-d_j/n_j)$, the probability of not-yet-linked survival past $t$.
+\textbf{Kaplan--Meier estimator} \cite{kaplan1958}. $\hat S(t) =
+\prod_{j:t_j\leq t}(1 - d_j/n_j)$, the probability of not-yet-linked
+survival past $t$, where $n_j$ is the number at risk just before event time
+$t_j$ and $d_j$ the number of events at $t_j$. Its validity as an unbiased
+estimator requires censoring to be non-informative --- an assumption that
+is \emph{not} guaranteed here, since censoring mixes administrative
+end-of-study with linkage failure (blocking exclusion, sub-threshold
+scores); the censoring-balance diagnostic in
+\texttt{audit\_censoring\_diagnostics.csv} shows censored sources differ
+systematically from event sources (e.g.\ far fewer scored candidates and
+lower buyer publication frequency), so KM curves must be read as
+descriptive summaries of the constructed proxy process, not as unbiased
+estimates of a well-defined recurrence-time distribution.
 
 \textbf{Restricted mean survival time (RMST)} at horizon $\tau=60$ months,
-$\int_0^{\tau}\hat S(t)\,dt$, is used as the primary summary statistic
+$\int_0^{\tau}\hat S(t)\,dt$ --- the model-free ``average event-free months
+out of the first 60'' summary recommended when the median is not reached
+\cite{royston2013} --- is used as the primary summary statistic
 \emph{instead of} the median whenever $\hat S(t)$ never crosses 0.5 within
 the observed range (which is the case for every variant in this study,
 Section~\ref{sec:results}).
 
-\textbf{Cox proportional hazards model}: $h(t\mid \mathbf x_i) = h_0(t)
-\exp(\boldsymbol\beta^\top \mathbf x_i)$, fit with \texttt{lifelines}
-(penalizer $=0.01$), with covariates log(1 + declared duration months),
+\textbf{Cox proportional hazards model} \cite{cox1972}: $h(t\mid \mathbf
+x_i) = h_0(t) \exp(\boldsymbol\beta^\top \mathbf x_i)$, fit with
+\texttt{lifelines} \cite{davidsonpilon2019} (penalizer $=0.01$), with
+covariates log(1 + declared duration months),
 the duration-imputation flag, CPV-division dummies, and buyer-key-type
 dummies, and robust standard errors clustered by \texttt{buyer\_key} (a source contract
 and its own linked candidate never share a cluster, but two different
@@ -1173,8 +1427,9 @@ sources from the same buyer do, and buyer-level clustering accounts for
 that dependence). Hazard ratio $\mathrm{HR}_k = \exp(\beta_k)$; $>1$ means a
 higher instantaneous linking rate (faster proxy recurrence).
 
-\textbf{Proportional-hazards diagnostic}: Schoenfeld-residual test
-($H_0$: PH holds) via \texttt{lifelines}' \texttt{check\_assumptions}.
+\textbf{Proportional-hazards diagnostic}: scaled-Schoenfeld-residual test
+($H_0$: PH holds) \cite{grambsch1994} via \texttt{lifelines}'
+\texttt{check\_assumptions}.
 
 \textbf{Parametric AFT models}: Weibull and log-normal accelerated
 failure-time models, same covariate set, compared by AIC (lower is a better
@@ -1189,7 +1444,7 @@ duration effect is linear on the log-hazard scale.
 predicted risk $1-\hat S(h\mid \mathbf x_i)$ from the fitted Cox model is
 grouped into quintiles and compared against the observed
 $\mathbf 1[\texttt{event}=1 \wedge T^{\text{obs}} \leq h]$ rate and Brier
-score per quintile.
+score \cite{brier1950} per quintile.
 
 All of the above are refit on eight event definitions (reference balanced,
 broad, strict, and five duration/window sensitivity designs) to test
@@ -1234,10 +1489,15 @@ Strict & 309 & 90.2\% & undefined & 0.960 & 56.9 mo \\
 \subsection{Kaplan--Meier by CPV Division}
 Figure~\ref{fig:kmcpv} stratifies by the four core digital CPV divisions
 under both the broad and strict variants. Ranking is \emph{not} stable
-across variants: division 32 (telecommunications equipment) has the
-highest RMST at 60 months under broad (54.7 mo) but is not the highest
-under strict, while division 72 (IT services) --- the largest single
-division by volume (889 sources) --- ranks consistently mid-to-low. A
+across variants: division 32 (telecommunications equipment) ranks
+fastest-recurring (lowest RMST, 54.7 mo) under broad but slowest under
+strict, and the Spearman correlation between the broad and strict RMST
+rankings over the four core divisions is $\rho = -0.40$ ($p=0.60$, $n=4$;
+\texttt{reports/tables/m6c\_km\_rank\_correlation.csv}) --- with only four
+divisions this test has essentially no power, but the observed
+\emph{negative} point estimate is enough to rule out treating the ranking
+as stable. Division 72 (IT services) --- the largest single division by
+volume (889 sources) --- ranks consistently mid-to-low. A
 formal pairwise log-rank comparison across CPV divisions was attempted in
 this run but produced no usable output rows (a type-mismatch between the
 survival file's numeric-like \texttt{cpv\_division} values and the
@@ -1423,7 +1683,22 @@ Window & Sources w/ candidates & Pairs & Links & Coverage & Jaccard & Status cha
 At 18 months, coverage improves by 13.7 points but nearly half the
 6-month link set no longer overlaps (Jaccard 0.453), so the 6-month
 reference window is part of the scientific event definition, not a
-harmless implementation detail.
+harmless implementation detail. Figure~\ref{fig:windowsens} visualizes the
+trade-off: blocking coverage and link counts rise monotonically with $W$
+while link-set overlap with the reference decays, and the downstream KM
+summary $\hat S(24)$ drifts from 0.914 ($W=6$) to 0.890 ($W=18$).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{nb14_window_sensitivity.png}
+\caption{Temporal-window sensitivity of the M0 linkage (generated inline by
+notebook 14 from \texttt{m6d\_temporal\_window\_sensitivity.csv}): blocking
+coverage and linked-event count increase with the window half-width $W$,
+while the Jaccard overlap with the 6-month reference link set falls to
+0.453 at $W=18$ --- widening the window does not just find \emph{more}
+links, it finds \emph{different} ones.}
+\label{fig:windowsens}
+\end{figure}
 
 \subsection{Duration Leakage and Circularity}
 \label{sec:leakage}
@@ -1463,15 +1738,69 @@ No temporal score, reference pool & 0.698 & $3.8\times10^{-5}$ & Longer duration
 \bottomrule
 \end{tabular}
 \end{table}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\linewidth]{nb15_cox_duration_hr.png}
+\caption{Buyer-clustered hazard ratio of $\log(1+\text{duration})$ with
+95\% CI under the three linkage designs (generated inline by notebook 15
+from \texttt{duration\_leakage\_cox\_duration\_effect.csv}). The
+confidence intervals of the duration-centered designs (HR $<1$) and the
+duration-independent forward-window design (HR $>1$) do not overlap ---
+the effect's sign is an artifact of the design, not a stable property of
+the data.}
+\label{fig:leakagehr}
+\end{figure}
+
 The sign of the duration effect \textbf{reverses} between the
 duration-centered designs (HR $<1$) and the duration-independent forward
-window (HR $>1$). This is strong evidence that declared duration should
+window (HR $>1$), as Figure~\ref{fig:leakagehr} makes visually explicit.
+This is strong evidence that declared duration should
 \emph{not} be interpreted as an independent substantive predictor of
 recurrence under the current duration-centered linkage design --- the
 apparent effect in Table~\ref{tab:coxnoncpv} is at least partly a
 mechanical artifact of how candidates are searched for, not a free-standing
 finding about procurement behavior. This is the single highest-priority
 caveat in this report.
+
+\subsection{Quantitative Survival-Sensitivity Conclusion}
+\label{sec:survival-sensitivity-conclusion}
+The quantitative survival conclusion is therefore deliberately modest. Under
+the M0 balanced reference, 618 of 3{,}159 sources are linked to a constructed
+proxy-recurrence event, with 80.4\% censoring, no reached median survival,
+$\hat S(24\text{ months})=0.914$, and RMST$_{60}=53.5$ months. Because the
+Kaplan--Meier curve does not cross 50\%, RMST$_{60}$ is the appropriate
+descriptive survival summary, not median survival.
+
+The temporal-window sensitivity is moderate in the survival summaries but
+large in the underlying event identities. Moving from the 6-month reference
+window to an 18-month window raises the proxy-event count from 618 to 834
+and the event rate from 19.6\% to 26.4\%, while RMST$_{60}$ falls from
+53.5 to 51.4 months. However, the link-set Jaccard overlap falls to 0.453
+and 306 source event statuses change. The wider-window curve is therefore
+not simply a more complete version of the reference curve; it is based on a
+materially different constructed event.
+
+The duration-design checks are more severe. Removing the temporal score
+while keeping the reference candidate pool preserves the event count at 618
+but changes 246 source event statuses and lowers link-set overlap to
+0.414. Replacing the duration-centered design with a forward 24-month
+no-duration window produces 1{,}105 events, lowers overlap to 0.064,
+changes 901 source event statuses, and reduces the median event time from
+37.7 to 5.8 months. In the duration-only Cox audit, the clustered hazard
+ratio for $\log(1+\text{duration})$ is 0.620 in the balanced reference and
+0.698 in the no-temporal-score reference-pool design, but reverses to 1.344
+under the forward 24-month no-duration design.
+
+Finally, among parametric AFT models fit to the balanced reference, the
+log-normal model fits better than the Weibull model (AIC 7{,}949.0 vs.
+8{,}059.8; concordance 0.725 vs. 0.714). This model comparison is still
+conditional on the constructed M0 event and should not be interpreted as
+validation of true renewal timing.
+
+In short, the survival results are directionally informative but not
+definitive. They should be reported as robustness diagnostics for a
+constructed BOAMP proxy-recurrence event, not as stable evidence of verified
+renewal timing or as causal evidence about duration.
 
 \subsection{Prediction Calibration (12/24-Month Risk Groups)}
 As a bounded, non-operational analogue of a renewal-risk indicator, the
@@ -1495,11 +1824,21 @@ Risk quintile (1=lowest) & $n$ & Mean predicted risk & Observed event rate \\
 \end{tabular}
 \end{table}
 The highest-risk quintile does show a materially higher observed rate than
-the lower quintiles, so the model carries \emph{some} ranking signal even
-in a design known to have duration-leakage concerns, but calibration is
-uneven (quintiles 1--3 under-predict relative to their already-small
-observed rates; quintile 5 under-predicts the true rate by roughly 8.5
-points). \textbf{This is calibration against the constructed BOAMP proxy
+the lower quintiles (Figure~\ref{fig:calibration}), so the model carries
+\emph{some} ranking signal even in a design known to have duration-leakage
+concerns, but calibration is uneven (quintiles 1--3 under-predict relative
+to their already-small observed rates; quintile 5 under-predicts the true
+rate by roughly 8.5 points).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\linewidth]{nb16_calibration_balanced.png}
+\caption{Cox risk calibration by predicted-risk quintile, balanced variant,
+12- and 24-month horizons (generated inline by notebook 16 from
+\texttt{survival\_predictions\_12\_24m.csv}). Bars compare mean predicted
+risk to the observed proxy-event rate within each quintile.}
+\label{fig:calibration}
+\end{figure} \textbf{This is calibration against the constructed BOAMP proxy
 event, not against verified legal renewal}, and given
 Section~\ref{sec:leakage} it should not be operationalized as a renewal-risk
 score without first re-deriving it from a duration-independent linkage
@@ -1519,6 +1858,84 @@ and duplicate-candidate cases. The accompanying guide
 label from the M0 score. At least two independent reviewers and an
 adjudication step are recommended before treating labels as observed
 validation evidence.
+
+\section{Implementation Status of Every Method}
+\label{sec:status}
+The user-facing distinction that matters for a handoff is not
+``mentioned somewhere'' vs.\ ``not mentioned'' but \emph{how far each
+method actually got}. Table~\ref{tab:status} classifies everything this
+project has touched, based on executable code and current outputs (the
+evidence standard of the credibility audit). Note that
+\texttt{audit\_credibility\_implementation\_matrix.csv} records statuses
+\emph{as found at the start of the audit}; the table below reflects the
+current state, after the audit itself implemented several of the items that
+CSV marks ``NOT IMPLEMENTED.''
+
+\begin{table}[h!]
+\centering
+\caption{Implementation status, current repository state.}
+\label{tab:status}
+\footnotesize
+\begin{tabular}{p{0.30\textwidth}p{0.64\textwidth}}
+\toprule
+Status & Items \\
+\midrule
+\textbf{Implemented and verified} (code + current outputs + internal
+consistency checks pass) &
+Retrieval/parsing/preprocessing/candidate generation/linkage/survival
+handoff (34/34 final-audit checks; byte-identical notebook/script outputs);
+blocking-coverage, zero-candidate, duplicate-candidate, score-distribution,
+and censoring-balance diagnostics; threshold sensitivity; feature ablation;
+temporal-window sensitivity ($W\in\{6,9,12,18\}$); duration-leakage audit
+(two alternative designs, end-to-end); KM/RMST for all eight event
+definitions; clustered Cox, PH and functional-form diagnostics; Weibull and
+log-normal AFT; 12/24-month calibration tables. \\
+\addlinespace
+\textbf{Implemented, still requiring external validation} (runs correctly;
+meaning depends on unverified assumptions) &
+The M0 event definition itself (no ground truth --- L1); the
+Fellegi--Sunter mixture precision/recall estimates (model-based,
+conditional on $\Omega$); corruption-recovery rates (strict links are not
+ground truth; pool held fixed); every survival covariate effect (proxy
+event; duration circularity). \\
+\addlinespace
+\textbf{Partially implemented} &
+Manual validation: the stratified unlabeled sample and annotation guide
+exist; no labels have been collected. CPV pairwise log-rank test: attempted
+but produced no usable rows in the current run (type mismatch between
+numeric-like \texttt{cpv\_division} values and string literals ---
+documented defect); descriptive KM/RMST comparison stands in for it. \\
+\addlinespace
+\textbf{Attempted and explicitly deferred} &
+Temporal (train-on-$\leq$2021 / test-on-$>$2021) validation of the Cox
+model: attempted for all eight variants; recorded as ``deferred: sparse
+high-dimensional Cox design did not yield a stable temporal-validation
+fit'' in \texttt{survival\_temporal\_validation.csv}. \\
+\addlinespace
+\textbf{Evaluated and not adopted} (deliberate, documented) &
+Sentence-transformer text embeddings (CPU-impractical at the original
+national scale; TF-IDF kept for continuity --- revisiting is a listed next
+step); fuzzy buyer-name matching (\texttt{rapidfuzz} is installed but
+unused; exact normalized-name matching only); the DILA XML archive as
+retrieval source (Opendatasoft API preferred); the stricter
+CPV-division-only source definition (1{,}882 sources; kept as a sensitivity
+figure, not the headline population). \\
+\addlinespace
+\textbf{Superseded} &
+The entire Run 1 national 2024--2026 corpus and its results (raw files
+archived under \texttt{data/raw/boamp\_national\_2024\_2026\_archive/};
+no Run 1 output is part of any current result). \\
+\addlinespace
+\textbf{Proposed, not implemented} &
+Weight-perturbation sensitivity grid; placebo/negative controls
+(runner-up, date-shifted, cross-buyer); full reblocking corruption study;
+one-to-one/capped many-to-one matching sensitivity; full-pipeline or
+buyer-level bootstrap; collapsed-CPV Cox redesign; SIRENE-based buyer
+reconciliation (would revisit the no-enrichment scope); ``Grand Ouest''
+geographic extension. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{What Can and Cannot Be Concluded}
 \label{sec:conclusions}
@@ -1561,32 +1978,53 @@ validation evidence.
 \label{sec:repro}
 
 \subsection{Reproduction Commands}
-From the repository root:
+The primary workflow is notebook-first (Section~\ref{sec:workflow}):
+retrieval stays in scripts, everything downstream runs in the notebooks
+with results inline. From the repository root:
 \begin{verbatim}
+# 1. Retrieval + parsing (external source -> flat interim table): scripts
 python3 scripts/download_boamp.py
 python3 scripts/parse_boamp.py
+
+# 2. Pipeline: preprocessing, candidate pairs, linkage + survival handoff
+jupyter nbconvert --to notebook --execute --inplace \
+  notebooks/05_preprocess_boamp_m0.ipynb \
+  notebooks/07_build_m0_candidate_pairs.ipynb \
+  notebooks/08_run_m0_linkage.ipynb
+
+# 3. Evaluation and analysis notebooks
+jupyter nbconvert --to notebook --execute --inplace \
+  notebooks/11_eval_m3_fellegi_sunter_mixture.ipynb \
+  notebooks/12_eval_m4_corruption_recovery.ipynb \
+  notebooks/14_eval_m6d_temporal_window_sensitivity.ipynb \
+  notebooks/15_eval_duration_leakage.ipynb \
+  notebooks/16_survival_robustness.ipynb
+\end{verbatim}
+The equivalent headless batch backend (identical logic, byte-identical key
+outputs --- Section~\ref{sec:dualimpl}):
+\begin{verbatim}
 python3 scripts/preprocess_boamp_m0.py
 python3 scripts/build_m0_candidate_pairs.py
 python3 scripts/run_m0_linkage.py
-python3 scripts/make_figures.py
-python3 scripts/audit_current_project.py
 python3 scripts/eval_m3_fellegi_sunter_mixture.py
 python3 scripts/eval_m4_corruption_recovery.py
-python3 scripts/eval_m6a_threshold_sensitivity.py
-python3 scripts/eval_m6b_feature_ablation.py
-python3 scripts/eval_m6c_variant_km_robustness.py
 python3 scripts/eval_m6d_temporal_window_sensitivity.py
 python3 scripts/eval_duration_leakage.py
 python3 scripts/run_survival_analysis.py
-python3 scripts/make_evaluation_figures.py
-python3 scripts/make_report_figures.py
 \end{verbatim}
-Notebook front-ends for the audit/robustness steps are provided in
-\texttt{notebooks/13\_*} through \texttt{notebooks/16\_*}; each has a
-\texttt{RUN\_SCRIPT} toggle (default: read existing outputs; set true to
-regenerate). Each script is idempotent with respect to \texttt{data/raw}
-(raw files are never overwritten) and logs to
-\texttt{reports/run\_logs/run\_log.md}.
+Script-only steps (no notebook counterpart):
+\texttt{audit\_current\_project.py} (viewed through notebook 13's
+\texttt{RUN\_SCRIPT} toggle), \texttt{eval\_m6a\_threshold\_sensitivity.py},
+\texttt{eval\_m6b\_feature\_ablation.py},
+\texttt{eval\_m6c\_variant\_km\_robustness.py}, the figure builders
+(\texttt{make\_figures.py}, \texttt{make\_evaluation\_figures.py},
+\texttt{make\_report\_figures.py} --- figures 01--18; the
+\texttt{nb14\_*}/\texttt{nb15\_*}/\texttt{nb16\_*} figures are written by
+the notebooks themselves), and the report-assembly helpers
+(\texttt{\_build\_schema\_summary.py}, \texttt{\_build\_source\_trace.py},
+\texttt{\_build\_final\_audit.py}). Each retrieval script is idempotent
+with respect to \texttt{data/raw} (raw files are never overwritten) and
+runs are logged to \texttt{reports/run\_logs/run\_log.md}.
 
 \subsection{Key Output Files}
 \begin{table}[h!]
@@ -1654,5 +2092,43 @@ that M0 provides a useful, fully auditable proxy-recurrence signal for
 exploratory survival analysis and prioritization, provided any downstream
 use explicitly states its conditional nature and treats manual validation
 as the next required step before operational deployment.
+
+\begin{thebibliography}{9}
+\bibitem{fellegi1969} I.~P. Fellegi and A.~B. Sunter,
+``A theory for record linkage,''
+\emph{Journal of the American Statistical Association}, 64(328):1183--1210, 1969.
+\bibitem{christen2012} P.~Christen,
+\emph{Data Matching: Concepts and Techniques for Record Linkage, Entity
+Resolution, and Duplicate Detection}. Springer, 2012.
+\bibitem{salton1988} G.~Salton and C.~Buckley,
+``Term-weighting approaches in automatic text retrieval,''
+\emph{Information Processing \& Management}, 24(5):513--523, 1988.
+\bibitem{dempster1977} A.~P. Dempster, N.~M. Laird, and D.~B. Rubin,
+``Maximum likelihood from incomplete data via the EM algorithm,''
+\emph{Journal of the Royal Statistical Society, Series B}, 39(1):1--38, 1977.
+\bibitem{winkler1988} W.~E. Winkler,
+``Using the EM algorithm for weight computation in the Fellegi--Sunter
+model of record linkage,'' \emph{Proceedings of the Section on Survey
+Research Methods, American Statistical Association}, 667--671, 1988.
+\bibitem{kaplan1958} E.~L. Kaplan and P.~Meier,
+``Nonparametric estimation from incomplete observations,''
+\emph{Journal of the American Statistical Association}, 53(282):457--481, 1958.
+\bibitem{cox1972} D.~R. Cox,
+``Regression models and life-tables,''
+\emph{Journal of the Royal Statistical Society, Series B}, 34(2):187--220, 1972.
+\bibitem{grambsch1994} P.~M. Grambsch and T.~M. Therneau,
+``Proportional hazards tests and diagnostics based on weighted residuals,''
+\emph{Biometrika}, 81(3):515--526, 1994.
+\bibitem{royston2013} P.~Royston and M.~K.~B. Parmar,
+``Restricted mean survival time: an alternative to the hazard ratio for the
+design and analysis of randomised trials with a time-to-event outcome,''
+\emph{BMC Medical Research Methodology}, 13:152, 2013.
+\bibitem{brier1950} G.~W. Brier,
+``Verification of forecasts expressed in terms of probability,''
+\emph{Monthly Weather Review}, 78(1):1--3, 1950.
+\bibitem{davidsonpilon2019} C.~Davidson-Pilon,
+``lifelines: survival analysis in Python,''
+\emph{Journal of Open Source Software}, 4(40):1317, 2019.
+\end{thebibliography}
 
 \end{document}

@@ -2,6 +2,10 @@
 
 This audit treats the current repository as an independent study. Executable scripts and generated datasets are the evidence; prose-only claims are not counted as implementation.
 
+**Document map.** This file is the short executive summary of the credibility audit. The full audit is `reports/linkage_quality_evaluation.pdf`; the master technical reference for the whole study (data, algorithm, survival analysis, sensitivity, implementation status) is `reports/boamp_m0_technical_report.pdf`; the standalone data/preprocessing report is `reports/boamp_m0_preprocessing_report.md`. All documents were checked for numerical consistency against the same generated tables (state of 2026-07-15; key datasets byte-identical to the audited 2026-07-13 run).
+
+Note on `reports/tables/audit_credibility_implementation_matrix.csv`: its `status` column records the state found *at the start* of the audit; several items it marks "NOT IMPLEMENTED" (temporal-window sensitivity, duration-leakage audit, censoring diagnostics, PH/functional-form diagnostics, clustered Cox, calibration) have since been implemented by the audit itself. The current classification is in the technical report's "Implementation Status of Every Method" section.
+
 ## Official Current Data Lineage
 
 Current raw input is data/raw/boamp/pdl/ (140 monthly JSON files). The national archive in data/raw/boamp_national_2024_2026_archive/ is marked superseded and is not part of the active lineage.
@@ -62,7 +66,7 @@ Manual validation is still required to estimate observed precision on real label
 
 ## Reproduction Commands
 
-Run these from the repository root:
+The primary workflow is notebook-first: after the two retrieval scripts, run notebooks 05/07/08 (pipeline) and 11/12/14/15/16 (evaluation) — see README "Reproducing the pipeline". The equivalent headless batch backend, verified to produce byte-identical key outputs, is:
 
 python3 scripts/download_boamp.py
 python3 scripts/parse_boamp.py

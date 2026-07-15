@@ -1,0 +1,15 @@
+check,passed,value
+no_unexplained_many_to_many_merge,True,0
+no_duplicated_profile_audited_candidate_pairs,True,0
+no_loss_of_raw_profile_urls,True,raw fields preserved
+deterministic_url_normalization_columns_present,True,derived fields present
+profile_domains_not_used_as_legal_identifiers,True,domains only annotate/filter explicit conflicts
+generic_platforms_do_not_create_buyer_matches,True,profile-audited variant only removes explicit historical-alias conflicts
+explicit_conflicts_traceable,True,0
+buyer_identity_provenance_for_every_evaluated_alias,True,0
+every_accepted_profile_audited_link_exists_in_candidate_table,True,0
+survival_events_correspond_to_accepted_links,True,0
+censored_rows_do_not_contain_accepted_candidates,True,0
+event_and_censoring_times_positive,True,0.0328515111695138
+m0_outputs_remain_reference_inputs,True,M0 files read only
+m1_outputs_remain_reference_inputs,True,M1 files read only

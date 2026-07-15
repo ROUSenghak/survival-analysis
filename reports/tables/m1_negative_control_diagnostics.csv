@@ -1,0 +1,5 @@
+diagnostic,rows,mean_score
+runner_up_candidates,1134,0.30050721643209144
+accepted_links_with_low_margin_lt_0_05,328,
+accepted_links_with_cpv_mismatch,148,
+different_buyer_candidates_materialized,0,

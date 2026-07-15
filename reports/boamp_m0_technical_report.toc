@@ -1,0 +1,78 @@
+\contentsline {paragraph}{Relationship to the other documents in \texttt {reports/}.}{2}{section*.2}%
+\contentsline {paragraph}{Epistemic labeling convention.}{2}{section*.3}%
+\contentsline {section}{\numberline {1}Project Scope}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Business Context}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Why BOAMP?}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Core Problem}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Scope of the Current Study}{4}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Objectives and Research Questions}{5}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Computational Workflow and Run Flow}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Observed Pipeline Structure}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Dual Script/Notebook Implementation --- Observed State}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Run History}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Suggested Workflow Clarifications (Not Implemented)}{7}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Input Data and Column Dictionary}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Source and Extraction}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Column Dictionary --- Raw/Flattened Fields}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Digital-Scope Category Distribution}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Buyer Landscape}{9}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Dataset Construction and Missing-Value Control}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}What Each Dataset Represents}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}How Missing Values Are Handled}{11}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Why Right-Censoring Is Not Missing Data}{12}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Data Quality Issues Diagnosed}{12}{section.5}%
+\contentsline {section}{\numberline {6}Preprocessing Pipeline}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Buyer Key Construction}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Contract Start-Date Refinement}{14}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Duration Imputation}{14}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Estimated End Date}{14}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}CPV Cleaning and Hierarchy}{14}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Text Normalization}{14}{subsection.6.6}%
+\contentsline {section}{\numberline {7}Recurrence-Linking Algorithm (M0)}{14}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Position in the Record-Linkage Literature}{14}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Notation}{15}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Step 1 --- Eligibility and Candidate Pool}{15}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Step 2 --- Component Scores}{15}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Step 3 --- Composite Score}{16}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Step 4 --- Best-Match Selection and Threshold Variants}{16}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Output Dataset --- Survival Handoff}{16}{section.8}%
+\contentsline {subsection}{\numberline {8.1}File: \texttt {boamp\_survival\_m0\_balanced.csv}}{16}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Score Distributions for Linked Events}{17}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Linking Diagnostics}{18}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Blocking Coverage}{18}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Zero-Candidate Failure Analysis}{18}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Score Margin and Threshold Sensitivity}{19}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Feature Ablation}{20}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Linkage Rate by Publication Year}{20}{subsection.9.5}%
+\contentsline {section}{\numberline {10}Worked Examples}{21}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Worked Link Example}{21}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Worked Censoring Example}{22}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Limitations and Risks}{22}{section.11}%
+\contentsline {section}{\numberline {12}Dataset Reliability Checks}{23}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Confidence Tiers}{23}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Unsupervised Fellegi--Sunter Latent-Mixture Diagnostic}{23}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Semi-Synthetic Corruption Recovery}{24}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Statistical Roadmap}{26}{subsection.12.4}%
+\contentsline {section}{\numberline {13}Survival Analysis: Methods}{26}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Dataset Overview}{26}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Notation and Methods}{26}{subsection.13.2}%
+\contentsline {section}{\numberline {14}Survival Results}{27}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Kaplan--Meier Survival Estimates}{27}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Kaplan--Meier by CPV Division}{27}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Cox Proportional Hazards Model}{29}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Proportional-Hazards and Functional-Form Diagnostics}{29}{subsection.14.4}%
+\contentsline {subsection}{\numberline {14.5}Parametric AFT Models}{30}{subsection.14.5}%
+\contentsline {subsection}{\numberline {14.6}Event Complexity and Temporal Validation}{30}{subsection.14.6}%
+\contentsline {section}{\numberline {15}Sensitivity and Robustness}{30}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Alternative Event Definitions}{30}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Temporal-Window Sensitivity}{31}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Duration Leakage and Circularity}{31}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Quantitative Survival-Sensitivity Conclusion}{32}{subsection.15.4}%
+\contentsline {subsection}{\numberline {15.5}Prediction Calibration (12/24-Month Risk Groups)}{33}{subsection.15.5}%
+\contentsline {section}{\numberline {16}Manual-Validation Readiness}{35}{section.16}%
+\contentsline {section}{\numberline {17}Implementation Status of Every Method}{35}{section.17}%
+\contentsline {section}{\numberline {18}What Can and Cannot Be Concluded}{35}{section.18}%
+\contentsline {section}{\numberline {19}Reproducibility, Output Files, and Remaining Work}{36}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Reproduction Commands}{36}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Key Output Files}{37}{subsection.19.2}%
+\contentsline {subsection}{\numberline {19.3}Remaining Work}{37}{subsection.19.3}%
