@@ -4,5 +4,14 @@ __pycache__/
 
 NUL/
 
+# LaTeX build byproducts
+/reports/*.aux
+/reports/*.log
+/reports/*.out
+/reports/*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
 data/raw/buyer_siren_enrichment_m1/
 data/processed/boamp_clean_m1_buyer_enriched_all_notices.csv

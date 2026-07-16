@@ -1,0 +1,10 @@
+check,passed,value,expected,severity
+m0_sources_unique_notice_id,True,0,0 duplicates,error
+m0_survival_one_row_per_source,True,3159,one row per nonmissing-buyer source,error
+m0_survival_events_equal_balanced_links,True,618,618,error
+m0_event_rows_have_candidate,True,0,0,error
+m0_no_nonpositive_survival_time,True,0,0,error
+m1_same_source_population_size,True,3159,3159,error
+profile_audit_does_not_change_link_count,True,847,847,warning
+final_source_diagnostics_one_row_per_source,True,3159,3159,error
+manual_labels_not_fabricated,True,0,0 completed labels in generated reviewer file,info

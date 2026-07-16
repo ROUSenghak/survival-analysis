@@ -1,0 +1,963 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{microtype}
+\sloppy
+\graphicspath{{figures/}}
+\setlist[itemize]{leftmargin=1.2em}
+\setlist[enumerate]{leftmargin=1.4em}
+\renewcommand{\arraystretch}{1.15}
+
+\title{BOAMP M1 Buyer-Identity Enrichment\\
+\large Consolidated Technical Report for SIREN Enrichment, Historical Alias
+Propagation, Profile-Domain Audit, and Survival Sensitivity}
+\author{Gigalis Predictive-Modeling Internship --- Current Independent Study}
+\date{Repository state of July 2026; M1 outputs generated 2026-07-15}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report is the consolidated technical reference for the M1
+buyer-identity enrichment branch. M1 is not the official baseline. The
+official study result remains M0, the BOAMP-only balanced specification.
+M1 is a sensitivity analysis designed to answer one controlled question:
+\emph{how much does buyer-name fragmentation in M0 affect candidate
+coverage and proxy-recurrence counts when buyer identity is enriched with
+validated SIREN evidence?}
+
+M1 keeps the M0 eligible source population, temporal window logic,
+TF--IDF object-text score, CPV score, temporal score, ranking rule, and
+balanced threshold. The controlled change is buyer reconciliation. M1
+uses exact BOAMP SIRET when present, then a validated SIREN from either a
+direct notice-level enrichment join or a conservative historical
+name--department alias bridge, and finally the original M0 normalized-name
+fallback. The M0 balanced threshold is reused unchanged
+($0.323022$), so M1's higher event count is not produced by relaxing the
+decision threshold.
+
+On the same 3,159 eligible digital/ICT source notices, M1 increases
+blocking coverage from 39.1\% to 47.6\%, candidate pairs from 6,137 to
+8,228, and accepted balanced proxy-recurrence links from 618 to 847. The
+overall proxy-recurrence rate rises from 19.6\% to 26.8\%. This is useful
+evidence that buyer identifiers matter, but it is not proof that the
+incremental links are legal renewals. M1 adds 273 links not present in M0,
+loses 44 M0 links under the new ranking, and has link-set Jaccard overlap
+0.644 with M0. Incremental links have weaker text evidence than unchanged
+M0 links (median TF--IDF similarity 0.078 versus 0.175), so M1 should
+remain a sensitivity specification until manual validation is completed.
+
+A procurement-profile domain audit is included as a second-stage evidence
+overlay. It does not create buyer identifiers and does not add links. It
+classifies profile domains as supporting, neutral, weak, ambiguous, or
+missing evidence for the M1 alias decisions. The profile-audited variant
+removes zero links and is byte-for-byte identical in headline counts to
+M1: 847 accepted links, 47.6\% blocking coverage, 26.8\% linking rate, and
+Jaccard 1.000 versus M1.
+\end{abstract}
+
+\tableofcontents
+
+\section{Purpose and Position}
+\label{sec:purpose}
+
+The M1 branch exists because M0 deliberately avoids external enrichment.
+That makes M0 clean and auditable, but it also means that buyer identity
+depends only on whatever BOAMP provides in the notice: SIRET if present,
+SIREN if present, otherwise a normalized buyer name. In practice, many
+digital/ICT notices do not carry a usable identifier, and the same public
+buyer can appear under multiple name variants.
+
+M1 is therefore a sensitivity analysis, not a replacement. Its role is:
+
+\begin{enumerate}
+  \item preserve the official M0 design as the reference result;
+  \item change only buyer reconciliation and candidate blocking;
+  \item quantify how many candidate pairs and proxy-recurrence links are
+        recovered when missing buyer identifiers are partially repaired;
+  \item make every enriched identity and alias decision traceable; and
+  \item separate useful sensitivity evidence from validated ground truth.
+\end{enumerate}
+
+The current repository decision is:
+
+\begin{quote}
+M0 balanced is the main result and official survival handoff. M1
+buyer-SIREN enrichment is a sensitivity analysis. The event remains a
+constructed proxy recurrence, not a verified legal renewal.
+\end{quote}
+
+\section{Input Data and Lineage}
+\label{sec:lineage}
+
+\subsection{M0 reference inputs}
+
+M1 reads the M0 outputs as fixed reference inputs. The source population
+and survival eligibility are not recomputed from scratch under a different
+scope. The principal M0 inputs are:
+
+\begin{itemize}
+  \item \texttt{data/processed/boamp\_m0\_sources.csv};
+  \item \texttt{data/processed/boamp\_m0\_candidate\_pairs.csv};
+  \item \texttt{data/processed/boamp\_m0\_links\_balanced.csv};
+  \item \texttt{data/processed/boamp\_survival\_m0\_balanced.csv}.
+\end{itemize}
+
+The M1 consistency audit records SHA-256 traces for these M0 files and
+checks that they remain read-only reference inputs. This is important:
+M1 does not silently rewrite M0.
+
+\subsection{SIREN enrichment dataset}
+
+The direct buyer enrichment source is the Hugging Face dataset
+\texttt{Data-Gouv-ML/jointure-boamp-siren-cote-acheteurs-2024-2025-et-2026},
+commit \texttt{4bff9b1c5d2f4ad12834174e042828b7e52013d9}, downloaded on
+2026-07-15. The join key is:
+
+\[
+\texttt{B\_17\_idweb} \longrightarrow \texttt{notice\_id}.
+\]
+
+The live audit found no duplicate notice identifiers in the three Parquet
+files, so the enrichment merge is one-to-one on notice ID for the years it
+covers.
+
+\begin{table}[h]
+\centering
+\caption{Notice-level SIREN enrichment files used by M1.}
+\begin{tabular}{lrrrr}
+\toprule
+Year file & Rows & Date min & Date max & Overlap with M0 sources\\
+\midrule
+2024 & 136,625 & 2024-01-01 & 2024-12-31 & 210\\
+2025 & 137,423 & 2025-01-01 & 2025-12-31 & 189\\
+2026 & 49,890 & 2026-01-01 & 2026-05-28 & 59\\
+\midrule
+Total & 323,938 & -- & -- & 458\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across the cleaned BOAMP table, 18,098 notices overlap the enrichment
+dataset. Among rows where BOAMP provides a SIRET-derived SIREN and the
+external enrichment also provides a valid SIREN, the agreement rate is
+87.4\% (6,937 agreements out of 7,939 rows). The 1,002 disagreements are
+not discarded silently; they are exported to
+\texttt{reports/tables/buyer\_identifier\_conflicts.csv} and flagged in
+the M1 identity provenance columns.
+
+\subsection{Procurement-profile dataset}
+
+The procurement-profile audit uses the data.gouv.fr dataset ``Liste des
+profils d'acheteurs par entites adjudicatrices'', downloaded as
+\texttt{data/raw/procurement\_profiles/profils-acheteurs.csv} on
+2026-07-15. The producer is Donn\'eesPubliques.org and the recorded
+license is \texttt{lov2}.
+
+This dataset is evidence-only. Its row unit is a buyer-name /
+profile-domain / participation-domain summary row with a latest observed
+BOAMP date. It has no BOAMP notice ID, no SIREN, no SIRET, no city, and no
+postcode. Therefore M1 never uses procurement-profile domains as legal
+buyer identifiers and never creates a candidate pair from profile evidence.
+
+\begin{table}[h]
+\centering
+\caption{Procurement-profile dataset audit.}
+\begin{tabular}{lr}
+\toprule
+Metric & Value\\
+\midrule
+Rows & 23,260\\
+Columns & 5\\
+Observed date range & 2015-03-02 to 2020-12-31\\
+Distinct normalized buyer names & 15,039\\
+Distinct normalized profile domains & 4,700\\
+Distinct participation domains & 900\\
+Malformed profile URL rows & 396\\
+Malformed participation URL rows & 22\\
+Exact duplicate buyer/profile/participation rows & 1,715\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{End-to-End M1 Data Preprocessing}
+\label{sec:m1-end-to-end-preprocessing}
+
+This section records the full preprocessing path from fixed M0 inputs to
+the M1-ready source table. It is intentionally written as a data lineage,
+not as an argument that M1 is superior to M0. The official M0 files remain
+fixed reference inputs throughout.
+
+\subsection{Step 0: freeze the M0 reference surface}
+
+M1 starts after the M0 preprocessing, candidate generation, linkage, and
+survival handoff already exist. The M1 script reads the M0 source table,
+candidate-pair table, balanced link table, and balanced survival handoff to
+recover the exact source population, score threshold, and comparison
+baseline. It does not recompute the BOAMP download scope, the digital/ICT
+filter, M0 duration imputation, or the official M0 balanced links. This
+design means every M1 difference can be interpreted as a buyer-identity
+sensitivity rather than a hidden change in the study population.
+
+\subsection{Step 1: load and audit the external SIREN files}
+
+\texttt{scripts/build\_m1\_buyer\_siren\_experiment.py} first loads the
+three Parquet files under
+\texttt{data/raw/buyer\_siren\_enrichment\_m1/}. Only the documented
+BOAMP and Sirene columns listed in \texttt{ENRICHMENT\_COLUMNS} are read.
+For each file the script records row counts, date coverage, missing notice
+IDs, duplicate notice IDs, missing SIREN/SIRET rates, file size, and SHA-256
+hash. The audit is written to
+\texttt{reports/tables/buyer\_siren\_enrichment\_audit.csv} and
+\texttt{buyer\_siren\_enrichment\_audit.json}. The live audit supports the
+join key \texttt{B\_17\_idweb -> notice\_id}: no duplicated notice IDs were
+found in the 2024, 2025, or 2026 enrichment files.
+
+\subsection{Step 2: merge notice-level enrichment without overwriting M0}
+
+The enrichment rows are renamed to explicit M1 fields and left-joined to
+\texttt{data/processed/boamp\_clean\_m0\_no\_enrichment.csv} by
+\texttt{notice\_id}. The result is an all-notice enriched table, not yet the
+source-only analysis table. Dates are re-parsed after the merge so that
+subsequent temporal logic does not inherit object/string date types from the
+join. BOAMP buyer identifiers remain in their original fields; external
+SIREN/SIRET values are stored separately as enriched fields. This separation
+is central to the audit trail: M1 can use external evidence, but it does not
+rewrite BOAMP-provided SIRET/SIREN values.
+
+\subsection{Step 3: clean identifiers and classify provenance}
+
+The preprocessing then normalizes buyer names and cleans identifier fields.
+SIREN values must be nine digits; SIRET values must be fourteen digits; and
+validated external SIREN values must pass the identifier checksum before
+direct use. The script derives:
+
+\begin{itemize}
+  \item BOAMP effective SIREN from BOAMP SIREN or from the first nine digits
+        of a valid BOAMP SIRET;
+  \item valid enriched SIREN and recovered enriched SIRET from the external
+        notice-level join;
+  \item buyer-name and department keys used only for alias auditing;
+  \item disagreement flags where BOAMP SIRET-derived SIREN and enriched
+        SIREN are both present but disagree.
+\end{itemize}
+
+Identifier conflicts are not resolved silently. They are exported to
+\texttt{reports/tables/buyer\_identifier\_conflicts.csv} and reflected in
+the identity-source and confidence columns.
+
+\subsection{Step 4: build the historical alias bridge}
+
+Direct enrichment only covers recent BOAMP notices. To test whether older
+name-only rows are fragmented, M1 builds a conservative historical bridge
+from directly enriched, non-conflicting rows. The bridge groups by normalized
+buyer name and department key. A historical alias is eligible for automatic
+propagation only when one valid enriched SIREN is uniquely observed for the
+name--department cell, the cell has no BOAMP conflict, the name is not a
+generic institutional label, and at least two notices support the mapping.
+Ambiguous cells are retained in
+\texttt{reports/tables/buyer\_alias\_ambiguous.csv} but are not propagated.
+The accepted bridge is written to
+\texttt{reports/tables/buyer\_alias\_bridge.csv}.
+
+\subsection{Step 5: construct M1 buyer identity fields}
+
+For every cleaned BOAMP notice, M1 applies the identity priority rule:
+preserve a BOAMP SIRET-derived identity first; otherwise use a valid direct
+enriched SIREN when there is no BOAMP conflict; otherwise use an automatic
+historical alias only for old rows with no BOAMP identifier; otherwise fall
+back to the original normalized buyer-name key. The output fields record the
+resulting M1 buyer key, the identity source, confidence label, direct versus
+inferred status, and conflict status. The source-only M1 table is then formed
+by selecting the same 3,159 source notices used by M0 and attaching those M1
+identity/provenance fields. This table is written to
+\texttt{data/processed/boamp\_clean\_m1\_buyer\_enriched.csv}; the all-notice
+enriched table is written to
+\texttt{data/processed/boamp\_clean\_m1\_buyer\_enriched\_all\_notices.csv}.
+
+\subsection{Step 6: regenerate candidate pairs under the M1 buyer keys}
+
+Only after identity preprocessing is complete does M1 generate candidate
+pairs. The candidate universe keeps M0's source population, estimated end
+dates, temporal window, TF--IDF text representation, CPV hierarchy score,
+temporal score, composite weights, maximum of 30 candidates per source, and
+balanced threshold. The controlled change is buyer compatibility. A source
+and later candidate can enter the M1 candidate table through exact SIRET,
+same SIREN, historical alias, or original M0 name fallback. The resulting
+candidate table is
+\texttt{data/processed/boamp\_m1\_candidate\_pairs.csv}.
+
+\subsection{Step 7: create links, survival rows, and diagnostics}
+
+M1 ranks candidates within each source by the M1 composite score, accepts
+the rank-1 candidate when its score is at least the M0 balanced threshold,
+and writes \texttt{data/processed/boamp\_m1\_links\_balanced.csv}. The
+survival handoff keeps one row per eligible source and writes
+\texttt{data/processed/boamp\_survival\_m1\_balanced.csv}. Downstream audit
+tables compare M0 and M1 at source and link level, identify incremental M1
+links, summarize recovery mechanisms, measure candidate reuse, produce
+negative-control diagnostics, and export an unlabeled manual-review sample.
+
+\begin{table}[h]
+\centering
+\caption{End-to-end M1 preprocessing products.}
+\scriptsize
+\begin{tabular}{p{0.40\linewidth}p{0.48\linewidth}}
+\toprule
+Output & Role in the M1 preprocessing lineage\\
+\midrule
+\path{buyer_siren_enrichment_audit.csv} & File-level audit of external SIREN/SIRET enrichment inputs.\\
+\path{buyer_identifier_conflicts.csv} & Rows where BOAMP-derived and enriched legal identifiers disagree.\\
+\path{buyer_alias_bridge.csv} & Automatically eligible historical name--department aliases.\\
+\path{buyer_alias_ambiguous.csv} & Ambiguous or review-only aliases not propagated automatically.\\
+\path{boamp_clean_m1_buyer_enriched_all_notices.csv} & All cleaned BOAMP notices after notice-level enrichment and provenance assignment.\\
+\path{boamp_clean_m1_buyer_enriched.csv} & The same 3,159 eligible source notices as M0, with M1 identity fields attached.\\
+\path{boamp_m1_candidate_pairs.csv} & M1 candidate pairs generated after buyer-identity preprocessing.\\
+\path{boamp_m1_links_balanced.csv} & Accepted M1 proxy-recurrence links at the M0 balanced threshold.\\
+\path{boamp_survival_m1_balanced.csv} & One-row-per-source M1 survival handoff with provenance columns.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Step 8: profile-domain audit as a separate overlay}
+
+The procurement-profile step is not part of the core SIREN preprocessing.
+It reads M1 aliases and M1 candidate pairs after the buyer-enrichment branch
+has already been built. It normalizes profile domains, classifies them as
+buyer-specific, highly concentrated, shared institutional, generic platform,
+ambiguous, or malformed, and annotates M1 alias/candidate evidence. It may
+flag conflicts for manual review, but it does not create legal identifiers,
+does not create new buyer matches, and does not replace M0 or M1.
+
+\section{Notation}
+\label{sec:notation}
+
+For each eligible source or candidate notice \(i\), define:
+
+\begin{itemize}
+  \item \(d_i\): publication date;
+  \item \(\hat{e}_i\): estimated end date inherited from M0;
+  \item \(u_i\): normalized buyer name;
+  \item \(t_i\): BOAMP SIRET, if format-valid and present;
+  \item \(\sigma_i^{B}\): BOAMP effective SIREN, using BOAMP SIREN if
+        present or the first nine digits of a valid BOAMP SIRET;
+  \item \(\sigma_i^{E}\): valid enriched SIREN from the direct
+        notice-level enrichment join;
+  \item \(\sigma_i^{A}\): SIREN inferred from an automatic
+        name--department historical alias;
+  \item \(k_i^{0}\): original M0 buyer key;
+  \item \(k_i^{1}\): M1 primary buyer key;
+  \item \(y_i\): publication year.
+\end{itemize}
+
+Let \(H_i\) denote the historical-alias eligibility condition:
+
+\[
+H_i =
+\left[
+y_i \le 2023
+\right]
+\land
+\left[
+\sigma_i^{A} \ne \varnothing
+\right]
+\land
+\left[
+t_i = \varnothing
+\right]
+\land
+\left[
+\sigma_i^{B} = \varnothing
+\right].
+\]
+
+So a historical alias can only fill a missing identifier for old notices.
+It does not overwrite a BOAMP SIRET or BOAMP SIREN.
+
+\section{M1 Buyer Identity Construction}
+\label{sec:identity}
+
+\subsection{Direct enrichment fields}
+
+The direct enrichment process first cleans the external SIREN/SIRET fields:
+non-digits are removed, SIREN must be nine digits, SIRET must be fourteen
+digits, and external SIREN must pass the checksum validation before it is
+considered valid for direct use.
+
+The implementation preserves three separate ideas:
+
+\begin{itemize}
+  \item BOAMP identifiers, which are the original source of truth for M0;
+  \item enriched identifiers, which are external evidence joined by
+        notice ID for 2024--2026 notices;
+  \item conflict flags, which record disagreement between BOAMP SIRET-derived
+        SIREN and enriched SIREN.
+\end{itemize}
+
+This separation is what prevents M1 from becoming an untraceable overwrite
+of M0.
+
+\subsection{Historical alias bridge}
+
+The historical alias bridge is built from directly enriched, non-conflicting
+notices. For each normalized buyer name and department key, M1 examines the
+set of observed valid enriched SIRENs. An alias is automatically propagated
+only if:
+
+\begin{enumerate}
+  \item exactly one SIREN is observed for the name--department cell;
+  \item the cell has no BOAMP-SIRET conflict;
+  \item the buyer name is not a generic label such as \texttt{mairie},
+        \texttt{commune}, or \texttt{centre hospitalier};
+  \item the support count is at least two notices.
+\end{enumerate}
+
+The bridge contains 1,247 automatically eligible aliases and 1,912
+ambiguous or review-only aliases. Ambiguous aliases are retained for audit
+but are not propagated.
+
+\subsection{Piecewise identity rule}
+
+The M1 SIREN value is constructed as:
+
+\[
+\sigma_i^{1} =
+\begin{cases}
+\sigma_i^{B}, & \text{if BOAMP effective SIREN exists},\\
+\sigma_i^{E}, & \text{else if valid enriched SIREN exists and no BOAMP conflict},\\
+\sigma_i^{A}, & \text{else if } H_i \text{ is true},\\
+\varnothing, & \text{otherwise.}
+\end{cases}
+\]
+
+The M1 primary buyer key is then:
+
+\[
+k_i^{1} =
+\begin{cases}
+\texttt{SIRET:}t_i, & \text{if BOAMP SIRET } t_i \text{ exists},\\
+\texttt{SIREN:}\sigma_i^{1}, & \text{else if } \sigma_i^{1} \text{ exists},\\
+\texttt{NAME:}u_i, & \text{else if normalized buyer name } u_i \text{ exists},\\
+\varnothing, & \text{otherwise.}
+\end{cases}
+\]
+
+This rule is implemented in
+\texttt{scripts/build\_m1\_buyer\_siren\_experiment.py} in
+\texttt{apply\_m1\_identity}. The exact practical consequence is that M1
+can move some M0 \texttt{NAME:...} rows into \texttt{SIREN:...} keys, but
+it does not replace an available BOAMP SIRET with an external value.
+
+\begin{table}[h]
+\centering
+\caption{M1 identity-source distribution among eligible sources.}
+\begin{tabular}{lr}
+\toprule
+Identity source & Source notices\\
+\midrule
+\texttt{NAME\_FALLBACK} & 1,231\\
+\texttt{UNIQUE\_NAME\_DEPARTMENT\_ALIAS} & 919\\
+\texttt{DIRECT\_BOAMP\_SIRET} & 686\\
+\texttt{DIRECT\_ENRICHMENT\_NOTICE\_JOIN} & 296\\
+\texttt{DIRECT\_BOAMP\_SIRET\_CONFLICT\_FLAGGED} & 27\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Confidence labels}
+
+The identity confidence labels are deliberately descriptive rather than
+probabilistic:
+
+\begin{itemize}
+  \item \texttt{HIGH}: direct BOAMP SIRET, including conflict-flagged SIRET
+        rows where BOAMP is still preserved;
+  \item \texttt{MEDIUM\_HIGH}: direct valid enriched SIREN joined by notice ID;
+  \item \texttt{MEDIUM}: direct BOAMP SIREN without SIRET;
+  \item \texttt{MEDIUM\_LOW}: unique name--department historical alias;
+  \item \texttt{LOW}: normalized-name fallback;
+  \item \texttt{CONFLICT}: unresolved enriched identifier disagreement.
+\end{itemize}
+
+In the current eligible source population, the counts are 713 high,
+296 medium-high, 919 medium-low, and 1,231 low.
+
+\section{Candidate Generation and Scoring}
+\label{sec:candidates}
+
+\subsection{What stays identical to M0}
+
+M1 keeps the M0 design choices below:
+
+\begin{itemize}
+  \item same eligible source population: 3,159 digital/ICT
+        \texttt{APPEL\_OFFRE} source notices;
+  \item same estimated end date and duration-imputation logic;
+  \item same TF--IDF vectorization for object text;
+  \item same CPV hierarchy score;
+  \item same temporal score centered on the source notice's estimated end
+        date;
+  \item same maximum of 30 candidates per source after temporal proximity
+        ordering;
+  \item same composite-score weights;
+  \item same M0 balanced threshold: \(0.323022\).
+\end{itemize}
+
+The current M1 temporal window is six months. It is computed from the same
+median-duration rule used by the implementation and clipped to the
+configured floor/cap interval \([6,24]\) months.
+
+\subsection{Buyer compatibility mechanisms}
+
+For a source notice \(i\) and later candidate notice \(j\), M1 materializes
+a candidate only if at least one buyer-compatibility mechanism is satisfied:
+
+\[
+m_{ij} =
+\begin{cases}
+\texttt{EXACT\_SIRET}, & t_i=t_j \ne \varnothing,\\
+\texttt{HISTORICAL\_ALIAS}, & \sigma_i^{1}=\sigma_j^{1}\ne\varnothing
+  \text{ and either side uses an alias},\\
+\texttt{SAME\_SIREN}, & \sigma_i^{1}=\sigma_j^{1}\ne\varnothing,\\
+\texttt{M0\_NAME}, & k_i^{0}=k_j^{0}\ne\varnothing,\\
+\varnothing, & \text{otherwise.}
+\end{cases}
+\]
+
+If the same candidate is reachable through several mechanisms, M1 keeps
+the highest-priority mechanism in this order:
+
+\[
+\texttt{EXACT\_SIRET}
+>
+\texttt{SAME\_SIREN}
+>
+\texttt{HISTORICAL\_ALIAS}
+>
+\texttt{M0\_NAME}.
+\]
+
+The buyer-mechanism score is:
+
+\begin{table}[h]
+\centering
+\caption{Buyer mechanism scores used in the M1 composite score.}
+\begin{tabular}{lr}
+\toprule
+Mechanism & \(s_{\mathrm{buyer}}\)\\
+\midrule
+\texttt{EXACT\_SIRET\_RECONCILIATION} & 1.00\\
+\texttt{SAME\_SIREN\_RECONCILIATION} & 0.90\\
+\texttt{HISTORICAL\_ALIAS\_RECONCILIATION} & 0.75\\
+\texttt{M0\_NAME\_FALLBACK} & 0.60\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Composite score}
+
+For a candidate pair \((i,j)\), M1 uses:
+
+\[
+S_{ij}^{1}
+=
+0.35\,s_{\mathrm{text},ij}
++0.30\,s_{\mathrm{cpv},ij}
++0.25\,s_{\mathrm{time},ij}
++0.10\,s_{\mathrm{buyer},ij}.
+\]
+
+The temporal component is:
+
+\[
+s_{\mathrm{time},ij}
+=
+\max\left(1-\frac{|d_j-\hat{e}_i|}{w},\,0\right),
+\]
+
+where \(w=6\) months in the current run. Candidate \(j\) must be later
+than source \(i\), and it must fall within the temporal window around the
+source's estimated end date. M1 then ranks candidates within each source by
+\(S_{ij}^{1}\), keeps the top-ranked candidate, and accepts it if:
+
+\[
+S_{ij}^{1} \ge 0.323022.
+\]
+
+\section{M1 Outputs}
+\label{sec:outputs}
+
+The principal M1 output files are:
+
+\begin{itemize}
+  \item \texttt{data/processed/boamp\_clean\_m1\_buyer\_enriched.csv};
+  \item \texttt{data/processed/boamp\_m1\_candidate\_pairs.csv};
+  \item \texttt{data/processed/boamp\_m1\_links\_balanced.csv};
+  \item \texttt{data/processed/boamp\_survival\_m1\_balanced.csv};
+  \item \texttt{reports/tables/m0\_m1\_linkage\_comparison.csv};
+  \item \texttt{reports/tables/m0\_m1\_link\_status\_changes.csv};
+  \item \texttt{reports/tables/m1\_incremental\_links.csv};
+  \item \texttt{reports/tables/m1\_manual\_validation\_sample\_unlabeled.csv}.
+\end{itemize}
+
+The survival handoff remains one row per eligible source. Compared with
+M0, it adds M1 provenance columns such as
+\texttt{buyer\_key\_m1\_primary}, \texttt{buyer\_identity\_source},
+\texttt{buyer\_identity\_confidence}, and
+\texttt{buyer\_match\_mechanism}.
+
+\section{M0 versus M1 Results}
+\label{sec:results}
+
+\begin{table}[h]
+\centering
+\caption{Headline comparison between official M0 and M1 sensitivity.}
+\begin{tabular}{lrr}
+\toprule
+Metric & M0 official & M1 sensitivity\\
+\midrule
+Eligible source notices & 3,159 & 3,159\\
+Sources with at least one candidate & 1,236 & 1,504\\
+Zero-candidate sources & 1,923 & 1,655\\
+Blocking coverage & 39.1\% & 47.6\%\\
+Candidate pairs & 6,137 & 8,228\\
+Accepted balanced links & 618 & 847\\
+Overall proxy-recurrence rate & 19.6\% & 26.8\%\\
+Conditional acceptance among sources with candidates & 50.0\% & 56.3\%\\
+Unique selected candidates & 443 & 570\\
+Candidate reuse rate & 27.3\% & 29.5\%\\
+Maximum candidate multiplicity & 6 & 8\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The M1 increase is mostly a blocking effect. M1 recovers 269 sources that
+had no M0 candidate but receive at least one M1 candidate. At the final
+accepted-link level:
+
+\begin{itemize}
+  \item 574 links are identical in M0 and M1;
+  \item 273 accepted M1 links are not present in M0;
+  \item 44 M0 links are not retained under M1 ranking/thresholding;
+  \item 43 sources are linked in both methods but to a different selected
+        candidate;
+  \item link-set Jaccard overlap is 0.644.
+\end{itemize}
+
+\subsection{Accepted links by mechanism}
+
+\begin{table}[h]
+\centering
+\caption{M1 accepted links by buyer-match mechanism.}
+\begin{tabular}{lrr}
+\toprule
+Mechanism & Candidate pairs & Accepted links\\
+\midrule
+\texttt{HISTORICAL\_ALIAS\_RECONCILIATION} & 3,537 & 383\\
+\texttt{M0\_NAME\_FALLBACK} & 3,106 & 254\\
+\texttt{EXACT\_SIRET\_RECONCILIATION} & 883 & 120\\
+\texttt{SAME\_SIREN\_RECONCILIATION} & 702 & 90\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The historical-alias mechanism is the largest accepted-link source. This
+is exactly why M1 cannot be promoted to the official baseline without
+manual validation: the main incremental mechanism is useful, but weaker
+than direct BOAMP identifiers.
+
+\section{Incremental-Link Diagnostics}
+\label{sec:incremental}
+
+M1's incremental links should be read carefully. They are not random new
+events; they are links made possible by better buyer reconciliation. But
+their internal diagnostics are weaker than the unchanged M0 links.
+
+\begin{table}[h]
+\centering
+\caption{Incremental M1 links by recovery mechanism.}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Recovery mechanism & Links & Median score & Median margin & Median text & CPV mismatch\\
+\midrule
+Historical alias & 198 & 0.360 & 0.066 & 0.073 & 25.8\%\\
+Same SIREN & 75 & 0.388 & 0.073 & 0.085 & 14.7\%\\
+\bottomrule
+\end{tabular}
+\normalsize
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Score diagnostics: unchanged M0 links versus incremental M1 links.}
+\begin{tabular}{lrr}
+\toprule
+Median diagnostic & Unchanged M0 links in M1 & Incremental M1 links\\
+\midrule
+Composite score & 0.407 & 0.372\\
+TF--IDF text similarity & 0.175 & 0.078\\
+CPV score & 0.100 & 0.100\\
+Temporal score & 0.825 & 0.836\\
+Buyer mechanism score & 0.750 & 0.750\\
+Top1--top2 margin & 0.080 & 0.070\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The key interpretation is:
+
+\[
+\text{M1 improves candidate visibility}
+\;\not\Rightarrow\;
+\text{M1 proves extra legal renewals.}
+\]
+
+The evidence is strongest when the buyer mechanism is exact SIRET or direct
+same-SIREN and weakest when the link depends on historical alias
+propagation plus low text similarity or low top1--top2 margin.
+
+\section{Procurement-Profile Domain Audit}
+\label{sec:profile}
+
+\subsection{Role in the pipeline}
+
+The profile-domain audit is a diagnostic overlay after M1. It answers:
+\emph{when M1 says that two buyer-name variants belong together, do
+procurement-profile domains provide support, neutral shared-platform
+evidence, weak support, ambiguity, or no usable evidence?}
+
+It does not:
+
+\begin{itemize}
+  \item create a SIREN or SIRET;
+  \item create a buyer key;
+  \item create a candidate pair;
+  \item increase the link count;
+  \item replace M0 or M1.
+\end{itemize}
+
+\subsection{Domain classification}
+
+URLs are normalized into domains and registered domains. Known shared
+platforms such as \texttt{achatpublic.com},
+\texttt{marches-publics.gouv.fr}, \texttt{marches-securises.fr},
+\texttt{boamp.fr}, and related platforms are classified as generic. Other
+domains are classified from concentration patterns:
+
+\begin{itemize}
+  \item \texttt{GENERIC\_PLATFORM}: broad multi-buyer platforms;
+  \item \texttt{BUYER\_SPECIFIC}: one buyer, enough repeated evidence;
+  \item \texttt{HIGHLY\_CONCENTRATED}: few buyers with one dominant buyer;
+  \item \texttt{SHARED\_INSTITUTIONAL}: limited shared institutional use;
+  \item \texttt{INSUFFICIENT\_DATA}, \texttt{AMBIGUOUS}, or
+        \texttt{MALFORMED}.
+\end{itemize}
+
+The audit found 1,408 generic-platform domains and 433 buyer-specific or
+highly concentrated domains.
+
+\subsection{Evidence status}
+
+\begin{table}[h]
+\centering
+\caption{Profile evidence over M1 aliases and incremental links.}
+\begin{tabular}{lrr}
+\toprule
+Profile evidence status & Alias rows & Incremental links\\
+\midrule
+\texttt{NO\_PROFILE\_EVIDENCE} & 2,423 & 76\\
+\texttt{NEUTRAL\_SHARED\_PLATFORM} & 593 & 59\\
+\texttt{STRONG\_SUPPORT} & 110 & 86\\
+\texttt{AMBIGUOUS} & 29 & 2\\
+\texttt{WEAK\_SUPPORT} & 4 & 50\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the 1,247 auto-propagation aliases specifically, the profile evidence
+counts are: 928 no profile evidence, 253 neutral shared platform, 53 strong
+support, 12 ambiguous, and 1 weak support. For the 198 historical-alias
+incremental links, the counts are: 68 strong support, 54 neutral shared
+platform, 41 weak support, 34 no profile evidence, and 1 ambiguous.
+
+\subsection{Profile-audited variant}
+
+The profile-audited variant only removes explicit profile conflicts among
+historical-alias candidate pairs. It does not add new pairs. In the current
+run it removes zero links:
+
+\begin{table}[h]
+\centering
+\caption{M1 versus profile-audited M1.}
+\begin{tabular}{lrr}
+\toprule
+Metric & M1 & Profile-audited M1\\
+\midrule
+Eligible sources & 3,159 & 3,159\\
+Sources with candidates & 1,504 & 1,504\\
+Candidate pairs & 8,228 & 8,228\\
+Accepted links & 847 & 847\\
+Blocking coverage & 47.6\% & 47.6\%\\
+Linking rate & 26.8\% & 26.8\%\\
+Candidate reuse rate & 29.5\% & 29.5\%\\
+Jaccard versus M1 & 1.000 & 1.000\\
+Links removed versus M1 & 0 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Workflow Diagrams}
+\label{sec:figures}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{m1_enrichment_profile_pipeline.png}
+\caption{M1 enrichment and profile-domain audit workflow.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{m1_reproducible_runflow.png}
+\caption{Reproducible run flow for the M1 experiment and audit outputs.}
+\end{figure}
+
+\section{Consistency Checks}
+\label{sec:checks}
+
+The M1 consistency audit contains ten checks, all passing:
+
+\begin{itemize}
+  \item no accidental many-to-many notice merge;
+  \item no duplicated notice IDs in M1 sources;
+  \item no silent overwrite of BOAMP SIRET;
+  \item every enriched identifier has provenance;
+  \item all 1,002 conflict rows are traceable;
+  \item every accepted M1 link exists in the candidate table;
+  \item every event row has a valid candidate;
+  \item censored rows do not contain accepted candidates;
+  \item event and censoring times are positive;
+  \item M0 reference files are present for hash trace.
+\end{itemize}
+
+The profile-audit consistency layer contains fourteen checks, also all
+passing. The most important are that profile domains are not used as legal
+identifiers, generic platforms do not create buyer matches, explicit
+conflicts are traceable, every accepted audited link exists in the
+candidate table, and M0/M1 outputs remain read-only reference inputs.
+
+\section{Limitations}
+\label{sec:limitations}
+
+M1 improves coverage, but it introduces additional assumptions. The main
+limitations are:
+
+\begin{enumerate}
+  \item \textbf{External-enrichment coverage starts in 2024.} Direct
+        notice-level enrichment does not cover the full 2015--2026 study
+        period, so historical propagation is needed for older notices.
+  \item \textbf{Identifier conflict is real.} The audit finds 1,002 cases
+        where BOAMP SIRET-derived SIREN and enriched SIREN disagree. Those
+        cases are flagged, but they show why enrichment cannot be treated
+        as automatically superior to BOAMP.
+  \item \textbf{Historical aliases are plausible, not legal proof.} The
+        automatic alias bridge requires unique SIREN evidence by normalized
+        name and department, but it is still a heuristic.
+  \item \textbf{Incremental links have weaker text evidence.} The median
+        text similarity of incremental links is 0.078, much lower than the
+        unchanged M0 links at 0.175.
+  \item \textbf{Profile-domain evidence is incomplete and name-based.} It
+        has no notice identifiers and no legal identifiers, so it can audit
+        or flag support/conflict but cannot identify buyers.
+  \item \textbf{The event is still a proxy recurrence.} M1 changes the
+        constructed candidate set; it does not observe legal contract
+        renewal status.
+\end{enumerate}
+
+\section{Recommended Interpretation}
+\label{sec:interpretation}
+
+The correct reading is:
+
+\[
+\begin{aligned}
+&\text{M0 is conservative and official;}\\
+&\text{M1 is wider and informative;}\\
+&\text{manual validation decides whether M1 can become primary.}
+\end{aligned}
+\]
+
+M1 demonstrates that buyer-name fragmentation materially suppresses M0
+candidate coverage. However, the additional links should be reported as a
+sensitivity result, not pooled with M0 as ground truth. The best immediate
+use of M1 is to guide manual validation: prioritize incremental links from
+historical aliases, low-margin links, CPV mismatches, and rows with profile
+ambiguity or missing profile evidence.
+
+\section{Reproducibility}
+\label{sec:repro}
+
+The M1 enrichment and audit outputs are regenerated by:
+
+\begin{verbatim}
+python3 scripts/build_m1_buyer_siren_experiment.py
+python3 scripts/build_m1_profile_domain_audit.py
+MPLCONFIGDIR=/tmp/matplotlib-m1-report \
+  python3 scripts/make_m1_academic_diagrams.py
+\end{verbatim}
+
+The consolidated report itself is rebuilt from \texttt{reports/} with:
+
+\begin{verbatim}
+latexmk -cd -pdf -interaction=nonstopmode \
+  -halt-on-error boamp_m1_technical_report.tex
+\end{verbatim}
+
+\section{Relation to Previous M1 Notes}
+\label{sec:relation}
+
+This document consolidates the previous M1 Markdown notes into one
+canonical report. The short generated notes separated the SIREN enrichment
+experiment, the procurement-profile audit, and the integrated diagram
+summary. This report keeps those parts together so the reader can follow
+the full chain:
+
+\[
+\begin{aligned}
+\text{M0 reference}
+&\rightarrow \text{SIREN enrichment}
+\rightarrow \text{M1 candidate construction}\\
+&\rightarrow \text{M0/M1 comparison}
+\rightarrow \text{profile-domain audit}\\
+&\rightarrow \text{interpretation and limits.}
+\end{aligned}
+\]
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+M1 is technically useful and scientifically important because it shows that
+buyer-identity repair changes the observable recurrence signal. On the
+same eligible source population and the same threshold, it raises blocking
+coverage from 39.1\% to 47.6\% and accepted proxy-recurrence links from
+618 to 847. That is a material sensitivity result.
+
+The conservative conclusion is equally important: M1 should not replace M0
+yet. The largest incremental channel is historical alias reconciliation,
+the incremental links have lower median text similarity than unchanged M0
+links, and profile-domain data are audit evidence rather than legal
+identifiers. The current repository position is therefore methodologically
+consistent: report M0 as the official BOAMP-only baseline, report M1 as a
+buyer-enriched sensitivity analysis, and use the exported manual-validation
+samples to decide whether any future report can promote an enriched
+specification.
+
+\end{document}

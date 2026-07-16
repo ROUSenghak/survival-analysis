@@ -134,26 +134,185 @@ produce `data/processed/boamp_clean_m0_no_enrichment.csv` (84,623 × 93):
   notice's department against the Pays-de-la-Loire set to catch a stale
   pre-rescope raw file slipping in. Result: 0 notices flagged out of scope.
 
+### 4.1 Preprocessing recipe in notation
+
+Let \(r_i\) be one raw BOAMP notice after download, with top-level fields such
+as `idweb`, `nature`, `dateparution`, `nomacheteur`, `objet`, and the nested
+JSON field `donnees`. The preprocessing scripts construct one cleaned record
+\(x_i\) per notice; no row is dropped during this cleaning step.
+
+The implemented transformations are:
+
+1. **Identifier and notice type**
+
+   \[
+   \texttt{notice\_id}_i=\texttt{idweb}_i
+   \]
+
+   \[
+   \texttt{notice\_type}_i =
+   \begin{cases}
+   \texttt{APPEL\_OFFRE} & \text{if } \texttt{nature}_i \text{ is an offer notice}\\
+   \texttt{ATTRIBUTION} & \text{if } \texttt{nature}_i \text{ is an award notice}\\
+   \texttt{OTHER} & \text{otherwise.}
+   \end{cases}
+   \]
+
+2. **Publication dates**
+
+   \[
+   p_i=\texttt{publication\_date}_i=\mathrm{parse}(\texttt{dateparution}_i),
+   \qquad
+   \texttt{study\_end\_date}=\max_i p_i.
+   \]
+
+3. **Buyer identity**
+
+   SIRET/SIREN candidates are searched inside `donnees` by recursive
+   key-pattern matching, then validated with local format checks. The buyer
+   name is also normalized:
+
+   \[
+   \nu_i=\phi(\texttt{nomacheteur}_i),
+   \]
+
+   where \(\phi(\cdot)\) lowercases, removes accents, removes punctuation
+   noise, and collapses whitespace. The final `buyer_key` rule is detailed in
+   §6.
+
+4. **Object text**
+
+   \[
+   o_i=\psi(\texttt{objet}_i),
+   \]
+
+   where \(\psi(\cdot)\) is the project text-cleaning function: BOAMP
+   boilerplate and whitespace/accent noise are normalized while preserving the
+   procurement subject used later for text similarity and keyword filtering.
+
+5. **CPV code and hierarchy**
+
+   From CPV candidates in `donnees`, the first valid 8-digit code is kept as
+   \(c_i\). Its hierarchy is deterministic left truncation:
+
+   \[
+   \begin{aligned}
+   \texttt{cpv\_division}_i &= \mathrm{prefix}_2(c_i),\\
+   \texttt{cpv\_group}_i &= \mathrm{prefix}_3(c_i),\\
+   \texttt{cpv\_class}_i &= \mathrm{prefix}_4(c_i),\\
+   \texttt{cpv\_category}_i &= \mathrm{prefix}_5(c_i).
+   \end{aligned}
+   \]
+
+   A code is flagged generic when it only identifies the broad division:
+
+   \[
+   \texttt{cpv\_generic\_flag}_i =
+   \mathbf{1}\{c_i \text{ has pattern } \texttt{XX000000}\}.
+   \]
+
+6. **Digital/ICT source scope**
+
+   A notice is in the digital scope when the CPV division is one of the target
+   divisions or the cleaned object text contains a digital keyword:
+
+   \[
+   \texttt{digital}_i =
+   \mathbf{1}\{\texttt{cpv\_division}_i \in \{32,35,48,72\}
+   \ \lor\  o_i \text{ contains a digital keyword}\}.
+   \]
+
+   The M0 source population is therefore
+
+   \[
+   \mathcal{S} =
+   \{i:\texttt{notice\_type}_i=\texttt{APPEL\_OFFRE},
+   \texttt{digital}_i=1\}.
+   \]
+
+7. **Start date from linked ATTRIBUTION notices**
+
+   If an `ATTRIBUTION` notice \(j\) back-references source \(i\) through
+   `annonce_lie`, the earliest such award publication date is used; otherwise
+   the source publication date is used:
+
+   \[
+   a_i =
+   \begin{cases}
+   \min_j p_j & \text{if } j \in \texttt{ATTRIBUTION}
+   \text{ and } \texttt{annonce\_lie}_j \ni i\\
+   p_i & \text{otherwise.}
+   \end{cases}
+   \]
+
+8. **Duration and expected end date**
+
+   Let \(d_i^{raw}\) be the declared duration recovered from `donnees`.
+
+   \[
+   d_i =
+   \begin{cases}
+   d_i^{raw} & \text{if } d_i^{raw}\in[1,120]\text{ months}\\
+   \mathrm{median}\{d_k^{raw}: k\in\mathcal{S},
+   \texttt{cpv\_division}_k=\texttt{cpv\_division}_i\} & \text{if available}\\
+   \mathrm{median}\{d_k^{raw}: k\in\mathcal{S}\} & \text{otherwise.}
+   \end{cases}
+   \]
+
+   The imputation decision is stored as `dur_was_imputed`, and the estimated
+   contract end used for linkage is
+
+   \[
+   \widehat e_i=a_i+d_i\text{ months}.
+   \]
+
 ## 5. No external SIREN/SIRET enrichment
 
 No INSEE SIRENE API, no data.gouv.fr entreprise search, no external company
 database anywhere in the pipeline. Only BOAMP-provided identifiers are used,
-format- and Luhn-checksum-validated (`src/utils/identifiers.py`). Across all
-84,623 notices, 27.2% carry a format-valid raw SIRET, of which 99.6% also
-pass the checksum.
+format-validated, and separately audited with the Luhn checksum
+(`src/utils/identifiers.py`). Across all 84,623 notices, 27.2% carry a
+format-valid raw SIRET, of which 99.6% also pass the checksum.
 
 ## 6. Buyer-key construction
 
-Priority order: `RAW_SIRET` > `RAW_SIREN` > SIREN-derived-from-SIRET >
-`NAME_FALLBACK` (normalized buyer name: lowercase, accents stripped,
-whitespace collapsed) > `MISSING`. Observed distribution across all 84,623
-cleaned notices: **RAW_SIRET 23,038 (27.2%)**, **NAME_FALLBACK 61,585
-(72.8%)**, RAW_SIREN 0, **MISSING 0**. The NAME_FALLBACK share is higher
-than in the (superseded) national sample (60.5%), plausibly because smaller
-regional/local buyers are less likely to publish a recoverable SIRET than
-large national bodies. Name-fallback matching is **exact** on the normalized
-name — no fuzzy matching is implemented (`rapidfuzz` is installed but
-unused), so spelling variants of the same buyer split into separate keys.
+For notice \(i\), let \(s_i^{(14)}\) be the first format-valid 14-digit SIRET
+candidate recovered from BOAMP, let \(s_i^{(9)}\) be the first format-valid
+9-digit SIREN candidate recovered from BOAMP, and let \(\nu_i\) be the
+normalized buyer name. The implemented rule is:
+
+\[
+\texttt{buyer\_key}_i =
+\begin{cases}
+\texttt{SIRET:}s_i^{(14)} & \text{if a format-valid SIRET exists}\\
+\texttt{SIREN:}s_i^{(9)} & \text{else, if a format-valid SIREN exists}\\
+\texttt{NAME:}\nu_i & \text{else, if a normalized buyer name exists}\\
+\varnothing & \text{otherwise.}
+\end{cases}
+\]
+
+The companion key type records which branch fired:
+
+\[
+\texttt{buyer\_key\_type}_i \in
+\{\texttt{RAW\_SIRET},\texttt{RAW\_SIREN},
+\texttt{NAME\_FALLBACK},\texttt{MISSING}\}.
+\]
+
+SIRET and SIREN are validated from BOAMP-provided values only. When a valid
+SIRET exists, the script also derives `buyer_siren_clean` from its first nine
+digits for diagnostics, but the key remains `SIRET:...` because SIRET has
+priority. Checksum validity is recorded separately; the key construction
+requires format-valid identifiers and does not call an external registry.
+
+Observed distribution across all 84,623 cleaned notices: **RAW_SIRET 23,038
+(27.2%)**, **NAME_FALLBACK 61,585 (72.8%)**, RAW_SIREN 0, **MISSING 0**. The
+NAME_FALLBACK share is higher than in the (superseded) national sample
+(60.5%), plausibly because smaller regional/local buyers are less likely to
+publish a recoverable SIRET than large national bodies. Name-fallback matching
+is **exact** on the normalized name — no fuzzy matching is implemented
+(`rapidfuzz` is installed but unused), so spelling variants of the same buyer
+split into separate keys.
 
 ## 7. APPEL_OFFRE source population
 

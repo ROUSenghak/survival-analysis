@@ -850,7 +850,10 @@ def write_report(
     prof = comparison[comparison["method"] == "M1_PROFILE_AUDITED"].iloc[0]
     generic_domains = int((domain_class["domain_specificity"] == "GENERIC_PLATFORM").sum())
     specific_domains = int(domain_class["domain_specificity"].isin(["BUYER_SPECIFIC", "HIGHLY_CONCENTRATED"]).sum())
-    text = f"""# M1 procurement-profile domain audit
+    text = f"""# M1 procurement-profile domain audit run summary
+
+This is a generated run summary, not the canonical human report. The
+consolidated M1 report is `reports/boamp_m1_technical_report.tex` / `.pdf`.
 
 Generated: {EXECUTION_DATE}
 
@@ -899,7 +902,7 @@ Procurement-profile domains should be retained as a manual-review aid and confli
 
 Final consistency checks passed: {int(checks['passed'].sum())}/{len(checks)}.
 """
-    (REPORTS_DIR / "m1_profile_audit_report.md").write_text(text)
+    (RUN_LOG_DIR / "m1_profile_audit_summary.md").write_text(text)
 
 
 def main() -> None:

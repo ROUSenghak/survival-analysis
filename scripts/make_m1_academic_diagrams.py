@@ -1,6 +1,6 @@
 """
-Generate academic-style diagrams and an integrated report for the M1 SIREN
-enrichment plus procurement-profile audit workflow.
+Generate academic-style diagrams for the M1 SIREN enrichment plus
+procurement-profile audit workflow.
 """
 
 from __future__ import annotations
@@ -181,10 +181,13 @@ def load_values() -> dict:
     }
 
 
-def write_integrated_report(values: dict) -> None:
+def write_reporting_summary(values: dict) -> None:
     profile_counts = pd.read_csv(TABLES_DIR / "m1_alias_profile_evidence.csv")["profile_evidence_status"].value_counts().to_dict()
     incremental_counts = pd.read_csv(TABLES_DIR / "m1_incremental_links_profile_audit.csv")["profile_evidence_status"].value_counts().to_dict()
-    text = f"""# Integrated M1 Enrichment and Profile-Audit Report
+    text = f"""# M1 diagram generation summary
+
+This is a generated run summary, not the canonical human report. The
+consolidated M1 report is `reports/boamp_m1_technical_report.tex` / `.pdf`.
 
 Generated: 2026-07-15
 
@@ -242,42 +245,14 @@ python3 scripts/build_m1_profile_domain_audit.py
 MPLCONFIGDIR=/tmp/matplotlib-m1-report python3 scripts/make_m1_academic_diagrams.py
 ```
 """
-    (REPORTS_DIR / "m1_integrated_enrichment_pipeline_report.md").write_text(text)
-
-
-def append_figure_section(path: Path, heading: str) -> None:
-    text = path.read_text()
-    marker = "## Pipeline Figures"
-    section = f"""{marker}
-
-{heading}
-
-- `reports/figures/m1_enrichment_profile_pipeline.png`
-- `reports/figures/m1_enrichment_profile_pipeline.pdf`
-- `reports/figures/m1_reproducible_runflow.png`
-- `reports/figures/m1_reproducible_runflow.pdf`
-- Integrated synthesis: `reports/m1_integrated_enrichment_pipeline_report.md`
-"""
-    if marker in text:
-        text = text.split(marker)[0].rstrip() + "\n\n" + section
-    else:
-        text = text.rstrip() + "\n\n" + section
-    path.write_text(text)
+    (RUN_LOG_DIR / "m1_diagram_generation_summary.md").write_text(text)
 
 
 def main() -> None:
     values = load_values()
     pipeline_diagram(values)
     runflow_diagram(values)
-    write_integrated_report(values)
-    append_figure_section(
-        REPORTS_DIR / "m1_buyer_enrichment_report.md",
-        "These figures place the SIREN enrichment experiment in the full M0 -> M1 -> profile-audit workflow.",
-    )
-    append_figure_section(
-        REPORTS_DIR / "m1_profile_audit_report.md",
-        "These figures show where procurement-profile evidence enters the M1 audit without creating buyer identity matches.",
-    )
+    write_reporting_summary(values)
     run_log = {
         "generated_figures": [
             "reports/figures/m1_enrichment_profile_pipeline.png",
@@ -285,17 +260,14 @@ def main() -> None:
             "reports/figures/m1_reproducible_runflow.png",
             "reports/figures/m1_reproducible_runflow.pdf",
         ],
-        "generated_report": "reports/m1_integrated_enrichment_pipeline_report.md",
-        "updated_reports": [
-            "reports/m1_buyer_enrichment_report.md",
-            "reports/m1_profile_audit_report.md",
-        ],
+        "generated_summary": "reports/run_logs/m1_diagram_generation_summary.md",
+        "canonical_report": "reports/boamp_m1_technical_report.tex",
     }
     (RUN_LOG_DIR / "m1_reporting_update_run_log.json").write_text(json.dumps(run_log, indent=2))
-    print("Generated M1 reporting diagrams and integrated report.")
+    print("Generated M1 reporting diagrams.")
     for item in run_log["generated_figures"]:
         print(item)
-    print(run_log["generated_report"])
+    print(run_log["generated_summary"])
 
 
 if __name__ == "__main__":

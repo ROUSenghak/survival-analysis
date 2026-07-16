@@ -32,7 +32,9 @@ RAW_ENRICHMENT_DIR = PROJECT_ROOT / "data" / "raw" / "buyer_siren_enrichment_m1"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 TABLES_DIR = PROJECT_ROOT / "reports" / "tables"
 REPORTS_DIR = PROJECT_ROOT / "reports"
+RUN_LOG_DIR = REPORTS_DIR / "run_logs"
 TABLES_DIR.mkdir(parents=True, exist_ok=True)
+RUN_LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 DATASET_HF_ID = "Data-Gouv-ML/jointure-boamp-siren-cote-acheteurs-2024-2025-et-2026"
 DATASET_HF_SHA = "4bff9b1c5d2f4ad12834174e042828b7e52013d9"
@@ -1104,7 +1106,10 @@ def write_report(
     conflict_count = len(conflicts)
     passed_checks = int(final_checks["passed"].sum())
     total_checks = len(final_checks)
-    text = f"""# M1 buyer SIREN enrichment experiment
+    text = f"""# M1 buyer SIREN enrichment run summary
+
+This is a generated run summary, not the canonical human report. The
+consolidated M1 report is `reports/boamp_m1_technical_report.tex` / `.pdf`.
 
 Generated: 2026-07-15
 
@@ -1153,7 +1158,7 @@ M1 should remain a sensitivity specification for now, not replace M0. It improve
 
 Final consistency checks passed: {passed_checks}/{total_checks}.
 """
-    (REPORTS_DIR / "m1_buyer_enrichment_report.md").write_text(text)
+    (RUN_LOG_DIR / "m1_buyer_enrichment_summary.md").write_text(text)
 
 
 def main() -> None:
@@ -1245,7 +1250,7 @@ def main() -> None:
         ],
         "final_checks": final_checks.to_dict(orient="records"),
     }
-    (REPORTS_DIR / "run_logs" / "m1_buyer_enrichment_run_log.json").write_text(json.dumps(run_log, indent=2, ensure_ascii=False))
+    (RUN_LOG_DIR / "m1_buyer_enrichment_run_log.json").write_text(json.dumps(run_log, indent=2, ensure_ascii=False))
     write_report(comp, status, audit, conflicts, bridge, incremental, score_diag, final_checks, agreement, historical, mechanisms)
 
     print("M1 buyer enrichment experiment complete.")

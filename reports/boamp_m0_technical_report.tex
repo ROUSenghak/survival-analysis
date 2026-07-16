@@ -550,6 +550,51 @@ describes possible digital-scope recurrence-source contracts; the
 survival handoff is the population on which every result in
 Sections~\ref{sec:reliability}--\ref{sec:sensitivity} is measured.
 
+\subsection{End-to-End Preprocessing and Survival-Dataset Construction}
+\label{sec:endtoend-construction}
+This subsection is a roadmap only; detailed formulas are kept in the dedicated
+preprocessing, linkage, and survival sections below to avoid repeating the same
+rules in multiple places. Let the raw BOAMP collection be
+\[
+\mathcal{R}=\{r_1,\ldots,r_N\}, \qquad N=84{,}623.
+\]
+The parser maps each nested raw notice to a flattened tabular row
+\[
+F_{\mathrm{flat}}:\mathcal{R}\rightarrow\mathcal{X},
+\qquad r_i\mapsto x_i,
+\]
+where $\mathcal{X}$ is a mixed feature space containing dates, identifiers,
+categorical fields, and text. The preprocessing script then constructs
+\[
+z_i=\bigl(\operatorname{id}_i,b_i,t_i,a_i,d_i,\hat e_i,\kappa_i,o_i,q_i\bigr),
+\]
+where $b_i$ is the buyer key, $t_i$ the publication date, $a_i$ the refined
+start date, $d_i$ the observed or imputed duration, $\hat e_i=a_i+d_i$ the
+estimated end date, $\kappa_i$ the CPV hierarchy, $o_i$ the normalized object
+text, and $q_i$ quality/provenance flags.
+
+The source set used for recurrence construction is
+\[
+\mathcal{S}=
+\{i:\texttt{notice\_type}_i=\texttt{APPEL\_OFFRE},\;
+\texttt{digital}_i=1,\; b_i\neq\texttt{MISSING}\},
+\qquad |\mathcal{S}|=3{,}159.
+\]
+The rest of the report uses this notation: Section~\ref{sec:pipeline}
+defines $b_i$, $a_i$, $d_i$, $\hat e_i$, $\kappa_i$, and $o_i$;
+Section~\ref{sec:algo} defines the blocked pair universe, comparison scores, and
+accepted proxy-recurrence links; Section~\ref{sec:output} defines the final
+survival handoff. In compact form, the persisted pipeline is
+\[
+\begin{aligned}
+84{,}623\ \text{cleaned notices}
+&\longrightarrow 3{,}159\ \text{digital AO sources}\\
+&\longrightarrow 6{,}137\ \text{blocked pairs}\\
+&\longrightarrow 618\ \text{balanced accepted links}\\
+&\longrightarrow 3{,}159\ \text{survival rows}.
+\end{aligned}
+\]
+
 \subsection{How Missing Values Are Handled}
 The guiding rule, applied consistently across the pipeline, is
 \textbf{flag first, preserve raw values, impute only when a downstream
@@ -565,7 +610,7 @@ decisions.
 \toprule
 Field & Observed quality & Handling rule \\
 \midrule
-Buyer identity & 27.2\% of all notices carry a format-valid raw SIRET (99.6\% of those also pass checksum). & Use \texttt{SIRET:\ldots} when a valid 14-digit SIRET exists; else \texttt{NAME:\ldots} from a normalized buyer name; \texttt{buyer\_key\_type} records which rule fired. No row is ever dropped for missing buyer identity --- 0\% \texttt{MISSING} across all 84{,}623 notices. \\
+Buyer identity & 27.2\% of all notices carry a format-valid raw SIRET (99.6\% of those also pass checksum). & Use \texttt{SIRET:\ldots} when a format-valid 14-digit SIRET exists; else \texttt{SIREN:\ldots} when a format-valid 9-digit SIREN exists; else \texttt{NAME:\ldots} from a normalized buyer name. \texttt{buyer\_key\_type} records which rule fired. No row is ever dropped for missing buyer identity --- 0\% \texttt{MISSING} across all 84{,}623 notices. \\
 CPV code & 78.4\% of M0 sources have a cleaned 8-digit CPV code (down to 45--51\% in 2024--2026, Section~\ref{sec:dq}). & Derive the full hierarchy (\texttt{cpv\_division}/\texttt{group}/\texttt{class}/\texttt{category}); flag division-only ``generic'' codes (9.15\% of sources) separately; a missing CPV in a candidate pair is scored as a distinct \texttt{CPV\_SCORE\_MISSING}=0.1 (Section~\ref{sec:algo}), never as an arbitrary neutral 0.5 and never as evidence of non-match. \\
 Contract duration & Only 12.0\% of M0 sources (378 of 3{,}159) have a directly observed, in-range declared duration; 88.0\% required imputation. & Keep the raw declared value when in $[1,120]$ months; else impute the median \emph{observed} duration within the same CPV division (falling back to the global observed median). \texttt{dur\_was\_imputed} records this choice and is itself used as a survival covariate. \\
 Contract start date & \texttt{ATTRIBUTION}-linked award dates cover 38.2\% of eligible AO sources (1{,}207/3{,}159). & Use the linked \texttt{ATTRIBUTION} notice's publication date when \texttt{annonce\_lie} resolves it; else fall back to the source's own \texttt{dateparution}. \texttt{start\_date\_source} records which rule fired. \\
@@ -642,23 +687,34 @@ by year (item 4 above).}
 
 \subsection{Buyer Key Construction}
 \label{sec:buyerkey}
-For notice $i$ with raw fields $s_i$ (candidate SIRET), $\sigma_i$
-(candidate SIREN), and $n_i$ (raw buyer name):
+For notice $i$, let $s_i^{(14)}$ be the first format-valid raw 14-digit SIRET
+candidate recovered from BOAMP, let $s_i^{(9)}$ be the first format-valid raw
+9-digit SIREN candidate recovered from BOAMP, and let $\nu_i=\phi(n_i)$ be the
+normalized buyer name:
 \begin{equation}
 \texttt{buyer\_key}_i =
 \begin{cases}
-\texttt{SIRET:}s_i & \text{if } s_i \text{ passes format \emph{and}\ Luhn checksum validation} \\
-\texttt{SIREN:}\sigma_i & \text{else if a valid SIREN is present or derivable from a format-valid SIRET} \\
-\texttt{NAME:}\phi(n_i) & \text{else, if } n_i \text{ is present} \\
-\texttt{MISSING} & \text{otherwise}
+\texttt{SIRET:}s_i^{(14)} & \text{if a format-valid SIRET exists} \\
+\texttt{SIREN:}s_i^{(9)} & \text{else, if a format-valid SIREN exists} \\
+\texttt{NAME:}\nu_i & \text{else, if a normalized buyer name exists} \\
+\varnothing & \text{otherwise.}
 \end{cases}
 \end{equation}
-where $\phi(\cdot)$ normalizes the buyer name (lowercase, strip accents,
-collapse whitespace). This is purely internal cleaning of BOAMP-provided
-values, never an external lookup. Across the 3{,}159 M0 sources: 713
-(22.6\%) resolve to \texttt{RAW\_SIRET}, 0 to \texttt{RAW\_SIREN} (no
-BOAMP notice in this scope carries a raw SIREN without also carrying a
-recoverable SIRET), 2{,}446 (77.4\%) to \texttt{NAME\_FALLBACK}, and 0 to
+The companion \texttt{buyer\_key\_type} records which branch fired:
+\[
+\texttt{buyer\_key\_type}_i \in
+\{\texttt{RAW\_SIRET},\texttt{RAW\_SIREN},
+\texttt{NAME\_FALLBACK},\texttt{MISSING}\}.
+\]
+The function $\phi(\cdot)$ normalizes the buyer name by lowercasing, stripping
+accents, removing punctuation noise, and collapsing whitespace. This is purely
+internal cleaning of BOAMP-provided values, never an external lookup. Checksum
+validity is recorded separately for audit, while the key-selection branch uses
+format-valid identifiers. When a valid SIRET exists, the script also derives
+\texttt{buyer\_siren\_clean} from its first nine digits for diagnostics, but
+the key remains \texttt{SIRET:\ldots} because SIRET has priority. Across the
+3{,}159 M0 sources: 713 (22.6\%) resolve to \texttt{RAW\_SIRET}, 0 to
+\texttt{RAW\_SIREN}, 2{,}446 (77.4\%) to \texttt{NAME\_FALLBACK}, and 0 to
 \texttt{MISSING}.
 
 \subsection{Contract Start-Date Refinement}
@@ -738,10 +794,13 @@ probabilistic Fellegi--Sunter machinery is used in this project only
 comparison vectors (Section~\ref{sec:fs}), not as the linkage rule.
 
 \subsection{Notation}
-Let $i$ index an eligible source notice (non-\texttt{MISSING} buyer key)
-and $j$ a later candidate notice from the \emph{same} buyer key. Each
-notice carries a publication date $t$, an estimated end date $\hat e$ (for
-sources), a CPV hierarchy, cleaned object text, and a buyer-key type.
+The notation follows Section~\ref{sec:endtoend-construction}. Let
+$i\in\mathcal{S}$ index an eligible digital/ICT source notice and let
+$j\in\mathcal{S}$ index a possible later candidate. The source carries buyer
+key $b_i$, publication date $t_i$, refined start date $a_i$, duration $d_i$,
+estimated end date $\hat e_i=a_i+d_i$, CPV hierarchy $\kappa_i$, normalized
+object text $o_i$, and buyer-key provenance. The blocked candidate set for
+source $i$ is denoted $\mathcal{C}_W(i)$.
 
 \subsection{Step 1 --- Eligibility and Candidate Pool}
 The temporal window is derived from data, not hardcoded:
@@ -753,12 +812,17 @@ where $\tilde d_{\text{obs}}=6.0$ months is the median \emph{observed}
 This gives $W = \mathrm{clip}(3, 6, 24) = 6$ months. The realized candidate
 universe is
 \begin{equation}
-\Omega = \big\{(i,j) : \texttt{buyer\_key}(j)=\texttt{buyer\_key}(i),\ t_j > t_i,\ |t_j - \hat e_i| \leq W \big\},
+\Omega_W = \big\{(i,j)\in\mathcal{S}\times\mathcal{S} : b_j=b_i,\ t_j>t_i,\ |t_j-\hat e_i|\leq W \big\},
 \end{equation}
-capped, per source, at the 30 temporally nearest candidates
+with source-specific candidate set
+\begin{equation}
+\mathcal{C}_W(i)=\{j:(i,j)\in\Omega_W\}.
+\end{equation}
+The subscript is omitted when $W=6$ months. The set is capped, per source,
+at the 30 temporally nearest candidates
 (\texttt{MAX\_CANDIDATES\_PER\_SOURCE}) for runtime; this cap did not bind
 in the current (much smaller than the pipeline's original national) scope.
-$\Omega$ contains 6{,}137 pairs covering 1{,}236 of the 3{,}159 eligible
+$\Omega_6$ contains 6{,}137 pairs covering 1{,}236 of the 3{,}159 eligible
 sources (39.1\% blocking coverage, Section~\ref{sec:diagnostics}).
 
 \subsection{Step 2 --- Component Scores}
@@ -791,8 +855,12 @@ mismatch (0.0) is.
 \textbf{Temporal proximity} decays linearly from 1.0 at the estimated end
 date to 0.0 at the window boundary:
 \begin{equation}
-s_{\text{time}}(i,j) = \mathrm{clip}\!\left(1 - \frac{|(t_j-t_i) - d_i|}{W},\ 0,\ 1\right).
+s_{\text{time}}(i,j) = \mathrm{clip}\!\left(1 - \frac{|t_j-\hat e_i|}{W},\ 0,\ 1\right).
 \end{equation}
+This form is consistent with the implemented blocking rule and remains valid
+when the refined start date $a_i$ differs from the publication date $t_i$.
+Writing $|(t_j-t_i)-d_i|$ would be equivalent only in the fallback case
+$a_i=t_i$.
 
 \textbf{Buyer-key reliability} reflects how trustworthy the
 already-enforced buyer-key match is, not whether it matched (candidate
@@ -807,8 +875,14 @@ s_{\text{buyer}}(i) =
 \end{equation}
 
 \subsection{Step 3 --- Composite Score}
+Let
+$\boldsymbol\gamma_{ij}=(s_{\text{text}}(i,j),s_{\text{cpv}}(i,j),
+s_{\text{time}}(i,j),s_{\text{buyer}}(i))^{\top}$ and
+$\boldsymbol w=(0.35,0.30,0.25,0.10)^{\top}$. Then
 \begin{equation}
-S(i,j) = 0.35\, s_{\text{text}} + 0.30\, s_{\text{cpv}} + 0.25\, s_{\text{time}} + 0.10\, s_{\text{buyer}} \in [0,1].
+S(i,j)=\boldsymbol w^{\top}\boldsymbol\gamma_{ij}
+=0.35\,s_{\text{text}}(i,j)+0.30\,s_{\text{cpv}}(i,j)
++0.25\,s_{\text{time}}(i,j)+0.10\,s_{\text{buyer}}(i)\in[0,1].
 \end{equation}
 Weights are documented, fixed choices, not fitted: text and CPV are treated
 as the primary content-based recurrence signals, timing anchors the match
@@ -821,8 +895,11 @@ against a validation set, to avoid overfitting to a single run's
 distribution.
 
 \subsection{Step 4 --- Best-Match Selection and Threshold Variants}
-For each source with $\geq 1$ candidate, candidates are ranked by $S(i,j)$
-and the rank-1 (best) candidate's score is kept. Three link \emph{variants}
+For each source with $\mathcal{C}_W(i)\neq\varnothing$, define
+\begin{equation}
+j^{\star}(i)=\underset{j\in\mathcal{C}_W(i)}{\arg\max}\;S(i,j).
+\end{equation}
+The rank-1 candidate's score is retained. Three link \emph{variants}
 are derived from the 25th/50th/75th percentile of the rank-1 score
 distribution ($n=1{,}236$), not from an a-priori cutoff:
 
@@ -844,15 +921,18 @@ Strict & 0.3931 (p75) & 309 & 9.8\% & 44.7 months \\
 \end{table}
 Because all three thresholds are cuts on the \emph{same} rank-1 score
 distribution, the sets are nested: \texttt{strict} $\subset$
-\texttt{balanced} $\subset$ \texttt{broad}. The reference outcome variable
-is
+\texttt{balanced} $\subset$ \texttt{broad}. For any variant $v$, define
 \begin{equation}
-\texttt{event}_i =
-\begin{cases}
-1 & \text{if } \exists j : S(i,j) = \max_k S(i,k) \geq \tau_{\text{balanced}} \\
-0 & \text{otherwise}
-\end{cases}
+\delta_i^{(v)}=
+\mathbf{1}\!\left\{
+\mathcal{C}_W(i)\neq\varnothing
+\quad \text{and}\quad
+S\bigl(i,j^{\star}(i)\bigr)\geq\tau_v
+\right\}.
 \end{equation}
+The reference file stores
+$\texttt{event}_i=\delta_i^{(\mathrm{balanced})}$; below, the variant
+superscript is omitted when the balanced definition is understood.
 \texttt{event}=0 means \emph{no accepted candidate under the current rule},
 not verified evidence that no recurrence occurred.
 
@@ -892,7 +972,7 @@ Column & Type & Description \\
 \texttt{event} & int & \textbf{Target variable}. 1 = accepted M0 link (618 rows), 0 = no accepted link (2{,}541 rows). \\
 \texttt{time\_to\_event\_or\_censor\_months} & float & Survival time, always filled. For \texttt{event}=1: gap in months between source and linked candidate publication dates. For \texttt{event}=0: gap between source publication date and \texttt{study\_end\_date}. \\
 \texttt{linked\_candidate\_notice\_id} & string & Accepted candidate's BOAMP ID; empty when \texttt{event}=0. \\
-\texttt{m0\_composite\_score} & float & $S(i,j^*)$ for linked rows; empty when \texttt{event}=0. \\
+\texttt{m0\_composite\_score} & float & $S(i,j^{\star}(i))$ for linked rows; empty when \texttt{event}=0. \\
 \texttt{variant} & string & Constant \texttt{"balanced"} in this file. \\
 \bottomrule
 \end{tabular}
@@ -1135,9 +1215,10 @@ division ($s_{\text{cpv}}=0$).
 \toprule
 Quantity & Formula / value & Result \\
 \midrule
-$t_j - t_i$ & gap in months & 48.29 \\
-$|(t_j-t_i) - d_i|$ & $|48.29 - 48|$ & 0.29 \\
-$s_{\text{time}}$ & $1 - 0.29/6$ & 0.5675 \\
+$t_j-t_i$ & publication-date gap used as observed event time & 48.29 \\
+$t_j-\hat e_i$ & candidate date minus estimated end date & $-2.595$ \\
+$|t_j-\hat e_i|$ & absolute temporal deviation & 2.595 \\
+$s_{\text{time}}$ & $1-2.595/6$ & 0.5675 \\
 $s_{\text{text}}$ & TF-IDF cosine of the two objects & 0.1336 \\
 $s_{\text{cpv}}$ & same 4-digit class (3511), different 5-digit category & 0.6000 \\
 $s_{\text{buyer}}$ & \texttt{NAME\_FALLBACK} & 0.6000 \\
@@ -1145,6 +1226,9 @@ $S(i,j)$ & $0.35(0.1336)+0.30(0.6)+0.25(0.5675)+0.10(0.6)$ & \textbf{0.4286} \\
 \bottomrule
 \end{tabular}
 \end{table}
+The two time quantities serve different roles. The 48.29-month publication
+gap is the stored survival-event time, whereas the 2.595-month distance from
+$\hat e_i$ determines the temporal similarity used for linkage.
 This pair had a margin of 0.078 over the second-best of 3 candidates and
 was selected as source \texttt{15-139094}'s best match; because
 $0.4286 \geq \tau_{\text{balanced}}=0.3230$ (and also $\geq
@@ -1390,9 +1474,18 @@ Median linked gap (events only) & 37.7 months \\
 \end{table}
 
 \subsection{Notation and Methods}
-Let $T_i^{\text{obs}} = \min(T_i, C_i)$ and $\delta_i = \mathbf 1[T_i \leq
-C_i]$, stored as \texttt{time\_to\_event\_or\_censor\_months} and
-\texttt{event}.
+For the balanced reference variant, suppress the superscript $(v)$ introduced
+in Section~\ref{sec:endtoend-construction}. Let $T_i$ denote time to the
+constructed proxy-recurrence event and $C_i$ the censoring time. The observed
+survival outcome is
+\begin{equation}
+T_i^{\mathrm{obs}}=\min(T_i,C_i),
+\qquad
+\delta_i=\mathbf{1}\{T_i\leq C_i\},
+\end{equation}
+stored as \texttt{time\_to\_event\_or\_censor\_months} and
+\texttt{event}. This is the same $\bigl(T_i^{\mathrm{obs}},\delta_i,X_i\bigr)$
+construction defined in Section~\ref{sec:endtoend-construction}.
 
 \textbf{Kaplan--Meier estimator} \cite{kaplan1958}. $\hat S(t) =
 \prod_{j:t_j\leq t}(1 - d_j/n_j)$, the probability of not-yet-linked

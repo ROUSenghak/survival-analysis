@@ -1,0 +1,7 @@
+stage,n_sources,definition,share_of_eligible
+eligible_sources,3159,nonmissing buyer key source notices,1.0
+adequate_followup_6m,3073,at least 6 months observable follow-up,0.9727761949984172
+later_same_buyer_evidence,2361,later same M0 buyer_key notice exists,0.7473884140550807
+inside_m0_temporal_block,1233,later same-buyer notice inside M0 duration-centered window,0.3903133903133903
+scored_candidate_pool,1236,entered the scored candidate-pair table,0.3912630579297246
+accepted_m0_balanced_proxy_link,618,rank-1 candidate accepted by balanced threshold,0.1956315289648623

@@ -44,8 +44,9 @@ Current headline results:
 | M1 buyer-enriched | sensitivity | 3,159 | 1,504 | 8,228 | 847 | 26.8% |
 
 See `reports/current_analysis_position.md` for the full decision memo and
-`reports/m1_integrated_enrichment_pipeline_report.md` for the M1 enrichment
-audit. The concise quantitative survival-sensitivity conclusion is in
+`reports/boamp_m1_technical_report.pdf` for the consolidated M1 enrichment
+and profile-audit sensitivity report. The concise quantitative
+survival-sensitivity conclusion is in
 `reports/survival_sensitivity_conclusion.md`.
 
 ## What this project does, and does not, do
@@ -121,9 +122,10 @@ notebooks/                     # the interactive front-end: preprocessing, featu
 
 reports/
   boamp_m0_preprocessing_report.md
+  boamp_m0_technical_report.tex/.pdf
+  boamp_m1_technical_report.tex/.pdf
   current_analysis_position.md
   survival_sensitivity_conclusion.md
-  m1_integrated_enrichment_pipeline_report.md
   source_values_used.csv
   final_audit_m0_preprocessing.csv
   figures/, tables/, run_logs/
@@ -212,7 +214,7 @@ The balanced M0 link and survival files remain the official reference handoff. A
 
 Notebook workflow: the temporal-window sensitivity (14), duration-leakage audit (15), and survival robustness (16) notebooks now contain the analysis code inline — running them regenerates the corresponding link/survival datasets and reports/tables/ outputs directly, with the results and diagnostic figures displayed in the notebook. They import the shared M0 scoring machinery from scripts/ so the linkage rule has a single definition. notebooks/13_audit_current_project.ipynb remains a viewer over scripts/audit_current_project.py (repository inventory, not analysis).
 
-## Comprehensive technical report
+## Comprehensive technical reports
 
 `reports/boamp_m0_technical_report.tex` / `.pdf` is the single detailed
 technical reference for the whole pipeline: raw-data column dictionary,
@@ -233,4 +235,18 @@ Kaplan-Meier comparison across variants and a Cox hazard-ratio forest plot)
 plus the `nb14_*`/`nb15_*`/`nb16_*` diagnostic figures written inline by
 notebooks 14-16. Rebuild with:
 
+    cd reports && ~/.local/bin/tectonic boamp_m0_technical_report.tex
+
+If a system LaTeX install is available, the traditional alternative also
+works:
+
     cd reports && pdflatex boamp_m0_technical_report.tex && pdflatex boamp_m0_technical_report.tex
+
+`reports/boamp_m1_technical_report.tex` / `.pdf` is the single consolidated
+technical reference for the M1 buyer-identity enrichment sensitivity branch.
+It documents the external SIREN dataset, the exact M1 buyer-key construction
+rule, historical name-department alias propagation, the unchanged M0 scoring
+components and threshold reused by M1, the M0/M1 comparison, incremental-link
+diagnostics, and the procurement-profile domain audit. Rebuild with:
+
+    cd reports && latexmk -pdf -interaction=nonstopmode -halt-on-error boamp_m1_technical_report.tex
