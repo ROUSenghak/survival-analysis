@@ -1,0 +1,3 @@
+variant,error
+boamp_only_balanced,train fit failed or empty test set
+enriched_balanced,train fit failed or empty test set

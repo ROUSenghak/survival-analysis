@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-07-17T08:32:49.749143+00:00",
+  "note": "Parity oracle for the two-layer refactor. Counts and sorted-ID hashes of the legacy M0/M1 outputs. The M1 dedup fix (3170 vs 3159 rows) is a user-approved allowed deviation.",
+  "files": {
+    "clean_m0": {
+      "path": "boamp_clean_m0_no_enrichment.csv",
+      "rows": 84623
+    },
+    "m0_sources": {
+      "path": "boamp_m0_sources.csv",
+      "rows": 3159,
+      "cols": 22,
+      "id_col": "notice_id",
+      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f"
+    },
+    "m0_pairs": {
+      "path": "boamp_m0_candidate_pairs.csv",
+      "rows": 6137,
+      "cols": 19,
+      "id_col": "source_notice_id",
+      "ids_sha256": "7cbbddfebbdf8869f2fc8a5a89a940f5234ef2af6175a24c834d043fed5d8112"
+    },
+    "m0_links_broad": {
+      "path": "boamp_m0_links_broad.csv",
+      "rows": 927,
+      "cols": 21,
+      "id_col": "source_notice_id",
+      "ids_sha256": "0ccfb4ee16d9be825880be63e505bd068e91da80e6287be4233dce5a239155e8"
+    },
+    "m0_links_balanced": {
+      "path": "boamp_m0_links_balanced.csv",
+      "rows": 618,
+      "cols": 21,
+      "id_col": "source_notice_id",
+      "ids_sha256": "f5964c5aaa85f2d1e803f198e73f7d2e35e4eb80dd479d43b9893bbad22a2a45"
+    },
+    "m0_links_strict": {
+      "path": "boamp_m0_links_strict.csv",
+      "rows": 309,
+      "cols": 21,
+      "id_col": "source_notice_id",
+      "ids_sha256": "062cd2465f11204d2fd9d598120b111d53783fe8638bda820bed8fa553be5350"
+    },
+    "m0_survival_balanced": {
+      "path": "boamp_survival_m0_balanced.csv",
+      "rows": 3159,
+      "cols": 18,
+      "id_col": "notice_id",
+      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f",
+      "events": 618
+    },
+    "m1_clean_sources": {
+      "path": "boamp_clean_m1_buyer_enriched.csv",
+      "rows": 3159,
+      "cols": 45,
+      "id_col": "notice_id",
+      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f"
+    },
+    "m1_pairs": {
+      "path": "boamp_m1_candidate_pairs.csv",
+      "rows": 8228,
+      "cols": 30,
+      "id_col": "source_notice_id",
+      "ids_sha256": "0d78fa23ecf5d3e573bd3758d8d05a65fff7f2e616aab7d5f45b5e9436af9539"
+    },
+    "m1_links_balanced": {
+      "path": "boamp_m1_links_balanced.csv",
+      "rows": 847,
+      "cols": 32,
+      "id_col": "source_notice_id",
+      "ids_sha256": "b82d316cd004c57d06c789820c7fa536f23b43456c5db8a28ab31e4daa49e835"
+    },
+    "m1_survival_balanced": {
+      "path": "boamp_survival_m1_balanced.csv",
+      "rows": 3159,
+      "cols": 21,
+      "id_col": "notice_id",
+      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f",
+      "events": 847
+    }
+  },
+  "layer_overlap": {
+    "common": 617,
+    "m0_only": 1,
+    "m1_only": 230,
+    "jaccard": 0.7276
+  }
+}

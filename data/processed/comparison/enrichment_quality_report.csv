@@ -1,0 +1,8 @@
+metric,value
+historical_to_2023_notices_gaining_siren,919
+source_notices_gaining_siren_any_year,1215
+name_fallback_sources_become_siren_keyed,1215
+automatic_historical_aliases,1247
+ambiguous_or_review_only_aliases,1912
+ambiguous_multiple_siren_aliases,48
+incremental_links_from_historical_aliases,170

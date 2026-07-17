@@ -1,0 +1,3 @@
+layer,TP_hat,FN_hat,n_linked,n_omega,precision_hat,recall_hat,scope_caveat
+boamp_only,281.3357906345801,829.0769344576779,618,6137,0.455235907175696,0.2533614612631583,Recall_hat is relative to blocked candidate pairs only; it cannot bound recall against all possible true renewals.
+enriched,625.623576005755,4976.250787035627,847,8228,0.7386346824152952,0.11168111518768338,Recall_hat is relative to blocked candidate pairs only; it cannot bound recall against all possible true renewals.

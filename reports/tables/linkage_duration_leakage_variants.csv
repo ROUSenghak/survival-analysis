@@ -1,0 +1,3 @@
+variant,n_links,jaccard_vs_balanced
+no_temporal_rescoring,618,0.41418764302059496
+forward_24m_no_duration,1105,0.06423718344657196

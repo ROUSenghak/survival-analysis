@@ -19,6 +19,35 @@
 \begin{document}
 \maketitle
 
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{%
+\textbf{Revision note (v2, 2026-07-17 --- two-layer restructure).}
+This report was regenerated after the repository was restructured into two
+controlled layers: \textbf{Layer 1 = \texttt{boamp\_only} (formerly M0)} and
+\textbf{Layer 2 = \texttt{enriched} (formerly M1)}. The full pipeline was rerun
+end-to-end on 2026-07-17 from \texttt{notebooks/01\_data\_engineering\_pipeline.ipynb}
+(logic extracted, parity-verified, into \texttt{src/boamp/}); every headline number in
+this report was reproduced exactly: 84{,}623 cleaned notices, 3{,}159 eligible
+sources, 6{,}137 Layer-1 candidate pairs, balanced links 618 (19.6\%) /
+Layer-2 847 (26.8\%), thresholds 0.2642/0.3230/0.3931.
+Corrections established during the rerun:
+(i) the cleaned corpus has \textbf{84{,}623} logical rows --- the 87{,}418 figure in the
+v1 reproducibility manifest was a raw line-count artifact caused by embedded newlines
+in quoted text fields (same artifact behind the ``3{,}170-row'' M1 table entry; the
+true count is 3{,}159);
+(ii) the raw input is \textbf{139} monthly data files plus a metadata JSON (the ``140''
+in v1 audit tables counted directory entries);
+(iii) the previously empty \texttt{survival\_logrank\_tests.csv} is now populated (the
+v1 script compared float-typed CPV divisions against string literals);
+(iv) links now carry an explicit three-way confidence tier --- 38\% of Layer-1 and 39\%
+of Layer-2 balanced links are \textsc{potential} (top1--top2 margin $<$ 0.05).
+Legacy file paths cited in the body (\texttt{boamp\_m0\_*}, \texttt{boamp\_m1\_*},
+\texttt{m0\_*}/\texttt{m1\_*} tables) now live under \texttt{archive/} (see
+\texttt{archive/ARCHIVE\_MANIFEST.csv}); their two-layer successors are under
+\texttt{data/processed/\{boamp\_only, enriched, comparison\}/}.}}
+\end{center}
+
+
 \begin{abstract}
 This report audits the current BOAMP-only renewal-linkage pipeline for digital public-procurement notices in Pays de la Loire. It treats the present repository as an independent study: executable code and generated datasets are the evidence, while prose claims, old notebook titles, and historical output filenames are not counted as implementation. The official reference event definition is the balanced M0 linkage rule: same buyer key, later notice, a six-month window around the estimated contract end date, a deterministic score combining text, CPV, temporal proximity, and buyer-key reliability, and a median threshold over rank-1 candidate scores. The current reference handoff contains 3,159 eligible source notices and 618 constructed proxy-renewal events. The event file is internally coherent, but credibility is limited by low blocking coverage (39.1\%), candidate reuse, substantial sensitivity to temporal-window design, and a high-priority duration-circularity risk: declared or imputed duration is used in expected-end construction, temporal blocking, temporal scoring, and downstream survival timing. Consequently, survival results should be interpreted as robustness diagnostics for a constructed BOAMP proxy event, not as verified renewal truth.
 \end{abstract}
@@ -40,7 +69,7 @@ The main machine-readable audit outputs are stored in \texttt{reports/tables/}. 
 
 \section{Data Lineage and Official Datasets}
 
-The active raw input is \texttt{data/raw/boamp/pdl/}, containing 140 monthly JSON files. The directory \texttt{data/raw/boamp\_national\_2024\_2026\_archive/} is explicitly superseded and is not part of the active lineage.
+The active raw input is \texttt{data/raw/boamp/pdl/}, containing 139 monthly JSON data files (plus \texttt{download\_metadata.json}). The directory \texttt{data/raw/boamp\_national\_2024\_2026\_archive/} is explicitly superseded and is not part of the active lineage.
 
 \begin{table}[h!]
 \centering

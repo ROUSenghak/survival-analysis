@@ -1,0 +1,160 @@
+# Central parameter file for the two-layer BOAMP renewal-linkage pipeline.
+#
+# Layer 1 (boamp_only, formerly M0): buyer identity from BOAMP-native fields only.
+# Layer 2 (enriched,   formerly M1): buyer identity upgraded by validated external
+# SIREN enrichment. EVERYTHING ELSE (scope, cleaning, durations, CPV, text model,
+# temporal window, score weights, thresholds, event/censoring rules) is shared,
+# so the only controlled difference between the layers is buyer identity.
+
+run:
+  random_seed: 20260713          # used only where sampling occurs (validation samples)
+  month_days: 30.44              # days-per-month conversion used everywhere
+  # study_end_date is derived at runtime as max(publication_date) of the cleaned
+  # corpus and recorded in the export manifest; it is not hardcoded here.
+
+scope:
+  # Geography is enforced server-side at download time (Pays de la Loire).
+  pdl_departments: ["44", "49", "53", "72", "85"]
+  # Digital/ICT hard filter on the source population: CPV division OR keyword.
+  digital_cpv_divisions: ["32", "35", "48", "72"]
+  digital_keywords:
+    - informatique
+    - logiciel
+    - numerique
+    - "numérique"
+    - cloud
+    - cybersecurite
+    - "cybersécurité"
+    - reseau informatique
+    - "réseau informatique"
+    - application web
+    - "systeme d'information"
+    - "système d'information"
+    - site internet
+    - infogerance
+    - "infogérance"
+    - erp
+    - progiciel
+    - developpement logiciel
+    - "développement logiciel"
+
+duration:
+  min_plausible_months: 1
+  max_plausible_months: 120
+  # Missing durations on in-scope APPEL_OFFRE sources are imputed with the
+  # median observed duration of the same CPV division (fallback: global median
+  # of in-scope observed durations). ~88% of sources are imputed - a documented
+  # high-leverage assumption tested in 03_analysis (duration-leakage variants).
+  imputation: median_by_cpv_division
+
+temporal_window:
+  # window_months = clip(round(factor * median observed duration), floor, cap).
+  # With the current corpus the median observed duration is 6 months, so the
+  # formula collapses to the floor: the effective window is 6 months. The
+  # derivation is kept (and asserted) so future data can move the window.
+  factor: 0.5
+  floor_months: 6
+  cap_months: 24
+  expected_value_months: 6       # asserted at runtime; update if corpus changes
+  sensitivity_windows_months: [6, 9, 12, 18]
+
+candidates:
+  max_candidates_per_source: 30  # temporally-nearest kept when a buyer exceeds this
+
+text_model:
+  kind: tfidf                    # sentence-transformers evaluated and rejected (CPU-only runtime)
+  max_features: 50000
+  ngram_range: [1, 2]
+  min_df: 2
+  similarity: cosine
+
+cpv_score:
+  exact: 1.0
+  category: 0.8
+  class: 0.6
+  group: 0.4
+  division: 0.2
+  different: 0.0
+  missing: 0.1                   # weak-neutral: absence of info, not proof of mismatch
+
+buyer_score:
+  # Layer 1: reliability of the buyer_key type used for blocking.
+  boamp_only:
+    RAW_SIRET: 1.0
+    RAW_SIREN: 0.85
+    NAME_FALLBACK: 0.6
+  # Layer 2: reliability of the reconciliation mechanism that matched the pair.
+  enriched:
+    EXACT_SIRET_RECONCILIATION: 1.0
+    SAME_SIREN_RECONCILIATION: 0.9
+    HISTORICAL_ALIAS_RECONCILIATION: 0.75
+    M0_NAME_FALLBACK: 0.6
+
+scoring:
+  # composite = w_text*s_text + w_cpv*s_cpv + w_time*s_time + w_buyer*s_buyer
+  weights: {text: 0.35, cpv: 0.30, time: 0.25, buyer: 0.10}
+  weights_fitted: false          # fixed a priori; ablation + sensitivity in 03_analysis
+
+thresholds:
+  # Derived once from the Layer 1 rank-1 composite-score distribution
+  # (p25/p50/p75), then FROZEN and shared by both layers so that the layer
+  # comparison is not confounded by threshold re-derivation.
+  derivation: layer1_rank1_percentiles_25_50_75
+  broad: 0.264200
+  balanced: 0.323022
+  strict: 0.393100
+  primary: balanced
+  tolerance: 0.002               # runtime re-derivation must match within this
+
+confidence_tiers:
+  # Classification is three-way (match / potential match / non-match), per the
+  # record-linkage design: a rank-1 candidate above the threshold whose margin
+  # over the second-best candidate is small is a POTENTIAL match, kept in the
+  # linked set but flagged for sensitivity analysis and review.
+  potential_margin_max: 0.05     # top1-top2 margin below this => POTENTIAL
+  high_score_min: 0.50           # linked & score >= this => HIGH, else MEDIUM
+
+enrichment:
+  hf_dataset_id: Data-Gouv-ML/jointure-boamp-siren-cote-acheteurs-2024-2025-et-2026
+  hf_dataset_sha: 4bff9b1c5d2f4ad12834174e042828b7e52013d9
+  download_date: "2026-07-15"
+  file_glob: "boamp-avec-siren-acheteurs-*.parquet*"
+  join_key: notice_id            # from B_17_idweb; merge validated one_to_one
+  coverage_years: [2024, 2026]   # external file covers 2024-2026 of a 2015-2026 corpus
+  alias_bridge:
+    keys: [buyer_name_normalized, department_key]
+    min_support: 2
+    historical_max_year: 2023    # alias propagation only for pre-2023 notices
+    generic_names:               # never auto-propagated; review-only
+      - mairie
+      - commune
+      - ville
+      - departement
+      - conseil departemental
+      - centre hospitalier
+      - universite
+      - communaute de communes
+      - communaute d agglomeration
+    min_name_length: 6
+
+survival:
+  cox_penalizer: 0.01
+  cluster_col: buyer_key
+  rmst_horizon_months: 60
+  prediction_horizons_months: [12, 24]
+  temporal_validation_train_max_year: 2021
+  km_strata_min_group_size: 10
+  variants:                      # survival datasets modeled in 03_analysis
+    - balanced
+    - broad
+    - strict
+    - window_6m
+    - window_9m
+    - window_12m
+    - window_18m
+    - no_temporal_score_reference_pool
+    - forward_24m_no_duration
+
+evaluation:
+  m4_corruption_severities: [0.1, 0.25, 0.5]
+  duration_leakage_forward_months: 24

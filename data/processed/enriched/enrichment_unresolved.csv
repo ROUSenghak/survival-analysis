@@ -1,0 +1,1232 @@
+notice_id,publication_date,buyer_name_raw,buyer_name_normalized,buyer_key,buyer_key_type,buyer_identity_source,buyer_identity_confidence,enrichment_join_status,department_key
+15-39486,2015-03-16,Altantic'eau,altantic eau,NAME:altantic eau,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-30947,2015-03-02,SMICTOM de la Vallée de l'Authion,smictom de la vallee de l authion,NAME:smictom de la vallee de l authion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-31909,2015-03-03,ETAT - MEDAD - C.E.T.E. DE L'OUEST,etat - medad - c e t e de l ouest,NAME:etat - medad - c e t e de l ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-31641,2015-03-04,IRCANTEC,ircantec,NAME:ircantec,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;75
+15-31797,2015-03-04,ACOSS,acoss,NAME:acoss,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;93
+15-47450,2015-03-27,Préfecture de la Loire-Atlantique,prefecture de la loire-atlantique,NAME:prefecture de la loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;85
+15-39187,2015-03-16,Caisse des dépôts,caisse des depots,NAME:caisse des depots,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+15-42765,2015-03-20,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-42843,2015-03-24,Cté de Cnes de l'Ile de Noirmoutier,cte de cnes de l ile de noirmoutier,NAME:cte de cnes de l ile de noirmoutier,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;75;85
+15-45661,2015-03-26,Ville du Château d'Olonne,ville du chateau d olonne,NAME:ville du chateau d olonne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-47591,2015-03-27,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-48624,2015-03-31,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-43293,2015-03-20,MSA Loire-Atlantique - Vendée,msa loire-atlantique - vendee,NAME:msa loire-atlantique - vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+15-32051,2015-03-04,Caisse des dépôts,caisse des depots,NAME:caisse des depots,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+15-35224,2015-03-09,Centre hospitalier de Laval,centre hospitalier de laval,NAME:centre hospitalier de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+15-37182,2015-03-11,MINDEF/DGA/DT/SCAT,mindef dga dt scat,NAME:mindef dga dt scat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,18;49;92
+15-45496,2015-03-26,Commune de Saint-Barthélemy-d'Anjou,commune de saint-barthelemy-d anjou,NAME:commune de saint-barthelemy-d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;75
+15-42247,2015-03-19,COMMUNAUTE DE COMMUNES DERVAL,communaute de communes derval,NAME:communaute de communes derval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-44894,2015-03-24,Préfecture,prefecture,NAME:prefecture,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;72;75;85
+15-40940,2015-03-17,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-56918,2015-04-15,VALLET,vallet,NAME:vallet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+15-50314,2015-04-02,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-58339,2015-04-17,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-56571,2015-04-14,Caisse des dépôts,caisse des depots,NAME:caisse des depots,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+15-65278,2015-04-28,SNA/ouest,sna ouest,NAME:sna ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;56;85
+15-62309,2015-04-22,Ville d'Allonnes,ville d allonnes,NAME:ville d allonnes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+15-55213,2015-04-13,Ville du Croisic,ville du croisic,NAME:ville du croisic,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-58989,2015-04-17,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-54712,2015-04-10,ville de donges,ville de donges,NAME:ville de donges,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-59425,2015-04-20,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-59556,2015-04-20,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-55407,2015-04-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-48967,2015-04-01,Centre hospitalier de Laval,centre hospitalier de laval,NAME:centre hospitalier de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+15-49442,2015-04-09,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-58224,2015-04-16,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-50278,2015-04-02,Cté de Cnes 'Océan-Marais de Monts',cte de cnes ocean-marais de monts,NAME:cte de cnes ocean-marais de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+15-51571,2015-04-07,RESIDENCES SAINT ALEXANDRE,residences saint alexandre,NAME:residences saint alexandre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-55527,2015-04-14,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-56776,2015-04-15,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-55114,2015-04-10,Institution Aménagement de la Vilaine,institution amenagement de la vilaine,NAME:institution amenagement de la vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+15-55973,2015-04-13,ESID de Rennes,esid de rennes,NAME:esid de rennes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-65940,2015-04-29,Pole Santé Sarthe et Loire,pole sante sarthe et loire,NAME:pole sante sarthe et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+15-81652,2015-05-29,Ecole des Mines de Nantes,ecole des mines de nantes,NAME:ecole des mines de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44
+15-74702,2015-05-15,CESAME - CH de Sainte Gemmes sur Loire,cesame - ch de sainte gemmes sur loire,NAME:cesame - ch de sainte gemmes sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-78724,2015-05-22,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-81231,2015-05-29,SAEM Vendée,saem vendee,NAME:saem vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-67480,2015-05-04,Syndicat Départemental d'Energie,syndicat departemental d energie,NAME:syndicat departemental d energie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-75567,2015-05-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-74284,2015-05-15,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-81513,2015-05-28,Ville de Bayeux,ville de bayeux,NAME:ville de bayeux,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;35;44;50
+15-82510,2015-06-01,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-90549,2015-06-15,Concarneau Cornouaille Agglomération,concarneau cornouaille agglomeration,NAME:concarneau cornouaille agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+15-86544,2015-06-05,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-98976,2015-06-29,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-84438,2015-06-03,SNA/ouest,sna ouest,NAME:sna ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;29;35;44
+15-84820,2015-06-04,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-69493,2015-06-10,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-98483,2015-06-29,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-96106,2015-06-24,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-85320,2015-06-04,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-95582,2015-06-22,SGAMI OUEST,sgami ouest,NAME:sgami ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-98729,2015-06-26,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-90148,2015-06-15,Concarneau Cornouaille Agglomération,concarneau cornouaille agglomeration,NAME:concarneau cornouaille agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+15-97256,2015-06-25,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-92906,2015-06-17,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-96786,2015-06-24,Conseil Général de la Sarthe,conseil general de la sarthe,NAME:conseil general de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+15-98106,2015-06-25,Mairie des Sables d'Olonne,mairie des sables d olonne,NAME:mairie des sables d olonne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-86193,2015-06-05,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-89902,2015-06-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-81783,2015-06-02,CPAM de la Charente Maritime,cpam de la charente maritime,NAME:cpam de la charente maritime,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;33;49
+15-84881,2015-06-04,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-86342,2015-06-05,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-92626,2015-06-16,Cté de Communes du Pays de Redon,cte de communes du pays de redon,NAME:cte de communes du pays de redon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+15-99817,2015-07-01,Conseil Général de la Mayenne,conseil general de la mayenne,NAME:conseil general de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+15-52383,2015-07-24,LOIRE-ATLANTIQUE NUMERIQUE,loire-atlantique numerique,NAME:loire-atlantique numerique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-113716,2015-07-22,INSEE,insee,NAME:insee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-104589,2015-07-08,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-104125,2015-07-08,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-108645,2015-07-13,Ville de Talmont Saint Hilaire,ville de talmont saint hilaire,NAME:ville de talmont saint hilaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+15-106707,2015-07-10,centre hospitalier le Bodio,centre hospitalier le bodio,NAME:centre hospitalier le bodio,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-114971,2015-07-24,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-115709,2015-07-27,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-100455,2015-07-01,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-114783,2015-07-23,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-111661,2015-07-21,INRA - Formation permanente nationale,inra - formation permanente nationale,NAME:inra - formation permanente nationale,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-106427,2015-07-09,CENTRE DE GESTION DE LA FONCTION PUBLI,centre de gestion de la fonction publi,NAME:centre de gestion de la fonction publi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-101283,2015-07-01,Caf de la Sarthe,caf de la sarthe,NAME:caf de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;72
+15-105085,2015-07-07,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-113362,2015-07-22,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-115991,2015-07-27,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-103304,2015-07-03,L'Université Nantes-Angers-Le Mans,l universite nantes-angers-le mans,NAME:l universite nantes-angers-le mans,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-129133,2015-08-24,SDIS 49,sdis 49,NAME:sdis 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-126174,2015-08-13,Centre Hospitalier la Ferté Bernard,centre hospitalier la ferte bernard,NAME:centre hospitalier la ferte bernard,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+15-121163,2015-08-04,Centre Hospitalier Loire Vendée Océan,centre hospitalier loire vendee ocean,NAME:centre hospitalier loire vendee ocean,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-126736,2015-08-13,Préfecture,prefecture,NAME:prefecture,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-133200,2015-08-31,SAELSI,saelsi,NAME:saelsi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+15-134999,2015-09-04,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-133523,2015-09-11,Nantes Habitat,nantes habitat,NAME:nantes habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-139562,2015-09-11,C.H.D La Roche Sur Yon-Luçon-Montaigu,c h d la roche sur yon-lucon-montaigu,NAME:c h d la roche sur yon-lucon-montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-146024,2015-09-28,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-117292,2015-09-01,SDIS 49,sdis 49,NAME:sdis 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-145608,2015-09-24,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-91934,2015-09-28,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-142958,2015-09-17,"ministère budget, comptes publics",ministere budget comptes publics,NAME:ministere budget comptes publics,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-143035,2015-09-18,CNAMTS,cnamts,NAME:cnamts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-136102,2015-09-07,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-137458,2015-09-09,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-143083,2015-09-18,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-137106,2015-09-07,Cté d'Agglomération du Choletais,cte d agglomeration du choletais,NAME:cte d agglomeration du choletais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-140966,2015-09-15,Commune de Saint Jean de Monts,commune de saint jean de monts,NAME:commune de saint jean de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+15-147732,2015-09-28,Ecole des Mines de Nantes,ecole des mines de nantes,NAME:ecole des mines de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44
+15-148838,2015-09-30,Communauté d'Agglomération de Saintes,communaute d agglomeration de saintes,NAME:communaute d agglomeration de saintes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;85
+15-144405,2015-09-22,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-160806,2015-10-21,Communauté Communes Pays des Essarts,communaute communes pays des essarts,NAME:communaute communes pays des essarts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-160539,2015-10-28,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-153604,2015-10-08,Cté de Cnes du pays Fontenay le Comte,cte de cnes du pays fontenay le comte,NAME:cte de cnes du pays fontenay le comte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-157399,2015-10-20,Centre Hospitalier de Saint-Nazaire,centre hospitalier de saint-nazaire,NAME:centre hospitalier de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-159244,2015-10-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-165845,2015-10-30,commune de Le Pellerin,commune de le pellerin,NAME:commune de le pellerin,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-156775,2015-10-13,Institut pour la Santé de L'Ouest,institut pour la sante de l ouest,NAME:institut pour la sante de l ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-162447,2015-10-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-154566,2015-10-12,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-155719,2015-10-13,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-160688,2015-10-20,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-153303,2015-10-07,GIP Groupement Technocampus,gip groupement technocampus,NAME:gip groupement technocampus,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-162906,2015-10-23,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-169863,2015-11-09,Ville de Saint-Hilaire-de-Riez,ville de saint-hilaire-de-riez,NAME:ville de saint-hilaire-de-riez,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-169941,2015-11-09,SDIS 49,sdis 49,NAME:sdis 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-171325,2015-11-10,Chambre Agriculture Pays de la Loire,chambre agriculture pays de la loire,NAME:chambre agriculture pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-170834,2015-11-12,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-171733,2015-11-10,S.I. d' énergies de Maine et Loire,s i d energies de maine et loire,NAME:s i d energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-167001,2015-11-04,Communauté de communes de Montrevault,communaute de communes de montrevault,NAME:communaute de communes de montrevault,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-175210,2015-11-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-175690,2015-11-20,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-170544,2015-11-17,CCRLA,ccrla,NAME:ccrla,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-178562,2015-11-26,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-166933,2015-11-02,SPM/DDTM44,spm ddtm44,NAME:spm ddtm44,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;35;44;49;56;75;85
+15-178206,2015-11-27,Centre Hospitalier de Saint-Nazaire,centre hospitalier de saint-nazaire,NAME:centre hospitalier de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-171757,2015-11-12,Informatique CDC,informatique cdc,NAME:informatique cdc,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;49;75;92;94
+15-178791,2015-11-30,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-175415,2015-11-20,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-168917,2015-11-09,SICTOM Loir et Sarthe,sictom loir et sarthe,NAME:sictom loir et sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-179034,2015-11-27,C.H.S. de la Sarthe,c h s de la sarthe,NAME:c h s de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+15-167650,2015-11-03,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+15-185112,2015-12-10,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-190662,2015-12-22,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-192825,2015-12-24,C.H.D La Roche Sur Yon-Luçon-Montaigu,c h d la roche sur yon-lucon-montaigu,NAME:c h d la roche sur yon-lucon-montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+15-194034,2015-12-30,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+15-192356,2015-12-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+15-186668,2015-12-14,E.C.A.S. gendarmerie nationale,e c a s gendarmerie nationale,NAME:e c a s gendarmerie nationale,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,36;72
+15-184743,2015-12-11,Com Communes du Pays d'Ancenis,com communes du pays d ancenis,NAME:com communes du pays d ancenis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-7712,2016-01-18,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-2845,2016-01-11,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-9809,2016-01-21,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-577,2016-01-04,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-8523,2016-01-19,Ecole des Mines de Nantes,ecole des mines de nantes,NAME:ecole des mines de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-9226,2016-01-20,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-2771,2016-01-08,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-11249,2016-01-29,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-7903,2016-01-19,Ecole des Mines de Nantes,ecole des mines de nantes,NAME:ecole des mines de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-1046,2016-01-18,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-3447,2016-01-11,Centre Hospitalier Loire Vendée Océan,centre hospitalier loire vendee ocean,NAME:centre hospitalier loire vendee ocean,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-10414,2016-01-22,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-25268,2016-02-22,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;67;75
+16-23686,2016-02-17,Cté Cnes Coeur d'Estuaire,cte cnes coeur d estuaire,NAME:cte cnes coeur d estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-18277,2016-02-05,SMIRGEOM Est Sarthe,smirgeom est sarthe,NAME:smirgeom est sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+16-19242,2016-02-09,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-14558,2016-02-02,INRA Angers Nantes,inra angers nantes,NAME:inra angers nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+16-15210,2016-02-02,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-27767,2016-02-25,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-18733,2016-02-08,CCRLA,ccrla,NAME:ccrla,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-15813,2016-02-02,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-15282,2016-02-02,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-25827,2016-02-23,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-19705,2016-02-10,Concarneau Cornouaille Agglomération,concarneau cornouaille agglomeration,NAME:concarneau cornouaille agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+16-36754,2016-03-15,CCI de Maine et Loire,cci de maine et loire,NAME:cci de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+16-40838,2016-03-22,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+16-39068,2016-03-17,Syndicat Départemental d'Energie,syndicat departemental d energie,NAME:syndicat departemental d energie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-33283,2016-03-10,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-37530,2016-03-18,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-40500,2016-03-22,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-36374,2016-03-14,Centre hospitalier de Saumur,centre hospitalier de saumur,NAME:centre hospitalier de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-37108,2016-03-16,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-31513,2016-03-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-43654,2016-03-29,MINDEF/DGA/DO/S2A,mindef dga do s2a,NAME:mindef dga do s2a,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;49;91;92;94
+16-33632,2016-03-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-27384,2016-03-15,MINDEF/DGA/DO/S2A,mindef dga do s2a,NAME:mindef dga do s2a,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,18;49
+16-41333,2016-03-23,S. M. Sarthois d'Aménagement Numérique,s m sarthois d amenagement numerique,NAME:s m sarthois d amenagement numerique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+16-30715,2016-03-02,CG49,cg49,NAME:cg49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-28465,2016-03-01,Syndicat Départemental d'Energie,syndicat departemental d energie,NAME:syndicat departemental d energie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-9312,2016-03-15,Ville de Cholet,ville de cholet,NAME:ville de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+16-54197,2016-04-17,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-55322,2016-04-18,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-34964,2016-04-19,Cour d'Appel de Rennes,cour d appel de rennes,NAME:cour d appel de rennes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;49;53;56;72
+16-54370,2016-04-17,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-51983,2016-04-11,ANGERS NANTES OPERA syndicat mixte,angers nantes opera syndicat mixte,NAME:angers nantes opera syndicat mixte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75;77;78;91;92;93;94;95
+16-56502,2016-04-22,CAF de la Somme,caf de la somme,NAME:caf de la somme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;33;72;80;93
+16-49315,2016-04-05,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+16-54252,2016-04-15,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-57705,2016-04-25,Centre hospitalier de Laval,centre hospitalier de laval,NAME:centre hospitalier de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+16-56370,2016-04-20,Mission Val de Loire (Syndicat Mixte I,mission val de loire syndicat mixte i,NAME:mission val de loire syndicat mixte i,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,37;41;44;45;49
+16-57014,2016-04-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-55859,2016-04-25,Centre Hospitalier de Saint-Nazaire,centre hospitalier de saint-nazaire,NAME:centre hospitalier de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-49246,2016-04-12,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-55493,2016-04-19,CCAS d'Angers,ccas d angers,NAME:ccas d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-63741,2016-05-05,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-74267,2016-05-28,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-70245,2016-05-17,"SEMITAN, mandataire de la CUN",semitan mandataire de la cun,NAME:semitan mandataire de la cun,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-77563,2016-05-30,LYCEE POLYVALENT LEONARD DE VINCI,lycee polyvalent leonard de vinci,NAME:lycee polyvalent leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-63210,2016-05-03,Centre hospitalier de Laval,centre hospitalier de laval,NAME:centre hospitalier de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+16-65767,2016-05-06,LYCEE GENERAL ET TECHNOLOGIQUE LIVET,lycee general et technologique livet,NAME:lycee general et technologique livet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-67267,2016-05-12,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-67701,2016-05-13,Pôle emploi Pays de la Loire,pole emploi pays de la loire,NAME:pole emploi pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+16-73215,2016-05-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-71885,2016-05-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-76661,2016-05-26,Concarneau Cornouaille Agglomération,concarneau cornouaille agglomeration,NAME:concarneau cornouaille agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+16-67782,2016-05-11,INSEE,insee,NAME:insee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+16-78789,2016-05-30,Ecole des Mines de Nantes,ecole des mines de nantes,NAME:ecole des mines de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44
+16-74130,2016-05-27,Syndicat Vendée des Iles,syndicat vendee des iles,NAME:syndicat vendee des iles,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+16-75407,2016-05-25,SAEML La folle Journée,saeml la folle journee,NAME:saeml la folle journee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-63342,2016-05-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-68875,2016-05-12,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-69641,2016-05-13,Centre Hospitalier Spécialisé de Blain,centre hospitalier specialise de blain,NAME:centre hospitalier specialise de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-73480,2016-05-23,GIP FORM CONTINUE INSERT PR EXPERIENCE,gip form continue insert pr experience,NAME:gip form continue insert pr experience,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-73319,2016-05-24,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-64280,2016-05-06,ASSOCIATION E-TOILE,association e-toile,NAME:association e-toile,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;35;49
+16-73008,2016-05-20,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-73199,2016-05-23,SAEML La folle Journée,saeml la folle journee,NAME:saeml la folle journee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-81005,2016-06-04,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-79523,2016-06-09,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-87909,2016-06-19,CMAR PAYS DE LA LOIRE,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-79410,2016-06-07,Cté de Cnes du pays Fontenay le Comte,cte de cnes du pays fontenay le comte,NAME:cte de cnes du pays fontenay le comte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-83187,2016-06-07,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-86581,2016-06-13,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+16-92246,2016-06-22,LYCEE GENERAL ET TECHNOLOGIQUE LIVET,lycee general et technologique livet,NAME:lycee general et technologique livet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-81846,2016-06-08,Nantes Métropole Habitat,nantes metropole habitat,NAME:nantes metropole habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-82782,2016-06-08,MAIRIE DE BAUGE EN ANJOU,mairie de bauge en anjou,NAME:mairie de bauge en anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;72
+16-95746,2016-06-28,G C S M S Estuaire,g c s m s estuaire,NAME:g c s m s estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-85256,2016-06-09,S.I. d' énergies de Maine et Loire,s i d energies de maine et loire,NAME:s i d energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-95121,2016-06-28,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-82345,2016-06-07,Centre Hospitalier de Saint-Nazaire,centre hospitalier de saint-nazaire,NAME:centre hospitalier de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-94328,2016-06-27,SMIRGEOM Est Sarthe,smirgeom est sarthe,NAME:smirgeom est sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+16-80474,2016-06-15,Com Communes du Pays d'Ancenis,com communes du pays d ancenis,NAME:com communes du pays d ancenis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+16-80903,2016-06-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-88869,2016-06-15,GRETA LOIRE ATLANTIQUE,greta loire atlantique,NAME:greta loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-109013,2016-07-22,Rectorat de l'Académie de Dijon,rectorat de l academie de dijon,NAME:rectorat de l academie de dijon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,21;38;44
+16-98835,2016-07-09,ASSOCIATION E-TOILE,association e-toile,NAME:association e-toile,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;35;49
+16-112263,2016-07-27,Cté de Cnes de la Vallée de Clisson,cte de cnes de la vallee de clisson,NAME:cte de cnes de la vallee de clisson,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-95598,2016-07-04,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-109275,2016-07-22,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-102267,2016-07-09,Caf de la Sarthe,caf de la sarthe,NAME:caf de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;72
+16-108313,2016-07-19,CESAME - CH de Sainte Gemmes sur Loire,cesame - ch de sainte gemmes sur loire,NAME:cesame - ch de sainte gemmes sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-99329,2016-07-26,Nantes Métropole Habitat,nantes metropole habitat,NAME:nantes metropole habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-98551,2016-07-01,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-99599,2016-07-05,GRETA DE VENDEE,greta de vendee,NAME:greta de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-114007,2016-07-30,C.S.T.B.,c s t b,NAME:c s t b,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,38;44;77
+16-93714,2016-07-02,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-102715,2016-07-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-111174,2016-07-25,O.P.H LE MANS HABITAT,o p h le mans habitat,NAME:o p h le mans habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+16-97484,2016-07-04,SDIS 49,sdis 49,NAME:sdis 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-103634,2016-07-11,DREAL Pays de la Loire,dreal pays de la loire,NAME:dreal pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+16-107267,2016-07-23,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-103802,2016-07-13,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-110202,2016-07-25,CMAR PAYS DE LA LOIRE,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-103833,2016-07-13,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-101519,2016-07-07,Commune de Saint Jean de Monts,commune de saint jean de monts,NAME:commune de saint jean de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+16-106449,2016-07-15,SYND MIXTE DU PAYS DE COUTANCES,synd mixte du pays de coutances,NAME:synd mixte du pays de coutances,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;22;30;34;35;44;50;56;76
+16-110437,2016-07-26,Université Européenne de Bretagne,universite europeenne de bretagne,NAME:universite europeenne de bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44
+16-102238,2016-07-09,C.S.T.B.,c s t b,NAME:c s t b,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,38;44;77
+16-98038,2016-07-04,Cté de Cnes de la Vallée de Clisson,cte de cnes de la vallee de clisson,NAME:cte de cnes de la vallee de clisson,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-115075,2016-08-02,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-122392,2016-08-18,Ville de Meyzieu,ville de meyzieu,NAME:ville de meyzieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,38;42;44;69;77;91;92;93
+16-125564,2016-08-25,Mairie de Varades,mairie de varades,NAME:mairie de varades,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+16-118057,2016-08-07,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-118029,2016-08-10,Conseil général de Loire-Atlantique,conseil general de loire-atlantique,NAME:conseil general de loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-131471,2016-09-10,INSEE,insee,NAME:insee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75;77;78;91;92;93;94;95
+16-137769,2016-09-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-132878,2016-09-12,Ville d'Avrillé,ville d avrille,NAME:ville d avrille,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-135042,2016-09-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-129697,2016-09-05,Centre Hospitalier du Nord Mayenne,centre hospitalier du nord mayenne,NAME:centre hospitalier du nord mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+16-128178,2016-09-02,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-128161,2016-09-09,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-133646,2016-09-13,G C S M S Estuaire,g c s m s estuaire,NAME:g c s m s estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-134086,2016-09-14,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-146409,2016-10-10,Etablissement Public Foncier Bretagne,etablissement public foncier bretagne,NAME:etablissement public foncier bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+16-143836,2016-10-04,Cté de Cnes de la Vallée de Clisson,cte de cnes de la vallee de clisson,NAME:cte de cnes de la vallee de clisson,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-158195,2016-10-28,Ville de Saint-Hilaire-de-Riez,ville de saint-hilaire-de-riez,NAME:ville de saint-hilaire-de-riez,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-158508,2016-10-31,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-153372,2016-10-20,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+16-153330,2016-10-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-141250,2016-10-24,CENTRE HOSPITALIER LE FAOUET,centre hospitalier le faouet,NAME:centre hospitalier le faouet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+16-146809,2016-10-10,C.H.D La Roche Sur Yon-Luçon-Montaigu,c h d la roche sur yon-lucon-montaigu,NAME:c h d la roche sur yon-lucon-montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-155479,2016-10-27,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-149380,2016-10-13,Commune de la Chevrolière,commune de la chevroliere,NAME:commune de la chevroliere,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-145577,2016-10-06,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-158411,2016-10-28,INSTITUT 4.10,institut 4 10,NAME:institut 4 10,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+16-153795,2016-10-26,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-155186,2016-10-26,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-161272,2016-11-07,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-158975,2016-11-04,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+16-167180,2016-11-20,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-166021,2016-11-16,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-162783,2016-11-09,Hôpital du Baugeois et de la Vallée,hopital du baugeois et de la vallee,NAME:hopital du baugeois et de la vallee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-163402,2016-11-10,Essarts en Bocage,essarts en bocage,NAME:essarts en bocage,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-172610,2016-11-30,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+16-184750,2016-12-28,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+16-173853,2016-12-02,commune de Le Pellerin,commune de le pellerin,NAME:commune de le pellerin,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-180684,2016-12-16,FONDAT REGION OUEST LIGUE CANCER,fondat region ouest ligue cancer,NAME:fondat region ouest ligue cancer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44
+16-184522,2016-12-23,SDEGM,sdegm,NAME:sdegm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;53;72
+16-183509,2016-12-23,CCRLA,ccrla,NAME:ccrla,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+16-173647,2016-12-04,CAF de la Somme,caf de la somme,NAME:caf de la somme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;33;72;80;93
+16-172095,2016-12-02,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+16-177041,2016-12-09,CENTRE HOSPITALIER LE FAOUET,centre hospitalier le faouet,NAME:centre hospitalier le faouet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+17-3293,2017-01-09,O.P.H LE MANS HABITAT,o p h le mans habitat,NAME:o p h le mans habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-8592,2017-01-18,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-2217,2017-01-05,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-13004,2017-01-26,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-14505,2017-01-31,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+17-1971,2017-01-06,MAINE LOIRE HABITAT OFFICE PUB HABITAT,maine loire habitat office pub habitat,NAME:maine loire habitat office pub habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-14103,2017-01-30,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-13461,2017-01-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-15162,2017-01-31,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+17-3608,2017-01-09,GRETA LOIRE ATLANTIQUE,greta loire atlantique,NAME:greta loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-3197,2017-01-10,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-12394,2017-01-26,SDEGM,sdegm,NAME:sdegm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;53;72
+17-9629,2017-01-20,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-4904,2017-01-11,IPHV LES HAUTS THEBAUDIERES,iphv les hauts thebaudieres,NAME:iphv les hauts thebaudieres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-6000,2017-01-13,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-14320,2017-02-01,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-10967,2017-02-09,CENTRE HOSPITALIER PAUL CHAPRON,centre hospitalier paul chapron,NAME:centre hospitalier paul chapron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-25253,2017-02-21,Le Grand T - Théâtre Loire-Atlantique,le grand t - theatre loire-atlantique,NAME:le grand t - theatre loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-22310,2017-02-14,"ministère budget, comptes publics",ministere budget comptes publics,NAME:ministere budget comptes publics,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-15684,2017-02-03,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-17888,2017-02-06,Centre hospitalier de Saumur,centre hospitalier de saumur,NAME:centre hospitalier de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-20854,2017-02-10,INSTITUT 4.10,institut 4 10,NAME:institut 4 10,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+17-26666,2017-02-25,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-23085,2017-02-16,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-18523,2017-02-11,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-19635,2017-02-11,Mairie du croisic,mairie du croisic,NAME:mairie du croisic,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-21659,2017-02-14,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-21818,2017-02-14,CENTRE HOSPITALIER PAUL CHAPRON,centre hospitalier paul chapron,NAME:centre hospitalier paul chapron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-38998,2017-03-23,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,28;29;35;45;53;75;77;78;92
+17-43993,2017-03-30,GIP Vendée Numérique,gip vendee numerique,NAME:gip vendee numerique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-37269,2017-03-17,Etablissement Français du Sang,etablissement francais du sang,NAME:etablissement francais du sang,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-39457,2017-03-23,DIR INTERDEPARTEMENTALE ROUTES OUEST,dir interdepartementale routes ouest,NAME:dir interdepartementale routes ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;49;53;56
+17-29415,2017-03-03,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-32213,2017-03-09,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-38078,2017-03-17,Etablissement Français du Sang,etablissement francais du sang,NAME:etablissement francais du sang,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-39998,2017-03-27,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-31411,2017-03-06,Saint Barthélemy d'Anjou,saint barthelemy d anjou,NAME:saint barthelemy d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-34018,2017-03-10,Conseil régional des Pays de la Loire,conseil regional des pays de la loire,NAME:conseil regional des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+17-36725,2017-03-16,SI ENERGIES DE MAINE ET LOIRE,si energies de maine et loire,NAME:si energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-54834,2017-04-22,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-51018,2017-04-11,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-49707,2017-04-07,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-53947,2017-04-18,Cté cnes du Pays de Château de Gontier,cte cnes du pays de chateau de gontier,NAME:cte cnes du pays de chateau de gontier,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+17-47467,2017-04-18,Société Loire Atlantique Développement,societe loire atlantique developpement,NAME:societe loire atlantique developpement,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-51157,2017-04-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-58214,2017-04-30,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-53291,2017-04-14,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-55087,2017-04-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-46886,2017-04-06,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-58059,2017-04-26,EPSM de la Sarthe,epsm de la sarthe,NAME:epsm de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-4453,2017-04-13,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-56720,2017-04-26,GCS eSanté Pays de la Loire,gcs esante pays de la loire,NAME:gcs esante pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-50845,2017-04-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-48519,2017-04-09,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-58113,2017-04-28,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+17-59442,2017-05-19,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;72;75;92
+17-75830,2017-05-31,ville de Coulaines,ville de coulaines,NAME:ville de coulaines,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-65753,2017-05-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-75186,2017-05-30,Commune de La Baule,commune de la baule,NAME:commune de la baule,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-53540,2017-05-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-66272,2017-05-14,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+17-61199,2017-05-04,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-56105,2017-05-07,Centre Hospitalier de Saint-Nazaire,centre hospitalier de saint-nazaire,NAME:centre hospitalier de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-68883,2017-05-19,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+17-73536,2017-05-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-60627,2017-05-02,CARSAT NORD EST,carsat nord est,NAME:carsat nord est,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+17-69597,2017-05-18,SGAMI OUEST BZAMP,sgami ouest bzamp,NAME:sgami ouest bzamp,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+17-71852,2017-05-24,SDIS 49,sdis 49,NAME:sdis 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-72792,2017-05-25,Institut Régional Administration Lyon,institut regional administration lyon,NAME:institut regional administration lyon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;57;59;69;75
+17-71305,2017-05-22,SMICTOM DES PAYS DE VILAINE,smictom des pays de vilaine,NAME:smictom des pays de vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+17-69293,2017-05-17,préfet de la région Pays de la Loire,prefet de la region pays de la loire,NAME:prefet de la region pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-73357,2017-05-26,Syndicat Départemental d'Energie,syndicat departemental d energie,NAME:syndicat departemental d energie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-72992,2017-05-27,Groupe d'étude et de contrôle des vari,groupe d etude et de controle des vari,NAME:groupe d etude et de controle des vari,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-65610,2017-05-11,CESAME - CH de Sainte Gemmes sur Loire,cesame - ch de sainte gemmes sur loire,NAME:cesame - ch de sainte gemmes sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-75817,2017-05-31,COMMUNE DE CHEMILLE EN ANJOU,commune de chemille en anjou,NAME:commune de chemille en anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-73511,2017-05-24,Voies navigables de France,voies navigables de france,NAME:voies navigables de france,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+17-79002,2017-06-07,LYCEE POLYVALENT LEONARD DE VINCI,lycee polyvalent leonard de vinci,NAME:lycee polyvalent leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-80380,2017-06-14,MAINE LOIRE HABITAT OFFICE PUB HABITAT,maine loire habitat office pub habitat,NAME:maine loire habitat office pub habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-68155,2017-06-02,POLE METROPOLITAIN LOIRE-BRETAGNE,pole metropolitain loire-bretagne,NAME:pole metropolitain loire-bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44;49;75
+17-80193,2017-06-08,EPCC ESBANM,epcc esbanm,NAME:epcc esbanm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-81541,2017-06-12,Voies navigables de France,voies navigables de france,NAME:voies navigables de france,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-88925,2017-06-25,Université de La Rochelle,universite de la rochelle,NAME:universite de la rochelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;44;75;79;85
+17-76729,2017-06-01,DIR INTERREGIONALE SCES PENITENTIAIRES,dir interregionale sces penitentiaires,NAME:dir interregionale sces penitentiaires,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;49
+17-92310,2017-06-29,INSTITUT 4.10,institut 4 10,NAME:institut 4 10,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;69;75
+17-68985,2017-06-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-82869,2017-06-14,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-77744,2017-06-02,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-88463,2017-06-25,CESAME - CH de Sainte Gemmes sur Loire,cesame - ch de sainte gemmes sur loire,NAME:cesame - ch de sainte gemmes sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-78663,2017-06-06,Les Quinconces l'Espal,les quinconces l espal,NAME:les quinconces l espal,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-82173,2017-06-13,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-90424,2017-06-27,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-76396,2017-06-03,Centre Hospitalier du Nord Mayenne,centre hospitalier du nord mayenne,NAME:centre hospitalier du nord mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+17-76616,2017-06-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-80641,2017-06-09,Ville d'Arnage,ville d arnage,NAME:ville d arnage,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-80194,2017-06-08,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-83585,2017-06-15,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-106009,2017-07-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-102741,2017-07-18,CENTRE HOSPITALIER PAUL CHAPRON,centre hospitalier paul chapron,NAME:centre hospitalier paul chapron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-109228,2017-07-28,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-103816,2017-07-21,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;49;56;69;75;92;94
+17-96902,2017-07-13,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-104238,2017-07-20,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-100105,2017-07-20,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-106054,2017-07-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-102568,2017-07-21,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-103062,2017-07-20,Université du Maine,universite du maine,NAME:universite du maine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-107265,2017-07-26,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-91935,2017-07-01,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-94724,2017-07-09,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-105440,2017-07-23,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-102214,2017-07-17,ASSOC OFFICE TOURISME INTERCOMMUNAL PA,assoc office tourisme intercommunal pa,NAME:assoc office tourisme intercommunal pa,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;38;44;75;83
+17-114694,2017-08-11,HOP INTERCOMMUNAL DU BAUGEOIS ET VAL,hop intercommunal du baugeois et val,NAME:hop intercommunal du baugeois et val,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-109941,2017-08-02,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-117075,2017-08-17,SYNDICAT MIXTE POUR LE DVLPT NUMERIQUE,syndicat mixte pour le dvlpt numerique,NAME:syndicat mixte pour le dvlpt numerique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-117298,2017-08-18,INSTITUT 4.10,institut 4 10,NAME:institut 4 10,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;69;75
+17-115928,2017-08-25,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-121705,2017-08-29,Commune de Saint Jean de Monts,commune de saint jean de monts,NAME:commune de saint jean de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-103068,2017-08-10,COMMUNAUTE D AGGLOMERATION LA ROCHELLE,communaute d agglomeration la rochelle,NAME:communaute d agglomeration la rochelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;85
+17-118982,2017-08-23,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-114542,2017-08-09,Commune de Saint Jean de Monts,commune de saint jean de monts,NAME:commune de saint jean de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-119142,2017-08-23,Préfecture,prefecture,NAME:prefecture,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+17-120545,2017-08-27,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-111330,2017-08-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-129931,2017-09-17,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-136551,2017-09-30,DIR INTERDEPARTEMENTALE ROUTES OUEST,dir interdepartementale routes ouest,NAME:dir interdepartementale routes ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;53;56
+17-127212,2017-09-08,EPCC CHEMINS DU PATRIMOINE,epcc chemins du patrimoine,NAME:epcc chemins du patrimoine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75;93;94
+17-123450,2017-09-03,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-125205,2017-09-05,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-130729,2017-09-17,GCS eSanté Pays de la Loire,gcs esante pays de la loire,NAME:gcs esante pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-132446,2017-09-20,GRETA LOIRE ATLANTIQUE,greta loire atlantique,NAME:greta loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-133179,2017-09-21,syndicat vignoble grand lieu,syndicat vignoble grand lieu,NAME:syndicat vignoble grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-134575,2017-09-27,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+17-128615,2017-09-14,INSERM,inserm,NAME:inserm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;69;70;71;72;73;75;90
+17-133782,2017-09-22,Ville de Pornichet,ville de pornichet,NAME:ville de pornichet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-123168,2017-09-01,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-134974,2017-09-25,ville de Bouchemaine,ville de bouchemaine,NAME:ville de bouchemaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;72
+17-130980,2017-09-17,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-117419,2017-09-17,DSNA,dsna,NAME:dsna,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;31;33;44;59;67;69;91
+17-150835,2017-10-25,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-147130,2017-10-18,CENTRE HOSPITALIER PAUL CHAPRON,centre hospitalier paul chapron,NAME:centre hospitalier paul chapron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-152907,2017-10-27,Commune de Saint Jean de Monts,commune de saint jean de monts,NAME:commune de saint jean de monts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+17-130666,2017-10-01,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-79188,2017-10-03,Mairie de Saint-Gilles-Croix-de-Vie,mairie de saint-gilles-croix-de-vie,NAME:mairie de saint-gilles-croix-de-vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-151427,2017-10-25,COMMUNAUTE COMMUNES PAYS DE REDON,communaute communes pays de redon,NAME:communaute communes pays de redon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+17-149350,2017-10-22,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-142620,2017-10-10,SI ENERGIES DE MAINE ET LOIRE,si energies de maine et loire,NAME:si energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+17-138140,2017-10-04,Commune de La Baule,commune de la baule,NAME:commune de la baule,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;56;85
+17-143241,2017-10-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-152746,2017-10-29,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-143219,2017-10-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-144482,2017-10-13,Centre hospitalier F. Robert,centre hospitalier f robert,NAME:centre hospitalier f robert,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-161600,2017-11-15,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+17-162866,2017-11-17,S.M.A.E.P. de la Région Mancelle,s m a e p de la region mancelle,NAME:s m a e p de la region mancelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+17-161606,2017-11-23,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-167643,2017-11-28,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-168569,2017-11-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-156571,2017-11-06,Mairie de SAINT-VIAUD,mairie de saint-viaud,NAME:mairie de saint-viaud,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-167707,2017-11-28,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-158224,2017-11-12,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-165815,2017-11-25,DREAL BRETAGNE,dreal bretagne,NAME:dreal bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;50;53;56;72
+17-161917,2017-11-18,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-164463,2017-11-24,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-165817,2017-11-25,DREAL BRETAGNE,dreal bretagne,NAME:dreal bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;50;53;56;72
+17-156331,2017-11-07,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-172986,2017-12-08,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53;72
+17-181054,2017-12-22,Cté de Communes de la Région de Blain,cte de communes de la region de blain,NAME:cte de communes de la region de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-129614,2017-12-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-172862,2017-12-08,ALTER Public,alter public,NAME:alter public,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-170763,2017-12-04,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+17-177418,2017-12-20,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-179112,2017-12-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-174282,2017-12-14,INSERM,inserm,NAME:inserm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,69;70;72;73;75;92
+17-173663,2017-12-16,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-172856,2017-12-08,Mairie de SAINT-VIAUD,mairie de saint-viaud,NAME:mairie de saint-viaud,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+17-178366,2017-12-19,Angers Loire Développement,angers loire developpement,NAME:angers loire developpement,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+17-178496,2017-12-21,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-8615,2018-01-20,GCS eSanté Pays de la Loire,gcs esante pays de la loire,NAME:gcs esante pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-9170,2018-01-24,Communauté Communes La Chataigneraie,communaute communes la chataigneraie,NAME:communaute communes la chataigneraie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,79;85
+18-9081,2018-01-21,Communauté Communes La Chataigneraie,communaute communes la chataigneraie,NAME:communaute communes la chataigneraie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,79;85
+18-11225,2018-01-27,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-6802,2018-01-16,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53;72
+18-14043,2018-01-30,UniHA GCS,uniha gcs,NAME:uniha gcs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;69;75
+18-26455,2018-02-25,université de Rennes 1,universite de rennes 1,NAME:universite de rennes 1,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44;75
+18-15680,2018-02-07,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-18447,2018-02-09,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-14081,2018-02-02,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-20656,2018-02-13,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-21831,2018-02-15,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-22059,2018-02-15,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+18-16076,2018-02-02,Ville d'Avrillé,ville d avrille,NAME:ville d avrille,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-27688,2018-02-27,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-22345,2018-02-17,UniHA GCS,uniha gcs,NAME:uniha gcs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;69;75
+18-20647,2018-02-13,"SEMITAN, mandataire de la CUN",semitan mandataire de la cun,NAME:semitan mandataire de la cun,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-21811,2018-02-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-22305,2018-02-17,UniHA GCS,uniha gcs,NAME:uniha gcs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;69;75
+18-18750,2018-02-08,COMSOPGN,comsopgn,NAME:comsopgn,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;53;72
+18-44171,2018-03-30,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+18-30674,2018-03-07,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-29375,2018-03-01,COMMUNE DE REZE,commune de reze,NAME:commune de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-36652,2018-03-20,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-38591,2018-03-21,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-41248,2018-03-30,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-28651,2018-03-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-37028,2018-03-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-29896,2018-03-02,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-32739,2018-03-08,Commune de La Baule,commune de la baule,NAME:commune de la baule,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-35370,2018-03-14,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-29333,2018-03-01,Comm Comm de Doué la Fontaine,comm comm de doue la fontaine,NAME:comm comm de doue la fontaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-34097,2018-03-12,COMMUNE DE REZE,commune de reze,NAME:commune de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-35949,2018-03-15,COMSOPGN,comsopgn,NAME:comsopgn,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,37;44;49;72;86
+18-35804,2018-03-16,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-28473,2018-03-03,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;75;92
+18-32259,2018-03-07,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-38804,2018-03-20,Commune de La Baule,commune de la baule,NAME:commune de la baule,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-52482,2018-04-21,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-53389,2018-04-20,Caisse des dépôts,caisse des depots,NAME:caisse des depots,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;49;75
+18-58285,2018-04-26,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-55179,2018-04-27,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-43289,2018-04-18,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-55455,2018-04-20,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-56007,2018-04-23,Irstea,irstea,NAME:irstea,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;22;29;35;44;50;53;56
+18-47719,2018-04-08,Chambre Agriculture Pays de la Loire,chambre agriculture pays de la loire,NAME:chambre agriculture pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-57918,2018-04-27,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-50678,2018-04-12,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-52915,2018-04-17,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-56546,2018-04-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-57126,2018-04-24,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-38071,2018-04-13,ADEME,ademe,NAME:ademe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;75
+18-53378,2018-04-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-53804,2018-04-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-53780,2018-04-18,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-46720,2018-04-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-52389,2018-04-18,UniHA GCS,uniha gcs,NAME:uniha gcs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-61256,2018-05-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-61655,2018-05-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-62604,2018-05-17,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-73256,2018-05-30,CIAS VENDEE AUTISE,cias vendee autise,NAME:cias vendee autise,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-67939,2018-05-20,Le Voyage à Nantes,le voyage a nantes,NAME:le voyage a nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-63262,2018-05-07,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+18-73028,2018-05-29,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-72093,2018-05-30,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+18-66502,2018-05-16,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-71594,2018-05-28,Résidences du Val d'Oudon,residences du val d oudon,NAME:residences du val d oudon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-66863,2018-05-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-80158,2018-06-13,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-73364,2018-06-01,CARENE,carene,NAME:carene,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-82638,2018-06-15,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+18-91062,2018-06-29,Ville d'Arnage,ville d arnage,NAME:ville d arnage,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+18-80117,2018-06-14,Mairie de Saint-Gilles-Croix-de-Vie,mairie de saint-gilles-croix-de-vie,NAME:mairie de saint-gilles-croix-de-vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-86637,2018-06-22,MAUGES COMMUNAUTE,mauges communaute,NAME:mauges communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+18-90097,2018-06-30,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-90441,2018-06-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-74690,2018-06-03,CARSAT PAYS DE LOIRE,carsat pays de loire,NAME:carsat pays de loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-85137,2018-06-20,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-86091,2018-06-21,Commune de SOULLANS,commune de soullans,NAME:commune de soullans,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+18-86992,2018-06-22,Ville d'Arnage,ville d arnage,NAME:ville d arnage,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+18-87219,2018-06-24,DIR INTERDEPARTEMENTALE ROUTES OUEST,dir interdepartementale routes ouest,NAME:dir interdepartementale routes ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44
+18-79743,2018-06-11,LYCEE POLYVALENT LEONARD DE VINCI,lycee polyvalent leonard de vinci,NAME:lycee polyvalent leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-74544,2018-06-02,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-79940,2018-06-13,ESAT Foyers,esat foyers,NAME:esat foyers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-104893,2018-07-23,Résidences du Val d'Oudon,residences du val d oudon,NAME:residences du val d oudon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-90616,2018-07-01,CEREMA - DTerMed,cerema - dtermed,NAME:cerema - dtermed,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;30;34;44;75;83;84;91
+18-90932,2018-07-01,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+18-103911,2018-07-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-102396,2018-07-20,IFSTTAR,ifsttar,NAME:ifsttar,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;77
+18-96257,2018-07-10,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-100479,2018-07-19,Loire Atlantique Développement - GIE,loire atlantique developpement - gie,NAME:loire atlantique developpement - gie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-101437,2018-07-18,Université de La Rochelle,universite de la rochelle,NAME:universite de la rochelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;44;75;79;86
+18-108773,2018-07-30,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-97311,2018-07-12,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-94551,2018-07-06,Ville de Saint-Hilaire-de-Riez,ville de saint-hilaire-de-riez,NAME:ville de saint-hilaire-de-riez,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+18-88858,2018-07-01,Commune de Saint-Nazaire,commune de saint-nazaire,NAME:commune de saint-nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-103319,2018-07-20,préfet de la région Pays de la Loire,prefet de la region pays de la loire,NAME:prefet de la region pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-92681,2018-07-03,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-103711,2018-07-22,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-96470,2018-07-12,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-109139,2018-08-01,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-114870,2018-08-12,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-117710,2018-08-21,MAIRIE DE BRISSAC-QUINCE,mairie de brissac-quince,NAME:mairie de brissac-quince,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-114060,2018-08-09,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-122376,2018-08-31,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-110962,2018-08-02,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-111593,2018-08-03,EHPAD RESIDENCES LES CHENES DU BELLAY,ehpad residences les chenes du bellay,NAME:ehpad residences les chenes du bellay,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;79;85
+18-110801,2018-08-21,CTE REG PECHES MARITIMES ELEVAGES MARI,cte reg peches maritimes elevages mari,NAME:cte reg peches maritimes elevages mari,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+18-121895,2018-08-30,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-125586,2018-09-07,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-136146,2018-09-28,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-126061,2018-09-10,ccas de saintes,ccas de saintes,NAME:ccas de saintes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85
+18-130463,2018-09-22,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-127992,2018-09-13,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-134465,2018-09-28,SDIS 44,sdis 44,NAME:sdis 44,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44;50;53;61;72;85
+18-133059,2018-09-24,Communauté d'Agglomération de Saintes,communaute d agglomeration de saintes,NAME:communaute d agglomeration de saintes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85
+18-135183,2018-09-27,Saint Barthélemy d'Anjou,saint barthelemy d anjou,NAME:saint barthelemy d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-131470,2018-09-21,EPCC CHEMINS DU PATRIMOINE,epcc chemins du patrimoine,NAME:epcc chemins du patrimoine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75;92;93
+18-129941,2018-09-20,Bretagne Développement Innovation,bretagne developpement innovation,NAME:bretagne developpement innovation,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;49;53;56;72;85
+18-127661,2018-09-13,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-126992,2018-09-13,ESAT Foyers,esat foyers,NAME:esat foyers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-129881,2018-09-20,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+18-122920,2018-09-03,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-125410,2018-09-07,association songo,association songo,NAME:association songo,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-128159,2018-09-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-143723,2018-10-16,Institution Aménagement de la Vilaine,institution amenagement de la vilaine,NAME:institution amenagement de la vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+18-137985,2018-10-03,GIP MAISON DEP PERSONNES HANDICAPEES,gip maison dep personnes handicapees,NAME:gip maison dep personnes handicapees,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-146989,2018-10-22,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-141219,2018-10-09,Institut Régional Administration Lyon,institut regional administration lyon,NAME:institut regional administration lyon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,38;44;57;59;69
+18-139266,2018-10-07,"SEMITAN, mandataire de la CUN",semitan mandataire de la cun,NAME:semitan mandataire de la cun,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-142560,2018-10-13,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-149889,2018-10-26,Université de La Rochelle,universite de la rochelle,NAME:universite de la rochelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;33;77;85;86
+18-137958,2018-10-03,Le Grand T - Théâtre Loire-Atlantique,le grand t - theatre loire-atlantique,NAME:le grand t - theatre loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-136695,2018-10-01,DEPARTEMENT DE LA MAYENNE,departement de la mayenne,NAME:departement de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72
+18-143391,2018-10-14,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-144285,2018-10-17,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-149893,2018-10-26,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-151434,2018-10-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-148384,2018-10-24,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;52;72;85
+18-151695,2018-10-28,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-137945,2018-10-03,Ville d'Ecouflant,ville d ecouflant,NAME:ville d ecouflant,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+18-145704,2018-10-17,Vendée Habitat - OPH de Vendée,vendee habitat - oph de vendee,NAME:vendee habitat - oph de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-165102,2018-11-26,COM D AGGLO REG NAZAIRIENNE ESTUAIRE,com d agglo reg nazairienne estuaire,NAME:com d agglo reg nazairienne estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-160502,2018-11-16,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+18-157478,2018-11-09,COMMUNE DE REZE,commune de reze,NAME:commune de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-164871,2018-11-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-158087,2018-11-15,SM Mégalis,sm megalis,NAME:sm megalis,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-157794,2018-11-12,COMMUNAUTE COMMUNES PAYS DE REDON,communaute communes pays de redon,NAME:communaute communes pays de redon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+18-163624,2018-11-22,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-167367,2018-11-30,SI ENERGIES DE MAINE ET LOIRE,si energies de maine et loire,NAME:si energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-174630,2018-12-14,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-167431,2018-12-03,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-181130,2018-12-30,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-174547,2018-12-14,Mission Val de Loire (Syndicat Mixte I,mission val de loire syndicat mixte i,NAME:mission val de loire syndicat mixte i,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,37;41;45;49
+18-178145,2018-12-20,Saint Barthélemy d'Anjou,saint barthelemy d anjou,NAME:saint barthelemy d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-180250,2018-12-24,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-173960,2018-12-15,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-170789,2018-12-09,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-179957,2018-12-24,CNAM,cnam,NAME:cnam,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;50;54;72;75;93
+18-179972,2018-12-22,GROUPEMENT D'INTERET PUBLIC ARRONAX,groupement d interet public arronax,NAME:groupement d interet public arronax,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-173792,2018-12-13,SI ENERGIES DE MAINE ET LOIRE,si energies de maine et loire,NAME:si energies de maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+18-175843,2018-12-19,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-179065,2018-12-23,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+18-174875,2018-12-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-177187,2018-12-21,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+18-168544,2018-12-06,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-174360,2018-12-14,EC TRAVX PUB NORMANDIE INST JEAN FRERE,ec travx pub normandie inst jean frere,NAME:ec travx pub normandie inst jean frere,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;27;53;61;72;75;76
+18-166821,2018-12-01,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+18-180161,2018-12-26,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-13728,2019-01-25,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-8820,2019-01-19,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+19-10579,2019-01-21,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-12872,2019-01-24,Communauté d'agglomération du Niortais,communaute d agglomeration du niortais,NAME:communaute d agglomeration du niortais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;44;49;79;85;86;87
+19-5147,2019-01-11,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-2163,2019-01-07,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86
+19-4449,2019-01-12,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-9782,2019-01-18,COM D AGGLO REG NAZAIRIENNE ESTUAIRE,com d agglo reg nazairienne estuaire,NAME:com d agglo reg nazairienne estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-10189,2019-01-21,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-14536,2019-01-28,CENTRE DE GESTION DE LA FONCTION PUBLI,centre de gestion de la fonction publi,NAME:centre de gestion de la fonction publi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-2530,2019-01-10,CTRE NATIONAL D ENST A DISTANCE,ctre national d enst a distance,NAME:ctre national d enst a distance,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-7404,2019-01-18,DIR INTERDEPARTEMENTALE ROUTES OUEST,dir interdepartementale routes ouest,NAME:dir interdepartementale routes ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;53;56
+19-6267,2019-01-23,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-15670,2019-02-01,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-21370,2019-02-08,ESAT Foyers,esat foyers,NAME:esat foyers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-16942,2019-02-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-22491,2019-02-11,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;22;29;35;44;50;56;85
+19-27651,2019-02-20,Comm Comm de Doué la Fontaine,comm comm de doue la fontaine,NAME:comm comm de doue la fontaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-22390,2019-02-13,Agrocampus Ouest,agrocampus ouest,NAME:agrocampus ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;49
+19-22643,2019-02-12,COMMUNE DE LOIRE AUTHION,commune de loire authion,NAME:commune de loire authion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-23754,2019-02-13,B R G M,b r g m,NAME:b r g m,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;49;61
+19-17531,2019-02-03,association songo,association songo,NAME:association songo,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-20943,2019-02-08,MINDEF/SGA/DCSID/ESID Bordeaux,mindef sga dcsid esid bordeaux,NAME:mindef sga dcsid esid bordeaux,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-17376,2019-02-04,SPL OCEAN MARAIS DE MONTS TOURISME,spl ocean marais de monts tourisme,NAME:spl ocean marais de monts tourisme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-19984,2019-02-07,Vendée Grand Littoral,vendee grand littoral,NAME:vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-21591,2019-02-10,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-21908,2019-02-13,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-29459,2019-02-22,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+19-18202,2019-02-04,Ville de Villemomble,ville de villemomble,NAME:ville de villemomble,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,38;44;93
+19-36958,2019-03-14,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-43213,2019-03-20,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-48029,2019-03-27,CC ANJOU BLEU COMMUNAUTE,cc anjou bleu communaute,NAME:cc anjou bleu communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-33752,2019-03-01,CHBR REG METIERS ARTISANAT NOUV AQUIT,chbr reg metiers artisanat nouv aquit,NAME:chbr reg metiers artisanat nouv aquit,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;24;33;44;47;64;79;86
+19-43954,2019-03-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-51014,2019-03-29,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+19-34512,2019-03-06,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;22;35;44;50;53;56;61;75
+19-51024,2019-03-31,Ville d'Ancenis-Saint-Géréon,ville d ancenis-saint-gereon,NAME:ville d ancenis-saint-gereon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-50622,2019-03-29,IPHV LES HAUTS THEBAUDIERES,iphv les hauts thebaudieres,NAME:iphv les hauts thebaudieres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-39813,2019-03-14,DEPARTEMENT DE LA MAYENNE,departement de la mayenne,NAME:departement de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72
+19-41352,2019-03-15,Agence Régionale Pays de la Loire TI,agence regionale pays de la loire ti,NAME:agence regionale pays de la loire ti,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-50828,2019-03-29,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-37169,2019-03-10,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-46133,2019-03-27,CC du Pays des Achards,cc du pays des achards,NAME:cc du pays des achards,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-49300,2019-03-30,Ville de Cholet,ville de cholet,NAME:ville de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+19-50035,2019-03-30,université de Rennes 1,universite de rennes 1,NAME:universite de rennes 1,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+19-52455,2019-04-03,ARS Pays de La Loire,ars pays de la loire,NAME:ars pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-54309,2019-04-25,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-54406,2019-04-09,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-66871,2019-04-26,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-58562,2019-04-11,Commune de Mouilleron le Captif,commune de mouilleron le captif,NAME:commune de mouilleron le captif,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-67912,2019-04-29,SEC GAL POUR L ADM MIN INTERIEUR OUEST,sec gal pour l adm min interieur ouest,NAME:sec gal pour l adm min interieur ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,36;37;41;49;72;79;86
+19-62635,2019-04-21,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-58204,2019-04-13,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-59879,2019-04-15,Université de Nantes,universite de nantes,NAME:universite de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-66602,2019-04-26,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-55110,2019-04-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-69736,2019-05-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-76202,2019-05-15,Université de Rennes 1,universite de rennes 1,NAME:universite de rennes 1,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44;56
+19-79923,2019-05-22,MSA Loire-Atlantique - Vendée,msa loire-atlantique - vendee,NAME:msa loire-atlantique - vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-81650,2019-05-24,Commune de Vallet,commune de vallet,NAME:commune de vallet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;79;85
+19-73211,2019-05-09,Ville de Talmont - Saint Hilaire,ville de talmont - saint hilaire,NAME:ville de talmont - saint hilaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-75324,2019-05-14,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-67059,2019-05-08,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-73678,2019-05-10,Université de Nantes,universite de nantes,NAME:universite de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-74485,2019-05-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-79758,2019-05-23,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+19-81470,2019-05-24,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-82611,2019-05-27,Conseil général de la Vendée,conseil general de la vendee,NAME:conseil general de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-70724,2019-05-03,CAISSE ALLOCATIONS FAMILIALES MORBIHAN,caisse allocations familiales morbihan,NAME:caisse allocations familiales morbihan,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+19-78493,2019-05-20,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-100067,2019-06-30,SEC GAL POUR L ADM MIN INTERIEUR OUEST,sec gal pour l adm min interieur ouest,NAME:sec gal pour l adm min interieur ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;29;35;37;44;45;49;72;76
+19-76134,2019-06-04,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-92746,2019-06-19,CC du Pays des Achards,cc du pays des achards,NAME:cc du pays des achards,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-87996,2019-06-06,MAUGES COMMUNAUTE,mauges communaute,NAME:mauges communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+19-92498,2019-06-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-97686,2019-06-27,SYND DEP D ENERGIE ET D EQPT DE VENDEE,synd dep d energie et d eqpt de vendee,NAME:synd dep d energie et d eqpt de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-98987,2019-06-29,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-95207,2019-06-20,Ville d'Avrillé,ville d avrille,NAME:ville d avrille,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-97324,2019-06-25,CTE ORGAN LILLE METROPOLE CAPITALE MON,cte organ lille metropole capitale mon,NAME:cte organ lille metropole capitale mon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;59;60;62;69;80
+19-87143,2019-06-05,COMMUNE DE REZE,commune de reze,NAME:commune de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-95263,2019-06-20,ville de Coulaines,ville de coulaines,NAME:ville de coulaines,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+19-94580,2019-06-20,CC VENDEE GRAND LITTORAL,cc vendee grand littoral,NAME:cc vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-103229,2019-07-04,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-103833,2019-07-05,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-117534,2019-07-29,COMMUNE DE OMBREE D ANJOU,commune de ombree d anjou,NAME:commune de ombree d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53
+19-105133,2019-07-10,Ville de Château-Gontier,ville de chateau-gontier,NAME:ville de chateau-gontier,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+19-117771,2019-07-29,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-110681,2019-07-16,CC VENDEE GRAND LITTORAL,cc vendee grand littoral,NAME:cc vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+19-101998,2019-07-04,Mairie de Coueron,mairie de coueron,NAME:mairie de coueron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;85
+19-115344,2019-07-26,FONDATION PARTENARIALE POLYTECH,fondation partenariale polytech,NAME:fondation partenariale polytech,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;44;59;69;75;91;92;94
+19-116578,2019-07-27,Chambre Agriculture Pays de la Loire,chambre agriculture pays de la loire,NAME:chambre agriculture pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-110311,2019-07-16,EPF de la Vendée,epf de la vendee,NAME:epf de la vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-117328,2019-07-26,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-106429,2019-07-11,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-103253,2019-07-06,Communauté de Cnes Terres de Montaigu,communaute de cnes terres de montaigu,NAME:communaute de cnes terres de montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-105305,2019-07-08,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-103125,2019-07-04,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-109687,2019-07-17,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-108933,2019-07-12,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-105083,2019-07-10,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-112016,2019-07-21,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-114079,2019-07-24,Baie de Somme Habitat,baie de somme habitat,NAME:baie de somme habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-107821,2019-07-12,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-118070,2019-07-29,MAUGES COMMUNAUTE,mauges communaute,NAME:mauges communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+19-109269,2019-08-02,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-125270,2019-08-14,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-119269,2019-08-02,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-123920,2019-08-09,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-125363,2019-08-13,GIP ESEA Nouvelle-Aquitaine,gip esea nouvelle-aquitaine,NAME:gip esea nouvelle-aquitaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;31;33;44;64;69;75;86;87
+19-130305,2019-08-27,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-123299,2019-08-09,MINDEF/EMA/DC SCA/PFAF CO Rennes,mindef ema dc sca pfaf co rennes,NAME:mindef ema dc sca pfaf co rennes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;37;49;75
+19-136771,2019-09-09,Commune de Basse-Goulaine,commune de basse-goulaine,NAME:commune de basse-goulaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-138013,2019-09-13,CHBR REG METIERS ARTISANAT NOUV AQUIT,chbr reg metiers artisanat nouv aquit,NAME:chbr reg metiers artisanat nouv aquit,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;33;44;64;75;86;87
+19-140517,2019-09-18,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86
+19-145845,2019-09-26,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-154710,2019-10-11,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-161349,2019-10-25,CCI METROPOLITAINE BRETAGNE OUEST,cci metropolitaine bretagne ouest,NAME:cci metropolitaine bretagne ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;29;35;44;59;64;75;85;99
+19-156877,2019-10-16,Ville d'Ancenis-Saint-Géréon,ville d ancenis-saint-gereon,NAME:ville d ancenis-saint-gereon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-151382,2019-10-09,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-156899,2019-10-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-164716,2019-10-31,Conservatoire du littoral,conservatoire du littoral,NAME:conservatoire du littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;33;44;75
+19-164854,2019-10-31,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+19-148074,2019-10-01,OTI du Pays de St Gilles Croix de Vie,oti du pays de st gilles croix de vie,NAME:oti du pays de st gilles croix de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-152025,2019-10-08,Communauté de Communes de Grand Lieu,communaute de communes de grand lieu,NAME:communaute de communes de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-157248,2019-10-16,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-158679,2019-10-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-155590,2019-10-16,ETABLISSEMENT PUBLIC DU MARAIS POITEVI,etablissement public du marais poitevi,NAME:etablissement public du marais poitevi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-165780,2019-10-31,OTI du Pays de St Gilles Croix de Vie,oti du pays de st gilles croix de vie,NAME:oti du pays de st gilles croix de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-147530,2019-10-02,Université de La Rochelle,universite de la rochelle,NAME:universite de la rochelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;79;85;86
+19-160506,2019-10-24,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-160018,2019-10-21,LYCEE POLYVALENT LEONARD DE VINCI,lycee polyvalent leonard de vinci,NAME:lycee polyvalent leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-153997,2019-10-10,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-172484,2019-11-20,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-173999,2019-11-21,Sembreizh société,sembreizh societe,NAME:sembreizh societe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+19-175959,2019-11-24,Commune de Beaupréau en Mauges,commune de beaupreau en mauges,NAME:commune de beaupreau en mauges,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-166357,2019-11-05,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-178175,2019-11-27,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-173933,2019-11-21,Sembreizh société,sembreizh societe,NAME:sembreizh societe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56
+19-174440,2019-11-21,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-175998,2019-11-24,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86
+19-180074,2019-12-02,Mairie de Coueron,mairie de coueron,NAME:mairie de coueron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;85
+19-189603,2019-12-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-191665,2019-12-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-190109,2019-12-20,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-189255,2019-12-21,Communauté de Cnes Terres de Montaigu,communaute de cnes terres de montaigu,NAME:communaute de cnes terres de montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-181049,2019-12-05,CCI de région Bretagne,cci de region bretagne,NAME:cci de region bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75
+19-179524,2019-12-01,COMMUNE DE MAUGES SUR LOIRE,commune de mauges sur loire,NAME:commune de mauges sur loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+19-180395,2019-12-04,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-184300,2019-12-12,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-189628,2019-12-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-182466,2019-12-06,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+19-189641,2019-12-22,Communauté de Cnes Terres de Montaigu,communaute de cnes terres de montaigu,NAME:communaute de cnes terres de montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+19-186303,2019-12-13,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-4011,2020-01-12,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-10746,2020-01-23,MAIRIE DE LA CHAPELLE SUR ERDRE,mairie de la chapelle sur erdre,NAME:mairie de la chapelle sur erdre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-4259,2020-01-12,SYDELA,sydela,NAME:sydela,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53
+20-6485,2020-01-19,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-6019,2020-01-14,Cté de Communes de la Région de Blain,cte de communes de la region de blain,NAME:cte de communes de la region de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-8882,2020-01-20,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-13447,2020-01-28,INRA ANGERS NANTES,inra angers nantes,NAME:inra angers nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-8874,2020-01-22,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+20-12070,2020-01-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-11000,2020-01-25,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-8243,2020-01-17,OTI du Pays de St Gilles Croix de Vie,oti du pays de st gilles croix de vie,NAME:oti du pays de st gilles croix de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-9474,2020-01-21,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-17362,2020-02-04,Vendée Habitat - OPH de Vendée,vendee habitat - oph de vendee,NAME:vendee habitat - oph de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+20-31194,2020-02-28,COMMUNE DE REZE,commune de reze,NAME:commune de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-23104,2020-02-15,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;69;75;86;92;93;94
+20-29934,2020-02-28,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-21049,2020-02-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-26328,2020-02-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-26585,2020-02-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-25276,2020-02-21,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-27109,2020-02-23,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-28158,2020-02-26,SGAMI OUEST,sgami ouest,NAME:sgami ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;45;76
+20-19709,2020-02-07,CC Sud Vendée Littoral,cc sud vendee littoral,NAME:cc sud vendee littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-23136,2020-02-15,Ferme Experimentale Laitiere Des Trino,ferme experimentale laitiere des trino,NAME:ferme experimentale laitiere des trino,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-21555,2020-02-12,EPCC ESBANM,epcc esbanm,NAME:epcc esbanm,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-17796,2020-02-04,CC VENDEE GRAND LITTORAL,cc vendee grand littoral,NAME:cc vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-35774,2020-03-11,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-37940,2020-03-14,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-40507,2020-03-17,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-32203,2020-03-06,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-34799,2020-03-08,ECOLE NATIONALE SUPERIEURE MARITIME,ecole nationale superieure maritime,NAME:ecole nationale superieure maritime,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;35;44;75;76
+20-31844,2020-03-04,Université de Nantes,universite de nantes,NAME:universite de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+20-38453,2020-03-15,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+20-34392,2020-03-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-39206,2020-03-16,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-56877,2020-04-24,Ville d'Ecouflant,ville d ecouflant,NAME:ville d ecouflant,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+20-48471,2020-04-03,SONADEV GIE,sonadev gie,NAME:sonadev gie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-54283,2020-04-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-48491,2020-04-03,Ville de Saumur,ville de saumur,NAME:ville de saumur,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-51762,2020-04-18,SRD,srd,NAME:srd,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;37;79;85;86;87
+20-56147,2020-04-23,COMMUNE DE OMBREE D ANJOU,commune de ombree d anjou,NAME:commune de ombree d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-50348,2020-04-08,Cté de Communes de la Région de Blain,cte de communes de la region de blain,NAME:cte de communes de la region de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-49949,2020-04-30,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-47343,2020-04-02,CCI METROPOLITAINE BRETAGNE OUEST,cci metropolitaine bretagne ouest,NAME:cci metropolitaine bretagne ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75;92
+20-52194,2020-04-14,Mairie de Coueron,mairie de coueron,NAME:mairie de coueron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;72;85
+20-54010,2020-04-19,Adoma,adoma,NAME:adoma,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;31;33;44;59;69;75;78;92
+20-54626,2020-04-22,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;75;86;92;93
+20-68352,2020-05-28,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-68370,2020-05-26,SYND DEP D ENERGIE ET D EQPT DE VENDEE,synd dep d energie et d eqpt de vendee,NAME:synd dep d energie et d eqpt de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-63872,2020-05-14,Ville de Morlaix,ville de morlaix,NAME:ville de morlaix,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75
+20-57925,2020-05-07,LA ROCHE-SUR-YON AGGLOMERATION,la roche-sur-yon agglomeration,NAME:la roche-sur-yon agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+20-59913,2020-05-04,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-65717,2020-05-20,ASSOCIATION E-TOILE,association e-toile,NAME:association e-toile,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;35;45;49;86
+20-66643,2020-05-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-61243,2020-05-07,ANGERS NANTES OPERA syndicat mixte,angers nantes opera syndicat mixte,NAME:angers nantes opera syndicat mixte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-63787,2020-05-14,lycée Livet,lycee livet,NAME:lycee livet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+20-70268,2020-05-29,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-61130,2020-05-08,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-60892,2020-05-06,ANGERS NANTES OPERA syndicat mixte,angers nantes opera syndicat mixte,NAME:angers nantes opera syndicat mixte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-64610,2020-05-17,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-67250,2020-05-22,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-79138,2020-06-19,AGCE POUR L ENST FR A L ETRANGER,agce pour l enst fr a l etranger,NAME:agce pour l enst fr a l etranger,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+20-71610,2020-06-07,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-75569,2020-06-14,CROUS de Nantes,crous de nantes,NAME:crous de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;72;85
+20-74255,2020-06-10,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-82730,2020-06-29,SOC PUBLIQUE REG ABE DE FONTEVRAUD,soc publique reg abe de fontevraud,NAME:soc publique reg abe de fontevraud,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-72064,2020-06-06,DIR Ouest,dir ouest,NAME:dir ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49
+20-76288,2020-06-17,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+20-78012,2020-06-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-81059,2020-06-24,MAUGES COMMUNAUTE,mauges communaute,NAME:mauges communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+20-85580,2020-07-05,Communauté de Communes Vie et Boulogne,communaute de communes vie et boulogne,NAME:communaute de communes vie et boulogne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-86183,2020-07-06,DRAGAGES PORTS,dragages ports,NAME:dragages ports,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;75;76
+20-91517,2020-07-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-91116,2020-07-16,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-91874,2020-07-17,DRAGAGES PORTS,dragages ports,NAME:dragages ports,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;59;75;76
+20-91196,2020-07-19,Espacil Habitat,espacil habitat,NAME:espacil habitat,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;75;78;92
+20-86796,2020-07-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-87505,2020-07-08,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-89169,2020-07-12,Caf de la Sarthe,caf de la sarthe,NAME:caf de la sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;72
+20-101410,2020-08-15,COMSOPGN,comsopgn,NAME:comsopgn,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+20-98264,2020-08-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-98214,2020-08-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-104420,2020-08-21,COMMUNE DE CHEMILLE EN ANJOU,commune de chemille en anjou,NAME:commune de chemille en anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-106651,2020-08-28,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-107792,2020-09-01,COM D AGGLO REG NAZAIRIENNE ESTUAIRE,com d agglo reg nazairienne estuaire,NAME:com d agglo reg nazairienne estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-114714,2020-09-20,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-107502,2020-09-04,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-115005,2020-09-21,Pôle emploi Pays de la Loire,pole emploi pays de la loire,NAME:pole emploi pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+20-117677,2020-09-27,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-115663,2020-09-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-129474,2020-10-21,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+20-120545,2020-10-04,DIR INTERDEPARTEMENTALE DES RTE OUEST,dir interdepartementale des rte ouest,NAME:dir interdepartementale des rte ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44
+20-122021,2020-10-06,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+20-131816,2020-10-29,Etablissement public foncier Bretagne,etablissement public foncier bretagne,NAME:etablissement public foncier bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;49;50;53;56
+20-122198,2020-10-06,ANGERS NANTES OPERA syndicat mixte,angers nantes opera syndicat mixte,NAME:angers nantes opera syndicat mixte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-126566,2020-10-15,CHAMBRE REG AGRI PAYS DE LA LOIRE,chambre reg agri pays de la loire,NAME:chambre reg agri pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-131075,2020-10-23,COMMUNE DE CHEMILLE EN ANJOU,commune de chemille en anjou,NAME:commune de chemille en anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-124795,2020-10-12,SDE35,sde35,NAME:sde35,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44
+20-132336,2020-11-08,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-139000,2020-11-27,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-142134,2020-11-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-134550,2020-11-03,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-140005,2020-11-16,LYCEE POLYVALENT LEONARD DE VINCI,lycee polyvalent leonard de vinci,NAME:lycee polyvalent leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+20-134920,2020-11-05,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-143279,2020-12-08,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-148947,2020-12-07,CNFPT Délégation des Pays de la Loire,cnfpt delegation des pays de la loire,NAME:cnfpt delegation des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-155373,2020-12-18,CA Agglomération du Choletais,ca agglomeration du choletais,NAME:ca agglomeration du choletais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+20-153801,2020-12-18,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+20-158264,2020-12-28,Museum National d'Histoire Naturelle,museum national d histoire naturelle,NAME:museum national d histoire naturelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;17;44;50;62;75;76;85
+20-149342,2020-12-08,Museum National d'Histoire Naturelle,museum national d histoire naturelle,NAME:museum national d histoire naturelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;17;44;50;62;75;76;85
+21-4157,2021-01-11,SAINT NAZAIRE AGGLOMERATION TOURISME,saint nazaire agglomeration tourisme,NAME:saint nazaire agglomeration tourisme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-7561,2021-01-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-10110,2021-01-22,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-11178,2021-01-25,SAINT NAZAIRE AGGLOMERATION TOURISME,saint nazaire agglomeration tourisme,NAME:saint nazaire agglomeration tourisme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-11209,2021-01-25,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;75;86;91;92;93
+21-8751,2021-01-22,CENTRE DE GESTION DE LA FONCTION PUBLI,centre de gestion de la fonction publi,NAME:centre de gestion de la fonction publi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-11865,2021-01-26,Cté de Communes de la Région de Blain,cte de communes de la region de blain,NAME:cte de communes de la region de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-20759,2021-02-12,ARAFER,arafer,NAME:arafer,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+21-24011,2021-02-19,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-13699,2021-02-03,Communauté de communes de sablé,communaute de communes de sable,NAME:communaute de communes de sable,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;53;72
+21-13474,2021-02-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-16248,2021-02-04,IFTH,ifth,NAME:ifth,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;69;72;75;85
+21-24515,2021-02-22,IFTH,ifth,NAME:ifth,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;69;72;75;85
+21-23643,2021-02-19,Vendée Habitat - OPH de Vendée,vendee habitat - oph de vendee,NAME:vendee habitat - oph de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-25169,2021-02-23,Orchestre National des Pays de la Loir,orchestre national des pays de la loir,NAME:orchestre national des pays de la loir,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+21-21301,2021-02-15,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-22622,2021-02-19,SIRI 49,siri 49,NAME:siri 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-14518,2021-02-01,Communauté d'agglomération du Niortais,communaute d agglomeration du niortais,NAME:communaute d agglomeration du niortais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;37;79;85
+21-20640,2021-02-12,Communauté de communes de sablé,communaute de communes de sable,NAME:communaute de communes de sable,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;53;72
+21-29866,2021-03-07,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-35279,2021-03-16,IFTH,ifth,NAME:ifth,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;72;75
+21-28206,2021-03-02,SAINT NAZAIRE AGGLOMERATION TOURISME,saint nazaire agglomeration tourisme,NAME:saint nazaire agglomeration tourisme,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-34147,2021-03-15,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-36205,2021-03-20,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-42540,2021-03-30,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-40300,2021-03-27,UNICANCER ACHATS,unicancer achats,NAME:unicancer achats,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;31;44;69;75;92;94
+21-36213,2021-03-18,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;33;37;44;49;79;85;86
+21-35939,2021-03-19,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-31336,2021-03-09,COM D AGGLO REG NAZAIRIENNE ESTUAIRE,com d agglo reg nazairienne estuaire,NAME:com d agglo reg nazairienne estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-30471,2021-03-08,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-30450,2021-03-11,CRDC LE LIEU UNIQUE,crdc le lieu unique,NAME:crdc le lieu unique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-37673,2021-03-24,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-41109,2021-03-26,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-42477,2021-03-30,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-29764,2021-03-05,MONTREVAULT-SUR-ÈVRE,montrevault-sur-evre,NAME:montrevault-sur-evre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-45579,2021-04-08,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-48350,2021-04-12,CCI de région Bretagne,cci de region bretagne,NAME:cci de region bretagne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;75;92
+21-50004,2021-04-16,Comcom Estuaire et Sillon,comcom estuaire et sillon,NAME:comcom estuaire et sillon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-48340,2021-04-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-53955,2021-04-24,DIR INTERDEPARTEMENTALE DES RTE OUEST,dir interdepartementale des rte ouest,NAME:dir interdepartementale des rte ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;49;53;56
+21-53968,2021-04-24,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-57276,2021-04-29,Syndicat Mixte Chère Don Isac,syndicat mixte chere don isac,NAME:syndicat mixte chere don isac,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-49520,2021-04-13,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86;87
+21-44088,2021-04-04,Communauté de communes de sablé,communaute de communes de sable,NAME:communaute de communes de sable,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;72
+21-45078,2021-04-04,SIRI 49,siri 49,NAME:siri 49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-51620,2021-04-18,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-60810,2021-05-05,Mairie de Coueron,mairie de coueron,NAME:mairie de coueron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;72;85
+21-69124,2021-05-23,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-66086,2021-05-17,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-62138,2021-05-07,Conseil régional des Pays de la Loire,conseil regional des pays de la loire,NAME:conseil regional des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+21-60721,2021-05-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-71012,2021-05-27,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;72
+21-67011,2021-05-20,SYND DEP D ENERGIE ET D EQPT DE VENDEE,synd dep d energie et d eqpt de vendee,NAME:synd dep d energie et d eqpt de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-69590,2021-05-25,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-73723,2021-06-01,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+21-85842,2021-06-25,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-77546,2021-06-10,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-90254,2021-06-30,Communauté Communes Parthenay-Gâtine,communaute communes parthenay-gatine,NAME:communaute communes parthenay-gatine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86;87
+21-77056,2021-06-07,DESTINATION RENNES Tourisme Congrès,destination rennes tourisme congres,NAME:destination rennes tourisme congres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;56;67;69;72;91
+21-78352,2021-06-09,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-86124,2021-06-23,SYDELA,sydela,NAME:sydela,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-83144,2021-06-19,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-88585,2021-06-30,ENSA Nantes,ensa nantes,NAME:ensa nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-80765,2021-06-14,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-85552,2021-06-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-84240,2021-06-18,ComCom des Vallées du Haut-Anjou,comcom des vallees du haut-anjou,NAME:comcom des vallees du haut-anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-78393,2021-06-11,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-75719,2021-06-04,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-76081,2021-06-04,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-76634,2021-06-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-76694,2021-06-07,CAISSE PRIMAIRE ASSUR MALADIE MAINE LO,caisse primaire assur maladie maine lo,NAME:caisse primaire assur maladie maine lo,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-102565,2021-07-24,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-90937,2021-07-01,MAIRIE DE LA CHAPELLE SUR ERDRE,mairie de la chapelle sur erdre,NAME:mairie de la chapelle sur erdre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-99793,2021-07-16,SGAMI OUEST,sgami ouest,NAME:sgami ouest,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,27;28;41;45;72;91
+21-93999,2021-07-09,COMMUNE DE OMBREE D ANJOU,commune de ombree d anjou,NAME:commune de ombree d anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53
+21-96114,2021-07-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-104861,2021-07-27,DESTINATION RENNES Tourisme Congrès,destination rennes tourisme congres,NAME:destination rennes tourisme congres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;53;56;69;72;75;91
+21-96769,2021-07-12,Ville de Sablé sur Sarthe,ville de sable sur sarthe,NAME:ville de sable sur sarthe,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49;72
+21-93968,2021-07-07,Ville de Parthenay,ville de parthenay,NAME:ville de parthenay,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;79;85;86;87
+21-104443,2021-07-29,DIR REG ENVIR AMENAGEMENT LOGT BRETAGN,dir reg envir amenagement logt bretagn,NAME:dir reg envir amenagement logt bretagn,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;22;27;29;35;44;50;56;85
+21-92363,2021-07-05,SOC PUBLIQUE REG ABE DE FONTEVRAUD,soc publique reg abe de fontevraud,NAME:soc publique reg abe de fontevraud,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-93803,2021-07-06,SEM CENOVIA,sem cenovia,NAME:sem cenovia,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+21-97876,2021-07-15,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-92788,2021-07-05,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-105103,2021-07-28,CC VENDEE GRAND LITTORAL,cc vendee grand littoral,NAME:cc vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-111863,2021-08-13,Conseil départemental Loire-Atlantique,conseil departemental loire-atlantique,NAME:conseil departemental loire-atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-117127,2021-08-31,SCE DEPARTEMENTAL INCENDIE ET SECOURS,sce departemental incendie et secours,NAME:sce departemental incendie et secours,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-113571,2021-08-19,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+20-7510,2021-08-06,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-111036,2021-08-13,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-114338,2021-08-24,CC DU PAYS DE ST FULGENT LES ESSARTS,cc du pays de st fulgent les essarts,NAME:cc du pays de st fulgent les essarts,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-117181,2021-08-31,SATT OUEST VALORISATION,satt ouest valorisation,NAME:satt ouest valorisation,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44
+21-121431,2021-09-30,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-120100,2021-09-10,Ville de Larmor-plage,ville de larmor-plage,NAME:ville de larmor-plage,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+21-118513,2021-09-02,Communautédecommunesentrebeauceetperch,communautedecommunesentrebeauceetperch,NAME:communautedecommunesentrebeauceetperch,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,27;28;36;37;41;45;61;72;91
+21-124267,2021-09-18,MEDDE / DGAC / SCN / SSIM,medde dgac scn ssim,NAME:medde dgac scn ssim,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;31;44;59;64;91
+21-122032,2021-09-10,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-126092,2021-09-23,CA LES SABLES D OLONNE AGGLOMERATION,ca les sables d olonne agglomeration,NAME:ca les sables d olonne agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-121452,2021-09-11,CC VENDEE GRAND LITTORAL,cc vendee grand littoral,NAME:cc vendee grand littoral,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-125688,2021-09-22,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-125738,2021-09-20,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-123168,2021-09-14,Commune du Cellier,commune du cellier,NAME:commune du cellier,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-138925,2021-10-18,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-144057,2021-10-26,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;85
+21-137487,2021-10-15,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-139413,2021-10-20,MAIRIE DE LA CHAPELLE SUR ERDRE,mairie de la chapelle sur erdre,NAME:mairie de la chapelle sur erdre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-129937,2021-10-01,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-141864,2021-10-24,CCIR Pays de la Loire,ccir pays de la loire,NAME:ccir pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-143183,2021-10-25,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-132073,2021-10-01,SDE35,sde35,NAME:sde35,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44
+21-135182,2021-10-08,Régie Dépt Passages d'Eau de Vendée,regie dept passages d eau de vendee,NAME:regie dept passages d eau de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-138338,2021-10-15,CC PAYS DE FONTENAY VENDEE,cc pays de fontenay vendee,NAME:cc pays de fontenay vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-144079,2021-10-28,Ecole National Sup. d'Arts et Métiers,ecole national sup d arts et metiers,NAME:ecole national sup d arts et metiers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;33;49;51;57;59;71;75
+21-141238,2021-10-21,Cté de Communes de la Région de Blain,cte de communes de la region de blain,NAME:cte de communes de la region de blain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-143481,2021-10-26,SCA/PFAF SO,sca pfaf so,NAME:sca pfaf so,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,19;31;38;56;57;63;68;72;88
+21-145412,2021-10-31,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-142703,2021-10-27,CHAMBRE REG AGRI PAYS DE LA LOIRE,chambre reg agri pays de la loire,NAME:chambre reg agri pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,14;35;49;71;75
+21-134527,2021-10-07,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+21-133662,2021-10-08,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-133433,2021-10-05,SYNDICAT MIXTE POUR LE DVLPT NUMERIQUE,syndicat mixte pour le dvlpt numerique,NAME:syndicat mixte pour le dvlpt numerique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+21-152470,2021-11-17,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-153479,2021-11-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-147552,2021-11-04,CDC du Pays de Saint Gilles Cx de Vie,cdc du pays de saint gilles cx de vie,NAME:cdc du pays de saint gilles cx de vie,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-155128,2021-11-23,CD 44,cd 44,NAME:cd 44,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-155377,2021-11-24,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;17;44;75;76;78;79;85;86
+21-147677,2021-11-06,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-150615,2021-11-14,Institut Régional Administration Lyon,institut regional administration lyon,NAME:institut regional administration lyon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;57;59;69;75
+21-152380,2021-11-17,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-148591,2021-11-10,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+21-150402,2021-11-14,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-146751,2021-11-05,SDIS 29,sdis 29,NAME:sdis 29,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,19;22;29;35;53;56;61;72
+21-156687,2021-11-28,Communauté de Cnes Terres de Montaigu,communaute de cnes terres de montaigu,NAME:communaute de cnes terres de montaigu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-153063,2021-11-18,CD 44,cd 44,NAME:cd 44,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-156783,2021-11-26,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-157771,2021-11-30,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+21-151331,2021-11-17,FONDATION PARTENARIALE POLYTECH,fondation partenariale polytech,NAME:fondation partenariale polytech,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-155709,2021-11-26,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;33;34;35;44;59;69;75;83
+21-163566,2021-12-13,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-163822,2021-12-16,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-167647,2021-12-23,GEVES,geves,NAME:geves,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,37;49;53;72;86
+21-161507,2021-12-08,SYDELA,sydela,NAME:sydela,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+21-162413,2021-12-10,Ville d'Avrillé,ville d avrille,NAME:ville d avrille,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+21-160384,2021-12-06,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+21-161861,2021-12-09,COMMUNE DE SAINT NAZAIRE,commune de saint nazaire,NAME:commune de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-6934,2022-01-13,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-12003,2022-01-26,Laval Agglomération,laval agglomeration,NAME:laval agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+22-13674,2022-01-28,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-24441,2022-02-18,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-26998,2022-02-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-19299,2022-02-09,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-19646,2022-02-09,Rectorat de l'Académie de Nantes,rectorat de l academie de nantes,NAME:rectorat de l academie de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+22-12758,2022-02-03,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-24902,2022-02-21,Angers Loire Métropole,angers loire metropole,NAME:angers loire metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72
+22-16199,2022-02-03,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,11;13;15;53;62;67;75;86
+22-41834,2022-03-22,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-34888,2022-03-11,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-39891,2022-03-19,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-40106,2022-03-17,COMMUNE DE LOIRE AUTHION,commune de loire authion,NAME:commune de loire authion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-39212,2022-03-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-38397,2022-03-17,GROUPEMENT D INTERET PUBLIC PIX,groupement d interet public pix,NAME:groupement d interet public pix,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75;77;78;91;92;93;94;95
+22-48008,2022-04-03,UNICANCER ACHATS,unicancer achats,NAME:unicancer achats,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+22-50379,2022-04-10,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-46762,2022-04-02,Territoire d'Énergie de Mayenne,territoire d energie de mayenne,NAME:territoire d energie de mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+22-54446,2022-04-16,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-48493,2022-04-04,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-50687,2022-04-07,Mairie de Coueron,mairie de coueron,NAME:mairie de coueron,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;56;72;85
+22-52027,2022-04-13,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-57715,2022-04-22,SATT OUEST VALORISATION,satt ouest valorisation,NAME:satt ouest valorisation,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44
+22-72719,2022-05-22,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-68207,2022-05-14,Université de Rennes 1,universite de rennes 1,NAME:universite de rennes 1,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44;75
+22-64763,2022-05-13,Lycée professionnel Léonard de Vinci,lycee professionnel leonard de vinci,NAME:lycee professionnel leonard de vinci,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+22-64560,2022-05-07,INSEE,insee,NAME:insee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;92
+22-89869,2022-06-28,CAISSE PRIMAIRE ASSUR MALADIE MAINE LO,caisse primaire assur maladie maine lo,NAME:caisse primaire assur maladie maine lo,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;72
+22-87044,2022-06-21,UBS,ubs,NAME:ubs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;56
+22-82130,2022-06-15,Chambre Agriculture Pays de la Loire,chambre agriculture pays de la loire,NAME:chambre agriculture pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-76804,2022-06-02,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-102777,2022-07-24,Université de Rennes 1,universite de rennes 1,NAME:universite de rennes 1,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44
+22-103042,2022-07-24,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-102191,2022-07-24,Rectorat Division Scus,rectorat division scus,NAME:rectorat division scus,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;37;44;49;56;72;75;85
+22-93332,2022-07-06,Vendée Expansion,vendee expansion,NAME:vendee expansion,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-102371,2022-07-24,Commune de VALLONS-DE-L'ERDRE,commune de vallons-de-l erdre,NAME:commune de vallons-de-l erdre,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+22-105844,2022-07-30,ACOSS,acoss,NAME:acoss,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,11;13;14;44;54;59;93
+22-94454,2022-07-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-102623,2022-07-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-92446,2022-07-03,GEVES,geves,NAME:geves,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+22-92531,2022-07-06,CC CHALLANS GOIS COMMUNAUTE,cc challans gois communaute,NAME:cc challans gois communaute,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-99431,2022-07-17,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-111359,2022-08-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-113812,2022-08-24,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-113250,2022-08-19,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-108057,2022-08-06,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-121609,2022-09-11,Agence Régionale de Santé (ARS),agence regionale de sante ars,NAME:agence regionale de sante ars,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;44;51;63;69;73;74;75;93
+22-118191,2022-09-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-123214,2022-09-16,Bibliothèque nationale de France,bibliotheque nationale de france,NAME:bibliotheque nationale de france,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75;77
+22-128177,2022-09-28,VENDEE,vendee,NAME:vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-127675,2022-09-25,Conseil régional des Pays de la Loire,conseil regional des pays de la loire,NAME:conseil regional des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+22-120139,2022-09-08,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+22-141252,2022-10-20,Réseau Canopé,reseau canope,NAME:reseau canope,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,33;44;69;75;86;92;93
+22-143552,2022-10-27,CMAR Pays de La Loire,cmar pays de la loire,NAME:cmar pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-137740,2022-10-15,CNAM,cnam,NAME:cnam,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+22-145708,2022-10-30,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-133794,2022-10-08,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-135485,2022-10-20,SEMITAN mandataire de Nantes Métropole,semitan mandataire de nantes metropole,NAME:semitan mandataire de nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-145122,2022-10-27,ville de Coulaines,ville de coulaines,NAME:ville de coulaines,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+22-138409,2022-10-18,EPTB Vilaine,eptb vilaine,NAME:eptb vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+22-137807,2022-10-14,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-138398,2022-10-16,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-150567,2022-11-12,GEVES,geves,NAME:geves,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+22-153504,2022-11-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-146829,2022-11-04,L'OPCOMMERCE,l opcommerce,NAME:l opcommerce,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,21;35;37;44;59;67;69;75
+22-150892,2022-11-10,ville de Coulaines,ville de coulaines,NAME:ville de coulaines,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+22-154906,2022-11-22,EPTB Vilaine,eptb vilaine,NAME:eptb vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+22-146330,2022-11-02,VENDEE,vendee,NAME:vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-154717,2022-11-23,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-165917,2022-12-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-166987,2022-12-19,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-166133,2022-12-18,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-157410,2022-12-03,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+22-164942,2022-12-16,Syndicat D'Eau de l'Anjou,syndicat d eau de l anjou,NAME:syndicat d eau de l anjou,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+22-166149,2022-12-18,GIE des EPL de Vendée,gie des epl de vendee,NAME:gie des epl de vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+22-168942,2022-12-23,SPR Pays de la Loire,spr pays de la loire,NAME:spr pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;72;75;92
+23-2072,2023-01-07,Ville de Bouguenais,ville de bouguenais,NAME:ville de bouguenais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-8217,2023-01-19,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+23-24020,2023-02-23,Ville de Cholet,ville de cholet,NAME:ville de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;85
+23-24753,2023-02-23,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-20884,2023-02-15,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-22379,2023-02-18,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-31575,2023-03-10,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-34705,2023-03-17,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-39981,2023-03-26,DEPAFI,depafi,NAME:depafi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72;75
+23-37068,2023-03-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-30906,2023-03-09,Société d'équipement de la Touraine,societe d equipement de la touraine,NAME:societe d equipement de la touraine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,18;36;37;41;45;72;86
+23-37461,2023-03-22,Adoma,adoma,NAME:adoma,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;44;57;75
+23-33058,2023-03-12,SPL EAU DU BASSIN RENNAIS,spl eau du bassin rennais,NAME:spl eau du bassin rennais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44;56;75;77;78;91;92
+23-41937,2023-03-31,VENDEE,vendee,NAME:vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+23-38908,2023-03-26,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-39978,2023-04-01,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-56541,2023-04-27,Ville de Lagord,ville de lagord,NAME:ville de lagord,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,16;17;85;86
+23-57565,2023-04-28,VENDEE,vendee,NAME:vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+23-47137,2023-04-09,Ville d'Angers,ville d angers,NAME:ville d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-56091,2023-04-26,UBS,ubs,NAME:ubs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44;56
+23-43763,2023-04-02,CNIEG,cnieg,NAME:cnieg,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-45351,2023-04-04,Ecole National Sup. d'Arts et Métiers,ecole national sup d arts et metiers,NAME:ecole national sup d arts et metiers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-58292,2023-04-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-61473,2023-05-06,Ministère des Affaires étrangères,ministere des affaires etrangeres,NAME:ministere des affaires etrangeres,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;75
+23-61217,2023-05-06,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-62267,2023-05-07,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;53;72
+23-83727,2023-06-19,TERRITOIRE ENERGIE LOIRE ATLANTIQUE,territoire energie loire atlantique,NAME:territoire energie loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-76010,2023-06-07,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-75513,2023-06-04,UNICANCER ACHATS,unicancer achats,NAME:unicancer achats,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49
+23-103126,2023-07-19,UBS,ubs,NAME:ubs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+23-102666,2023-07-21,DIRISI,dirisi,NAME:dirisi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,11;18;51;75;82;85;91
+23-96123,2023-07-09,CTRE HOSP UNIVERSITAIRE ANGERS,ctre hosp universitaire angers,NAME:ctre hosp universitaire angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-102275,2023-07-20,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;85
+23-93422,2023-07-06,Ville de Nantes,ville de nantes,NAME:ville de nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-99733,2023-07-15,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+23-98709,2023-07-14,UBS,ubs,NAME:ubs,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;56
+23-102643,2023-07-22,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-108336,2023-07-30,DSI de Pôle emploi,dsi de pole emploi,NAME:dsi de pole emploi,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,34;44;45;75;91;93
+23-91361,2023-07-08,TERRITOIRE ENERGIE LOIRE ATLANTIQUE,territoire energie loire atlantique,NAME:territoire energie loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-91904,2023-07-07,METROPOLE NANTES METROPOLE,metropole nantes metropole,NAME:metropole nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-96562,2023-07-07,GROUPEMENT D'INTERET PUBLIC ARRONAX,groupement d interet public arronax,NAME:groupement d interet public arronax,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-114065,2023-08-12,CA LES SABLES D OLONNE AGGLOMERATION,ca les sables d olonne agglomeration,NAME:ca les sables d olonne agglomeration,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+23-120120,2023-08-29,VILLE DE LA ROCHE SUR YON,ville de la roche sur yon,NAME:ville de la roche sur yon,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+23-111566,2023-08-06,Museum National d'Histoire Naturelle,museum national d histoire naturelle,NAME:museum national d histoire naturelle,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,27;28;37;45;49;60;61;75;78
+23-124271,2023-09-08,EPLE RENAN,eple renan,NAME:eple renan,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,29;35;44;50;53;56
+23-128913,2023-09-17,Préfecture 85,prefecture 85,NAME:prefecture 85,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;33;35;44;49;53;72;79;85
+23-129683,2023-09-18,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-132683,2023-09-23,SDIS49,sdis49,NAME:sdis49,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-125766,2023-09-24,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-127328,2023-09-17,TERRITOIRE ENERGIE LOIRE ATLANTIQUE,territoire energie loire atlantique,NAME:territoire energie loire atlantique,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-132830,2023-09-29,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-124057,2023-09-29,Département de Maine-et-Loire,departement de maine-et-loire,NAME:departement de maine-et-loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+23-133151,2023-09-25,Syndicat Bassin Versant de Grand Lieu,syndicat bassin versant de grand lieu,NAME:syndicat bassin versant de grand lieu,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;85
+23-139196,2023-10-08,Ville de Laval,ville de laval,NAME:ville de laval,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+23-144303,2023-10-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-144516,2023-10-18,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-149508,2023-10-26,EPMP,epmp,NAME:epmp,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,17;79;85
+23-153499,2023-11-02,Conseil Général d'Ille-et-Vilaine,conseil general d ille-et-vilaine,NAME:conseil general d ille-et-vilaine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44
+23-159292,2023-11-16,L'Institut Agro,l institut agro,NAME:l institut agro,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,21;34;35;49;75
+23-166952,2023-11-29,CENTRE COMMUNAL D ACTION SOCIALE,centre communal d action sociale,NAME:centre communal d action sociale,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+23-164280,2023-11-25,Société d'équipement de la Touraine,societe d equipement de la touraine,NAME:societe d equipement de la touraine,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,18;36;37;41;45;72;86
+23-161829,2023-11-19,e-Collectivités Vendée,e-collectivites vendee,NAME:e-collectivites vendee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+23-176813,2023-12-20,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-163465,2023-12-16,CARIFOREF,cariforef,NAME:cariforef,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-167185,2023-12-02,ACOSS,acoss,NAME:acoss,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,31;44;69;93
+23-169673,2023-12-08,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+23-180915,2023-12-29,OPH Habitat Drouais,oph habitat drouais,NAME:oph habitat drouais,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,27;28;41;45;72;76;78;91;93
+23-171265,2023-12-08,SCE DEPARTEMENTAL INCENDIE ET SECOURS,sce departemental incendie et secours,NAME:sce departemental incendie et secours,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+26-53177,2026-05-29,DEPARTEMENT DU MAINE ET LOIRE,departement du maine et loire,NAME:departement du maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+26-52332,2026-05-29,Conseil Départemental de la Mayenne,conseil departemental de la mayenne,NAME:conseil departemental de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+26-59707,2026-06-16,GIP Loire Estuaire,gip loire estuaire,NAME:gip loire estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;85
+26-53578,2026-06-01,Université Rennes 2,universite rennes 2,NAME:universite rennes 2,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;50;53;56
+26-61953,2026-06-23,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+26-55163,2026-06-04,CHU NANTES,chu nantes,NAME:chu nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+26-55110,2026-06-04,Région des Pays de la Loire,region des pays de la loire,NAME:region des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85
+26-60185,2026-06-17,Nantes Métropole,nantes metropole,NAME:nantes metropole,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+26-57794,2026-06-11,UNIVERSITE DE RENNES,universite de rennes,NAME:universite de rennes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;75
+26-59246,2026-06-16,Mairie de St  Herblain,mairie de st herblain,NAME:mairie de st herblain,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+26-53592,2026-06-01,Commune de Fontenay Le Comte,commune de fontenay le comte,NAME:commune de fontenay le comte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+26-62679,2026-06-25,Ville du Mans,ville du mans,NAME:ville du mans,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,72
+26-60199,2026-06-17,Ville De Saint Nazaire,ville de saint nazaire,NAME:ville de saint nazaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+26-60330,2026-06-18,Mairie De Reze,mairie de reze,NAME:mairie de reze,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
+26-58495,2026-06-12,INSA Rennes,insa rennes,NAME:insa rennes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;35;44;56
+26-66594,2026-07-03,Conseil Départemental de la Mayenne,conseil departemental de la mayenne,NAME:conseil departemental de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+26-67753,2026-07-07,Commune de Fontenay Le Comte,commune de fontenay le comte,NAME:commune de fontenay le comte,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,85
+26-68031,2026-07-08,Lycée POlyvalent Robert Garnier,lycee polyvalent robert garnier,NAME:lycee polyvalent robert garnier,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,28;44;49;61;69;72;75;91;92
+26-66290,2026-07-03,Conseil Départemental de la Mayenne,conseil departemental de la mayenne,NAME:conseil departemental de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
+26-66699,2026-07-06,Lycee Des Metiers Chevrollier-GRETA,lycee des metiers chevrollier-greta,NAME:lycee des metiers chevrollier-greta,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
+26-68729,2026-07-09,COREPEM,corepem,NAME:corepem,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,13;14;44;62;75;78;83;85

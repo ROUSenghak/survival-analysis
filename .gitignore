@@ -15,3 +15,8 @@ NUL/
 
 data/raw/buyer_siren_enrichment_m1/
 data/processed/boamp_clean_m1_buyer_enriched_all_notices.csv
+
+# large reproducible intermediates (rebuild via notebook 01)
+data/interim/boamp_common_prepared.csv
+archive/data_processed_legacy/boamp_clean_m1_buyer_enriched_all_notices.csv
+data/processed/enriched/validated_enrichment_table.csv

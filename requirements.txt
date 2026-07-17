@@ -1,5 +1,9 @@
-# BOAMP M0 preprocessing pipeline — dependencies
+# BOAMP two-layer renewal-linkage pipeline — dependencies
 # Tested with Python 3.12 (WSL Ubuntu 24.04)
+
+pyyaml>=6.0          # config/paths.yaml + config/pipeline.yaml loading
+pytest>=8.0          # tests/ incl. slow parity gate
+huggingface_hub>=0.23  # scripts/download_enrichment.py (pinned-SHA dataset download)
 
 pandas>=2.3
 numpy>=2.0
