@@ -1,0 +1,87 @@
+# v0.1 pilot scenario: central_provisional.
+# Operationalizes config/synthetic/scenarios/02_central_boamp_like.yaml's
+# WP13 rationale into concrete numeric knobs. Every rate below that has an
+# EMPIRICAL source cites calibration_parameters_v0_1.yaml directly; every
+# rate that is a SCENARIO_PARAMETER (no empirical anchor anywhere in this
+# repo) is labeled as such — this scenario is "central" only in the sense
+# of using the empirically calibrated BOAMP observation mechanisms wherever
+# they exist, NOT in the sense of claiming a validated recurrence rate.
+# Per spec: "Do not claim that scenario values are estimates of true BOAMP
+# recurrence."
+
+scenario_id: central_provisional
+display_name: "Central provisional"
+version: "0.1"
+purpose: >
+  Principal v0.1 benchmark. Uses calibrated BOAMP observation mechanisms
+  (identifier/CPV/duration/text missingness and buyer-name variation) at
+  their observed real-corpus rates; recurrence prevalence, cycle-gap
+  distribution, and text drift remain explicit scenario assumptions, never
+  calibrated to a point (see calib_unidentified_parameters_scenarios.csv).
+provenance: "EMPIRICAL, SCENARIO_ASSUMPTION"
+references: [config/synthetic/scenarios/02_central_boamp_like.yaml]
+baseline_reference: central_provisional.yaml   # this file IS the baseline others diff against
+
+recurrence:
+  base_recurrence_propensity: 0.40     # SCENARIO_PARAMETER — midpoint of the proposed {10%,25%,40%,60%} sweep in calib_unidentified_parameters_scenarios.csv#true_recurrence_prevalence
+  cycle_gap_distribution: {type: normal, mean_months: 18.0, sd_months: 9.0, min_months: 1.0}
+    # SCENARIO_PARAMETER — no true-gap distribution exists anywhere in this
+    # repo. Deliberately NOT centered on the pipeline's own 6-month window
+    # (temporal_window_months is DO_NOT_USE for generator truth); centered
+    # further out with wide spread so a meaningful share of true successors
+    # fall outside the real pipeline's blocking window (spec Phase 4.4
+    # requirement).
+  max_cycles_per_need: 4
+
+identifiers:
+  # EMPIRICAL: siret_vs_name_fallback_share (calibration_parameters_v0_1.yaml#identifiers)
+  # gives observed RAW_SIRET=27.2%, so identifier-missing (SIREN-only + both-missing) = 72.8%.
+  # No BOAMP source separates that 72.8% into siren-only vs both-missing (no
+  # RAW_SIREN rows observed at all in this corpus, ambiguous whether that
+  # means SIREN is never separately captured or genuinely never present);
+  # split 3:1 both-missing:siren-only as a documented, labeled assumption.
+  siret_missing_rate: 0.728
+  siren_only_rate: 0.10
+  both_missing_rate: 0.628
+  invalid_identifier_rate: 0.01
+  wrong_establishment_siret_rate: 0.02   # SCENARIO_PARAMETER — no direct BOAMP measurement of this specific error mode
+
+buyer_names:
+  false_split_rate: 0.279       # EMPIRICAL: buyer_name_variation_rate
+  false_merge_rate: 0.076       # EMPIRICAL: buyer_name_ambiguity_rate
+  generic_collision_rate: 0.368 # EMPIRICAL: generic_buyer_name_share
+
+cpv:
+  missing_rate: 0.1706          # EMPIRICAL: cpv.missing_rate
+  parent_replace_rate: 0.05     # SCENARIO_PARAMETER — no BOAMP measurement of *which* CPV corruption mode occurs among present-but-imprecise codes
+  division_only_rate: 0.02      # SCENARIO_PARAMETER
+  generic_rate: 0.0714          # EMPIRICAL: cpv.generic_rate_among_present
+  wrong_related_rate: 0.02      # SCENARIO_PARAMETER
+  old_parser_failure_mode: false
+    # Per spec Phase 6.3: "An old-parser extraction-failure scenario may be
+    # added later, but it must not be the central world." The eForms CPV
+    # correction (reports/generated/synthetic_benchmark/v0_1_phase0_audit.md
+    # §2) is already production-standard; central_provisional models the
+    # CORRECTED extraction behaviour only.
+
+duration:
+  missing_rate: 0.8635          # EMPIRICAL: duration.present_rate_full_corpus (1 - 0.1365)
+  rounding_severity: 0.4        # SCENARIO_PARAMETER — heaping magnitude not separately quantified in calibration tables
+  common_admin_value_rate: 0.2  # SCENARIO_PARAMETER
+  unit_conversion_failure_rate: 0.02  # SCENARIO_PARAMETER
+
+text:
+  same_cycle_variation_severity: 0.15
+    # Anchored loosely: text.same_cycle_publication_similarity_target = 1.000
+    # (near-identical within a family) means LOW severity is appropriate here.
+  next_cycle_drift_severity: 0.5   # SCENARIO_PARAMETER — true_text_corruption_process, midpoint of proposed {0.3-0.5,0.5-0.7,0.7-0.9} COSINE SIMILARITY range reinterpreted as a 0-1 drift severity (higher severity = lower resulting similarity)
+  hard_negative_overlap_rate: 0.15
+  boilerplate_rate: 0.10
+
+linked_notice_visibility:
+  missing_rate: 0.6788   # EMPIRICAL: calib_missingness_marginal_rates.csv#award_link_unresolved (APPEL_OFFRE-only population; applied here to the CALL->AWARD linked-notice-field visibility mechanism, Phase 6.6)
+
+quality_class_mix:
+  HIGH: 0.30
+  MEDIUM: 0.45
+  LOW: 0.25

@@ -109,6 +109,52 @@ identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
 class.
 
+## Synthetic benchmark (v0.1, provisional)
+
+`src/boamp/synthetic/` implements a synthetic linkage benchmark, adapting
+the gold-standard-and-corruption framework of Lam et al. (2024, *Generating
+synthetic identifiers to support development and evaluation of data linkage
+methods*, IJPDS 9:1:18) to public-procurement recurrence linkage. A clean
+latent procurement population (buyers, establishments, procurement needs,
+contract cycles, known recurrence relations) is generated first; BOAMP-like
+publication notices are then produced and subjected to schema-dependent,
+attribute-dependent and co-occurring corruption in identifiers, names, CPV,
+duration, text and lifecycle references, while a separate known-truth
+relation table (`true_relations.parquet`) is retained and never exposed to
+the Layer 1/Layer 2 linkage code.
+
+This exists to answer a question the real corpus cannot: whether Layer 1 and
+Layer 2 recover *known* synthetic recurrence relations, and how linkage
+errors propagate into downstream survival/prediction bias. It does **not**
+estimate true BOAMP recurrence prevalence, precision, or recall — those are
+either observable-and-frozen calibration inputs, scenario knobs swept across
+a documented range, or explicitly excluded (see
+`reports/tables/synthetic_calibration/generator_parameter_actions.csv`).
+
+- Config: `config/synthetic/calibration_parameters_v0_1.yaml`,
+  `benchmark_defaults_v0_1.yaml`, `recurrence_ontology_v0_1.yaml`,
+  `scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`
+  (a narrowed v0.1 view of the richer, pre-existing
+  `config/synthetic/recurrence_ontology.yaml` and `scenarios/01-06_*.yaml`
+  built by the calibration audit in `notebooks/04_synthetic_benchmark_calibration.ipynb`).
+- Notebooks: `05_synthetic_benchmark_generation.ipynb` (walkthrough),
+  `06_synthetic_fidelity_validation.ipynb` (real-vs-synthetic comparison +
+  a compatibility check running the real Layer 1 candidate-generation code
+  on synthetic data).
+- Outputs: `data/processed/synthetic_benchmark/v0_1_provisional/<scenario>/world_001/corruption_001/`
+  (latent truth tables, `clean_notices`, `observed_notices`, `corruption_log`,
+  `generation_metadata.json` — full provenance per replication).
+- Reports: `reports/generated/synthetic_benchmark/` (Phase 0 audit,
+  clean-world structural validation, fidelity report),
+  `reports/tables/synthetic_benchmark/v0_1/benchmark_freeze_gate.csv`
+  (structural/identifier/relation/reproducibility gates PASS; several
+  fidelity-tuning dimensions are `PASS_WITH_LIMITATION`/`NEEDS_REVISION` —
+  the `_provisional` in the benchmark id is deliberate, not decorative).
+
+Reproduce: `.venv/bin/python -c "from boamp.synthetic.pipeline import generate_pilot; generate_pilot('central_provisional', '.')"`
+or run `notebooks/05_synthetic_benchmark_generation.ipynb`. Tests:
+`.venv/bin/python -m pytest -q tests/test_synthetic_*.py`.
+
 ## Name mapping vs earlier reports
 
 Reports produced before 2026-07-17 (`boamp_m0_technical_report.pdf`,

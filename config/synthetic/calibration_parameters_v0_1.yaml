@@ -1,0 +1,230 @@
+# Synthetic benchmark v0.1 — frozen generator-input calibration parameters.
+#
+# Every entry here is action == USE_DIRECTLY in
+# reports/tables/synthetic_calibration/generator_parameter_actions.csv,
+# i.e. an OBSERVABLE/EMPIRICAL or LITERATURE_BASED (structural) value the
+# generator may consume as-is. USE_AS_FIDELITY_TARGET values (things the
+# generator should reproduce but must NOT set directly, e.g. candidate
+# counts, buyer Gini, text-similarity distributions) are deliberately NOT
+# copied here — they belong to reports/generated/synthetic_benchmark/
+# fidelity checks (Phase 9). SCENARIO_PARAMETER and DO_NOT_USE rows are
+# never referenced from this file; see
+# config/synthetic/scenarios/*.yaml for the former and
+# generator_parameter_actions.csv's `notes` column for why the latter are
+# excluded.
+#
+# This file references machine-readable calibration tables by path rather
+# than duplicating long distributions inline; only compact scalar/small-map
+# values (already the "headline" numbers in parameter_inventory.csv) are
+# inlined directly, each carrying provenance/source_table/status/
+# conditioning_variables/limitations so no number here is untraceable.
+
+version: "0.1"
+frozen_date: "2026-07-21"
+decision_table: reports/tables/synthetic_calibration/generator_parameter_actions.csv
+real_corpus_population: 84623   # for scale reference only; v0.1 pilot targets a much smaller n (see benchmark_defaults_v0_1.yaml)
+
+population:
+  full_corpus_size:
+    value: 84623
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#corpus_size
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Extraction-window corpus (2015-2026), not a claim about BOAMP nationally beyond it. Reference scale only — not the v0.1 pilot's target n."
+
+calendar:
+  observation_start:
+    value: "2015-01-01"
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_year_completeness_status.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "2015 is a PARTIAL extraction-window year in the real corpus."
+  observation_end:
+    value: "2026-07-31"
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_year_completeness_status.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "2026 is a PARTIAL extraction-window year in the real corpus."
+  partial_years: [2015, 2026]
+
+schemas:
+  legacy_share:
+    value: 0.874
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#schema_family_mix
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "eForms share will keep rising after this extraction window; not a stationary process."
+  eforms_share:
+    value: 0.126
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#schema_family_mix
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Treated as constant across the v0.1 pilot's shorter window; real corpus shows a schema transition around Oct 2023 (eForms mandate) not modeled by a static share in v0.1."
+
+notice_types:
+  mix:
+    value: {APPEL_OFFRE: 0.689, ATTRIBUTION: 0.267, OTHER: 0.045}
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#notice_type_mix
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "OTHER is a small, heterogeneous residual category (modification/cancellation/etc.); v0.1 notice-family membership only distinguishes CALL / AWARD roles (see notice_families below)."
+
+departments:
+  distribution_top5:
+    value: {"44": 0.397, "49": 0.175, "85": 0.142, "72": 0.136, "53": 0.048}
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#department_distribution_top5
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Top-5 only; remainder (~10.2%) is spread thin and pooled into an OTHER department bucket in v0.1."
+
+buyers:
+  activity_tier_mix_reference:
+    value: {"21+": 0.806, "6-20": 0.110, "2-5": 0.060, "1": 0.024}
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#buyer_activity_tier_mix
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "USE_AS_FIDELITY_TARGET, not a direct sampling input — the generator draws a heavy-tailed activity_rate per buyer (src/boamp/synthetic/buyers.py) and this tier mix / the Gini in calib_buyer_concentration_lorenz.csv is checked emergently, never set directly (per spec: 'do not set the Gini coefficient directly')."
+  activity_source_table: reports/tables/synthetic_calibration/calib_buyer_activity_distribution.csv
+  concentration_lorenz_table: reports/tables/synthetic_calibration/calib_buyer_concentration_lorenz.csv
+
+identifiers:
+  siret_format_and_checksum_valid_rate:
+    value: 0.2712
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_identifier_quality_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "No RAW_SIREN rows observed in this corpus; the generator still exposes a SIREN-only observation outcome since it is a valid code path (siret_vs_name_fallback_share, parameter_inventory.csv)."
+  siret_vs_name_fallback_share:
+    value: {RAW_SIRET: 0.272, NAME_FALLBACK: 0.728}
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#siret_vs_name_fallback_share
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "This is the OBSERVED (post-corruption) identifier-availability rate, i.e. a missingness.py target, not a property of the clean latent world (every latent establishment has a valid synthetic SIRET/SIREN by construction)."
+
+names:
+  buyer_name_ambiguity_rate:
+    value: 0.076
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#buyer_name_ambiguity_rate
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Share of normalized names mapping to >1 legal buyer (false-merge risk calibration for corruption.py false-merging mechanism)."
+  buyer_name_variation_rate:
+    value: 0.279
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#buyer_name_variation_rate
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Share of validated SIRETs appearing under >1 normalized name (false-split risk calibration for corruption.py false-splitting mechanism)."
+  generic_buyer_name_share:
+    value: 0.368
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#generic_buyer_name_share
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Fixed stoplist-based rate (config/pipeline.yaml enrichment.alias_bridge.generic_names); extending the stoplist would change this rate."
+  transformation_modes_table: reports/tables/synthetic_calibration/calib_buyer_name_transformation_counts.csv
+
+cpv:
+  division_distribution_table: reports/tables/synthetic_calibration/calib_cpv_division_coverage.csv
+  missing_rate:
+    value: 0.1706
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_cpv_quality_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Full-corpus observed (post-corruption) rate; latent needs always carry a valid cpv_true (missingness is injected in missingness.py, not in the clean world)."
+  generic_rate_among_present:
+    value: 0.0714
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_cpv_quality_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Share of present CPV codes ending 000000 at category level (config/pipeline.yaml-consistent genericity rule, src/boamp/data/prepare.py::cpv_is_generic)."
+  eforms_extraction_status: CORRECTED_IN_PRODUCTION   # see reports/generated/synthetic_benchmark/v0_1_phase0_audit.md §2 — no old-parser failure mode in the central scenario (Phase 6.3)
+
+duration:
+  present_rate_full_corpus:
+    value: 0.1365
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_duration_quality_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Full-corpus observed (post-corruption) rate, distinct from the pipeline's own 88%-imputed figure (computed over a narrower eligible-source scope, see generator_parameter_actions.csv#duration_imputation_rate, USE_AS_FIDELITY_TARGET only)."
+  out_of_range_rate_full_corpus:
+    value: 0.00144
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_duration_quality_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Plausible bounds 1-120 months (config/pipeline.yaml duration.min/max_plausible_months); rare out-of-range values are a corruption target, not a clean-world property."
+
+procurement_needs:
+  note: >
+    No manually-validated technological-taxonomy table exists in this repo
+    (Internship_Guide___Predictive_Modeling.pdf and calib_cpv_division_coverage.csv
+    do not provide one); per spec §4.3, v0.1 uses broad CPV-division-derived
+    segments as a placeholder taxonomy. See src/boamp/synthetic/needs.py.
+  segment_source_table: reports/tables/synthetic_calibration/calib_cpv_division_coverage.csv
+
+text:
+  same_cycle_publication_similarity_target:
+    value: 1.000
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/generator_parameter_actions.csv#text_similarity_next_cycle_proxy
+    status: OBSERVABLE
+    conditioning_variables: "within-provisional-notice-family pairs (same procurement cycle)"
+    limitations: "CORRECTED LABEL (Phase 2): this is same-cycle (notice-family) publication-similarity, NOT true next-cycle recurrence drift, which has no empirical anchor anywhere in this repo (see scenarios/*.yaml text_drift_severity, a SCENARIO_PARAMETER)."
+  exact_duplicate_template_rate:
+    value: 0.5143
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#exact_duplicate_template_rate
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Lower bound on template reuse (exact literal string match only); calibrates clean_notices' same-family exact-reuse rate."
+  median_text_length_chars:
+    value: 98.0
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_text_characteristics_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Median only; v0.1 draws text length from a distribution centered near this value, not a point value for every notice."
+  median_token_count:
+    value: 15.0
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/calib_text_characteristics_summary.csv
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Used to size template + vocabulary combinations in text_generation.py."
+  distractor_similarity_targets_table: reports/tables/synthetic_calibration/generator_parameter_actions.csv   # USE_AS_FIDELITY_TARGET rows only (see Phase 9 fidelity checks)
+
+missingness:
+  marginal_rates_table: reports/tables/synthetic_calibration/calib_missingness_marginal_rates.csv
+  cooccurrence_note: >
+    Field-level and error-type co-occurrence must be preserved (Lam et al.
+    §"Data corruption"). v0.1 uses a small latent record-quality-class
+    mechanism (src/boamp/synthetic/missingness.py::assign_quality_class) so
+    identifier/CPV/duration corruption severity co-vary per notice, rather
+    than being sampled independently per field. See
+    reports/tables/synthetic_calibration/calib_missingness_phi_matrix.csv
+    and calib_missingness_joint_patterns.csv for the real corpus's observed
+    correlation structure this mechanism targets (USE_AS_FIDELITY_TARGET).
+
+censoring:
+  followup_evaluable_share_12m_24m:
+    value: {"12m": 0.918, "24m": 0.825}
+    provenance: EMPIRICAL
+    source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#followup_evaluable_share_12m_24m
+    status: OBSERVABLE
+    conditioning_variables: n/a
+    limitations: "Administrative follow-up availability, independent of whether a source is actually linked to a successor; calibrates benchmark_defaults_v0_1.yaml's observation window relative to cycle start dates, not the recurrence probability itself (that is a SCENARIO_PARAMETER, see scenarios/*.yaml)."

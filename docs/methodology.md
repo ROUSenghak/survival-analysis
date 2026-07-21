@@ -150,6 +150,108 @@ dummies, key-type dummies; PH tests; quadratic-duration functional-form check),
 Weibull vs log-normal AFT (AIC + concordance), 12/24-month risk calibration,
 and temporal validation (train ≤ 2021, test > 2021).
 
+## 8b. Synthetic benchmark (v0.1, provisional)
+
+We adapt the gold-standard-and-corruption framework of Lam et al. (2024,
+*Generating synthetic identifiers to support development and evaluation of
+data linkage methods*, IJPDS 9:1:18) to public-procurement recurrence
+linkage. A clean latent procurement population containing buyers,
+establishments, procurement needs, contract cycles and known recurrence
+relations is generated first (`src/boamp/synthetic/buyers.py`,
+`establishments.py`, `needs.py`, `cycles.py`, `relations.py`). BOAMP-like
+publication notices are then produced (`notices.py`, `text_generation.py`)
+and subjected to schema-dependent, attribute-dependent and co-occurring
+corruption in identifiers, names, CPV, duration, text and lifecycle
+references (`missingness.py`, `corruption.py`). Multiple corrupted linkage
+files can be generated (`n_corruption_replications` in
+`config/synthetic/benchmark_defaults_v0_1.yaml`) while retaining a separate
+known-truth relation table (`true_relations.parquet`) that Layer 1 and
+Layer 2 never receive.
+
+**Clean world vs observed world.** Every `*_true` column lives only in the
+latent tables and `clean_notices.parquet`; `observed_notices.parquet` is
+structurally verified to carry no truth column
+(`schemas.assert_no_truth_leakage`, `tests/test_synthetic_schemas.py`).
+
+**Recurrence ontology.** The real corpus's calibration work independently
+built a full 8-relation ontology (`config/synthetic/recurrence_ontology.yaml`:
+NEXT_CYCLE, PARTIAL_RECURRENCE, SPLIT, MERGE, SAME_THEME_DIFFERENT_NEED,
+UNRELATED, NO_SUCCESSOR, UNCERTAIN). v0.1's generator is deliberately
+restricted to two relations only (`recurrence_ontology_v0_1.yaml`:
+NEXT_CYCLE, NO_SUCCESSOR) — every cycle has exactly one outgoing edge,
+verified structurally. The broader ontology remains defined and tested for
+a future generator version.
+
+**Parameter provenance.** Every generator input is classified into one of
+four actions in `reports/tables/synthetic_calibration/generator_parameter_actions.csv`:
+`USE_DIRECTLY` (OBSERVABLE/EMPIRICAL, consumed as-is — 55 parameters),
+`USE_AS_FIDELITY_TARGET` (algorithm-conditioned or structural-comparison
+values the generator should reproduce but never assign directly, e.g.
+candidate counts, buyer Gini, text-similarity distributions — 9 parameters),
+`SCENARIO_PARAMETER` (unidentified quantities like true recurrence
+prevalence, swept across scenarios, never calibrated to a point — 7
+parameters), and `DO_NOT_USE` (algorithm-conditioned pipeline internals —
+frozen thresholds, score weights, the 6-month temporal window, the
+30-candidate cap — which must not define synthetic-world truth even though
+several are `ready_to_freeze=True` for *replicating the linker's own
+scoring* — 9 parameters). Precision and recall are never generator inputs
+under any action.
+
+**Scenario assumptions.** Three scenarios
+(`config/synthetic/scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`)
+operationalize the pre-existing, more detailed WP13 scenario family
+(`01_clean_sanity.yaml` .. `06_adverse_combined.yaml`) into concrete numeric
+knobs. `central_provisional` uses calibrated BOAMP observation mechanisms
+wherever an empirical anchor exists (identifier/CPV/duration/name
+missingness rates) and explicit, labeled scenario assumptions everywhere
+else (recurrence prevalence, cycle-gap distribution, text drift severity) —
+never a claim about true BOAMP recurrence.
+
+**Dependent corruption.** Rather than sampling each field's corruption
+independently, every notice draws one latent record-quality class
+(HIGH/MEDIUM/LOW, correlated with its buyer's `identifier_quality_propensity`,
+`missingness.py::assign_quality_class`) whose severity multiplier scales
+every field's corruption rate at once, so identifier loss, CPV degradation,
+duration missingness and text weakness co-occur on the same notices —
+matching Lam et al.'s core corruption-design principle.
+
+**Truth-table isolation.** `true_relations.parquet` and every `*_true`
+column are structurally excluded from `observed_notices.parquet`; Phase 12
+compatibility checks (`boamp.synthetic.compatibility`) run the *existing*
+Layer 1 candidate-generation code on synthetic `observed_notices` without
+ever consulting synthetic truth.
+
+**Fidelity validation.** `notebooks/06_synthetic_fidelity_validation.ipynb`
+compares the synthetic pilot against real-corpus calibration tables on
+volume, schema/notice-type mix, buyer concentration, identifier/CPV/duration
+availability, text length/duplication, missingness co-occurrence, and
+(via the real production candidate-generation code) emergent candidate
+counts. Results, including honestly-reported discrepancies requiring v0.2
+follow-up, are in `reports/generated/synthetic_benchmark/v0_1_fidelity_report.md`
+and the freeze gate,
+`reports/tables/synthetic_benchmark/v0_1/benchmark_freeze_gate.csv`.
+
+**Reproducibility.**
+```bash
+.venv/bin/python -c "from boamp.synthetic.pipeline import generate_pilot; generate_pilot('central_provisional', '.')"
+.venv/bin/python -m pytest -q tests/test_synthetic_*.py
+```
+
+**Known limitations (v0.1).** No manually-validated CPV/technological
+taxonomy exists in this repo, so needs use broad CPV-division-derived
+segments as a placeholder (spec-documented, not a claim of taxonomic
+validity). Duration-value and call-to-award-delay distributions are
+generator design choices, not calibrated to an observed value distribution
+(only presence/missingness rates are OBSERVABLE-tier here). Several fidelity
+dimensions (schema-family mix over time, duration-missingness rate, exact
+text duplication, candidate-count tail) show a documented gap versus the
+real corpus and are tracked as `NEEDS_REVISION`/`PASS_WITH_LIMITATION` in
+the freeze gate, not silently accepted. See
+`reports/generated/synthetic_benchmark/v0_1_phase0_audit.md` for the
+eForms-CPV-correction staleness finding this benchmark build is downstream
+of (the correction is in production code; `data/processed/{boamp_only,enriched}/*`
+predate it by 3 days and must be regenerated before being read as current).
+
 ## 9. Known limitations
 
 1. The renewal event is an unverified proxy; all downstream inference is

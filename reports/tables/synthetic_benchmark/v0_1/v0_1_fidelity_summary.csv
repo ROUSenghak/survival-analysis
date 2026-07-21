@@ -1,0 +1,16 @@
+dimension,real_value,synthetic_value,note
+schema_family_mix,LEGACY=87.4%; EFORMS=12.6%,"{'LEGACY': 0.726, 'EFORMS': 0.274}",
+notice_type_mix,APPEL_OFFRE=68.9%; ATTRIBUTION=26.7%; OTHER=4.5%,"{'APPEL_OFFRE': 0.725, 'ATTRIBUTION': 0.275}",
+buyer_activity_gini,0.832,0.814,"real corpus n=5,268 buyers vs synthetic pilot n=2,000-equivalent-scale buyers (see generate_pilot n_buyers)"
+establishments_per_buyer_mean,n/a (not a real-corpus OBSERVABLE table),1.09,no directly comparable real-corpus table exists (BOAMP does not expose a buyer->establishment hierarchy natively); reported for internal consistency only
+siret_present_share,0.272,0.412,
+cpv_missing_rate,0.1706,0.17,
+cpv_generic_rate_among_present,0.0714,0.088,
+duration_present_rate,0.1365,0.324,
+median_text_length_chars,98.0,120.0,
+exact_duplicate_template_rate,0.5143,0.281,
+missingness_phi_identifier_cpv,see calib_missingness_phi_matrix.csv (real),0.121,positive correlation here evidences the latent quality-class dependent-corruption mechanism (missingness.py)
+notice_family_size_mean,"see notice_family_size_distribution.csv (real, provisional-family-based)",1.38,
+zero_candidate_source_rate,0.609,0.643,"real value is Layer 1 production (algorithm-conditioned); synthetic value uses the same production candidate-generation code on synthetic data, per Phase 9/12"
+candidates_per_source_median,3,2,
+candidates_per_source_p90,12,29,

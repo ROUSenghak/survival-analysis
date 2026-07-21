@@ -1,0 +1,74 @@
+# Synthetic benchmark v0.1 — minimal recurrence ontology.
+#
+# This is a deliberately narrowed VIEW of config/synthetic/recurrence_ontology.yaml
+# (the frozen 8-relation ontology: NEXT_CYCLE, PARTIAL_RECURRENCE, SPLIT,
+# MERGE, SAME_THEME_DIFFERENT_NEED, UNRELATED, NO_SUCCESSOR, UNCERTAIN),
+# not a replacement for it. v0.1's generator (src/boamp/synthetic/relations.py)
+# is only allowed to emit the two relation types listed below; every other
+# relation in the full ontology remains defined, tested
+# (tests/test_recurrence_ontology.py), and reserved for a later generator
+# version. This file exists so the v0.1 code path has an explicit,
+# minimal contract to validate against, per spec: "Retain the broader
+# ontology for future work but do not let unsupported relation classes
+# complicate the first generator."
+
+version: "0.1"
+full_ontology_reference: config/synthetic/recurrence_ontology.yaml
+frozen_date: "2026-07-21"
+
+supported_relations: [NEXT_CYCLE, NO_SUCCESSOR]
+
+not_yet_implemented:
+  - PARTIAL_RECURRENCE
+  - SPLIT
+  - MERGE
+  - SAME_THEME_DIFFERENT_NEED   # hard-negative text overlap is still generated (Phase 6.5) via needs.py's same-buyer/same-CPV-distinct-need mechanism, but it is NOT emitted as a relation-typed edge in true_relations.parquet in v0.1
+  - UNRELATED                   # background non-candidate population; implicitly present (any two cycles not connected by a true_relations edge are UNRELATED by omission) but not materialized as explicit pairwise rows, to avoid materializing O(n^2) pairs at pilot scale
+  - UNCERTAIN                   # real_data_review only; never applicable to synthetic ground truth (see full ontology's exit_criterion)
+
+relations:
+  NEXT_CYCLE:
+    description: >
+      The full ontology's NEXT_CYCLE definition, unchanged: same underlying
+      need recurs via one clear, unambiguous successor cycle from the same
+      buyer/establishment.
+    same_buyer_requirement: required_same_entity
+    siret_or_siren_level: siret
+    cardinality: one_to_one
+    strict_label: true
+    broad_label: true
+    survival_event_treatment: event_single
+    generation_rule: >
+      Emitted by src/boamp/synthetic/cycles.py when a cycle's successor
+      decision (scenario-controlled recurrence_propensity draw) is positive.
+      target_start_date = source_start_date + duration_true_months +
+      scenario-based gap (config/synthetic/scenarios/*.yaml
+      cycle_gap_distribution); NOT constrained to the real pipeline's
+      6-month window (some true gaps must fall outside it, per spec Phase
+      4.4 — the window is DO_NOT_USE for generator truth, see
+      generator_parameter_actions.csv#temporal_window_months).
+
+  NO_SUCCESSOR:
+    description: >
+      The full ontology's NO_SUCCESSOR definition, unchanged: the source has
+      no plausible successor anywhere in the study period; true structural/
+      administrative censoring.
+    same_buyer_requirement: na
+    siret_or_siren_level: na
+    cardinality: one_to_zero
+    strict_label: false
+    broad_label: false
+    survival_event_treatment: censored_administrative
+    generation_rule: >
+      Emitted when the successor decision is negative, OR when a drawn
+      successor's target_start_date would fall after
+      benchmark_defaults_v0_1.yaml's observation_window.end_date (a cycle
+      generated near the end of the observation window is administratively
+      censored even if its underlying "need" would recur later in
+      principle — matches Work Package 9's F_i convention exactly).
+
+exit_criterion: >
+  Every cycle in latent_cycles.parquet has exactly one outgoing edge in
+  true_relations.parquet: either one NEXT_CYCLE row (target_cycle_id set) or
+  one NO_SUCCESSOR row (target_cycle_id null). No cycle has zero or more
+  than one outgoing edge. Verified by tests/test_synthetic_relations.py.

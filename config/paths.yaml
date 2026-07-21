@@ -17,3 +17,18 @@ reports_tables: reports/tables
 reports_generated: reports/generated
 
 archive_root: archive
+
+# --- Synthetic benchmark v0.1 (Lam et al.-style gold-standard-and-corruption
+# framework, adapted to procurement recurrence). See docs/methodology.md
+# "Synthetic benchmark" section and reports/generated/synthetic_benchmark/.
+synthetic_config_dir: config/synthetic
+synthetic_calibration_parameters_v0_1: config/synthetic/calibration_parameters_v0_1.yaml
+synthetic_benchmark_defaults_v0_1: config/synthetic/benchmark_defaults_v0_1.yaml
+synthetic_recurrence_ontology_v0_1: config/synthetic/recurrence_ontology_v0_1.yaml
+synthetic_recurrence_ontology_full: config/synthetic/recurrence_ontology.yaml
+synthetic_scenarios_dir: config/synthetic/scenarios
+synthetic_benchmark_data_root: data/processed/synthetic_benchmark
+synthetic_calibration_tables: reports/tables/synthetic_calibration
+synthetic_benchmark_tables: reports/tables/synthetic_benchmark
+synthetic_benchmark_figures: reports/figures/synthetic_benchmark
+synthetic_benchmark_reports: reports/generated/synthetic_benchmark

@@ -1,0 +1,49 @@
+# Synthetic benchmark v0.1 — pilot run defaults.
+#
+# Deliberately small: this is a smoke-test scale to validate the generator
+# architecture end-to-end, not the full ~84,623-notice real-corpus scale.
+# Every value here is a benchmark-run *setting*, not a calibrated real-world
+# parameter (those live in calibration_parameters_v0_1.yaml and
+# scenarios/*.yaml).
+
+version: "0.1"
+benchmark_id: synthetic_benchmark_v0.1_provisional
+
+target_n_buyers: 2000
+target_n_notices: 10000          # approximate; actual count is emergent from buyers x needs x cycles x notice-family size, not forced exactly
+n_latent_world_replications: 1   # world_001 only for the v0.1 pilot
+n_corruption_replications: 1     # corruption_001 only for the v0.1 pilot
+
+seed:
+  latent_world_seed: 20260721
+  corruption_seed: 20260722
+  # Two independent seeds (not one shared seed) so a future run can hold the
+  # latent world fixed while sweeping corruption replications, or vice versa,
+  # without accidentally coupling the two random streams.
+
+output_format:
+  large_tables: parquet          # latent_*, clean_notices, observed_notices, corruption_log
+  small_summaries: csv           # fidelity tables, freeze gate
+  config: yaml
+
+observation_window:
+  start_date: "2015-01-01"
+  end_date: "2026-07-31"
+  # Matches calibration_parameters_v0_1.yaml's calendar block for external
+  # validity of by-year fidelity comparisons; the v0.1 pilot's smaller
+  # n_notices is spread across this same window, not a shorter one, so
+  # per-year density is intentionally thinner than the real corpus (a known
+  # v0.1 limitation, not a fidelity target).
+
+validation_tolerances:
+  siret_siren_hierarchy_violations_max: 0            # hard structural gate, zero tolerance
+  real_identifier_leakage_max: 0                     # hard gate: no synthetic SIRET/SIREN may equal one observed in data/interim or data/processed
+  reproducibility_row_count_tolerance: 0              # identical seed must give byte-identical row counts across two runs
+  buyer_activity_gini_target: 0.832                   # fidelity target only (calib_buyer_concentration_lorenz.csv), not enforced as a hard gate at v0.1 pilot scale (small-n Gini estimates are noisy)
+  buyer_activity_gini_tolerance: 0.15                 # loose band, appropriate for a ~2,000-buyer pilot vs the 5,268-buyer real corpus
+  candidate_zero_rate_fidelity_band: [0.4, 0.8]       # loose band around the real corpus's 60.9% zero-candidate rate (USE_AS_FIDELITY_TARGET, see generator_parameter_actions.csv)
+
+paths:
+  # Resolved relative to data/processed/synthetic_benchmark/{benchmark_id}/
+  # <scenario>/world_{world_rep:03d}/corruption_{corruption_rep:03d}/
+  root: data/processed/synthetic_benchmark

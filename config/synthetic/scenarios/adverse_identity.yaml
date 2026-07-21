@@ -1,0 +1,70 @@
+# v0.1 pilot scenario: adverse_identity.
+# Operationalizes config/synthetic/scenarios/03_buyer_fragmentation.yaml's
+# WP13 rationale (stress M0/boamp_only vs enrichment/enriched) into concrete
+# numeric knobs, diffed against central_provisional.yaml. Also folds in
+# moderate CPV degradation per spec Phase 3's adverse_identity description.
+
+scenario_id: adverse_identity
+display_name: "Adverse identity"
+version: "0.1"
+purpose: >
+  Stress-test BOAMP-only identity resolution versus enriched identity by
+  pushing identifier loss, buyer alias variation, generic buyer-name
+  collisions, establishment switching, and moderate CPV degradation above
+  their observed central_provisional rates.
+provenance: SCENARIO_ASSUMPTION
+references: [config/synthetic/scenarios/03_buyer_fragmentation.yaml]
+baseline_reference: central_provisional.yaml
+
+changed_relative_to_central_provisional:
+  - {parameter: identifiers.siret_missing_rate, from: 0.728, to: 0.90}
+  - {parameter: identifiers.wrong_establishment_siret_rate, from: 0.02, to: 0.08}
+  - {parameter: buyer_names.false_split_rate, from: 0.279, to: 0.45}
+  - {parameter: buyer_names.generic_collision_rate, from: 0.368, to: 0.55}
+  - {parameter: cpv.missing_rate, from: 0.1706, to: 0.30}
+  - {parameter: cpv.generic_rate, from: 0.0714, to: 0.20}
+
+recurrence:
+  base_recurrence_propensity: 0.40
+  cycle_gap_distribution: {type: normal, mean_months: 18.0, sd_months: 9.0, min_months: 1.0}
+  max_cycles_per_need: 4
+
+identifiers:
+  siret_missing_rate: 0.90
+  siren_only_rate: 0.15
+  both_missing_rate: 0.75
+  invalid_identifier_rate: 0.02
+  wrong_establishment_siret_rate: 0.08   # same buyer's OTHER establishment's SIRET is observed instead — the specific mechanism that breaks SIRET-level blocking without breaking SIREN-level blocking
+
+buyer_names:
+  false_split_rate: 0.45
+  false_merge_rate: 0.15
+  generic_collision_rate: 0.55
+
+cpv:
+  missing_rate: 0.30
+  parent_replace_rate: 0.10
+  division_only_rate: 0.08
+  generic_rate: 0.20
+  wrong_related_rate: 0.05
+  old_parser_failure_mode: false
+
+duration:
+  missing_rate: 0.8635
+  rounding_severity: 0.4
+  common_admin_value_rate: 0.2
+  unit_conversion_failure_rate: 0.02
+
+text:
+  same_cycle_variation_severity: 0.15
+  next_cycle_drift_severity: 0.5
+  hard_negative_overlap_rate: 0.15
+  boilerplate_rate: 0.10
+
+linked_notice_visibility:
+  missing_rate: 0.6788
+
+quality_class_mix:
+  HIGH: 0.10
+  MEDIUM: 0.40
+  LOW: 0.50
