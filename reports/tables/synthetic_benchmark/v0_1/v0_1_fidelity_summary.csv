@@ -5,7 +5,7 @@ buyer_activity_gini,0.832,0.814,"real corpus n=5,268 buyers vs synthetic pilot n
 establishments_per_buyer_mean,n/a (not a real-corpus OBSERVABLE table),1.09,no directly comparable real-corpus table exists (BOAMP does not expose a buyer->establishment hierarchy natively); reported for internal consistency only
 siret_present_share,0.272,0.412,
 cpv_missing_rate,0.1706,0.17,
-cpv_generic_rate_among_present,0.0714,0.088,
+cpv_generic_rate_among_present,0.0714,0.088,real value is conditional on CPV present; synthetic value here is marginal (not yet conditioned) - see freeze gate note
 duration_present_rate,0.1365,0.324,
 median_text_length_chars,98.0,120.0,
 exact_duplicate_template_rate,0.5143,0.281,
