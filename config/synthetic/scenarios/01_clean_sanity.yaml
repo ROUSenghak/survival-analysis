@@ -1,0 +1,64 @@
+# Scenario family: Clean sanity (Work Package 13).
+# Diffed against 02_central_boamp_like.yaml.
+
+scenario_id: clean_sanity
+display_name: "Clean sanity"
+purpose: Verify implementation.
+intended_stress_mechanism: >
+  None - a near-noiseless environment isolates bugs in the generator/linker
+  code from genuine corpus-driven ambiguity. If the linker cannot achieve
+  near-perfect recovery here, the defect is in code, not in a modeling
+  assumption.
+scientific_justification: >
+  Every corruption mechanism this notebook calibrated (missingness, buyer
+  identity fragmentation, template/duplicate text, zero-candidate sources,
+  relation-type ambiguity) is pushed close to zero. This does not claim
+  anything about the real corpus - it exists purely so an obviously-solvable
+  case can confirm the generator and linker are wired together correctly
+  before any scenario that is actually meant to be hard.
+provenance: SCENARIO_ASSUMPTION
+baseline_reference: 02_central_boamp_like.yaml
+
+changed_parameters:
+  - parameter_name: identifier_missing_rate
+    baseline: "72.8%"
+    scenario_value: "5%"
+    rationale: "Near-eliminate name-fallback buyer keying so identity blocking is trivially correct."
+  - parameter_name: duration_missing_rate
+    baseline: "86.4%"
+    scenario_value: "5%"
+    rationale: "Near-eliminate duration imputation so the temporal window is computed from observed, not imputed, values."
+  - parameter_name: cpv_missing_and_generic_rates
+    baseline: "missing=17.1%; generic=5.9%"
+    scenario_value: "missing=2%; generic=2%"
+    rationale: "Near-eliminate CPV-hierarchy ambiguity."
+  - parameter_name: exact_duplicate_template_rate
+    baseline: "51.4%"
+    scenario_value: "10%"
+    rationale: "Reduce boilerplate-driven false candidates."
+  - parameter_name: text_similarity_same_buyer_distractor
+    baseline: "0.013"
+    scenario_value: "<= 0.01 (pushed toward the unrelated baseline)"
+    rationale: "Make distractor pairs trivially separable from true successors on text alone."
+  - parameter_name: text_similarity_same_theme_distractor
+    baseline: "0.034"
+    scenario_value: "<= 0.01 (pushed toward the unrelated baseline)"
+    rationale: "Same reasoning as the same-buyer distractor above."
+  - parameter_name: zero_candidate_source_rate
+    baseline: "60.9%"
+    scenario_value: "10%"
+    rationale: "Almost every source should have a findable true-successor candidate in a sanity case."
+  - parameter_name: recurrence_relation_type_mix
+    baseline: "sweep true recurrence prevalence in {10%, 25%, 40%, 60%}"
+    scenario_value: "NEXT_CYCLE-dominant (>= 90% of true recurrences); minimal PARTIAL_RECURRENCE/SPLIT/MERGE"
+    rationale: "Remove relation-type ambiguity as a confound while verifying the basic pipeline works at all."
+
+unchanged_parameters_note: >
+  Population-structure parameters (corpus_size, notice_type_mix,
+  schema_family_mix, cpv_division_distribution_top5,
+  department_distribution_top5, buyer_activity_tier_mix) and every
+  linker_scoring_replica / candidate_environment_generator parameter
+  (composite_score_weights, cpv_similarity_ladder, frozen_link_thresholds,
+  temporal_window_months, max_candidates_per_source_cap) are held at the
+  central_boamp_like baseline: this scenario tests whether the frozen linker
+  recovers cleanly, not whether a different linker configuration would.

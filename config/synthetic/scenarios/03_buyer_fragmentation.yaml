@@ -1,0 +1,52 @@
+# Scenario family: Buyer fragmentation (Work Package 13).
+# Diffed against 02_central_boamp_like.yaml.
+
+scenario_id: buyer_fragmentation
+display_name: "Buyer fragmentation"
+purpose: Stress M0 (Layer 1, boamp_only) versus enrichment (Layer 2, enriched).
+intended_stress_mechanism: >
+  Buyer identity resolution and the Layer 1 vs Layer 2 recall gap: Layer 2's
+  entire value proposition is resolving buyer-identity fragmentation that
+  Layer 1 (BOAMP-native fields only) cannot. Pushing fragmentation higher
+  than observed tests whether, and how much, that benefit scales with
+  fragmentation severity - the real corpus is fixed at one severity level, so
+  this is the only way to see the relationship's shape.
+scientific_justification: >
+  §7's buyer-name ambiguity and variation analysis, and §15c's
+  identifier_missing/name_fallback findings, establish the real corpus's
+  fragmentation mechanism (legal-suffix variants, acronyms, location/service
+  tokens added, generic-institutional names); this scenario keeps that
+  mechanism but turns its severity up, rather than inventing a new failure
+  mode.
+provenance: SCENARIO_ASSUMPTION
+baseline_reference: 02_central_boamp_like.yaml
+
+changed_parameters:
+  - parameter_name: identifier_missing_rate
+    baseline: "72.8%"
+    scenario_value: "90%"
+    rationale: "More notices fall back to name-only identity, the precondition for Layer 2's alias-bridge mechanism to matter at all."
+  - parameter_name: siret_vs_name_fallback_share
+    baseline: "NAME_FALLBACK=72.8%; RAW_SIRET=27.2%"
+    scenario_value: "NAME_FALLBACK=90%; RAW_SIRET=10%"
+    rationale: "Consistent with the identifier_missing_rate change above (see §15c: these are the same underlying flag in this corpus)."
+  - parameter_name: buyer_name_ambiguity_rate
+    baseline: "7.6%"
+    scenario_value: "20%"
+    rationale: "More normalized names map to multiple SIRET/SIREN - higher false-merge risk for any name-based blocking."
+  - parameter_name: buyer_name_variation_rate
+    baseline: "27.9%"
+    scenario_value: "50%"
+    rationale: "More validated SIRETs appear under multiple name spellings - higher false-split risk, the mechanism the alias bridge exists to fix."
+  - parameter_name: generic_buyer_name_share
+    baseline: "36.8%"
+    scenario_value: "55%"
+    rationale: "The alias bridge explicitly refuses to propagate generic-institutional names (config/pipeline.yaml enrichment.alias_bridge.generic_names); more generic names means more buyers the bridge cannot help even in principle."
+
+unchanged_parameters_note: >
+  Duration, CPV, and text-similarity parameters, and every
+  candidate_environment_generator / linker_scoring_replica parameter, are
+  held at the central_boamp_like baseline: this scenario isolates buyer
+  identity as the only degraded mechanism, so any recall difference between
+  Layer 1 and Layer 2 in the generator's output can be attributed to buyer
+  identity alone.

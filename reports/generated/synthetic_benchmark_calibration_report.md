@@ -1,48 +1,73 @@
 # Synthetic linkage benchmark: calibration report
 
-Generated from `notebooks/04_synthetic_benchmark_calibration.ipynb`, corpus: 84,623 BOAMP notices, 2015-2026, Pays de la Loire (departments 44, 49, 53, 72, 85).
+Generated from `notebooks/04_synthetic_benchmark_calibration.ipynb`, corpus: 84,623 BOAMP notices, 2015-2026, Pays de la Loire (departments 44, 49, 53, 72, 85). 2015 and 2026 are PARTIAL years (see calib_year_completeness_status.csv).
 
 ## 1. Purpose & scope
 This report summarizes the real-corpus properties a synthetic BOAMP-like linkage benchmark generator should reproduce, and draws a hard line around what may and may not be used to construct synthetic ground truth.
 
 ## 2. Tiering framework
-- **OBSERVABLE** — measured directly from raw fields or the shared, layer-neutral preparation logic on the full corpus.
-- **SILVER_STANDARD** — visible only through Layer 1/Layer 2 accepted links (Section 15 of the notebook only); always conditional on threshold acceptance, never an unconditional error/accuracy rate.
-- **UNIDENTIFIED** — cannot be estimated from any BOAMP output in this repo; must be exposed as a swept scenario parameter in the generator, not calibrated to a point.
+- **OBSERVABLE** (generator-use status `CALIBRATE`) — measured directly from raw fields or the shared, layer-neutral preparation logic on the full corpus.
+- **SILVER_STANDARD** (generator-use status `DO_NOT_CALIBRATE`) — visible only through Layer 1/Layer 2 accepted links (Section 15 of the notebook only); always conditional on threshold acceptance, never an unconditional error/accuracy rate.
+- **UNIDENTIFIED** (generator-use status `SCENARIO_KNOB`) — cannot be estimated from any BOAMP output in this repo; must be swept across a range in the generator, never calibrated to a point.
 
 ## 3. Population structure
-- 84,623 notices, years 2015-2026.
-- Schema transition (LEGACY -> EFORMS) around the ~Oct 2023 eForms mandate; see `calib_schema_transition_shift.csv` for the field-completeness shift it caused.
+- 84,623 notices, years 2015-2026 (2015 and 2026 are PARTIAL years — see `calib_year_completeness_status.csv`).
+- Schema transition (LEGACY -> EFORMS) around the ~Oct 2023 eForms mandate; see `calib_schema_transition_shift.csv` for field-completeness shifts and `eforms_cpv_recovery.csv` for the CPV parser discontinuity/correction.
 - 5,268 distinct buyer_key values; activity Gini=0.832, top-1 buyer share=3.8%.
 
-## 4. Observable distributions the synthetic generator should reproduce
+## 4. Observable distributions the synthetic generator should reproduce (generator-use: CALIBRATE)
 - **Total notices in prepared corpus** (1): `84623` [unconditional] -> `n/a`. Full corpus, all sectors, all notice types, not scope-filtered.
+- **First/last observed date and notice count per calendar year** (1): `see table` [by publication_year] -> `calib_year_completeness_status.csv`. 2015 and 2026 are PARTIAL years (extraction-window boundaries), not full calendar years; every other by-year table/chart in this notebook flags them the same way and they must not be compared 1:1 against FULL years.
 - **Notice share by department (multi-valued, exploded)** (2): `see table` [marginal, by department] -> `calib_department_coverage.csv`. code_departement can list several departments per notice; shares sum to >1.
-- **Notice type composition by year** (2): `see table` [by year] -> `calib_notice_type_by_year.csv`. notice_type_normalized collapses rare types to OTHER.
-- **Non-null rate, all 94 columns** (3): `see table` [marginal] -> `calib_field_completeness_marginal.csv`. Includes both raw and derived columns.
-- **Completeness of key fields by year** (3): `see table` [by publication_year] -> `calib_field_completeness_heatmap.png`. Trend, not a validated forecast.
-- **LEGACY vs EFORMS field completeness delta** (4): `see table` [by schema_family] -> `calib_schema_transition_shift.csv`. schema_family is detected heuristically from the raw donnees payload (src/utils/boamp_schema.py); not a declared field.
+- **Notice type composition by year** (2): `see table` [by year] -> `calib_notice_type_by_year.csv`. notice_type_normalized collapses rare types to OTHER; 2015 and 2026 are PARTIAL years (see calib_year_completeness_status.csv), not full-year counts.
+- **Non-null rate, all 94 columns** (3): `see table` [marginal] -> `calib_field_completeness_marginal.csv`. Includes both raw and derived columns; see §16b calib_data_lineage.csv for which fields are RAW vs CLEANED vs DERIVED vs IMPUTED.
+- **Completeness of key fields by year** (3): `see table` [by publication_year] -> `calib_field_completeness_heatmap.png`. Trend, not a validated forecast; 2015 and 2026 are PARTIAL years.
+- **LEGACY vs EFORMS field completeness delta** (4): `see table` [by schema_family] -> `calib_schema_transition_shift.csv`. schema_family is detected heuristically from the raw donnees payload (src/utils/boamp_schema.py); not a declared field. The trailing quarters of 2026 are within the PARTIAL year and should not be read as a completed-year trend.
 - **Gini coefficient, notices per buyer_key** (5): `0.832` [unconditional] -> `calib_buyer_activity_distribution.png`. buyer_key is BOAMP-native identity (SIRET/SIREN/name fallback); NAME_FALLBACK buyers aggregate multiple real entities under one key, inflating apparent concentration.
 - **buyer_identifier_source distribution** (6): `see table` [marginal] -> `calib_identifier_quality_summary.csv`. RAW_SIRET_FIELD/RAW_SIREN_FIELD/DERIVED_FROM_SIRET/NONE; format+Luhn checksum validated.
-- **Share of normalized buyer names mapping to >1 buyer_key** (7): `0.2901` [marginal] -> `calib_buyer_name_fragmentation_summary.csv`. A data-quality measure of BOAMP-native identity resolution, not a linkage-accuracy claim; generic institutional names (mairie, commune, ...) fragment for a different reason than genuine spelling/legal-form variants and are reported separately.
-- **CPV code missing rate** (8): `0.2968` [marginal + by year/schema/notice_type/department/buyer_activity/identifier_source] -> `calib_cpv_missingness_by_conditioning.csv`. cpv_clean requires exact 8-digit format; malformed/multi-code strings are treated as missing.
-- **Duration field present, full corpus** (9): `0.1365` [marginal + conditional] -> `calib_duration_quality_summary.csv`. Distinct from the pipeline's 88%-imputed figure, which is computed only over the APPEL_OFFRE & digital-scope eligible-source subset, not the full corpus.
-- **Exact-duplicate objet_clean rate** (10): `0.5143` [among non-missing text] -> `calib_text_near_duplicate_rate.csv`. Exact-string duplication only; near-duplicate detection via fuzzy/semantic similarity would find a higher rate. This is a lower bound on text-based candidate ambiguity.
-- **Phi-coefficient correlation among 6 quality flags** (11): `see table` [marginal + by year/schema/dept/cpv/buyer_activity] -> `calib_missingness_correlation_heatmap.png`. siret_or_siren_missing and name_fallback are definitionally linked by the buyer_key construction ladder (identity_boamp.py), not an independent empirical association.
+- **Share of normalized buyer names mapping to >1 buyer_key** (7): `0.2901` [marginal + by generic-name/activity/identifier/dept consistency] -> `buyer_name_ambiguity.csv`. A data-quality measure of BOAMP-native identity ambiguity used to calibrate false buyer merging risk; generic institutional names are flagged separately because common nouns can represent many legal buyers.
+- **Normalized names per reliable SIRET identity** (7): `see table` [by SIRET identity and activity level] -> `buyer_name_variation_siret.csv`. SIRET is the establishment-level identity; variation here estimates false splitting risk among the most specific reliable BOAMP-native buyer identifiers.
+- **Normalized names per reliable SIREN identity** (7): `see table` [by SIREN identity and activity level] -> `buyer_name_variation_siren.csv`. SIREN is the legal-unit identity; it can legitimately aggregate several establishments or service renderings, so variation is not automatically an error.
+- **Likely buyer-name transformation labels** (7): `see table` [SIRET/SIREN identities with >1 normalized name] -> `buyer_name_transformations.csv`. Transformation labels are heuristic and can overlap; use them as generator corruption modes, not verified legal-name-change annotations.
+- **eForms CPV parser discontinuity and recovery** (8): `0.0% -> 100.0%` [raw source vs flattened vs cleaned prepared; by schema/year/eForms notice type] -> `eforms_cpv_recovery.csv`. The old parser missed eForms UBL commodity-classification paths; after correction no eForms CPV is classified as genuinely absent in the current raw corpus. Downstream CPV-dependent linkage outputs still need regeneration.
+- **CPV code missing rate** (8): `0.1706` [marginal + by year/schema/notice type/department/buyer activity/identifier source] -> `calib_cpv_missingness_by_conditioning.csv`. cpv_clean requires exact 8-digit format. Multiple CPV candidates are retained in the flattened candidate list but prepared cpv_clean uses the first valid token. 2015 and 2026 rows in the by-year breakdown are PARTIAL years.
+- **Duration field present, full corpus** (9): `0.1365` [marginal + conditional] -> `calib_duration_quality_summary.csv`. Distinct from the pipeline's 88%-imputed figure, which is computed only over the APPEL_OFFRE & digital-scope eligible-source subset, not the full corpus. 2015 and 2026 rows in the by-year breakdown are PARTIAL years.
+- **Exact-duplicate objet_clean rate** (10): `0.5143` [among non-missing text] -> `calib_text_exact_duplicate_rate.csv`. Exact-string duplication only; near-duplicate detection via fuzzy/semantic similarity would find a higher rate (no such detector is run in this notebook). This is a lower bound on text-based candidate ambiguity, not an estimate of the true near-duplicate rate.
+- **Provisional notice-family size distribution** (10b): `see table` [by provisional notice family] -> `notice_family_size_distribution.csv`. Provisional lifecycle grouping only: designed to represent one procurement episode producing one or several observed notices, not later cycles for a similar need.
+- **Lifecycle transition counts within provisional notice families** (10b): `see table` [by source role, target role, edge type] -> `notice_lifecycle_transitions.csv`. Role labels are derived from BOAMP notice status/category fields and collapse rare follow-up forms into FOLLOW_UP.
+- **Call-to-award delay distribution in provisional notice families** (10b): `see table` [award notices with an observed call in the same provisional family] -> `call_to_award_delays.csv`. Delays use first observed call in the corpus, so missing historical calls can make some award-linked families look incomplete; negative or >24-month delays are flagged, not dropped.
+- **Text similarity and CPV agreement within provisional notice families** (10b): `see table` [within-family pairs vs outside-family same-buyer window sample] -> `notice_family_text_similarity_comparison.csv`. Outside-family comparator is a bounded same-buyer/date-window sample, not a global non-match population; it is intended as a plausibility contrast for family grouping.
+- **Marginal rate of each of the 5 quality flags** (11): `see table` [marginal] -> `calib_missingness_marginal_rates.csv`. award_link_unresolved is defined (non-NaN) only for APPEL_OFFRE notices; its rate is over that subset, not the full corpus. name_fallback was dropped as a deterministic subset of siret_or_siren_missing; see calib_buyer_name_variation_summary.csv (§7) instead.
+- **Phi-coefficient correlation among 5 quality flags** (11): `see table` [marginal + by year/schema/dept/cpv/buyer_activity] -> `calib_missingness_correlation_heatmap.png`. name_fallback excluded: it was a deterministic subset of siret_or_siren_missing (construction artifact, not an empirical association); award_link_unresolved correlations are computed pairwise over its APPEL_OFFRE-only non-NaN population.
 - **Quality metrics split by digital-scope / PDL-scope eligibility** (12): `see table` [by is_digital_scope, is_in_pdl] -> `calib_scope_conditioning_crosstab.csv`. is_digital_scope combines a CPV-division rule with a French keyword search over objet_normalized (config/pipeline.yaml scope block); it is a scope-tagging heuristic.
-- **Same-buyer candidate-set size vs window width** (13): `see table` [by window_months x buyer_key_type] -> `calib_candidate_environment_complexity_by_window.csv`. Publication-date-based, not estimated-end-date-based; independent of the pipeline's 6-month convention. NAME_FALLBACK buyer_key aggregates distinct real entities, inflating candidate density for that stratum specifically.
+- **Future-only candidate counts per source notice** (13): `see table` [by environment x horizon x source strata] -> `candidate_environment_future_only.csv`. Ambient and BOAMP-native buyer-compatible rows are observable corpus-density measures; production rows are included only as capped-pool diagnostics and must not be used as ground truth links.
+- **Candidate count quantiles under future-only environments** (13): `see table` [overall + identity source + buyer activity + schema + year + CPV + duration + digital segment] -> `candidate_environment_quantiles.csv`. The synthetic generator should reproduce conditional candidate difficulty; production-layer summaries in the same table remain diagnostics because they inherit pipeline blocking and caps. Notice-family counts are exact for production pairs and left missing for broad future environments to avoid materializing all ambient pairs.
+- **Candidate count removed by each production filter** (13): `see table` [Layer 1 production sources; 60m ambient baseline to capped production pool] -> `candidate_filter_decomposition.csv`. The current pipeline has no hard CPV filter; CPV enters scoring, so the CPV stage intentionally removes zero candidates and documents that design choice.
+- **Per-source follow-up time and 12/24/36/60-month evaluability flags (Work Package 9)** (13b): `see table` [by source notice] -> `followup_availability.csv`. Covers all APPEL_OFFRE sources regardless of digital scope (scope is a conditioning dimension, not a pre-filter, per §12); F_i is administrative follow-up only, independent of whether the pipeline actually linked the source to a later notice.
+- **12-month, 24-month, and full-survival-cohort populations, by year/segment/buyer-activity/schema/identifier-source** (13b): `see table` [by cohort x stratum_dim x stratum_value] -> `evaluable_cohorts.csv`. full_survival_cohort has no fixed horizon by construction (every source belongs, right-censored at study end if unlinked), so its own admin_censoring_rate is trivially 0 everywhere; it is included as a population definition, not as a horizon-based exclusion like the 12/24-month cohorts.
+- **Text-similarity distributions across 8 structural pair groups (Work Package 6)** (15b): `see table` [by pair_group] -> `text_similarity_groups.csv`. Groups 2-7 are structural comparison groups built from block sampling (buyer/CPV/name co-occurrence), not verified recurrence truth; only group 1 (same provisional notice family, §10b) is a relatively strong observable relationship. Sentence embeddings were not computed (rejected earlier for CPU-only runtime, docs/methodology.md §5); lexical measures are used instead.
+- **Exact-duplicate objet_normalized group sizes and buyer/CPV composition** (15b): `see table` [by text_duplicate_group_id] -> `text_duplicate_groups.csv`. Exact-string literal duplication only (lower bound on template reuse, same limitation as §10's exact_duplicate_text_rate); distinct from §10b provisional notice families, which additionally require same buyer_key, date proximity, and CPV compatibility.
+- **Same-buyer, same-CPV-division, high-text-similarity pairs with distinct detailed CPV** (15b): `see table` [n/a (curated sample)] -> `text_hard_negative_sample.csv`. A necessary stress case for the synthetic benchmark (an easy benchmark without these would overstate linker performance); the similarity threshold is anchored to this notebook's own baseline distribution, not an externally validated cutoff.
+- **Marginal rates and phi-correlation among 7 quality flags (Work Package 8)** (15c): `see table` [marginal + pairwise] -> `missingness_marginal_rates.csv; missingness_phi_matrix.csv`. cpv_missing and cpv_generic are mutually exclusive states of the same field (cpv_generic_flag is False, not NaN, whenever CPV is absent), so their negative correlation is partly mechanical, not purely empirical; award_link_unresolved is APPEL_OFFRE-only (NaN elsewhere), matching §11's population restriction; name_fallback is excluded here (empirically identical to identifier_missing in this corpus, correlation exactly 1.0 - buyer_key_type takes only RAW_SIRET/NAME_FALLBACK values here, no RAW_SIREN rows observed) and kept only as an auxiliary flag for its one named joint pattern (next section).
+- **Conditional missingness rates by schema/notice-type/year/CPV/buyer-activity/department** (15c): `see table` [by stratum_dim x stratum_value (and schema x notice_type jointly)] -> `calib_missingness_conditional_rates.csv; calib_missingness_by_schema_notice_type.csv`. Marginal-by-dimension tables condition on one variable at a time; only the schema x notice_type table is a genuine 2-way conditional view, which is what the §11 'Reasoning' example (legacy/eForms CPV-vs-duration trade-off) actually requires.
+- **Per-flag L2-penalized logistic regression (odds ratios) with one schema x notice_type interaction** (15c): `see table` [by flag x term] -> `missingness_conditional_models.csv`. Coefficients are L2-regularized point estimates, not inferential p-values (no statsmodels dependency was introduced); AUC is computed on the training population, not held out, so it is a fit-quality diagnostic, not a generalization estimate.
+- **Five named co-occurring quality-issue patterns (rate, expected-under-independence, lift)** (15c): `see table` [5 named patterns] -> `missingness_joint_patterns.csv`. unresolved_award_and_missing_contractor uses ATTRIBUTION-only fields (titulaire/annonce_lie) and is a different 'unresolved award' direction than §11's award_link_unresolved (which is about APPEL_OFFRE notices never receiving a resolved start date); the two must not be conflated.
+- **Top co-occurring quality-flag combinations and per-notice issue-count distribution** (15c): `see table` [top 15 combinations; issue count 0-7] -> `calib_missingness_upset_combinations.csv; calib_missingness_issue_count_distribution.csv`. Restricted to the 7 flags defined on the full corpus so every notice contributes exactly one combination; award_link_unresolved is excluded from the combination signature for the same reason it is population-restricted elsewhere in this notebook.
+- **Blinded human-review queue sampled from 8 strata (Work Package 11)** (15d): `see table` [by review_stratum] -> `human_review_queue_blinded.csv; human_review_queue_technical_join.csv`. This section produces zero labels - it only builds the queue a human still has to review. Scores/confidence tier/layer are held out of the blinded file and kept only in the technical join table, to avoid anchoring the reviewer on the pipeline's own decision (same practice as reports/final_single_reviewer_audit_guide.md).
 
-## 5. Silver-standard-only observations (Section 15)
+## 5. Silver-standard-only observations (Section 15, generator-use: DO_NOT_CALIBRATE)
 These describe accepted-link populations only; they are NOT unconditional error rates and must not be used to set synthetic ground-truth error/accuracy parameters.
 - **Data-quality-defect co-occurrence among accepted links**: `see table` -> `calib_silver_error_cooccurrence_by_tier.csv`. Conditional on the pipeline's own threshold-based acceptance; selection bias by construction; must not be used as an unconditional error rate or to estimate true linkage accuracy.
-- **Candidate-set size/margin at rank-1, by identifier/CPV quality**: `see table` -> `calib_silver_candidate_ambiguity_by_quality.csv`. Reflects the pipeline's own 6-month window and 30-candidate cap (config/pipeline.yaml); compare against Section 13's independent window sweep, do not treat as the 'true' candidate density.
+- **Candidate-set size/margin at rank-1, by identifier/CPV quality**: `see table` -> `calib_silver_candidate_ambiguity_by_quality.csv`. Reflects the pipeline's own 6-month window and 30-candidate cap (config/pipeline.yaml); compare against Section 13's future-only environment rebuild, do not treat as the 'true' candidate density.
+- **Text similarity among the pipeline's own rank-1 candidate pairs**: `see table` -> `text_similarity_groups.csv`. Sourced from the pre-threshold candidate pool (not accepted links), so this is a structural comparison group only — it shows what the pipeline's own blocking+scoring considers 'nearest', not a validated true-match population; never used to set synthetic ground truth (see §15).
+- **name_fallback + large_candidate_pool joint-pattern rate**: `see table` -> `missingness_joint_patterns.csv`. Sourced from the pre-threshold candidate pool (not accepted links), restricted to sources that reached candidate generation; a structural comparison only, never used to set synthetic ground truth (see §15).
 
-## 6. Unidentified parameters / required scenario knobs
+## 6. Unidentified parameters / required scenario knobs (generator-use: SCENARIO_KNOB)
 - **true recurrence prevalence**: No verified legal-renewal field exists in BOAMP; the pipeline's own event rate (19.6%/26.8%) is itself the output of an unvalidated scoring+threshold procedure, not a measurement of real renewal behaviour. Proposed scenario range: `e.g. sweep true recurrence prevalence in {10%, 25%, 40%, 60%}`.
 - **true linkage precision recall**: Zero completed manual-validation labels exist; Fellegi-Sunter EM estimates in 03_analysis are explicitly model-based, not ground-truth-validated. Proposed scenario range: `sweep precision/recall of the *injected* synthetic linker across a grid, e.g. precision in {0.6,0.75,0.9}, recall in {0.5,0.7,0.9}`.
 - **true buyer entity resolution rate**: No registry cross-validation of BOAMP-native buyer identity exists in this repo; the Layer 2 external SIREN join covers only 2024-2026 and the alias bridge is an unvalidated heuristic. Proposed scenario range: `sweep the fraction of buyer-name variants correctly resolved to one entity, e.g. {50%, 70%, 90%}`.
-- **true candidate ambiguity resolution**: Which candidate among several plausible same-buyer notices is the *correct* renewal is never verified; §15's rank-1 selection is a modelling choice, not ground truth. Proposed scenario range: `vary the number of plausible-but-wrong candidates per true link, e.g. {0, 1-2, 3-5, 6+}, informed by §13's window-sweep candidate-density numbers`.
-- **true text corruption process**: No ground truth exists for how procurement text varies between a true renewal pair vs. an unrelated notice; §10's near-duplicate rate only measures exact repetition. Proposed scenario range: `sweep text-similarity degradation severity for true-pair synthetic text, e.g. cosine similarity target ranges {0.3-0.5, 0.5-0.7, 0.7-0.9}`.
+- **true candidate ambiguity resolution**: Which candidate among several plausible same-buyer notices is the *correct* renewal is never verified; §15's rank-1 selection is a modelling choice, not ground truth. Proposed scenario range: `vary the number of plausible-but-wrong candidates per true link, e.g. {0, 1-2, 3-5, 6+}, informed by §13's future-only candidate-density numbers`.
+- **true text corruption process**: No ground truth exists for how procurement text varies between a true renewal pair vs. an unrelated notice; §10's exact-duplicate rate only measures literal repetition. Proposed scenario range: `sweep text-similarity degradation severity for true-pair synthetic text, e.g. cosine similarity target ranges {0.3-0.5, 0.5-0.7, 0.7-0.9}`.
 
 ## 7. Do NOT use for synthetic ground truth
 - `data/processed/{boamp_only,enriched}/*_candidate_pairs.csv` composite_score / confidence_tier
@@ -50,19 +75,34 @@ These describe accepted-link populations only; they are NOT unconditional error 
 - The frozen thresholds 0.2642 / 0.3230 / 0.3931 (`config/pipeline.yaml`, `thresholds:`)
 - The six-month (and 9/12/18-month variant) temporal window (`config/pipeline.yaml`, `temporal_window:`)
 - Event/censoring rates in `*_survival*.csv` (19.6% Layer 1 / 26.8% Layer 2) as true recurrence prevalence
+- The pipeline's own precision/recall (never measured; see §6 `true_linkage_precision_recall` — SCENARIO_KNOB only, swept for the *injected* synthetic linker, never read off the real pipeline)
 
 ## 8. Calibration checklist
 | Observable table | Generator knob |
 |---|---|
-| `calib_population_counts_by_year_schema.csv` | year/schema volume mix |
+| `calib_population_counts_by_year_schema.csv` | year/schema volume mix (exclude PARTIAL years from steady-state fits) |
 | `calib_buyer_activity_distribution.csv` | buyer-activity (Zipf/Gini) distribution |
 | `calib_identifier_quality_summary.csv` | SIRET/SIREN presence & validity rates |
-| `calib_buyer_name_fragmentation_summary.csv` | buyer-name variant generation rate |
-| `calib_cpv_quality_summary.csv` | CPV missingness/genericity rates |
+| `buyer_name_ambiguity.csv` | name -> multiple legal buyers / false buyer-merging calibration |
+| `buyer_name_variation_siret.csv` | names per SIRET / false buyer-splitting calibration at establishment level |
+| `buyer_name_variation_siren.csv` | names per SIREN / false buyer-splitting calibration at legal-unit level |
+| `buyer_name_transformations.csv` | likely name-transformation modes for synthetic alias generation |
+| `eforms_cpv_recovery.csv` | eForms CPV parser recovery stages; use corrected CPV after regeneration |
+| `eforms_cpv_path_audit.csv` | schema-specific CPV paths and excluded non-CPV 8-digit fields |
+| `calib_cpv_quality_summary.csv` | corrected CPV missingness/genericity rates |
 | `calib_duration_quality_summary.csv` | duration missingness/plausibility rates |
-| `calib_text_characteristics_summary.csv` | text length/near-duplicate rates |
-| `calib_missingness_joint_matrix.csv` | joint/correlated missingness injection |
-| `calib_candidate_environment_complexity_by_window.csv` | candidate-block size by window scenario |
+| `calib_text_characteristics_summary.csv` | text length/exact-duplicate rates |
+| `notice_family_size_distribution.csv` | observed publications per provisional procurement episode |
+| `notice_lifecycle_transitions.csv` | call/correction/modification/award/cancellation transition mix |
+| `call_to_award_delays.csv` | delay from first observed call to award notice |
+| `notice_family_text_similarity_comparison.csv` | within-family vs outside-family text similarity plausibility check |
+| `notice_family_cpv_agreement.csv` | CPV agreement within provisional families |
+| `calib_missingness_marginal_rates.csv` | per-flag missingness injection rate |
+| `calib_missingness_phi_matrix.csv` | joint/correlated missingness injection |
+| `candidate_environment_future_only.csv` | source-level future candidate counts, zero-candidate flags, first-candidate timing, family counts, cap/margin diagnostics |
+| `candidate_environment_quantiles.csv` | candidate difficulty by horizon and strata (identity source, activity, schema, year, CPV, duration, digital segment) |
+| `candidate_filter_decomposition.csv` | production filter/cap decomposition from ambient future pool to capped candidates |
+| `calib_data_lineage.csv` | which generator inputs are RAW/CLEANED/DERIVED vs IMPUTED/ENRICHED (do not calibrate to the latter two) |
 
 ## 9. Known limitations (carried over from docs/methodology.md §9)
 1. No verified renewal/linkage ground truth exists anywhere in this repo.
@@ -70,8 +110,10 @@ These describe accepted-link populations only; they are NOT unconditional error 
 3. Composite weights and thresholds are unfitted/percentile conventions, not validated cutoffs.
 4. SIREN-based buyer merges can conflate independently-tendering establishments.
 5. Zero manual-validation labels exist; all quality diagnostics are model-based, not human-verified.
+6. 2015 and 2026 are PARTIAL calendar years (extraction-window boundaries); any by-year distribution used to calibrate a steady-state generator should exclude them or reweight by `n_notices` in `calib_year_completeness_status.csv`.
 
 ## 10. Appendix: output files
-- Figures: `reports/figures/calib_*.png` / `.pdf` (18 figures)
-- Tables: `reports/tables/calib_*.csv`
-- Provenance inventory: `reports/tables/calib_parameter_provenance_inventory.csv`
+- Figures: `reports/figures/calib_*.png` / `.pdf` plus `reports/figures/synthetic_calibration/{cpv,notice_families,buyer_identity,candidate_environment}/` figures
+- Tables: `reports/tables/synthetic_calibration/calib_*.csv` plus `eforms_cpv_*.csv`, `notice_family_*.csv`, `buyer_name_*.csv`, and `candidate_environment_*.csv`
+- Provenance inventory: `reports/tables/synthetic_calibration/calib_parameter_provenance_inventory.csv`
+- Field lineage: `reports/tables/synthetic_calibration/calib_data_lineage.csv`

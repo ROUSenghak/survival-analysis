@@ -1,0 +1,9 @@
+review_stratum,n_cases
+split_or_merge_candidates,24
+high_score_layer1_links,8
+layer2_only_links,8
+low_margin_layer1_links,8
+same_buyer_hard_negatives,8
+pairs_outside_six_month_window,8
+sources_with_no_candidates,8
+very_active_buyers,8

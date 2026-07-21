@@ -1,0 +1,39 @@
+# Scenario family: Semantic drift (Work Package 13).
+# Diffed against 02_central_boamp_like.yaml.
+
+scenario_id: semantic_drift
+display_name: "Semantic drift"
+purpose: Test text scoring.
+intended_stress_mechanism: >
+  Robustness of the text-similarity scoring component to wording drift: the
+  composite score places 35% of its weight on s_text (config/pipeline.yaml
+  scoring.weights.text); if true renewals show strong wording drift between
+  a source and its true successor, a linker with a fixed, non-adaptive text
+  weight could systematically under-rank true successors relative to
+  same-theme distractors that happen to share more vocabulary.
+scientific_justification: >
+  §14's true_text_corruption_process scenario knob
+  (calib_unidentified_parameters_scenarios.csv) already proposes a swept
+  cosine-similarity target range {0.3-0.5, 0.5-0.7, 0.7-0.9} for true-pair
+  synthetic text, precisely because no BOAMP source establishes how much a
+  true renewal's wording actually drifts. This scenario selects the most
+  severe (lowest-similarity) end of that already-proposed range, rather than
+  inventing a new one.
+provenance: SCENARIO_ASSUMPTION
+baseline_reference: 02_central_boamp_like.yaml
+
+changed_parameters:
+  - parameter_name: true_recurrence_text_similarity_target
+    is_new_scenario_knob: true
+    baseline: "not previously a named row; derived from §14's true_text_corruption_process range {0.3-0.5, 0.5-0.7, 0.7-0.9}"
+    scenario_value: "0.3-0.5 (the most severe end of §14's already-proposed range)"
+    rationale: "Simulate strong vocabulary/template change between a true source and its true successor, well below §15b's own same-provisional-family median (near 1.0) and same-SIRET-same-CPV median (~0.21)."
+
+unchanged_parameters_note: >
+  composite_score_weights is deliberately held at the central_boamp_like
+  baseline (text=0.35 unchanged): this scenario tests whether the existing,
+  frozen linker's own scoring degrades under drift, not whether a
+  differently-weighted linker would cope better - that is a separate
+  question for the actual generator/linker evaluation, not this scenario
+  definition. Buyer identity, duration, and CPV parameters are also
+  unchanged, isolating text drift as the only degraded mechanism.

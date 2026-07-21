@@ -1,0 +1,71 @@
+# Scenario family: Adverse combined (Work Package 13).
+# Diffed against 02_central_boamp_like.yaml. Composes 03/04/05 rather than
+# inventing a fourth, independent failure mode.
+
+scenario_id: adverse_combined
+display_name: "Adverse combined"
+purpose: Worst-case robustness.
+intended_stress_mechanism: >
+  End-to-end combined robustness: buyer-identity fragmentation, duration
+  failure, and text semantic drift occurring jointly, not independently.
+scientific_justification: >
+  §15c's own joint-pattern analysis (missingness_joint_patterns.csv) found
+  quality issues empirically cluster rather than occur independently (e.g.
+  unresolved_award_and_missing_contractor lift=1.59, missing_cpv_and_missing_duration
+  lift=1.11 - both > 1.0, meaning the issues co-occur more than chance would
+  predict). A scenario combining 03_buyer_fragmentation,
+  04_duration_failure, and 05_semantic_drift is therefore a realistic tail
+  case grounded in an observed empirical pattern, not merely an artificial
+  adversarial construction, and is the single hardest test of whether the
+  generator/linker pipeline degrades gracefully or catastrophically under
+  compounding failure.
+provenance: SCENARIO_ASSUMPTION
+baseline_reference: 02_central_boamp_like.yaml
+
+changed_parameters:
+  - parameter_name: identifier_missing_rate
+    baseline: "72.8%"
+    scenario_value: "90% (same as 03_buyer_fragmentation)"
+    rationale: "See 03_buyer_fragmentation.yaml."
+  - parameter_name: siret_vs_name_fallback_share
+    baseline: "NAME_FALLBACK=72.8%; RAW_SIRET=27.2%"
+    scenario_value: "NAME_FALLBACK=90%; RAW_SIRET=10% (same as 03_buyer_fragmentation)"
+    rationale: "See 03_buyer_fragmentation.yaml."
+  - parameter_name: buyer_name_ambiguity_rate
+    baseline: "7.6%"
+    scenario_value: "20% (same as 03_buyer_fragmentation)"
+    rationale: "See 03_buyer_fragmentation.yaml."
+  - parameter_name: buyer_name_variation_rate
+    baseline: "27.9%"
+    scenario_value: "50% (same as 03_buyer_fragmentation)"
+    rationale: "See 03_buyer_fragmentation.yaml."
+  - parameter_name: generic_buyer_name_share
+    baseline: "36.8%"
+    scenario_value: "55% (same as 03_buyer_fragmentation)"
+    rationale: "See 03_buyer_fragmentation.yaml."
+  - parameter_name: duration_missing_rate
+    baseline: "86.4%"
+    scenario_value: "98% (same as 04_duration_failure)"
+    rationale: "See 04_duration_failure.yaml."
+  - parameter_name: duration_imputation_rate
+    baseline: "82.7% (pipeline's own eligible-source scope)"
+    scenario_value: "~99% of the eligible-source scope (same as 04_duration_failure)"
+    rationale: "See 04_duration_failure.yaml."
+  - parameter_name: duration_observed_inaccuracy_rate
+    is_new_scenario_knob: true
+    baseline: "0.14% out-of-range (§9 full-corpus rate; not a parameter_inventory.csv row)"
+    scenario_value: "10% (same as 04_duration_failure)"
+    rationale: "See 04_duration_failure.yaml."
+  - parameter_name: true_recurrence_text_similarity_target
+    is_new_scenario_knob: true
+    baseline: "not previously a named row; derived from §14's true_text_corruption_process range"
+    scenario_value: "0.3-0.5 (same as 05_semantic_drift)"
+    rationale: "See 05_semantic_drift.yaml."
+
+unchanged_parameters_note: >
+  CPV-quality parameters (cpv_missing_and_generic_rates), population-structure
+  parameters, and every linker_scoring_replica / candidate_environment_generator
+  parameter are held at the central_boamp_like baseline: only the three
+  mechanisms with real-data evidence of co-occurrence (§15c's joint-pattern
+  lifts) are combined, deliberately not a fourth or fifth independently
+  invented failure mode.

@@ -1,0 +1,45 @@
+# Scenario family: Duration failure (Work Package 13).
+# Diffed against 02_central_boamp_like.yaml.
+
+scenario_id: duration_failure
+display_name: "Duration failure"
+purpose: Test temporal blocking and leakage.
+intended_stress_mechanism: >
+  Temporal-blocking robustness and duration-leakage sensitivity: duration
+  imputation is the single highest-leverage assumption in the whole pipeline
+  (docs/methodology.md §2, ~88% imputed on the pipeline's own eligible-source
+  scope); this scenario asks whether candidate generation and scoring degrade
+  gracefully, or leak information, when duration quality is worse than
+  observed (see docs/methodology.md §7's forward-24m-no-duration
+  counterfactual, where the log-duration hazard ratio reverses under the
+  forward specification).
+scientific_justification: >
+  Rather than inventing a new duration-failure mode, this scenario pushes the
+  real corpus's own mechanism (declared duration observed for a small
+  minority of notices, the rest imputed by CPV-division median) further in
+  the direction it already points, plus introduces implausible/out-of-range
+  observed durations at a materially higher rate than §9's 0.14% baseline.
+provenance: SCENARIO_ASSUMPTION
+baseline_reference: 02_central_boamp_like.yaml
+
+changed_parameters:
+  - parameter_name: duration_missing_rate
+    baseline: "86.4%"
+    scenario_value: "98%"
+    rationale: "Near-total reliance on imputation; almost no notice carries an observed duration to anchor the temporal window."
+  - parameter_name: duration_imputation_rate
+    baseline: "82.7% (pipeline's own eligible-source scope)"
+    scenario_value: "~99% of the eligible-source scope"
+    rationale: "Consistent with the duration_missing_rate change above, restricted to the same eligible population §9 uses."
+  - parameter_name: duration_observed_inaccuracy_rate
+    is_new_scenario_knob: true
+    baseline: "0.14% out-of-range (§9 full-corpus rate; not a parameter_inventory.csv row)"
+    scenario_value: "10%"
+    rationale: "A materially higher rate of implausible/out-of-range observed durations, to test whether the pipeline's duration-quality-flag logic (duration_quality_flag == OUT_OF_RANGE) and downstream median-imputation fallback actually catch and handle bad observed values, not just missing ones."
+
+unchanged_parameters_note: >
+  temporal_window_months and max_candidates_per_source_cap are deliberately
+  held at the central_boamp_like baseline: the window/cap logic is the
+  mechanism under test, so it must not itself change, only the duration
+  inputs it depends on. Buyer identity, CPV, and text-similarity parameters
+  are also unchanged, isolating duration as the only degraded input.

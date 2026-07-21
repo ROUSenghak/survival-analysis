@@ -1,0 +1,267 @@
+# Frozen recurrence ontology for the synthetic BOAMP renewal-linkage benchmark
+# (Work Package 10). Defines exactly what "synthetic truth" means: every
+# relation type the synthetic generator is allowed to create between a source
+# notice and a later notice, with an unambiguous strict-recurrence and
+# broad-recurrence interpretation for each (see exit_criterion below).
+#
+# UNCERTAIN is listed for real-data human review only (Work Package 11) - it
+# must never be emitted by the synthetic generator, since synthetic ground
+# truth is exact by construction; it exists so a reviewer has somewhere to put
+# a real pair that genuinely does not fit any of the 7 relation types.
+#
+# cpv_change_allowance values reuse config/pipeline.yaml's cpv_score ladder
+# (exact/category/class/group/division/different) directly, so relation
+# definitions here stay consistent with the pipeline's own CPV-similarity
+# scoring rather than introducing a second, incompatible vocabulary. Two
+# extra values are added only where the ladder does not apply: any_similar
+# (the false-candidate case, where similarity is the point, not evidence of
+# a real link) and any (no constraint at all).
+#
+# This file is intentionally NOT wired into boamp.config.load_config(): it is
+# not consumed by the existing Layer 1/Layer 2 linkage pipeline, only by the
+# synthetic benchmark generator these work packages are building toward.
+# Validated by tests/test_recurrence_ontology.py.
+
+version: 1
+frozen_date: "2026-07-21"
+
+enums:
+  same_buyer_requirement:
+    - required_same_entity          # buyer_key must match exactly (same SIRET/SIREN/name-fallback key)
+    - required_same_or_compatible   # same legal entity permitted even if the establishment (SIRET) differs
+    - not_required                  # buyer may be the same or different - not a defining feature of this relation
+    - na                            # no successor exists, so buyer match is not applicable
+  siret_or_siren_level:
+    - siret                         # relation is defined at establishment level
+    - siren                         # relation is defined at legal-entity level (establishment may change)
+    - name_fallback_allowed         # a NAME_FALLBACK buyer_key match is sufficient (no SIRET/SIREN needed)
+    - na
+  cpv_change_allowance:
+    - exact                         # config/pipeline.yaml cpv_score.exact
+    - category                      # config/pipeline.yaml cpv_score.category
+    - class                         # config/pipeline.yaml cpv_score.class
+    - group                         # config/pipeline.yaml cpv_score.group
+    - division                      # config/pipeline.yaml cpv_score.division
+    - different                     # config/pipeline.yaml cpv_score.different
+    - any_similar                   # not on the pipeline ladder: "similar" is the point (false-candidate case)
+    - any                           # unconstrained
+    - na
+  scope_change_allowance:
+    - none                          # underlying need/scope must be unchanged
+    - minor                         # e.g. lot count or minor quantity/duration changes
+    - major                         # need is substantially redefined
+    - unconstrained
+    - na
+  cardinality:
+    - one_to_one
+    - one_to_many
+    - many_to_one
+    - many_to_many
+    - one_to_zero                   # source has no successor at all
+    - na                            # not yet determined (real-data review, UNCERTAIN only)
+  temporal_ordering_requirement:
+    - strict_after                  # successor(s) must be published after the source
+    - strict_after_all              # every successor must be after every source in the group
+    - unordered                     # no temporal constraint (not a true successor relation)
+    - na
+  survival_event_treatment:
+    - event_single                  # delta=1, T = one unambiguous successor gap
+    - event_earliest_of_many        # delta=1, T = min(successor gaps) - first-hazard convention
+    - event_per_source_independent  # delta=1 for each source, T computed independently per source
+    - censored_administrative       # delta=0, T = administrative follow-up (see Work Package 9's F_i)
+    - not_an_event_hard_negative    # excluded from delta/T entirely; exists to stress-test linker precision
+    - not_an_event_background       # excluded from delta/T entirely; generic true-negative background
+    - excluded_from_evaluation      # never labeled 0 or 1; dropped from precision/recall calibration
+  applies_to:
+    - synthetic                     # the synthetic generator may emit this relation
+    - real_data_review              # a human reviewer (Work Package 11) may apply this label
+
+exit_criterion: >
+  Every relation with 'synthetic' in applies_to must carry a non-null boolean
+  strict_label and a non-null boolean broad_label: an unambiguous
+  interpretation under both strict recurrence and broad recurrence. UNCERTAIN
+  is the sole, deliberate exception (real_data_review only, both labels null)
+  since its entire purpose is to hold cases a reviewer cannot classify - it
+  must never be emitted by the synthetic generator, where ground truth is
+  exact by construction. Verified by tests/test_recurrence_ontology.py.
+
+relations:
+  NEXT_CYCLE:
+    description: >
+      The clean textbook renewal: the same underlying need recurs via one
+      clear, unambiguous successor notice from the same buyer.
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: required_same_entity
+    siret_or_siren_level: siret
+    cpv_change_allowance: category
+    scope_change_allowance: none
+    cardinality: one_to_one
+    temporal_ordering:
+      requirement: strict_after
+      notes: >
+        Successor published after the source, expected near
+        config/pipeline.yaml's temporal_window (currently a 6-month
+        expected value, derived from the median observed duration).
+    strict_label: true
+    broad_label: true
+    survival_event_treatment:
+      value: event_single
+      notes: "T_i = successor_date - source_date; delta_i = 1 under both strict and broad."
+
+  PARTIAL_RECURRENCE:
+    description: >
+      A re-tender covering only part of the original need's scope (e.g. a
+      subset of lots, or a scaled-down/expanded continuation) - substantively
+      the same recurring need, but not a full-scope continuation.
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: required_same_or_compatible
+    siret_or_siren_level: siren
+    cpv_change_allowance: class
+    scope_change_allowance: minor
+    cardinality: one_to_many
+    temporal_ordering:
+      requirement: strict_after
+      notes: "Each partial successor is published after the source; successors may recur over time."
+    strict_label: false
+    broad_label: true
+    survival_event_treatment:
+      value: event_earliest_of_many
+      notes: >
+        Counted as the event (delta_i = 1, T_i = earliest partial-successor
+        gap) only under the broad definition. Under strict recurrence the
+        source remains censored - administratively, per Work Package 9's F_i,
+        not as a claim that nothing happened.
+
+  SPLIT:
+    description: >
+      One source's need is re-tendered as several separate successor notices
+      published close together (e.g. a large contract split into lots).
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: required_same_entity
+    siret_or_siren_level: siret
+    cpv_change_allowance: group
+    scope_change_allowance: minor
+    cardinality: one_to_many
+    temporal_ordering:
+      requirement: strict_after_all
+      notes: "All successors after the source, typically clustered close in time to each other."
+    strict_label: true
+    broad_label: true
+    survival_event_treatment:
+      value: event_earliest_of_many
+      notes: >
+        T_i = earliest successor_date - source_date (first-hazard
+        convention); identical treatment under strict and broad, since the
+        overall need's continuity is not in question here - only its
+        cardinality is.
+
+  MERGE:
+    description: >
+      Multiple sources' needs are consolidated into one successor notice
+      (e.g. several small contracts combined into one larger one).
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: required_same_entity
+    siret_or_siren_level: siren
+    cpv_change_allowance: division
+    scope_change_allowance: major
+    cardinality: many_to_one
+    temporal_ordering:
+      requirement: strict_after_all
+      notes: "Successor published after each individual source, which may themselves span different dates."
+    strict_label: true
+    broad_label: true
+    survival_event_treatment:
+      value: event_per_source_independent
+      notes: >
+        Each of the N merged sources gets its own T_i = successor_date -
+        its own source_date, even though they all point to the same
+        successor; delta_i = 1 for all of them under both strict and broad.
+
+  SAME_THEME_DIFFERENT_NEED:
+    description: >
+      A hard-negative false candidate: shares CPV/theme (and often, but not
+      necessarily, the buyer) with the source, but is NOT a continuation of
+      the same underlying need. The deliberate stress case identified in
+      Work Package 6's hard-negative sample.
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: not_required
+    siret_or_siren_level: na
+    cpv_change_allowance: any_similar
+    scope_change_allowance: unconstrained
+    cardinality: many_to_many
+    temporal_ordering:
+      requirement: unordered
+      notes: "May precede or follow the source; this is not a true successor relation."
+    strict_label: false
+    broad_label: false
+    survival_event_treatment:
+      value: not_an_event_hard_negative
+      notes: >
+        Excluded from delta/T computation entirely; exists only so the
+        synthetic benchmark can measure whether a linker wrongly prefers
+        this candidate over the true successor (or over NO_SUCCESSOR).
+
+  UNRELATED:
+    description: >
+      The generic true-negative background population: different buyer,
+      different theme, no plausible relationship to the source at all.
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: not_required
+    siret_or_siren_level: na
+    cpv_change_allowance: any
+    scope_change_allowance: na
+    cardinality: many_to_many
+    temporal_ordering:
+      requirement: unordered
+      notes: ""
+    strict_label: false
+    broad_label: false
+    survival_event_treatment:
+      value: not_an_event_background
+      notes: "Excluded from delta/T computation; the bulk non-candidate population."
+
+  NO_SUCCESSOR:
+    description: >
+      The source has no plausible successor anywhere in the study period:
+      true structural/administrative censoring, not a pairwise relation.
+    applies_to: [synthetic, real_data_review]
+    same_buyer_requirement: na
+    siret_or_siren_level: na
+    cpv_change_allowance: na
+    scope_change_allowance: na
+    cardinality: one_to_zero
+    temporal_ordering:
+      requirement: na
+      notes: ""
+    strict_label: false
+    broad_label: false
+    survival_event_treatment:
+      value: censored_administrative
+      notes: >
+        delta_i = 0, T_i = F_i (study_end_date - source publication_date),
+        matching Work Package 9's followup_availability/evaluable_cohorts
+        definitions exactly.
+
+  UNCERTAIN:
+    description: >
+      A human reviewer (Work Package 11) cannot confidently classify a real
+      candidate pair into any of the 7 relation types above.
+    applies_to: [real_data_review]
+    same_buyer_requirement: na
+    siret_or_siren_level: na
+    cpv_change_allowance: na
+    scope_change_allowance: na
+    cardinality: na
+    temporal_ordering:
+      requirement: na
+      notes: ""
+    strict_label: null
+    broad_label: null
+    survival_event_treatment:
+      value: excluded_from_evaluation
+      notes: >
+        Never appears in synthetic ground truth (synthetic labels are exact
+        by construction). Real-data pairs a reviewer labels UNCERTAIN must be
+        dropped from precision/recall calibration, never coerced to 0 or 1
+        (Work Package 11's exit criterion: refine scenario ranges, not
+        produce a single claimed real precision estimate).

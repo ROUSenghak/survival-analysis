@@ -1,0 +1,35 @@
+# Scenario family: Central BOAMP-like (Work Package 13).
+# Written FIRST because every other scenario in this directory states its
+# changes as a diff against this one, not against each other.
+
+scenario_id: central_boamp_like
+display_name: "Central BOAMP-like"
+purpose: Principal benchmark.
+intended_stress_mechanism: >
+  None by design - this is the reference point every other scenario in this
+  directory perturbs away from, not a stress test itself.
+scientific_justification: >
+  The most externally valid single benchmark available: every EMPIRICAL and
+  LITERATURE_BASED row in parameter_inventory.csv (Work Package 12) is used
+  as-is, taken directly from the real corpus or the pipeline's own frozen
+  conventions. SCENARIO_ASSUMPTION rows (recurrence_relation_type_mix,
+  split_merge_occurrence_rate) use the midpoint of their proposed range from
+  calib_unidentified_parameters_scenarios.csv (Work Package 4/§14), not swept
+  - sweeping them is what the other 5 scenarios (and any full grid run) are
+  for.
+provenance: >
+  Mixed, exactly as frozen per-parameter in parameter_inventory.csv: EMPIRICAL
+  for corpus-measured facts, LITERATURE_BASED for the pipeline's own fixed
+  conventions (scoring weights, CPV ladder, thresholds, temporal window),
+  SCENARIO_ASSUMPTION only for the two relation-mix parameters (at their
+  range midpoint here, not swept).
+
+baseline_reference: reports/tables/synthetic_calibration/parameter_inventory.csv
+
+changed_parameters: []
+
+unchanged_parameters_note: >
+  Every parameter_inventory.csv row is used at its frozen estimate_or_range
+  value; SCENARIO_ASSUMPTION rows use their proposed range's midpoint. There
+  is nothing to diff against, since this scenario IS the baseline every other
+  scenario in this directory is defined relative to.

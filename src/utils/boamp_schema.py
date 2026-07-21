@@ -32,6 +32,10 @@ _ID_CONTEXT_HINTS = re.compile(
     re.IGNORECASE,
 )
 _CPV_HINTS = re.compile(r"cpv", re.IGNORECASE)
+_EFORMS_CPV_PATH_HINTS = re.compile(
+    r"(main|additional)commodityclassification/.+itemclassificationcode",
+    re.IGNORECASE,
+)
 _DUREE_MOIS_HINT = re.compile(r"dureemois|nbmois", re.IGNORECASE)
 _DURATION_MEASURE_HINT = re.compile(r"durationmeasure", re.IGNORECASE)
 
@@ -81,7 +85,14 @@ def extract_siret_siren(donnees_obj) -> tuple[list, list]:
 
 def extract_cpv_codes(donnees_obj) -> list:
     """Return CPV-looking 8-digit codes found near a key containing 'cpv',
-    plus the legacy-schema `CPV.objetPrincipal.classPrincipale` shape."""
+    plus eForms/UBL commodity-classification item codes.
+
+    eForms notices carry CPV values under UBL paths such as
+    `cac:MainCommodityClassification/cbc:ItemClassificationCode/#text` rather
+    than under a key containing the literal string "cpv". Keep the eForms
+    recovery path narrow so amount/reference fields that also look like
+    8-digit numbers are not misclassified as CPV.
+    """
     codes = []
     for path, value in walk(donnees_obj):
         if not isinstance(value, str):
@@ -89,7 +100,7 @@ def extract_cpv_codes(donnees_obj) -> list:
         v = value.strip()
         if re.fullmatch(r"\d{8}", v):
             ctx = _path_str(path)
-            if _CPV_HINTS.search(ctx):
+            if _CPV_HINTS.search(ctx) or _EFORMS_CPV_PATH_HINTS.search(ctx):
                 codes.append(v)
     return list(dict.fromkeys(codes))
 

@@ -1,0 +1,3 @@
+pair_scope,n_pairs,median_text_similarity,p90_text_similarity,p_same_cpv_clean,p_same_cpv_division,p_both_cpv_present
+outside_family_same_buyer_window,20000,0.015465744214622655,0.13444523541686773,0.0115,0.08675,0.6903
+within_family,33912,1.0,1.0000000000000002,0.8538865298419439,0.8769757018164661,0.8831092238735551
