@@ -41,9 +41,9 @@ Seeds: `world_seed=20260721`, `corruption_seed=20260722` (benchmark_defaults_v0_
 
 | Scenario | Buyers | Establishments | Needs | Cycles | NEXT_CYCLE share | Notices (clean=observed row count) | Corruption log rows |
 |---|---|---|---|---|---|---|---|
-| clean_sanity | 2,000 | 2,174 | 4,893 | 12,794 | 61.8% | 17,746 | 2,238 |
-| central_provisional | 2,000 | 2,174 | 4,893 | 6,914 | 29.2% | 9,534 | 26,678 |
-| adverse_identity | 2,000 | 2,174 | 4,893 | 6,914 | 29.2% | 9,534 | 39,029 |
+| clean_sanity | 2,000 | 2,174 | 4,893 | 12,794 | 61.8% | 17,708 | 3,683 |
+| central_provisional | 2,000 | 2,174 | 4,893 | 6,914 | 29.2% | 9,537 | 32,710 |
+| adverse_identity | 2,000 | 2,174 | 4,893 | 6,914 | 29.2% | 9,567 | 39,773 |
 
 `clean_sanity`'s notice count (17,746) overshoots the ~10,000 pilot target
 because its `base_recurrence_propensity=0.95` produces much longer cycle
@@ -51,6 +51,36 @@ chains than `central_provisional`/`adverse_identity` (`base_recurrence_propensit
 — expected given the scenario's purpose (a near-noiseless positive control),
 not a fidelity defect; `central_provisional` and `adverse_identity` land
 within ~5% of the ~10,000-notice target.
+
+Buyer/establishment/need/cycle row counts are unchanged from the original
+pilot build for all 3 scenarios throughout this session. Notice counts have
+shifted twice, both times deterministically and for documented reasons, not
+run-to-run noise (confirmed by re-deriving `generation_metadata.json` fresh
+from disk each time, never trusting an earlier written value):
+
+1. `central_provisional` only: 9,534 -> 9,624, when
+   `text.same_cycle_variation_severity` was recalibrated (0.15 -> 0.03, see
+   `v0_1_fidelity_report.md` §0.3) — that parameter controls an early-exit
+   branch in `apply_same_cycle_variation`, so changing it changes how many
+   random draws are consumed per notice, shifting every subsequent draw in
+   the shared `world_seed`-derived RNG stream (including, downstream, which
+   needs end up with an AWARD notice).
+2. **All 3 scenarios**, once `notices.py`'s `_schema_family` was changed
+   from a hard Oct-2023 date cutoff to a probabilistic draw based on real
+   by-year EFORMS-adoption share (`v0_1_fidelity_report.md` §0.4) — this
+   adds a new `rng.random()` call for every notice dated 2024 or later,
+   again shifting the downstream RNG stream: central_provisional
+   9,624 -> 9,537, clean_sanity 17,746 -> 17,708, adverse_identity
+   9,534 -> 9,567.
+
+`clean_notices`' text *content* also changed slightly for all 3 scenarios
+once `text_generation.render_text` was trimmed (a global template change),
+independent of both count shifts above.
+Corruption-log counts shift with each recalibration pass (duration,
+identifier rates, then text/boilerplate). Every structural/referential
+check in §1 was re-verified against the regenerated pilots after each
+recalibration pass (79, then 79, then 124 tests passing as the check scope
+widened to the full suite) and remains PASS throughout.
 
 ## 3. Adaptive calibration performed during this build (Phase 10)
 

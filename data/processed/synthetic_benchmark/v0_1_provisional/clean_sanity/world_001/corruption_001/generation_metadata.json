@@ -18,13 +18,13 @@
     "needs": 4893,
     "cycles": 12794,
     "true_relations": 12794,
-    "notice_family_membership": 17746,
-    "clean_notices": 17746,
-    "observed_notices": 17746,
-    "corruption_log": 2238
+    "notice_family_membership": 17708,
+    "clean_notices": 17708,
+    "observed_notices": 17708,
+    "corruption_log": 3683
   },
-  "execution_timestamp_utc": "2026-07-21T12:49:15.344428+00:00",
-  "git_commit": "e8c663ad2e0d937b7e5841f583a535d3bba5b56f",
+  "execution_timestamp_utc": "2026-07-22T14:31:14.521371+00:00",
+  "git_commit": "cee953118283619864f1565c351d81ccec304e16",
   "validation_status": "PASS",
   "validation_failures": {},
   "warnings": []

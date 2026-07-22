@@ -22,11 +22,29 @@ import pandas as pd
 
 from boamp.synthetic.text_generation import apply_same_cycle_variation, render_text
 
-EFORMS_MANDATE_DATE = pd.Timestamp("2023-10-01")
+EFORMS_MANDATE_DATE = pd.Timestamp("2023-10-01")  # legal effective date -- see note below on why it is not used as a hard cutoff
+
+# v0.2 conditional-fidelity follow-up: real notices are 100% LEGACY through
+# 2023 -- even the Oct-Dec 2023 window nominally covered by the EFORMS
+# mandate above (calib_population_counts_by_year_schema.csv shows EFORMS=0
+# for every year through 2023). Practical adoption was gradual, starting in
+# 2024, and still incomplete by 2026 (~40% of notices remain LEGACY-tagged).
+# A hard publication-date cutoff at EFORMS_MANDATE_DATE overstated EFORMS
+# share for years it should have been LEGACY-only and, more importantly,
+# gave every post-mandate notice a 100% EFORMS label when the real share
+# never exceeds ~60% -- this fed directly into the schema-conditional
+# duration/CPV fixes above producing large residual errors for 2023-2026
+# specifically. Replaced with a probabilistic draw using the real by-year
+# adoption share for years actually observed to have any EFORMS notices.
+_EFORMS_ADOPTION_SHARE_BY_YEAR: dict[int, float] = {2024: 0.5385, 2025: 0.5619, 2026: 0.5993}
+_EFORMS_ADOPTION_SHARE_LATEST = 0.5993  # years beyond the calibration table's range; last observed share held flat
 
 
-def _schema_family(publication_date: pd.Timestamp) -> str:
-    return "EFORMS" if publication_date >= EFORMS_MANDATE_DATE else "LEGACY"
+def _schema_family(publication_date: pd.Timestamp, rng: np.random.Generator) -> str:
+    if publication_date.year < 2024:
+        return "LEGACY"
+    share = _EFORMS_ADOPTION_SHARE_BY_YEAR.get(publication_date.year, _EFORMS_ADOPTION_SHARE_LATEST)
+    return "EFORMS" if rng.random() < share else "LEGACY"
 
 
 def generate_notice_families_and_clean_notices(
@@ -63,7 +81,7 @@ def generate_notice_families_and_clean_notices(
         )
         notice_rows.append(dict(
             notice_id_synthetic=call_id, role="CALL", publication_date_true=call_date,
-            notice_type_true="APPEL_OFFRE", schema_family_true=_schema_family(call_date),
+            notice_type_true="APPEL_OFFRE", schema_family_true=_schema_family(call_date, rng),
             objet_true=call_text, linked_call_notice_id_true=None, **common,
         ))
         membership_rows.append(dict(notice_id_synthetic=call_id, cycle_id_true=cyc["cycle_id_true"], role="CALL"))
@@ -76,7 +94,7 @@ def generate_notice_families_and_clean_notices(
             award_text = apply_same_cycle_variation(call_text, same_cycle_variation_severity, rng)
             notice_rows.append(dict(
                 notice_id_synthetic=award_id, role="AWARD", publication_date_true=award_date,
-                notice_type_true="ATTRIBUTION", schema_family_true=_schema_family(award_date),
+                notice_type_true="ATTRIBUTION", schema_family_true=_schema_family(award_date, rng),
                 objet_true=award_text, linked_call_notice_id_true=call_id, **common,
             ))
             membership_rows.append(dict(notice_id_synthetic=award_id, cycle_id_true=cyc["cycle_id_true"], role="AWARD"))

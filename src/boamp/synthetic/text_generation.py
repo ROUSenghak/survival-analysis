@@ -71,12 +71,17 @@ def sample_division_vocab(cpv_division: str, rng: np.random.Generator) -> tuple[
 
 def render_text(base_concepts: list[str], base_vocabulary: list[str], buyer_name: str,
                  department: str, role: str, rng: np.random.Generator) -> str:
+    """Trimmed to land near the real corpus's median `objet` length (v0.1
+    fidelity follow-up, median_text_length_chars: was 120 vs real 98.0).
+    Dropped the "(département {department})" clause — `department` is kept
+    as a parameter (unused here) since other call sites still pass it and
+    corruption/needs code elsewhere may want it; not removed from the
+    signature to avoid a wider refactor for a text-trimming fix."""
     concept = rng.choice(base_concepts)
     vocab_terms = list(rng.choice(base_vocabulary, size=min(2, len(base_vocabulary)), replace=False))
     lot = int(rng.integers(1, 4))
     prefix = "Avis d'attribution" if role == "AWARD" else "Marché public"
-    return (f"{prefix} de {concept} pour {buyer_name} (département {department}) "
-            f"- lot {lot} : {' et '.join(vocab_terms)}.")
+    return f"{prefix} de {concept} - {buyer_name} - lot {lot} : {' et '.join(vocab_terms)}."
 
 
 def apply_same_cycle_variation(text: str, severity: float, rng: np.random.Generator) -> str:

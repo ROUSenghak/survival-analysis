@@ -40,11 +40,46 @@ identifiers:
   # RAW_SIREN rows observed at all in this corpus, ambiguous whether that
   # means SIREN is never separately captured or genuinely never present);
   # split 3:1 both-missing:siren-only as a documented, labeled assumption.
-  siret_missing_rate: 0.728
-  siren_only_rate: 0.10
-  both_missing_rate: 0.628
-  invalid_identifier_rate: 0.01
-  wrong_establishment_siret_rate: 0.02   # SCENARIO_PARAMETER — no direct BOAMP measurement of this specific error mode
+  #
+  # RECALIBRATED (v0.1 fidelity follow-up, siret_present_share): the plain
+  # siret_missing_rate=0.728 figure above under-delivered once the
+  # fidelity notebook's synthetic-side computation was fixed to match the
+  # real metric's checksum-validated definition (utils.identifiers.validate_siret)
+  # instead of naive .notna() -- realized checksum-valid-present share was
+  # 0.390, not the intended 0.272, because these rates are scaled per-notice
+  # by the shared identifier/CPV/text SEVERITY_MULTIPLIER (0.35/1.0/2.2 by
+  # quality class), same mechanism/shape as the duration_present_rate issue
+  # but with more headroom here (unlike duration, a shared-multiplier fix
+  # was not required -- simply scaling these three rates by ~1.285x while
+  # holding wrong_establishment_siret_rate fixed was enough to close the
+  # gap). Empirically re-swept (world_seed=20260721, corruption_seed=20260722,
+  # n_buyers=2000) to realized present_share=0.2727 (target 0.272).
+  siret_missing_rate: 0.728          # documentation only -- see siren_only_rate/both_missing_rate for actual scaled values used
+  siren_only_rate: 0.1285
+  both_missing_rate: 0.807
+  invalid_identifier_rate: 0.0129
+  wrong_establishment_siret_rate: 0.02   # SCENARIO_PARAMETER — no direct BOAMP measurement of this specific error mode; left unscaled (still a valid checksum SIRET, counts as "present")
+
+  # CONDITIONAL FIDELITY FOLLOW-UP: the single marginal target (0.272) above
+  # masks a real year-regime shift in SIRET presence that is INDEPENDENT of
+  # the EFORMS schema cutover -- 2022/2023 are both 100% LEGACY in this
+  # corpus, yet real SIRET presence jumps from ~9-17% (2015-2021) to
+  # ~53-56% (2022-2023) then partially recedes to ~39-49% (2024-2026)
+  # (calib_field_completeness_by_year.csv#buyer_siret_clean). Modeled as a
+  # year-regime scale factor multiplying the base rates above (applied in
+  # addition to the existing quality-class severity multiplier -- see
+  # corruption._identifier_year_regime_scale). Empirically swept
+  # (world_seed=20260721, corruption_seed=20260722, n_buyers=2000) to
+  # realized per-regime present shares: early=0.104 (target ~0.09-0.17),
+  # mid=0.556 (target ~0.53-0.56), late=0.447 (target ~0.39-0.49) -- all
+  # close. The marginal present share (0.284, still close to the 0.272
+  # target) held up better than duration/CPV below because this regime
+  # shift is year-driven, not schema-driven, so it isn't compounded by the
+  # still-open schema_family_mix (EFORMS-overrepresentation) bug.
+  year_regime_scale:
+    early: {end_year: 2021, scale: 2.5}
+    mid: {end_year: 2023, scale: 0.52}
+    late: {end_year: 9999, scale: 0.69}
 
 buyer_names:
   false_split_rate: 0.279       # EMPIRICAL: buyer_name_variation_rate
@@ -52,12 +87,31 @@ buyer_names:
   generic_collision_rate: 0.368 # EMPIRICAL: generic_buyer_name_share
 
 cpv:
-  missing_rate: 0.1706          # EMPIRICAL: cpv.missing_rate
+  missing_rate: 0.1706          # EMPIRICAL: cpv.missing_rate; kept as fallback -- see missing_rate_by_condition below for the values actually used
   parent_replace_rate: 0.05     # SCENARIO_PARAMETER — no BOAMP measurement of *which* CPV corruption mode occurs among present-but-imprecise codes
   division_only_rate: 0.02      # SCENARIO_PARAMETER
   generic_rate: 0.0714          # EMPIRICAL: cpv.generic_rate_among_present
   wrong_related_rate: 0.02      # SCENARIO_PARAMETER
   old_parser_failure_mode: false
+
+  # CONDITIONAL FIDELITY FOLLOW-UP: the flat 0.1706 marginal masked a real,
+  # strongly schema- and notice-type-conditional structure
+  # (calib_cpv_missingness_by_conditioning.csv): EFORMS notices are almost
+  # never missing CPV (0.0%, schema mandates it) vs LEGACY's 19.5%; within
+  # LEGACY, APPEL_OFFRE is missing 21.4% of the time vs ATTRIBUTION's 7.1%.
+  # Modeled here as a schema x notice_type conditional rate replacing the
+  # flat missing_rate (see corruption._cpv_missing_rate). Empirically swept
+  # (same seeds as above) to realized rates: EFORMS ~0.5-1.4% (target ~0.0),
+  # LEGACY APPEL_OFFRE 22.2% (target 21.4%), LEGACY ATTRIBUTION 6.9% (target
+  # 7.1%) -- all close. The marginal (0.132 vs target 0.1706) undershoots,
+  # the mirror image of duration's overshoot below, for the same reason:
+  # EFORMS's near-zero missingness gets over-weighted because synthetic's
+  # EFORMS share (27.8%) is inflated relative to real (12.6%) by the
+  # still-open schema_family_mix issue -- not re-tuned to compensate, since
+  # doing so would reintroduce a wrong-mechanism-right-marginal fit.
+  missing_rate_by_condition:
+    eforms: 0.01
+    legacy: {APPEL_OFFRE: 0.213, ATTRIBUTION: 0.072}
     # Per spec Phase 6.3: "An old-parser extraction-failure scenario may be
     # added later, but it must not be the central world." The eForms CPV
     # correction (reports/generated/synthetic_benchmark/v0_1_phase0_audit.md
@@ -65,18 +119,87 @@ cpv:
     # CORRECTED extraction behaviour only.
 
 duration:
-  missing_rate: 0.8635          # EMPIRICAL: duration.present_rate_full_corpus (1 - 0.1365)
+  missing_rate: 0.885           # EMPIRICALLY RECALIBRATED (v0.1 fidelity follow-up) — target is
+    # duration.present_rate_full_corpus (1 - 0.1365 = 0.8635 marginal missing rate), but the shared
+    # identifier/CPV/text SEVERITY_MULTIPLIER (0.35/1.0/2.2 by quality class) made 0.8635 structurally
+    # under-deliver (realized present_rate plateaued around 0.21-0.23 even at missing_rate>1.2,
+    # because the HIGH-quality class alone produced more present notices than the entire real-corpus
+    # target allows). Fixed by giving duration its own, flatter quality-class severity spread
+    # (missingness.DURATION_SEVERITY_MULTIPLIER, 0.89/1.0/1.15) — duration appears to be omitted
+    # near-uniformly across BOAMP notices regardless of overall record quality, unlike
+    # identifiers/CPV/text. This missing_rate value (0.885) was then empirically re-swept against
+    # that new multiplier (world_seed=20260721, corruption_seed=20260722, n_buyers=2000) to hit the
+    # real present_rate target almost exactly (realized 0.1364 vs target 0.1365).
   rounding_severity: 0.4        # SCENARIO_PARAMETER — heaping magnitude not separately quantified in calibration tables
   common_admin_value_rate: 0.2  # SCENARIO_PARAMETER
   unit_conversion_failure_rate: 0.02  # SCENARIO_PARAMETER
 
+  # CONDITIONAL FIDELITY FOLLOW-UP: the flat 0.885 missing_rate above matched
+  # the marginal target only by coincidence of the observation window's year
+  # mix. Real duration presence is a near-deterministic function of
+  # schema_family, not a smooth quality-driven rate: EXACTLY 0.0% every year
+  # 2015-2023 (calib_field_completeness_by_year.csv#duration_raw), then
+  # 52-68% once EFORMS is mandated (2024-2026). Modeled here as a
+  # schema-conditional missing rate replacing the flat one (see
+  # corruption._corrupt_duration). Empirically swept (same seeds as above)
+  # to realized rates: LEGACY ~5.2% present (target ~0-2%), EFORMS ~93.9%
+  # present (target 52-68% by year -- modeled as a clean near-certainty
+  # rather than replicating the within-EFORMS-era ramp, an accepted
+  # simplification). The marginal (0.299 vs target 0.1365) now OVERSHOOTS
+  # substantially -- expected and not compensated for: synthetic's EFORMS
+  # share (27.8%) was much higher than real's (12.6%) because of the
+  # (then-open) schema_family_mix issue, so this mechanistically-correct
+  # per-schema rate overshot the marginal until that separate bug was fixed.
+  #
+  # RE-TUNED after fixing notices.py's schema_family assignment (see
+  # notices.py's _EFORMS_ADOPTION_SHARE_BY_YEAR: EFORMS is now assigned
+  # probabilistically by real by-year adoption share instead of a hard
+  # date cutoff, which also fixed schema_family_mix down to ~14% EFORMS,
+  # close to real's 12.6%).
+  #
+  # IMPORTANT CORRECTION (caught by conditional-fidelity re-check, not just
+  # marginal fit): a first re-tune pass set EFORMS=0.35 (present ~63%) by
+  # matching synthetic's *by-schema* present-rate directly against real's
+  # *by-year* 52-68% figures -- an apples-to-oranges comparison, since the
+  # real by-year figures are a BLEND of that year's EFORMS and LEGACY
+  # notices (EFORMS adoption is well under 100%), not a pure EFORMS rate.
+  # Back-solving the true EFORMS-only rate implied by the by-year blend
+  # (given LEGACY~0.05 present and known adoption shares) shows it must be
+  # close to 95-100%, not 63%. Reset to 0.06 (present ~95%), which reproduces
+  # 2024's by-year figure almost exactly (synthetic 0.529 vs real 0.523) and
+  # gets much closer for 2025/2026 (undershoots by ~0.10-0.12, a residual
+  # that would require EFORMS present >100% to fully close given LEGACY's
+  # near-zero rate -- a genuine limit of this two-parameter model, not
+  # tuned away). Marginal duration_present_rate is accepted at ~0.18 (vs
+  # target 0.1365) as the deliberate cost of getting the by-year/by-schema
+  # conditional behaviour right, consistent with this session's standing
+  # principle: conditional correctness over marginal-only fitting.
+  missing_rate_by_schema:
+    LEGACY: 0.995
+    EFORMS: 0.06
+
 text:
-  same_cycle_variation_severity: 0.15
-    # Anchored loosely: text.same_cycle_publication_similarity_target = 1.000
-    # (near-identical within a family) means LOW severity is appropriate here.
+  same_cycle_variation_severity: 0.03
+    # RECALIBRATED (v0.1 fidelity follow-up, exact_duplicate_template_rate):
+    # text.same_cycle_publication_similarity_target = 1.000 (near-identical
+    # within a family) means this should be very low, not just "low" -- the
+    # original 0.15 still let ~15% of same-family AWARD notices drift from
+    # their CALL sibling; tightened to 0.03 to better match the empirical
+    # near-total-identity anchor.
   next_cycle_drift_severity: 0.5   # SCENARIO_PARAMETER — true_text_corruption_process, midpoint of proposed {0.3-0.5,0.5-0.7,0.7-0.9} COSINE SIMILARITY range reinterpreted as a 0-1 drift severity (higher severity = lower resulting similarity)
   hard_negative_overlap_rate: 0.15
-  boilerplate_rate: 0.10
+  boilerplate_rate: 0.44
+    # RECALIBRATED (v0.1 fidelity follow-up, exact_duplicate_template_rate):
+    # real corpus's literal-duplication rate (51.4%) is far higher than
+    # same-family CALL/AWARD reuse alone can produce -- the real driver is
+    # shared official boilerplate reused across unrelated buyers
+    # (corruption.GENERIC_BOILERPLATE_POOL, now 3 phrases instead of 1, to
+    # avoid one string dominating the whole corpus). Empirically re-swept
+    # jointly with same_cycle_variation_severity and text_generation.py's
+    # trimmed render_text template (median_text_length_chars) against both
+    # targets at once (world_seed=20260721, corruption_seed=20260722,
+    # n_buyers=2000): realized exact_duplicate_template_rate=0.518 (target
+    # 0.5143) and median_text_length_chars=94 (target 98.0).
 
 linked_notice_visibility:
   missing_rate: 0.6788   # EMPIRICAL: calib_missingness_marginal_rates.csv#award_link_unresolved (APPEL_OFFRE-only population; applied here to the CALL->AWARD linked-notice-field visibility mechanism, Phase 6.6)

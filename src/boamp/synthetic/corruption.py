@@ -17,8 +17,23 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from boamp.synthetic.missingness import assign_quality_class, severity_multiplier
+from boamp.synthetic.missingness import assign_quality_class, duration_severity_multiplier, severity_multiplier
 from boamp.synthetic.text_generation import apply_next_cycle_drift, generate_hard_negative_text
+
+# Small shared cross-buyer boilerplate pool (v0.1 fidelity follow-up,
+# exact_duplicate_template_rate) -- real BOAMP's high literal-duplication
+# rate (51.4%) is driven by shared official boilerplate reused across many
+# UNRELATED buyers, not only same-cycle CALL/AWARD reuse. A single fixed
+# string would work numerically but concentrate all boilerplate-corrupted
+# notices into one unrealistic monoculture; several fixed phrases spread the
+# duplication across a few distinct clusters (more realistic) at the cost of
+# needing a higher boilerplate_rate to hit the same aggregate rate (each
+# additional phrase dilutes the per-corruption uniqueness reduction).
+GENERIC_BOILERPLATE_POOL: list[str] = [
+    "Marché public - voir cahier des charges pour le détail des prestations.",
+    "Consultation lancée dans le cadre d'un marché public de fournitures et services courants.",
+    "Prestations diverses dans le cadre d'un marché public, se reporter au dossier de consultation.",
+]
 
 GENERIC_NAME_POOL: dict[str, list[str]] = {
     "COMMUNE": ["Mairie", "Commune"],
@@ -74,12 +89,32 @@ def _apply_name_transformation(name: str, department: str, rng: np.random.Genera
     return name
 
 
+def _identifier_year_regime_scale(year: int, scen_ids) -> float:
+    """v0.2 conditional-fidelity follow-up: real SIRET presence shows a
+    regime shift centered on 2022 that is INDEPENDENT of the EFORMS schema
+    cutover -- 2022 and 2023 are both 100% LEGACY in this corpus, yet SIRET
+    presence jumps from ~9-17% (2015-2021) to ~53-56% (2022-2023) then
+    partially recedes to ~39-49% (2024-2026). Not explainable by
+    schema_family; modeled here as a year-regime scale factor applied on top
+    of the base identifier corruption rates (see
+    v0_1_fidelity_report.md's conditional-fidelity section)."""
+    regimes = getattr(scen_ids, "year_regime_scale", None)
+    if regimes is None:
+        return 1.0
+    if year <= regimes.early.end_year:
+        return regimes.early.scale
+    if year <= regimes.mid.end_year:
+        return regimes.mid.scale
+    return regimes.late.scale
+
+
 def _corrupt_identifier(row, siblings_by_siren: dict[str, list[str]], mult: float,
                           scen_ids, rng: np.random.Generator, logger) -> tuple[str | None, str | None]:
+    regime_scale = _identifier_year_regime_scale(row["publication_date_true"].year, scen_ids)
     rates = dict(SIREN_ONLY=scen_ids.siren_only_rate, BOTH_MISSING=scen_ids.both_missing_rate,
                  INVALID=scen_ids.invalid_identifier_rate,
                  WRONG_ESTABLISHMENT=scen_ids.wrong_establishment_siret_rate)
-    outcome = _weighted_outcome(rates, mult, rng)
+    outcome = _weighted_outcome(rates, mult * regime_scale, rng)
     siret_true, siren_true = row["siret_true"], row["siren_true"]  # noqa
 
     if outcome == "OK":
@@ -105,8 +140,23 @@ def _corrupt_identifier(row, siblings_by_siren: dict[str, list[str]], mult: floa
     return siret_true, siren_true
 
 
+def _cpv_missing_rate(row, scen_cpv) -> float:
+    """v0.2 conditional-fidelity follow-up: real CPV missingness is strongly
+    schema- and notice-type-conditional (EFORMS: 0.0% missing; LEGACY:
+    19.5%; APPEL_OFFRE: 21.4%, ATTRIBUTION: 7.1%) rather than a single flat
+    rate (see v0_1_fidelity_report.md's conditional-fidelity section). Falls
+    back to the flat `missing_rate` for scenarios that don't configure
+    `missing_rate_by_condition`."""
+    by_condition = getattr(scen_cpv, "missing_rate_by_condition", None)
+    if by_condition is None:
+        return scen_cpv.missing_rate
+    if row["schema_family_true"] == "EFORMS":
+        return by_condition.eforms
+    return getattr(by_condition.legacy, row["notice_type_true"], scen_cpv.missing_rate)
+
+
 def _corrupt_cpv(row, mult: float, scen_cpv, rng: np.random.Generator, logger) -> str | None:
-    rates = dict(MISSING=scen_cpv.missing_rate, PARENT=scen_cpv.parent_replace_rate,
+    rates = dict(MISSING=_cpv_missing_rate(row, scen_cpv), PARENT=scen_cpv.parent_replace_rate,
                  DIVISION_ONLY=scen_cpv.division_only_rate, GENERIC=scen_cpv.generic_rate,
                  WRONG_RELATED=scen_cpv.wrong_related_rate)
     outcome = _weighted_outcome(rates, mult, rng)
@@ -125,8 +175,20 @@ def _corrupt_cpv(row, mult: float, scen_cpv, rng: np.random.Generator, logger) -
 
 
 def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logger) -> float | None:
+    """v0.2 conditional-fidelity follow-up: real duration presence is a
+    near-deterministic function of schema_family (0.0% every year 2015-2023,
+    then 52-68% once EFORMS is mandated), not a smooth quality-driven rate --
+    the previous flat `missing_rate` matched the marginal average only by
+    coincidence of the observation window's year mix (see
+    v0_1_fidelity_report.md's conditional-fidelity section). When
+    `scen_dur.missing_rate_by_schema` is configured, it takes precedence
+    over the flat `missing_rate` (kept as a fallback for scenarios, e.g.
+    clean_sanity/adverse_identity, that don't set it)."""
     true_val = row["duration_true_months"]
-    if rng.random() < min(0.98, scen_dur.missing_rate * mult):
+    by_schema = getattr(scen_dur, "missing_rate_by_schema", None)
+    base_rate = (getattr(by_schema, row["schema_family_true"], scen_dur.missing_rate)
+                 if by_schema is not None else scen_dur.missing_rate)
+    if rng.random() < min(0.98, base_rate * mult):
         logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, None, "MISSING", severity=mult)
         return None
     val = true_val
@@ -153,7 +215,7 @@ def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.ra
         logger.log(row["notice_id_synthetic"], "objet_clean", text, drifted, "LEXICAL_DRIFT", severity=mult)
         text = drifted
     if rng.random() < min(0.98, scen_text.boilerplate_rate * mult):
-        boilerplate = "Marché public - voir cahier des charges pour le détail des prestations."
+        boilerplate = str(rng.choice(GENERIC_BOILERPLATE_POOL))
         logger.log(row["notice_id_synthetic"], "objet_clean", text, boilerplate, "GENERIC_BOILERPLATE", severity=mult)
         text = boilerplate
     return text
@@ -163,6 +225,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                      scenario, rng: np.random.Generator, logger) -> pd.DataFrame:
     quality_class = assign_quality_class(clean_notices, buyers, scenario, rng)
     mult = severity_multiplier(quality_class)
+    duration_mult = duration_severity_multiplier(quality_class)
 
     siblings_by_siren: dict[str, list[str]] = {
         siren: grp["siret_true"].tolist() for siren, grp in establishments.groupby("siren_true")
@@ -188,7 +251,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
             logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
 
         cpv_obs = _corrupt_cpv(row, m, scenario.cpv, rng, logger)
-        duration_obs = _corrupt_duration(row, m, scenario.duration, rng, logger)
+        duration_obs = _corrupt_duration(row, float(duration_mult.iloc[i]), scenario.duration, rng, logger)
 
         need_vocab = need_vocab_lookup.loc[row["need_id_true"], "objet_true"] if row["need_id_true"] in need_vocab_lookup.index else []
         text_obs = _corrupt_text(row, m, scenario.text, need_vocab if isinstance(need_vocab, list) else [], rng, logger)

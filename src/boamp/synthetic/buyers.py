@@ -64,7 +64,9 @@ def _department_choices() -> tuple[list[str], list[float]]:
 
 
 def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Generator,
-                            pareto_shape: float = 1.0, pareto_offset: float = 0.15) -> pd.DataFrame:
+                            pareto_shape: float = 1.0, pareto_offset: float = 0.15,
+                            active_start_fraction: float = 0.6, min_active_days: int = 180,
+                            span_days_max_fraction: float = 1.0) -> pd.DataFrame:
     """`pareto_shape`/`pareto_offset` control emergent activity concentration
     (Phase 10 adaptive calibration): the textbook asymptotic formula
     Gini = 1/(2*shape-1) for a Pareto Type I variate assumes shape > 1 and
@@ -78,6 +80,25 @@ def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Gen
     keeping every buyer's activity_rate strictly positive. Gini is still an
     EMERGENT, checked property (benchmark_defaults_v0_1.yaml's tolerance
     band), never assigned directly.
+
+    `active_start_fraction`/`min_active_days`/`span_days_max_fraction` are
+    exposed (v0.1 fidelity follow-up, schema_family_mix) to let a future pass
+    re-shape the emergent by-year notice-density curve, which currently
+    ramps up through the middle of the observation window and tapers near
+    the end, unlike the real corpus's near-flat by-year notice volume
+    (calib_population_counts_by_year_schema.csv, TVD~0.146 at defaults).
+    Empirically tried spreading `active_start` across the full window
+    (active_start_fraction=1.0) with several `span_days_max_fraction` caps
+    (0.3-1.0): every configuration tried made the fit *worse* (TVD 0.14-0.26,
+    all over-shooting 2024-2026 further), because injecting fresh buyer
+    starts later in the window adds to, rather than counteracts, the
+    successor-cascade accumulation that already piles cycles into the middle
+    years — it does not correct the underlying shape. Defaults here
+    therefore remain the ORIGINAL behaviour (active_start_fraction=0.6,
+    span_days_max_fraction=1.0, i.e. no capping): a real fix needs to attack
+    the recurrence/cycle-gap cascade mechanism itself (needs.py/cycles.py),
+    not the buyer active-window heuristic, and is left as v0.2 scope rather
+    than forced here.
     """
     if pareto_shape <= 0.5:
         raise ValueError("pareto_shape must exceed 0.5 for a finite Gini coefficient")
@@ -99,9 +120,11 @@ def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Gen
     start = pd.Timestamp(benchmark_defaults.observation_window.start_date)
     end = pd.Timestamp(benchmark_defaults.observation_window.end_date)
     total_days = max(1, (end - start).days)
-    active_start = start + pd.to_timedelta(rng.integers(0, int(total_days * 0.6), size=n_buyers), unit="D")
-    min_active_days = 180
-    span_days = rng.integers(min_active_days, max(min_active_days + 1, total_days), size=n_buyers)
+    active_start = start + pd.to_timedelta(
+        rng.integers(0, max(1, int(total_days * active_start_fraction)), size=n_buyers), unit="D"
+    )
+    span_max_days = max(min_active_days + 1, int(total_days * span_days_max_fraction))
+    span_days = rng.integers(min_active_days, span_max_days, size=n_buyers)
     active_end = pd.to_datetime(pd.Series(active_start) + pd.to_timedelta(span_days, unit="D")).clip(upper=end)
 
     buyer_id = [f"BUYER-{i:06d}" for i in range(n_buyers)]

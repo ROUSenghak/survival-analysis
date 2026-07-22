@@ -22,6 +22,23 @@ import pandas as pd
 
 SEVERITY_MULTIPLIER: dict[str, float] = {"HIGH": 0.35, "MEDIUM": 1.0, "LOW": 2.2}
 
+# `duration` gets its own, much flatter severity spread. Empirically, the
+# shared SEVERITY_MULTIPLIER (calibrated for identifier/CPV/text, whose
+# real-corpus missingness does vary sharply with record quality) makes it
+# structurally impossible to reach the real corpus's duration_present_rate
+# target (0.1365): even saturating scen_dur.missing_rate well past 1.0 still
+# plateaus around present_rate~0.21-0.23, because the HIGH-quality class
+# (0.35x) alone contributes more present notices than the entire real-corpus
+# target allows. This says something substantive about the real data, not
+# just a generator bug: duration appears to be omitted near-uniformly across
+# BOAMP notices regardless of overall record quality (an editorial/template
+# choice), unlike identifiers/CPV/text which do vary with quality. The
+# shared per-notice quality_class is still used (so duration corruption
+# still co-occurs with other fields' corruption on the same notices, per
+# Lam et al.'s design principle), only the *magnitude* of quality-class
+# differentiation is field-specific.
+DURATION_SEVERITY_MULTIPLIER: dict[str, float] = {"HIGH": 0.89, "MEDIUM": 1.0, "LOW": 1.15}
+
 
 def assign_quality_class(notices: pd.DataFrame, buyers: pd.DataFrame, scenario,
                           rng: np.random.Generator) -> pd.Series:
@@ -48,3 +65,7 @@ def assign_quality_class(notices: pd.DataFrame, buyers: pd.DataFrame, scenario,
 
 def severity_multiplier(quality_class: pd.Series) -> pd.Series:
     return quality_class.map(SEVERITY_MULTIPLIER)
+
+
+def duration_severity_multiplier(quality_class: pd.Series) -> pd.Series:
+    return quality_class.map(DURATION_SEVERITY_MULTIPLIER)

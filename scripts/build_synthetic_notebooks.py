@@ -183,6 +183,7 @@ from boamp.config import load_config
 from boamp.reporting.figures import setup_style
 from boamp.synthetic.compatibility import adapt_observed_notices_to_sources
 from boamp.linkage.candidates import generate_pairs_single_key
+from utils.identifiers import validate_siret
 
 cfg = load_config(PROJECT_ROOT)
 setup_style()
@@ -320,9 +321,18 @@ add_fidelity("establishments_per_buyer_mean", "n/a (not a real-corpus OBSERVABLE
              "no directly comparable real-corpus table exists (BOAMP does not expose a buyer->establishment hierarchy natively); reported for internal consistency only")
 establishments_per_buyer.describe()"""),
         md("## 3-6. Identifier, CPV, duration and text availability"),
-        code("""real_siret_share = 0.272  # parameter_inventory.csv#siret_vs_name_fallback_share
-syn_siret_share = observed["buyer_siret_raw"].notna().mean()
-add_fidelity("siret_present_share", real_siret_share, round(syn_siret_share, 3))
+        code("""real_siret_share = 0.272  # parameter_inventory.csv#siret_vs_name_fallback_share: "Share of
+# notices keyed by a *validated* SIRET vs falling back to a normalized-name key" -- checksum-valid,
+# not merely non-null. The naive .notna() used in v0.1's first pass also counted corrupted-but-non-null
+# SIRETs (INVALID_CHECKSUM outcomes from _corrupt_identifier) as "present", inflating the synthetic
+# share; recomputed here with the same format+checksum validation the real metric uses.
+syn_siret_valid = observed["buyer_siret_raw"].map(
+    lambda v: validate_siret(v)[1] if pd.notna(v) else False
+)
+syn_siret_share = syn_siret_valid.mean()
+add_fidelity("siret_present_share", real_siret_share, round(syn_siret_share, 3),
+             "recomputed on checksum-validated presence (utils.identifiers.validate_siret), matching the "
+             "real metric's definition -- not naive non-null share (see v0.1 fidelity report §2)")
 
 real_cpv_missing = 0.1706
 syn_cpv_missing = observed["cpv_clean"].isna().mean()

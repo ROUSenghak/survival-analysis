@@ -1,0 +1,99 @@
+flowchart TD
+    A[Start: generate_pilot scenario_id, project_root] --> B[Load benchmark defaults]
+    B --> C[Resolve n_buyers, world_seed, corruption_seed]
+
+    C --> D[Clean latent world RNG]
+    D --> E[Load calibration parameters]
+    D --> F[Load scenario config]
+    D --> G[Load observation window]
+
+    E --> H[Generate latent buyers]
+    F --> H
+    G --> H
+
+    H --> I[Generate latent establishments]
+    I --> J[Generate latent procurement needs]
+    J --> K[Generate latent contract cycles]
+    K --> L[Build true_relations]
+    L --> M[Generate notice families and clean_notices]
+    M --> M1["Assign schema_family_true per notice:
+    probabilistic draw by publication year
+    (2015-2023 = LEGACY always; 2024+ drawn
+    against real by-year EFORMS-adoption share,
+    NOT a hard Oct-2023 date cutoff)"]
+
+    M1 --> N{Schema checks}
+    N -->|fail| X[Stop: raise validation error]
+    N -->|pass| O{Structural validation}
+    O -->|fail| X
+    O -->|pass| P[Clean world accepted]
+
+    P --> Q[Corruption RNG]
+    Q --> R["Assign notice quality class
+    (latent HIGH/MEDIUM/LOW, buyer-propensity-weighted)"]
+    R --> R1["Two severity-multiplier tracks:
+    shared (identifiers/CPV/text/names)
+    vs duration-specific (flatter spread)"]
+    R1 --> S[Apply dependent corruption]
+
+    S --> S1["Identifiers: missing / invalid / wrong-establishment,
+    scaled by shared severity AND a year-regime factor
+    (early <=2021 / mid 2022-2023 / late 2024+ --
+    a real SIRET-presence regime shift independent
+    of schema_family)"]
+    S --> S2[Buyer names: variants and generic collisions]
+    S --> S3["CPV: missing rate conditioned on
+    schema_family x notice_type
+    (EFORMS ~ near-zero; LEGACY split by
+    APPEL_OFFRE vs ATTRIBUTION), plus
+    generic / parent / wrong-related-code"]
+    S --> S4["Duration: missing rate conditioned on
+    schema_family (LEGACY near-zero,
+    EFORMS much higher), plus rounding,
+    admin values, unit-conversion failures"]
+    S --> S5["Text and lifecycle references: same-cycle
+    variation, next-cycle drift, 3-phrase shared
+    boilerplate pool, missing links"]
+
+    S1 --> T[observed_notices]
+    S2 --> T
+    S3 --> T
+    S4 --> T
+    S5 --> T
+
+    T --> U{Observed schema and no truth leakage}
+    U -->|fail| X
+    U -->|pass| V[corruption_log]
+
+    P --> W[Write Parquet outputs]
+    T --> W
+    V --> W
+    W --> Y[Write generation_metadata.json]
+    Y --> Z[End: synthetic benchmark replication directory]
+
+    subgraph Truth_Only[Truth-only tables never exposed to linkage code]
+        H
+        I
+        J
+        K
+        L
+        M
+        M1
+    end
+
+    subgraph Linkage_Input[Linkage input]
+        T
+    end
+
+    subgraph Provenance[Traceability]
+        V
+        Y
+    end
+
+    subgraph Conditional_Fidelity["v0.2 conditional-fidelity mechanisms
+    (added this session, replacing flat time-invariant rates)"]
+        M1
+        S1
+        S3
+        S4
+    end
