@@ -116,6 +116,73 @@ Truth leakage & A failure mode where fields such as \texttt{cycle\_id\_true} or 
 
 \section{Benchmark Data Scope and Artifacts}
 
+\subsection{Real \boamp{} dataset used as the observable reference}
+
+The real reference dataset is \texttt{data/interim/boamp\_common\_prepared.csv}.
+It is a prepared \boamp{} analysis table, not a truth-labeled renewal table. It
+contains 84,623 notices and 94 columns covering publications from 2 March 2015
+to 13 July 2026. The table is used to calibrate and validate observable
+structure: which fields are present, how notice types and schemas evolve over
+time, how buyer identifiers appear or disappear, how \cpv{} codes are
+distributed, and how text and duration fields behave.
+
+\begin{table}[h!]
+\centering
+\caption{Real prepared \boamp{} corpus profile. Percentages are computed over 84,623 records in \texttt{boamp\_common\_prepared.csv}.}
+\begin{tabular}{lr}
+\toprule
+Quantity & Value \\
+\midrule
+Records & 84,623 \\
+Columns & 94 \\
+Publication period & 2015-03-02 to 2026-07-13 \\
+Notice types & 58,292 calls; 22,560 awards; 3,771 other \\
+Schema families & 73,941 legacy; 10,682 eForms \\
+Distinct buyer keys & 5,268 \\
+Distinct cleaned \siret{} values & 1,689 \\
+Distinct cleaned \siren{} values & 1,506 \\
+Distinct cleaned \cpv{} codes & 3,145 \\
+Distinct \cpv{} divisions & 45 \\
+Distinct normalized object texts & 58,918 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The main field groups are:
+\begin{itemize}
+    \item \textbf{Notice identity and dates:} \texttt{notice\_id}, \texttt{publication\_date}, \texttt{publication\_year}, \texttt{publication\_month}, end-diffusion fields, and linked-attribution dates where available.
+    \item \textbf{Notice type and schema:} \texttt{notice\_type\_normalized} and \texttt{schema\_family}; these distinguish calls for tenders, awards, legacy notices, and eForms notices.
+    \item \textbf{Buyer identifiers:} raw and cleaned \siret{}/\siren{} candidates, identifier validity flags, \texttt{buyer\_key}, \texttt{buyer\_key\_type}, buyer name fields, and buyer identity layer.
+    \item \textbf{\cpv{} fields:} raw and cleaned \cpv{} values, \cpv{} division/group/class/category fields, \texttt{cpv\_missing}, generic-\cpv{} flags, and digital-scope indicators.
+    \item \textbf{Text fields:} raw, cleaned, and normalized object text fields such as \texttt{objet\_clean}, \texttt{objet\_normalized}, and \texttt{text\_length}.
+    \item \textbf{Dates and durations:} raw duration extraction, declared duration in months, duration unit, validity flag, quality flag, and imputation indicator.
+\end{itemize}
+
+The important missingness pattern is not an error in the prepared data; it is
+part of the real observation environment that the synthetic benchmark must
+reproduce. Cleaned \siret{} and \siren{} are missing for 72.78\% of notices,
+\cpv{} is missing for 17.06\%, raw duration is missing for 86.35\%, and
+declared duration in months is missing for 83.20\%. Buyer names, notice type,
+schema family, and publication date are effectively complete in the prepared
+corpus. This explains why the benchmark validation focuses on conditional
+field availability rather than expecting all fields to be complete.
+
+\subsection{Exact benchmark objective}
+
+The objective is to build a synthetic benchmark that approximates the
+observable structure and linkage difficulty of the real \boamp{} corpus while
+retaining hidden truth labels for evaluation. The benchmark therefore has
+three explicit constraints:
+\begin{enumerate}
+    \item it does not replace real ground truth, because real legal renewal
+    labels are not available at corpus scale;
+    \item it should resemble the real data in the fields that a linkage
+    algorithm actually observes: buyer identity, \cpv{}, text, dates,
+    duration availability, temporal runway, and candidate availability;
+    \item it will be used to compare procurement-linkage algorithms only after
+    the algorithm has produced predictions without reading hidden truth files.
+\end{enumerate}
+
 \subsection{Current benchmark version}
 
 The active benchmark version is \texttt{v0\_3\_temporal\_candidate\_revision}. It keeps the v0.2 conditional-field improvements and adds a temporal/candidate-environment revision targeted at the actual Layer-1 source scope. The benchmark was generated with fixed seeds:
@@ -145,6 +212,13 @@ Corruption log & 32,344 \\
 
 \subsection{Files to use for linkage evaluation}
 
+The synthetic benchmark deliberately separates algorithm-facing observations
+from hidden truth and generator internals. This is why the synthetic observed
+dataset has fewer columns than the real prepared dataset: the observed file is
+the restricted input that a linkage algorithm may read, whereas the real
+prepared file contains many helper columns created during cleaning and
+diagnostics.
+
 \begin{longtable}{p{0.29\textwidth}p{0.60\textwidth}}
 \caption{Primary v0.3 artifacts.}\\
 \toprule
@@ -156,9 +230,12 @@ Artifact & Role \\
 \midrule
 \endhead
 \texttt{observed notices} & The observed synthetic notice table, stored as \nolinkurl{observed_notices.parquet}. This is the input that linkage algorithms may read. \\
-\texttt{true relations} & Hidden evaluation labels, stored as \nolinkurl{true_relations.parquet}. This must be used only after algorithm outputs are produced. \\
-\texttt{generation metadata} & Generator version, seeds, config hashes, row counts, selected v0.3 candidate-revision parameters, and validation status. \\
+\texttt{latent buyers, establishments, needs, cycles} & Hidden entity and contract-cycle tables, stored in \nolinkurl{latent_buyers.parquet}, \nolinkurl{latent_establishments.parquet}, \nolinkurl{latent_needs.parquet}, and \nolinkurl{latent_cycles.parquet}. These contain the clean synthetic world and must not be used by linkage algorithms. \\
+\texttt{true relations} & Hidden true links, stored as \nolinkurl{true_relations.parquet}. Each source cycle has one outgoing relation: \texttt{NEXT\_CYCLE} when a true successor exists or \texttt{NO\_SUCCESSOR} otherwise. This file must be used only after algorithm outputs are produced. \\
+\texttt{clean notices} & Pre-corruption notice records, stored as \nolinkurl{clean_notices.parquet}. These preserve clean generator state and are not algorithm input. \\
 \texttt{corruption log} & Audit trail showing how clean fields were corrupted into observed fields. It is for generator validation, not linkage input. \\
+\texttt{generation metadata} & Generator version, seeds, config hashes, row counts, selected v0.3 candidate-revision parameters, and validation status. \\
+\texttt{conditional observation parameters} & Smoothed conditional field-availability probabilities used by the v0.2 observation revision. \\
 \texttt{selected params} & Parameter-provenance CSV for the v0.3 temporal/candidate revision. \\
 \bottomrule
 \end{longtable}
@@ -642,6 +719,85 @@ Metadata validation status & PASS & PASS \\
 
 The broad true-gap tail is especially important. A share of 81.2\% of true successor gaps remains above six months, well above the minimum gate of 45\%. This means the revision did not collapse all truth into the production candidate window merely to make the candidate generator look better.
 
+\section{Layered Validation Framework}
+
+The freeze gate described above answers one question: does the synthetic corpus resemble the real corpus on the properties that were checked? A benchmark needs more than that. A generator can reproduce every observable marginal and still encode the wrong latent mechanism, leak truth into the observed table, copy a real record, or present a linkage task that is trivially solvable. These are separate failure modes and no single goodness-of-fit test detects them.
+
+The validation framework therefore runs a matrix of fifteen gates across five layers, implemented in \texttt{src/boamp/synthetic/validation\_framework/} and executed by \nolinkurl{scripts/validate_synthetic_benchmark.py}. Every check writes one row of a machine-readable long table carrying the real estimate, the synthetic estimate, the difference, an effect size, a bootstrap interval where one is available, the predeclared tolerance, and a status.
+
+\subsection{Decision rule}
+
+Statistical non-rejection is not evidence of equivalence. With roughly 87{,}000 real and 9{,}471 synthetic notices, an equality test rejects on differences far too small to matter for linkage; in sparse subgroups it misses differences that matter a great deal. Decisions are therefore made on intervals against practical tolerances rather than on $p$-values.
+
+For a difference parameter $\theta = \theta_S - \theta_R$ and a predeclared bound $\Delta$, the two one-sided tests procedure supports practical equivalence only when the whole interval lies inside $(-\Delta, +\Delta)$. Resampling is clustered at the buyer level, because notices from one buyer share text, identifiers and missingness behaviour, and an i.i.d.\ bootstrap would report intervals several times too narrow. A metric with no interval available can reach at most ``not obviously discrepant'', never ``equivalent''.
+
+Four statuses are used. \textsc{Pass} means the interval lies inside the tolerance or the invariant holds exactly. \textsc{Warning} means the estimate crosses a tolerance, the evidence is too thin to decide, or a non-critical discrepancy remains. \textsc{Fail} means a critical invariant broke, truth leaked, a real record was copied, or a core property is materially outside tolerance. \textsc{Inconclusive} means the check could not be run; it is never read as a pass. The statuses are deliberately not averaged into a single score, because a high average conceals a fatal defect.
+
+\subsection{Gate results}
+
+\begin{table}[h!]
+\centering
+\caption{Validation gate results for v0.3 \texttt{central\_provisional}. Critical gates block release on their own; non-critical breaches are recorded in the fidelity budget.}
+\small
+\begin{tabular}{p{0.28\textwidth}p{0.10\textwidth}p{0.08\textwidth}p{0.40\textwidth}}
+\toprule
+Gate & Status & Critical & Headline finding \\
+\midrule
+Internal integrity & WARNING & yes & All 31 invariant, leakage, replay and negative-control checks hold; byte-identical regeneration untested. \\
+Specification recovery & \textbf{FAIL} & yes & The scenario file does not reproduce the dataset, and the mean true gap falls outside its Monte Carlo interval. \\
+Marginals & WARNING & no & Department mix and the duration distribution differ materially. \\
+Conditionals & PASS & yes & Conditional field rates within tolerance. \\
+Temporal & WARNING & yes & 60-month runway remains the known caveat. \\
+Candidate environment & PASS & yes & Zero-candidate rate and percentiles within gates. \\
+Missingness (fieldwise) & WARNING & no & \siren{} presence differs by 5.2 pp. \\
+Missingness structure & PASS & no & Joint patterns, entropy and co-occurrence lift all within tolerance. \\
+Buyer activity & WARNING & no & Activity concentration far too flat (Gini 0.56 vs 0.83). \\
+Names and identifiers & WARNING & no & Within-buyer name variation close on a silver standard. \\
+Text & WARNING & no & Internal duplication 9.0\% vs real 51.4\%; bigram profile diverges. \\
+Privacy and memorisation & PASS & yes & Zero record-specific copies; near-neighbour similarity below the real-vs-real baseline. \\
+Hidden-truth difficulty & WARNING & yes & Blocking recovers 36\% of in-scope true matches at the production window. \\
+Algorithm utility & PASS & yes & Three probes separate; best pair-F1 0.41. \\
+Robustness & WARNING & no & One seed per scenario; seed stability not estimable. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Internal validity and negative controls}
+
+Internal checks run before any real-versus-synthetic comparison, because a comparison against incoherent truth is meaningless. They cover schema and support, truth-graph consistency (every relation references an existing cycle, exactly one outgoing relation per cycle, successors strictly after their source, acyclic successor graph), count reconciliation across notice, cycle and family grain, leakage isolation, and exact corruption replay: starting from pristine latent values and applying the stored corruption events must reproduce the observed values exactly. All of these hold for v0.3.
+
+The suite also runs five negative controls. Each deliberately breaks a copy of the loaded tables --- leaking a truth column, making a relation self-referential, altering an observed value away from its corruption log, dropping a required column, scrambling membership roles --- and confirms that the corresponding check flips to \textsc{Fail}. Without this, a suite that silently stopped checking anything would report a clean pass forever. All five controls are detected.
+
+\subsection{The specification-recovery failure}
+
+Two parameter-recovery checks fail, and together they identify a genuine defect rather than a bad draw.
+
+First, the v0.3 candidate sweep enables the scoped-candidate block \emph{in memory} and records its chosen parameters in \texttt{generation\_metadata.json}. Loading \texttt{central\_provisional.yaml} and re-running the generator does not reproduce this benchmark. Until the selected parameters are written back into a versioned scenario file, the run manifest is the only complete record of how the data was made.
+
+Second, the realized mean true gap is 15.75 months against a 99\% Monte Carlo interval of $[16.29, 17.31]$ simulated from the effective mixture. The reference correctly accounts for the observation window: a successor exists only if its start still falls inside the window, so the surviving gaps are right-censored by the headroom remaining to each source cycle, and simulating the unconditional draw would fail for reasons unrelated to the generator. The residual discrepancy is attributable to the hard-negative chain alignment in \texttt{cycles.py}, which relocates whole chains near a source's expected end and is not expressible in the saved parameter set.
+
+\subsection{Benchmark difficulty and algorithm utility}
+
+These checks require the sealed truth tables and cannot be computed on real \boamp{} at all. Recall is measured against true matches whose two notices both lie inside the candidate-generation scope, since successors outside it are unreachable by any method operating on these candidates; that scoping loss is reported separately.
+
+Of 2{,}066 true successor pairs in the benchmark, 152 have both notices inside the 395-notice digital candidate scope. At the production six-month window, blocking recovers 36.2\% of them; widening the probe window to 36 months raises this only to 57.9\%. The first figure is a property of that window against this benchmark's renewal gaps and is expected by design, since the gap distribution is deliberately centred outside it. The second is more informative: even with a generous window, buyer-key blocking cannot reach two of every five in-scope true matches, because the buyer key itself drifts across a renewal.
+
+Three probe linkers with frozen parameters --- a deterministic top-1 rule, a score threshold across all ranks, and a Fellegi--Sunter log-odds model over three binary field agreements --- are run to test whether the benchmark discriminates between substantively different methods. None of them is the production acceptance threshold: a pipeline threshold is an output of that pipeline, never a definition of truth. They reach pair-F1 of 0.413, 0.394 and 0.366 respectively. The spread confirms the benchmark separates methods; the ceiling confirms no shortcut solves it; the score overlap between true matches and hard negatives, 0.21, confirms that distinguishing them requires real discrimination rather than a threshold on an obvious gap.
+
+\subsection{Privacy and memorisation}
+
+The generator was built from calibrated aggregate statistics rather than fitted to row-level \boamp{}, but this is verified rather than assumed. No synthetic procurement object reproduces a real one outside the generator's own declared template pools. Near-copy risk is assessed against a baseline instead of against zero: five-token shingle Jaccard similarity to the nearest real text has a synthetic p95 of 0.043 against a real-versus-real holdout baseline of 0.807, so synthetic text sits far further from real text than real texts sit from each other. Membership-inference auditing remains out of scope and is reported as such, not as a pass.
+
+\subsection{New findings the earlier gates did not surface}
+
+Three material discrepancies were invisible to the freeze gate and are now recorded in the discrepancy register.
+
+\textbf{Buyer activity is far too flat.} Real activity has a Gini coefficient of 0.83 and the top 5\% of buyers hold 66\% of all notices; the synthetic corpus reaches 0.56 and 37\%. This is not a corpus-size artifact --- raw counts are confounded by the benchmark being smaller, so the gate uses activity relative to each corpus's own mean, and the gap persists. Concentration determines how dense candidate neighbourhoods become, so this understates the difficulty of the most demanding linkage cases.
+
+\textbf{Internal text duplication collapsed.} Real \boamp{} objects are non-unique 51.4\% of the time; the synthetic corpus reaches 9.0\%. The v0.1 calibration explicitly targeted and hit this quantity, so the v0.2 conditional-reuse revision --- which replaced the global boilerplate rate --- appears to have regressed it. Because text is what a linker falls back on when identifiers are weak, a corpus whose texts are too distinctive makes linkage easier than it really is.
+
+\textbf{The duration tail is wrong at p99.} The freeze gate checked duration presence, not its distribution. Real p99 declared duration is 72 months against a synthetic 360.
+
 \section{Why the Benchmark Is Ready for Linkage Algorithms}
 
 The benchmark is ready because the validation evidence now matches the task the linkage algorithms will face. Earlier versions could match some global or conditional field statistics but still fail to produce a realistic candidate environment. That is not sufficient: a linkage algorithm first needs plausible candidates before scoring can matter.
@@ -657,6 +813,10 @@ The v0.3 benchmark passes the hard readiness gates:
 
 Therefore, the next valid step is to run the linkage algorithms on \texttt{observed\_notices.parquet}, produce predicted links, and only then compare those predictions against \texttt{true\_relations.parquet}. Linkage-score calibration, threshold optimization, and precision/recall interpretation belong to that next stage, not to the benchmark-generation stage.
 
+The layered validation framework sharpens what ``ready'' means here, and narrows it. The framework confirms the two properties that would otherwise invalidate every downstream number: hidden truth is internally coherent and does not leak, and no real record has been copied. It also confirms that the task is worth running --- three substantively different probe linkers separate from one another, none of them solves the benchmark, and true matches genuinely overlap with hard negatives in score space.
+
+What it does not yet support is a defensible \emph{comparison} of linkage algorithms. One critical gate fails: the saved parameters do not reproduce the dataset, so a result obtained here cannot be regenerated from version control alone. Only one world exists per scenario, so no result can be separated from its seed. Buyer-activity concentration and internal text duplication are both materially below the real corpus, and both make linkage easier than it should be. Accordingly, \texttt{READY\_FOR\_LINKAGE} should be read as \emph{ready to begin controlled algorithm experiments}, not as \emph{ready to rank algorithms}.
+
 \section{Limitations and Caveats}
 
 The benchmark has passed the current readiness gate, but several limitations remain.
@@ -666,6 +826,11 @@ The benchmark has passed the current readiness gate, but several limitations rem
     \item \textbf{The 60-month follow-up runway is weaker.} The 12- and 24-month gates pass, but the 60-month comparison remains a caveat.
     \item \textbf{Candidate tail is lighter than real.} v0.3 passes p75/p90/p95 gates, but real p90 and p95 counts remain higher than synthetic values.
     \item \textbf{No score calibration has been done yet.} The benchmark is ready for running linkage algorithms, not for claiming final linkage performance.
+    \item \textbf{The dataset is not reproducible from its scenario file.} The parameters actually used exist only in the run manifest. This is a release-blocking defect and is the first thing to fix.
+    \item \textbf{Buyer activity is too evenly spread.} Gini 0.56 against a real 0.83. Dense candidate neighbourhoods around highly active buyers are under-represented, so the hardest linkage cases are under-tested.
+    \item \textbf{Internal text duplication regressed in v0.2.} 9.0\% of synthetic objects are non-unique against 51.4\% in real \boamp{}. Text carries more discriminating signal here than it does in reality.
+    \item \textbf{Only one seed exists per scenario.} No reported quantity can currently be separated from its particular world draw, so seed-stability claims are unsupportable and are reported \textsc{Inconclusive}.
+    \item \textbf{Parts of the specification remain untested.} Byte-identical regeneration, membership-inference risk, neural-embedding semantic distances, Sobol sensitivity analysis, and a held-out real partition never used during generator design are all out of scope. They are reported as not run, never as passed.
 \end{enumerate}
 
 \section{Reproducibility and Source Inventory}
@@ -678,6 +843,18 @@ The final machine-readable readiness gate is
 \nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/temporal_candidate_freeze_gate.csv}.
 The selected parameter provenance is
 \nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/candidate_revision_selected_parameters.csv}.
+
+The layered validation framework is documented by the data-generating-process specification at
+\nolinkurl{docs/synthetic_benchmark_dgp_specification.md}
+and summarised by
+\nolinkurl{notebooks/12_synthetic_validation_framework_summary.ipynb}.
+It is executed by
+\nolinkurl{scripts/validate_synthetic_benchmark.py},
+which writes the metric long table, gate summary, discrepancy register, probe-linker results and run manifest to
+\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/}.
+The frozen Phase~0 registries --- data dictionary, unit-of-analysis table, parameter registry with provenance classes, predeclared tolerance registry, and scenario manifest --- are generated by
+\nolinkurl{scripts/build_benchmark_registries.py}
+into the sibling \texttt{registries/} directory. Both are generated from the code and config that drive generation and validation, so a renamed column or a retuned tolerance appears in the registry on the next run instead of silently diverging from it.
 
 The primary implementation modules reviewed for this report are:
 \begin{itemize}
@@ -694,9 +871,11 @@ The primary implementation modules reviewed for this report are:
 
 The correct next step is to run linkage algorithms against the v0.3 observed synthetic notices, store their predicted links, and evaluate them against the hidden truth relations. The evaluation should report candidate coverage, ranking quality, precision/recall against hidden truth, threshold sensitivity, and failure cases by buyer-key type, \cpv{} division, text pattern, and temporal gap.
 
+Before that evaluation can support algorithm \emph{comparisons}, four things should be fixed in order. First, write the swept v0.3 parameters back into a versioned scenario file so the dataset regenerates from version control, which clears the only failing critical gate. Second, generate at least a second world seed for the central scenario so seed stability stops being unmeasurable. Third, restore the buyer-activity concentration and the internal text-duplication rate, both of which currently make linkage easier than reality. Fourth, decide explicitly whether the 60-month runway and candidate upper tail are being fixed or being accepted into the fidelity budget.
+
 Until that evaluation is complete, the defensible claim is:
 \begin{quote}
-The synthetic benchmark is credible enough to begin linkage-algorithm evaluation under controlled truth, but it does not replace inaccessible real renewal labels.
+Within declared observable tolerances and a documented scenario envelope, the synthetic benchmark reproduces selected \boamp{} structures and candidate difficulties; its hidden truth is internally coherent, does not leak, and contains no copied real records; and conclusions about linkage algorithms must still be reported with sensitivity to the properties that remain unidentified, to the single available seed, and to the specification defect that currently blocks exact regeneration.
 \end{quote}
 
 \end{document}

@@ -104,7 +104,11 @@ def add_rank_and_margin(pairs: pd.DataFrame, score_col: str = "composite_score")
     top2 = (
         pairs[pairs["candidate_rank"] <= 2]
         .pivot(index="source_notice_id", columns="candidate_rank", values=score_col)
+        # A corpus where no source has a second candidate produces no rank-2
+        # column at all; reindex so the margin below is NaN-filled per source
+        # instead of raising on a missing column.
+        .reindex(columns=[1, 2])
     )
-    margin = (top2.get(1) - top2.get(2)).fillna(top2.get(1))
+    margin = (top2[1] - top2[2]).fillna(top2[1])
     pairs["top1_top2_margin"] = pairs["source_notice_id"].map(margin)
     return pairs

@@ -1,0 +1,197 @@
+module,tolerance_key,value,gate,gate_is_critical,breach_consequence
+fidelity,categorical_tv,0.05,marginals,False,documented in fidelity budget
+fidelity,categorical_tv,0.05,conditionals,True,blocks release
+fidelity,categorical_tv,0.05,temporal,True,blocks release
+fidelity,categorical_tv,0.05,candidate_environment,True,blocks release
+fidelity,categorical_tv,0.05,missingness_text_identifier,False,documented in fidelity budget
+fidelity,categorical_js,0.05,marginals,False,documented in fidelity budget
+fidelity,categorical_js,0.05,conditionals,True,blocks release
+fidelity,categorical_js,0.05,temporal,True,blocks release
+fidelity,categorical_js,0.05,candidate_environment,True,blocks release
+fidelity,categorical_js,0.05,missingness_text_identifier,False,documented in fidelity budget
+fidelity,numeric_quantile_rel_p50_p90,0.1,marginals,False,documented in fidelity budget
+fidelity,numeric_quantile_rel_p50_p90,0.1,conditionals,True,blocks release
+fidelity,numeric_quantile_rel_p50_p90,0.1,temporal,True,blocks release
+fidelity,numeric_quantile_rel_p50_p90,0.1,candidate_environment,True,blocks release
+fidelity,numeric_quantile_rel_p50_p90,0.1,missingness_text_identifier,False,documented in fidelity budget
+fidelity,numeric_quantile_rel_p95_p99,0.2,marginals,False,documented in fidelity budget
+fidelity,numeric_quantile_rel_p95_p99,0.2,conditionals,True,blocks release
+fidelity,numeric_quantile_rel_p95_p99,0.2,temporal,True,blocks release
+fidelity,numeric_quantile_rel_p95_p99,0.2,candidate_environment,True,blocks release
+fidelity,numeric_quantile_rel_p95_p99,0.2,missingness_text_identifier,False,documented in fidelity budget
+fidelity,w1_scaled,0.1,marginals,False,documented in fidelity budget
+fidelity,w1_scaled,0.1,conditionals,True,blocks release
+fidelity,w1_scaled,0.1,temporal,True,blocks release
+fidelity,w1_scaled,0.1,candidate_environment,True,blocks release
+fidelity,w1_scaled,0.1,missingness_text_identifier,False,documented in fidelity budget
+fidelity,conditional_wmae_pp,3.0,marginals,False,documented in fidelity budget
+fidelity,conditional_wmae_pp,3.0,conditionals,True,blocks release
+fidelity,conditional_wmae_pp,3.0,temporal,True,blocks release
+fidelity,conditional_wmae_pp,3.0,candidate_environment,True,blocks release
+fidelity,conditional_wmae_pp,3.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,conditional_max_warning_pp,10.0,marginals,False,documented in fidelity budget
+fidelity,conditional_max_warning_pp,10.0,conditionals,True,blocks release
+fidelity,conditional_max_warning_pp,10.0,temporal,True,blocks release
+fidelity,conditional_max_warning_pp,10.0,candidate_environment,True,blocks release
+fidelity,conditional_max_warning_pp,10.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,temporal_year_tvd,0.2,marginals,False,documented in fidelity budget
+fidelity,temporal_year_tvd,0.2,conditionals,True,blocks release
+fidelity,temporal_year_tvd,0.2,temporal,True,blocks release
+fidelity,temporal_year_tvd,0.2,candidate_environment,True,blocks release
+fidelity,temporal_year_tvd,0.2,missingness_text_identifier,False,documented in fidelity budget
+fidelity,temporal_month_tvd,0.2,marginals,False,documented in fidelity budget
+fidelity,temporal_month_tvd,0.2,conditionals,True,blocks release
+fidelity,temporal_month_tvd,0.2,temporal,True,blocks release
+fidelity,temporal_month_tvd,0.2,candidate_environment,True,blocks release
+fidelity,temporal_month_tvd,0.2,missingness_text_identifier,False,documented in fidelity budget
+fidelity,temporal_schema_by_year_wmae_pp,3.0,marginals,False,documented in fidelity budget
+fidelity,temporal_schema_by_year_wmae_pp,3.0,conditionals,True,blocks release
+fidelity,temporal_schema_by_year_wmae_pp,3.0,temporal,True,blocks release
+fidelity,temporal_schema_by_year_wmae_pp,3.0,candidate_environment,True,blocks release
+fidelity,temporal_schema_by_year_wmae_pp,3.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,temporal_notice_type_by_year_wmae_pp,5.0,marginals,False,documented in fidelity budget
+fidelity,temporal_notice_type_by_year_wmae_pp,5.0,conditionals,True,blocks release
+fidelity,temporal_notice_type_by_year_wmae_pp,5.0,temporal,True,blocks release
+fidelity,temporal_notice_type_by_year_wmae_pp,5.0,candidate_environment,True,blocks release
+fidelity,temporal_notice_type_by_year_wmae_pp,5.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,runway_12_24_abs_pp,3.0,marginals,False,documented in fidelity budget
+fidelity,runway_12_24_abs_pp,3.0,conditionals,True,blocks release
+fidelity,runway_12_24_abs_pp,3.0,temporal,True,blocks release
+fidelity,runway_12_24_abs_pp,3.0,candidate_environment,True,blocks release
+fidelity,runway_12_24_abs_pp,3.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,runway_36_60_abs_pp,5.0,marginals,False,documented in fidelity budget
+fidelity,runway_36_60_abs_pp,5.0,conditionals,True,blocks release
+fidelity,runway_36_60_abs_pp,5.0,temporal,True,blocks release
+fidelity,runway_36_60_abs_pp,5.0,candidate_environment,True,blocks release
+fidelity,runway_36_60_abs_pp,5.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_source_count_ratio_min,0.8,marginals,False,documented in fidelity budget
+fidelity,candidate_source_count_ratio_min,0.8,conditionals,True,blocks release
+fidelity,candidate_source_count_ratio_min,0.8,temporal,True,blocks release
+fidelity,candidate_source_count_ratio_min,0.8,candidate_environment,True,blocks release
+fidelity,candidate_source_count_ratio_min,0.8,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_source_count_ratio_max,1.2,marginals,False,documented in fidelity budget
+fidelity,candidate_source_count_ratio_max,1.2,conditionals,True,blocks release
+fidelity,candidate_source_count_ratio_max,1.2,temporal,True,blocks release
+fidelity,candidate_source_count_ratio_max,1.2,candidate_environment,True,blocks release
+fidelity,candidate_source_count_ratio_max,1.2,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_zero_abs_pp,5.0,marginals,False,documented in fidelity budget
+fidelity,candidate_zero_abs_pp,5.0,conditionals,True,blocks release
+fidelity,candidate_zero_abs_pp,5.0,temporal,True,blocks release
+fidelity,candidate_zero_abs_pp,5.0,candidate_environment,True,blocks release
+fidelity,candidate_zero_abs_pp,5.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_p75_abs_count,3.0,marginals,False,documented in fidelity budget
+fidelity,candidate_p75_abs_count,3.0,conditionals,True,blocks release
+fidelity,candidate_p75_abs_count,3.0,temporal,True,blocks release
+fidelity,candidate_p75_abs_count,3.0,candidate_environment,True,blocks release
+fidelity,candidate_p75_abs_count,3.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_p90_abs_count,5.0,marginals,False,documented in fidelity budget
+fidelity,candidate_p90_abs_count,5.0,conditionals,True,blocks release
+fidelity,candidate_p90_abs_count,5.0,temporal,True,blocks release
+fidelity,candidate_p90_abs_count,5.0,candidate_environment,True,blocks release
+fidelity,candidate_p90_abs_count,5.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_p95_abs_count,8.0,marginals,False,documented in fidelity budget
+fidelity,candidate_p95_abs_count,8.0,conditionals,True,blocks release
+fidelity,candidate_p95_abs_count,8.0,temporal,True,blocks release
+fidelity,candidate_p95_abs_count,8.0,candidate_environment,True,blocks release
+fidelity,candidate_p95_abs_count,8.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_p99_abs_count_warning,20.0,marginals,False,documented in fidelity budget
+fidelity,candidate_p99_abs_count_warning,20.0,conditionals,True,blocks release
+fidelity,candidate_p99_abs_count_warning,20.0,temporal,True,blocks release
+fidelity,candidate_p99_abs_count_warning,20.0,candidate_environment,True,blocks release
+fidelity,candidate_p99_abs_count_warning,20.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_cap_rate,0.01,marginals,False,documented in fidelity budget
+fidelity,candidate_cap_rate,0.01,conditionals,True,blocks release
+fidelity,candidate_cap_rate,0.01,temporal,True,blocks release
+fidelity,candidate_cap_rate,0.01,candidate_environment,True,blocks release
+fidelity,candidate_cap_rate,0.01,missingness_text_identifier,False,documented in fidelity budget
+fidelity,candidate_by_key_zero_abs_pp,10.0,marginals,False,documented in fidelity budget
+fidelity,candidate_by_key_zero_abs_pp,10.0,conditionals,True,blocks release
+fidelity,candidate_by_key_zero_abs_pp,10.0,temporal,True,blocks release
+fidelity,candidate_by_key_zero_abs_pp,10.0,candidate_environment,True,blocks release
+fidelity,candidate_by_key_zero_abs_pp,10.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,missingness_rate_pp,2.0,marginals,False,documented in fidelity budget
+fidelity,missingness_rate_pp,2.0,conditionals,True,blocks release
+fidelity,missingness_rate_pp,2.0,temporal,True,blocks release
+fidelity,missingness_rate_pp,2.0,candidate_environment,True,blocks release
+fidelity,missingness_rate_pp,2.0,missingness_text_identifier,False,documented in fidelity budget
+fidelity,text_length_quantile_rel,0.1,marginals,False,documented in fidelity budget
+fidelity,text_length_quantile_rel,0.1,conditionals,True,blocks release
+fidelity,text_length_quantile_rel,0.1,temporal,True,blocks release
+fidelity,text_length_quantile_rel,0.1,candidate_environment,True,blocks release
+fidelity,text_length_quantile_rel,0.1,missingness_text_identifier,False,documented in fidelity budget
+fidelity,identifier_rate_pp,2.0,marginals,False,documented in fidelity budget
+fidelity,identifier_rate_pp,2.0,conditionals,True,blocks release
+fidelity,identifier_rate_pp,2.0,temporal,True,blocks release
+fidelity,identifier_rate_pp,2.0,candidate_environment,True,blocks release
+fidelity,identifier_rate_pp,2.0,missingness_text_identifier,False,documented in fidelity budget
+structure,activity_gini_abs,0.1,buyer_activity,False,documented in fidelity budget
+structure,activity_gini_abs,0.1,missingness_structure,False,documented in fidelity budget
+structure,activity_gini_abs,0.1,names_identifiers,False,documented in fidelity budget
+structure,activity_top_share_pp,10.0,buyer_activity,False,documented in fidelity budget
+structure,activity_top_share_pp,10.0,missingness_structure,False,documented in fidelity budget
+structure,activity_top_share_pp,10.0,names_identifiers,False,documented in fidelity budget
+structure,activity_relative_quantile_abs,1.0,buyer_activity,False,documented in fidelity budget
+structure,activity_relative_quantile_abs,1.0,missingness_structure,False,documented in fidelity budget
+structure,activity_relative_quantile_abs,1.0,names_identifiers,False,documented in fidelity budget
+structure,activity_w1_log,0.3,buyer_activity,False,documented in fidelity budget
+structure,activity_w1_log,0.3,missingness_structure,False,documented in fidelity budget
+structure,activity_w1_log,0.3,names_identifiers,False,documented in fidelity budget
+structure,missing_pattern_tv,0.15,buyer_activity,False,documented in fidelity budget
+structure,missing_pattern_tv,0.15,missingness_structure,False,documented in fidelity budget
+structure,missing_pattern_tv,0.15,names_identifiers,False,documented in fidelity budget
+structure,missing_pattern_entropy_bits,0.3,buyer_activity,False,documented in fidelity budget
+structure,missing_pattern_entropy_bits,0.3,missingness_structure,False,documented in fidelity budget
+structure,missing_pattern_entropy_bits,0.3,names_identifiers,False,documented in fidelity budget
+structure,missing_lift_log_gap,1.0,buyer_activity,False,documented in fidelity budget
+structure,missing_lift_log_gap,1.0,missingness_structure,False,documented in fidelity budget
+structure,missing_lift_log_gap,1.0,names_identifiers,False,documented in fidelity budget
+structure,identifier_invalid_pp,2.0,buyer_activity,False,documented in fidelity budget
+structure,identifier_invalid_pp,2.0,missingness_structure,False,documented in fidelity budget
+structure,identifier_invalid_pp,2.0,names_identifiers,False,documented in fidelity budget
+structure,identifier_source_tv,0.1,buyer_activity,False,documented in fidelity budget
+structure,identifier_source_tv,0.1,missingness_structure,False,documented in fidelity budget
+structure,identifier_source_tv,0.1,names_identifiers,False,documented in fidelity budget
+structure,name_variants_per_buyer_abs,0.5,buyer_activity,False,documented in fidelity budget
+structure,name_variants_per_buyer_abs,0.5,missingness_structure,False,documented in fidelity budget
+structure,name_variants_per_buyer_abs,0.5,names_identifiers,False,documented in fidelity budget
+structure,name_similarity_quantile_abs,0.15,buyer_activity,False,documented in fidelity budget
+structure,name_similarity_quantile_abs,0.15,missingness_structure,False,documented in fidelity budget
+structure,name_similarity_quantile_abs,0.15,names_identifiers,False,documented in fidelity budget
+text,text_length_quantile_rel,0.15,text,False,documented in fidelity budget
+text,text_length_quantile_rel,0.15,privacy,True,blocks release
+text,token_count_quantile_rel,0.2,text,False,documented in fidelity budget
+text,token_count_quantile_rel,0.2,privacy,True,blocks release
+text,unigram_js,0.3,text,False,documented in fidelity budget
+text,unigram_js,0.3,privacy,True,blocks release
+text,bigram_js,0.4,text,False,documented in fidelity budget
+text,bigram_js,0.4,privacy,True,blocks release
+text,type_token_ratio_abs,0.15,text,False,documented in fidelity budget
+text,type_token_ratio_abs,0.15,privacy,True,blocks release
+text,digit_rate_abs,0.05,text,False,documented in fidelity budget
+text,digit_rate_abs,0.05,privacy,True,blocks release
+text,internal_duplicate_rate_pp,10.0,text,False,documented in fidelity budget
+text,internal_duplicate_rate_pp,10.0,privacy,True,blocks release
+text,record_specific_exact_copies,0.0,text,False,documented in fidelity budget
+text,record_specific_exact_copies,0.0,privacy,True,blocks release
+text,nearest_neighbour_margin,0.1,text,False,documented in fidelity budget
+text,nearest_neighbour_margin,0.1,privacy,True,blocks release
+difficulty,widened_pairs_completeness_min,0.8,hidden_truth_difficulty,True,blocks release
+difficulty,widened_pairs_completeness_min,0.8,algorithm_utility,True,blocks release
+difficulty,production_pairs_completeness_min,0.25,hidden_truth_difficulty,True,blocks release
+difficulty,production_pairs_completeness_min,0.25,algorithm_utility,True,blocks release
+difficulty,pairs_quality_min,0.05,hidden_truth_difficulty,True,blocks release
+difficulty,pairs_quality_min,0.05,algorithm_utility,True,blocks release
+difficulty,reduction_ratio_min,0.95,hidden_truth_difficulty,True,blocks release
+difficulty,reduction_ratio_min,0.95,algorithm_utility,True,blocks release
+difficulty,match_nonmatch_overlap_min,0.05,hidden_truth_difficulty,True,blocks release
+difficulty,match_nonmatch_overlap_min,0.05,algorithm_utility,True,blocks release
+difficulty,match_nonmatch_overlap_max,0.95,hidden_truth_difficulty,True,blocks release
+difficulty,match_nonmatch_overlap_max,0.95,algorithm_utility,True,blocks release
+difficulty,probe_best_f1_max,0.99,hidden_truth_difficulty,True,blocks release
+difficulty,probe_best_f1_max,0.99,algorithm_utility,True,blocks release
+difficulty,probe_best_f1_min,0.05,hidden_truth_difficulty,True,blocks release
+difficulty,probe_best_f1_min,0.05,algorithm_utility,True,blocks release
+difficulty,probe_f1_spread_min,0.01,hidden_truth_difficulty,True,blocks release
+difficulty,probe_f1_spread_min,0.01,algorithm_utility,True,blocks release
+robustness,headline_cv_max,0.25,robustness,False,documented in fidelity budget
+robustness,ranking_kendall_tau_min,0.8,robustness,False,documented in fidelity budget

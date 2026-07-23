@@ -1,0 +1,10 @@
+table,layer,grain,n_rows,n_columns,description
+observed_notices,observed,notice,9471,12,BOAMP-like notice table exposed to linkage methods
+clean_notices,truth,notice,9471,17,"pre-corruption notice values, one row per observed notice"
+notice_family_membership,truth,notice,9471,3,notice to latent cycle mapping with CALL/AWARD role
+true_relations,truth,cycle,6866,9,"one row per cycle: its successor, or NO_SUCCESSOR"
+latent_cycles,truth,cycle,6866,8,latent contract cycles with true start and duration
+latent_needs,truth,need,4800,9,recurring procurement needs that spawn cycle chains
+latent_buyers,truth,buyer,2000,11,latent buying entities with activity and quality propensities
+latent_establishments,truth,establishment,2174,7,establishments belonging to a latent buyer
+corruption_log,truth,notice-field-event,32344,8,"every applied corruption, enabling exact replay"

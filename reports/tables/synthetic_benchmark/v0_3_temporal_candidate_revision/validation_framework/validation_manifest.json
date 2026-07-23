@@ -1,0 +1,66 @@
+{
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "scenario": "central_provisional",
+  "world": "001",
+  "corruption": "001",
+  "synthetic_dir": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001",
+  "generated_at_utc": "2026-07-23T14:34:06.223086+00:00",
+  "strict_60m": false,
+  "bootstrap_reps": 200,
+  "robustness_sweep": true,
+  "probe_linker_results": [
+    {
+      "probe": "deterministic_top1",
+      "n_predicted_pairs": 71,
+      "pair_precision": 0.647887323943662,
+      "pair_recall": 0.3026315789473684,
+      "pair_f1": 0.4125560538116592,
+      "bcubed_precision": 0.9439662447257385,
+      "bcubed_recall": 0.7253164556962028,
+      "bcubed_f1": 0.8203215078527601
+    },
+    {
+      "probe": "score_threshold_all_ranks",
+      "n_predicted_pairs": 56,
+      "pair_precision": 0.7321428571428571,
+      "pair_recall": 0.26973684210526316,
+      "pair_f1": 0.3942307692307692,
+      "bcubed_precision": 0.9717299578059071,
+      "bcubed_recall": 0.7130801687763715,
+      "bcubed_f1": 0.8225512790843894
+    },
+    {
+      "probe": "fellegi_sunter",
+      "n_predicted_pairs": 94,
+      "pair_precision": 0.4787234042553192,
+      "pair_recall": 0.29605263157894735,
+      "pair_f1": 0.36585365853658536,
+      "bcubed_precision": 0.8844725738396626,
+      "bcubed_recall": 0.7299578059071732,
+      "bcubed_f1": 0.7998209987677678
+    }
+  ],
+  "metric_count": 159,
+  "gate_count": 15,
+  "overall_status": "FAIL",
+  "input_checksums": {
+    "candidate_revision_selected_parameters.csv": "a23a8fe3453589efab95cbdd5b737d9619852c02ac0c061096deb0290735975c",
+    "clean_notices.parquet": "d2293bcc3db2a19a054f7d9d9b78fab29654b08f36057955e5815cedded2804b",
+    "conditional_observation_parameters.csv": "94e6f6de3ae6660ce21b1a319f12560b55f4e36f8e0427491abe4bb7d344a7ae",
+    "corruption_log.parquet": "b489bac5d941288eb535e5baf9727c14777364cf6217e3a791c195dc8529b166",
+    "generation_metadata.json": "2785fc04954072d8b98fef5e2016c64ebead05cfc2faa246d82902f82a0b983a",
+    "latent_buyers.parquet": "5b9a4fa14de7f0ba8ebb90f3648b4dfb6864d0116eef81a2e615476d462db4fb",
+    "latent_cycles.parquet": "f0df23b3f866450d23895debdd3df75e0dec1383b5ac8de0c83df22ad25455cb",
+    "latent_establishments.parquet": "0b682fb459f83c122805075749ff0b26ab1e9a91520971a024d988308029f0d4",
+    "latent_needs.parquet": "2a42bf0bba5cbd1594ad9e4b6b361e8144b3485f3f5dea1be175e4cfa92bf8a8",
+    "notice_family_membership.parquet": "4a475d59e1461882bf8a9f61a435c7136abeb7c54caee69a99b6f894910a26ab",
+    "observed_notices.parquet": "580379e36d139794b2d21e9c2d4802c22a0b9db69623dd574358528b1274a52e",
+    "true_relations.parquet": "ae16579a6d22534a6b88afaed1b224b6951b5a5cc57bc47c4e4dbea5fd892755"
+  },
+  "notes": [
+    "Covers the Section 7 minimum suite: internal integrity, marginals, conditionals, missingness, temporal, buyer activity, candidate environment, text, names/identifiers, hidden-truth difficulty, algorithm utility and robustness.",
+    "Still out of scope and therefore never reported as passed: neural-embedding semantic distances and MAUVE, membership-inference attacks, Sobol sensitivity analysis, and held-out real-BOAMP partitions never used during generator design.",
+    "Statistical non-rejection is not equivalence. Metrics carrying a bootstrap interval are decided by the TOST rule; metrics without one can only reach 'not obviously discrepant'.",
+    "60-month runway is a warning unless --strict-60m is passed."
+  ]
+}
