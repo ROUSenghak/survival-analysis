@@ -1,0 +1,13 @@
+column,dtype,missing_pct,example_value
+notice_id_synthetic,object,0.0,NOTICE-00000000
+publication_date,object,0.0,2015-02-23
+notice_type_normalized,object,0.0,APPEL_OFFRE
+schema_family,object,0.0,LEGACY
+buyer_siret_raw,float64,68.93,82089508400011.0
+buyer_siren_raw,float64,67.61,823165881.0
+buyer_name_raw,object,0.0,Syndicat mixte Fonbourg
+code_departement,object,0.0,44
+cpv_clean,float64,15.3,50450874.0
+declared_duration_months,float64,85.19,3.607736778428669
+objet_clean,object,0.0,Marché public - voir cahier des charges pour le détail des prestations. Marché public de maintenance des ascenseurs - Syndicat mixte Fonbourg  Publication 2015.
+linked_call_notice_id,object,88.58,NOTICE-00000002

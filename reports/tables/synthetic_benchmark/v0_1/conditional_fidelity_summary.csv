@@ -1,0 +1,5 @@
+comparison,cells_total,cells_with_n_ge_30_both,mean_abs_diff_pp,median_abs_diff_pp,p90_abs_diff_pp,max_abs_diff_pp,share_ci_overlap,assessment
+"P(SIRET present | schema, year, notice type)",45,29,19.886203616431956,11.17497333729151,44.78513650705943,58.44155844155844,0.3103448275862069,NEEDS_REVISION
+"P(CPV missing | schema, notice type)",6,4,1.6533371376196109,1.356995922181654,2.571195430436557,3.038215694274446,0.25,PASS
+"P(duration present | schema, notice type, year)",45,29,14.96585939860095,6.0152810152810146,51.592637961752004,68.00232437352477,0.10344827586206896,NEEDS_REVISION
+"P(generic repeated text | notice type, buyer activity)",12,8,46.27627192575842,42.78535234585273,63.71401788407192,67.10792828193665,0.0,NEEDS_REVISION

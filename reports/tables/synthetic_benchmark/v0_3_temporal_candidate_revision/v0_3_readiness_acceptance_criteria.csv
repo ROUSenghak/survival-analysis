@@ -1,0 +1,2 @@
+conditional_wmae_pp_max,conditional_regression_pp_max,year_share_tvd_max,schema_by_year_wmae_pp_max,notice_type_by_year_wmae_pp_max,followup_12m_24m_abs_pp_max,candidate_source_count_ratio_min,candidate_source_count_ratio_max,candidate_zero_abs_pp_max,candidate_p75_abs_count_max,candidate_p90_abs_count_max,candidate_p95_abs_count_max,candidate_cap_rate_max,candidate_by_key_zero_abs_pp_max,truth_gap_gt6_share_min
+3.0,1.0,0.2,3.0,5.0,3.0,0.8,1.2,5.0,3.0,5.0,8.0,0.01,10.0,0.45

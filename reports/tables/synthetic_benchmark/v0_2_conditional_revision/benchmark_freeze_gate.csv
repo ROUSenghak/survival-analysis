@@ -1,0 +1,3 @@
+dimension,status,evidence,notes
+conditional_fidelity,PASS,notebooks/08_synthetic_conditional_revision_validation.ipynb; reports/generated/synthetic_benchmark/v0_2_conditional_revision_report.md; reports/tables/synthetic_benchmark/v0_2_conditional_revision/conditional_fidelity_summary_by_version.csv,"v0.2 passes the predefined weighted criteria for SIRET presence, duration presence, generic repeated text, and CPV missingness. CPV was monitored but not retuned."
+ready_for_temporal_candidate_validation,PASS,reports/generated/synthetic_benchmark/v0_2_conditional_revision_report.md,Proceed to temporal and candidate-environment validation only; linkage-score calibration remains out of scope.

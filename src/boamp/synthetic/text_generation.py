@@ -80,8 +80,9 @@ def render_text(base_concepts: list[str], base_vocabulary: list[str], buyer_name
     concept = rng.choice(base_concepts)
     vocab_terms = list(rng.choice(base_vocabulary, size=min(2, len(base_vocabulary)), replace=False))
     lot = int(rng.integers(1, 4))
+    reference = int(rng.integers(100000, 999999))
     prefix = "Avis d'attribution" if role == "AWARD" else "Marché public"
-    return f"{prefix} de {concept} - {buyer_name} - lot {lot} : {' et '.join(vocab_terms)}."
+    return f"{prefix} de {concept} - {buyer_name} - réf. {reference} - lot {lot} : {' et '.join(vocab_terms)}."
 
 
 def apply_same_cycle_variation(text: str, severity: float, rng: np.random.Generator) -> str:

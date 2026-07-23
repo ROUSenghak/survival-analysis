@@ -1,0 +1,7 @@
+source,path,purpose
+prepared real corpus,data/interim/boamp_common_prepared.csv,full-corpus observable comparison
+real Layer-1 sources,data/processed/boamp_only/boamp_only_sources.csv,production source-scope candidate comparison
+real Layer-1 candidate pairs,data/processed/boamp_only/boamp_only_candidate_pairs.csv,real candidate-count baseline
+synthetic observed notices,data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001/observed_notices.parquet,algorithm-facing synthetic data
+synthetic true relations,data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001/true_relations.parquet,structural truth summary only
+v0.3 validation tables,reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision,authoritative readiness/gate evidence

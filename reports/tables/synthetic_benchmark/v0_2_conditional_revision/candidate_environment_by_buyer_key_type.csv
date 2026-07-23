@@ -1,0 +1,9 @@
+scope,buyer_key_type,n_sources,mean_candidate_count,median_candidate_count,p90_candidate_count,zero_candidate_rate
+real_layer1_algorithm_scope,NAME_FALLBACK,2446,2.1455437448896157,0.0,7.0,0.580130825838103
+real_layer1_algorithm_scope,RAW_SIRET,713,1.246844319775596,0.0,5.0,0.7068723702664796
+synthetic_layer1_algorithm_scope,NAME_FALLBACK,253,0.1976284584980237,0.0,1.0,0.8774703557312253
+synthetic_layer1_algorithm_scope,RAW_SIREN,6,0.0,0.0,0.0,1.0
+synthetic_layer1_algorithm_scope,RAW_SIRET,95,0.042105263157894736,0.0,0.0,0.968421052631579
+synthetic_all_observed_compatibility,NAME_FALLBACK,6491,5.022800801109228,1.0,23.0,0.41472808504082576
+synthetic_all_observed_compatibility,RAW_SIREN,211,0.014218009478672985,0.0,0.0,0.985781990521327
+synthetic_all_observed_compatibility,RAW_SIRET,2905,0.24819277108433735,0.0,1.0,0.8148020654044751

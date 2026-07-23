@@ -35,6 +35,21 @@ GENERIC_BOILERPLATE_POOL: list[str] = [
     "Prestations diverses dans le cadre d'un marché public, se reporter au dossier de consultation.",
 ]
 
+EXACT_TEMPLATE_POOL: list[str] = [
+    "Avis de marché public - prestations courantes.",
+    "Consultation pour des fournitures et services.",
+    "Marché public de services administratifs.",
+    "Procédure adaptée pour prestations diverses.",
+    "Accord-cadre relatif à des prestations courantes.",
+    "Prestations de maintenance et services associés.",
+    "Fourniture et livraison de matériels.",
+    "Services d'assistance et de support.",
+    "Travaux et prestations connexes.",
+    "Renouvellement de marché public.",
+    "Mission de service auprès de la collectivité.",
+    "Prestation technique pour besoins courants.",
+]
+
 GENERIC_NAME_POOL: dict[str, list[str]] = {
     "COMMUNE": ["Mairie", "Commune"],
     "EPCI": ["Communauté de communes", "Collectivité territoriale"],
@@ -108,8 +123,54 @@ def _identifier_year_regime_scale(year: int, scen_ids) -> float:
     return regimes.late.scale
 
 
+def _conditional_identifier_outcome(row, siblings_by_siren: dict[str, list[str]], scen_ids,
+                                    rng: np.random.Generator, logger, observation_model) -> tuple[str | None, str | None]:
+    """Draw identifier visibility from observable conditional SIRET targets.
+
+    The target is checksum-valid SIRET presence. When SIRET is not observed,
+    the old corruption vocabulary is preserved by splitting the absent mass
+    into SIREN-only, invalid-SIRET, and fully missing official identifiers.
+    """
+    present_rate = observation_model.siret_present_rate(row)
+    siret_true, siren_true = row["siret_true"], row["siren_true"]
+    cfg = getattr(scen_ids, "conditional_siret_presence", None)
+    wrong_rate = getattr(scen_ids, "wrong_establishment_siret_rate", 0.0)
+    siren_only_rate = getattr(cfg, "siren_only_among_absent_rate", 0.03)
+    invalid_rate = getattr(cfg, "invalid_among_absent_rate", 0.01)
+
+    if rng.random() < present_rate:
+        if rng.random() < wrong_rate:
+            siblings = [s for s in siblings_by_siren.get(siren_true, []) if s != siret_true]
+            if siblings:
+                wrong = str(rng.choice(siblings))
+                logger.log(row["notice_id_synthetic"], "buyer_siret_raw", siret_true, wrong,
+                           "WRONG_ESTABLISHMENT_SAME_SIREN", severity=1.0)
+                return wrong, siren_true
+        return siret_true, siren_true
+
+    draw = rng.random()
+    if draw < siren_only_rate:
+        logger.log(row["notice_id_synthetic"], "buyer_siret_raw", siret_true, None,
+                   "SIREN_ONLY_OBSERVED", severity=1.0)
+        return None, siren_true
+    if draw < siren_only_rate + invalid_rate:
+        bad = (siret_true[:-1] + str((int(siret_true[-1]) + 1) % 10)) if siret_true else None
+        logger.log(row["notice_id_synthetic"], "buyer_siret_raw", siret_true, bad,
+                   "INVALID_CHECKSUM", severity=1.0)
+        return bad, None
+
+    logger.log(row["notice_id_synthetic"], "buyer_siret_raw", siret_true, None, "BOTH_MISSING", severity=1.0)
+    logger.log(row["notice_id_synthetic"], "buyer_siren_raw", siren_true, None, "BOTH_MISSING", severity=1.0)
+    return None, None
+
+
 def _corrupt_identifier(row, siblings_by_siren: dict[str, list[str]], mult: float,
-                          scen_ids, rng: np.random.Generator, logger) -> tuple[str | None, str | None]:
+                          scen_ids, rng: np.random.Generator, logger,
+                          observation_model=None) -> tuple[str | None, str | None]:
+    conditional_cfg = getattr(scen_ids, "conditional_siret_presence", None)
+    if observation_model is not None and getattr(conditional_cfg, "enabled", False):
+        return _conditional_identifier_outcome(row, siblings_by_siren, scen_ids, rng, logger, observation_model)
+
     regime_scale = _identifier_year_regime_scale(row["publication_date_true"].year, scen_ids)
     rates = dict(SIREN_ONLY=scen_ids.siren_only_rate, BOTH_MISSING=scen_ids.both_missing_rate,
                  INVALID=scen_ids.invalid_identifier_rate,
@@ -174,7 +235,8 @@ def _corrupt_cpv(row, mult: float, scen_cpv, rng: np.random.Generator, logger) -
     return corrupted
 
 
-def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logger) -> float | None:
+def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logger,
+                      observation_model=None) -> float | None:
     """v0.2 conditional-fidelity follow-up: real duration presence is a
     near-deterministic function of schema_family (0.0% every year 2015-2023,
     then 52-68% once EFORMS is mandated), not a smooth quality-driven rate --
@@ -185,12 +247,21 @@ def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logg
     over the flat `missing_rate` (kept as a fallback for scenarios, e.g.
     clean_sanity/adverse_identity, that don't set it)."""
     true_val = row["duration_true_months"]
-    by_schema = getattr(scen_dur, "missing_rate_by_schema", None)
-    base_rate = (getattr(by_schema, row["schema_family_true"], scen_dur.missing_rate)
-                 if by_schema is not None else scen_dur.missing_rate)
-    if rng.random() < min(0.98, base_rate * mult):
-        logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, None, "MISSING", severity=mult)
-        return None
+    conditional_cfg = getattr(scen_dur, "conditional_presence", None)
+    if observation_model is not None and getattr(conditional_cfg, "enabled", False):
+        if rng.random() >= observation_model.duration_present_rate(row):
+            logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, None,
+                       "MISSING", severity=1.0)
+            return None
+        base_rate = 0.0
+    else:
+        by_schema = getattr(scen_dur, "missing_rate_by_schema", None)
+        base_rate = (getattr(by_schema, row["schema_family_true"], scen_dur.missing_rate)
+                     if by_schema is not None else scen_dur.missing_rate)
+        if rng.random() < min(0.98, base_rate * mult):
+            logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, None, "MISSING", severity=mult)
+            return None
+
     val = true_val
     if rng.random() < min(0.98, scen_dur.rounding_severity * mult):
         step = 6 if val <= 24 else 12
@@ -204,7 +275,28 @@ def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logg
     return val
 
 
-def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.random.Generator, logger) -> str:
+def _near_boilerplate_text(row, text: str, rng: np.random.Generator) -> str:
+    phrase = str(rng.choice(GENERIC_BOILERPLATE_POOL))
+    suffixes = [
+        f" Acheteur: {row['buyer_name_true']}.",
+        f" Secteur CPV {str(row['cpv_true'])[:2]}.",
+        f" Publication {pd.Timestamp(row['publication_date_true']).year}.",
+        f" Département {row['department_true']}.",
+    ]
+    return f"{phrase} {text[:70]}{str(rng.choice(suffixes))}"
+
+
+def _generic_weak_text(row, rng: np.random.Generator) -> str:
+    verbs = ["Fourniture", "Maintenance", "Prestations", "Services", "Travaux"]
+    scopes = ["courants", "techniques", "administratifs", "associés", "spécifiques"]
+    return (
+        f"{str(rng.choice(verbs))} {str(rng.choice(scopes))} - "
+        f"{row['buyer_name_true']} - CPV {str(row['cpv_true'])[:2]}."
+    )
+
+
+def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.random.Generator,
+                  logger, observation_model=None, buyer_activity_tier: str | None = None) -> str:
     text = row["objet_true"]
     if row["role"] == "AWARD" and text and rng.random() < min(0.98, scen_text.next_cycle_drift_severity * mult * 0.3):
         # Even within a cycle, a poorly-recorded award can drift lexically
@@ -214,6 +306,36 @@ def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.ra
         drifted = apply_next_cycle_drift(text, need_vocab, rng, severity=min(1.0, scen_text.next_cycle_drift_severity * 0.5))
         logger.log(row["notice_id_synthetic"], "objet_clean", text, drifted, "LEXICAL_DRIFT", severity=mult)
         text = drifted
+
+    conditional_cfg = getattr(scen_text, "conditional_reuse", None)
+    if observation_model is not None and getattr(conditional_cfg, "enabled", False):
+        target = observation_model.generic_text_rate(row["notice_type_true"], buyer_activity_tier or "21+")
+        exact_share = getattr(conditional_cfg, "exact_template_share", 0.82)
+        near_extra = getattr(conditional_cfg, "near_boilerplate_extra_rate", 0.08)
+        weak_extra = getattr(conditional_cfg, "generic_weak_extra_rate", 0.04)
+        if rng.random() < min(0.95, target * exact_share):
+            template = str(rng.choice(EXACT_TEMPLATE_POOL))
+            logger.log(row["notice_id_synthetic"], "objet_clean", text, template,
+                       "EXACT_CROSS_BUYER_TEMPLATE", severity=1.0)
+            return template
+        if rng.random() < min(0.95, target * near_extra):
+            near = _near_boilerplate_text(row, text, rng)
+            logger.log(row["notice_id_synthetic"], "objet_clean", text, near,
+                       "NEAR_BOILERPLATE_WITH_SPECIFIC_TOKENS", severity=1.0)
+            return near
+        if rng.random() < min(0.95, target * weak_extra):
+            weak = _generic_weak_text(row, rng)
+            logger.log(row["notice_id_synthetic"], "objet_clean", text, weak,
+                       "GENERIC_WEAK_PROCUREMENT_TEXT", severity=1.0)
+            return weak
+        same_family_near_rate = getattr(conditional_cfg, "same_family_near_duplicate_rate", 0.0)
+        if row["role"] == "AWARD" and rng.random() < same_family_near_rate:
+            near_family = f"{text.rstrip('.')} - attribution du marché."
+            logger.log(row["notice_id_synthetic"], "objet_clean", text, near_family,
+                       "SAME_FAMILY_NEAR_DUPLICATE", severity=1.0)
+            return near_family
+        return text
+
     if rng.random() < min(0.98, scen_text.boilerplate_rate * mult):
         boilerplate = str(rng.choice(GENERIC_BOILERPLATE_POOL))
         logger.log(row["notice_id_synthetic"], "objet_clean", text, boilerplate, "GENERIC_BOILERPLATE", severity=mult)
@@ -222,7 +344,7 @@ def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.ra
 
 
 def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establishments: pd.DataFrame,
-                     scenario, rng: np.random.Generator, logger) -> pd.DataFrame:
+                     scenario, rng: np.random.Generator, logger, observation_model=None) -> pd.DataFrame:
     quality_class = assign_quality_class(clean_notices, buyers, scenario, rng)
     mult = severity_multiplier(quality_class)
     duration_mult = duration_severity_multiplier(quality_class)
@@ -232,29 +354,61 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
     }
     buyers_idx = buyers.set_index("buyer_id_true")
     need_vocab_lookup = clean_notices.drop_duplicates("need_id_true").set_index("need_id_true")
+    scoped_candidate_cfg = getattr(getattr(scenario, "recurrence", None), "scoped_candidate_environment", None)
+    scoped_name_stability = bool(
+        getattr(scoped_candidate_cfg, "enabled", False)
+        and getattr(scoped_candidate_cfg, "stabilize_scoped_name_fallback", False)
+    )
+    scoped_divisions = {str(v) for v in getattr(scoped_candidate_cfg, "cpv_divisions", [])}
+    stable_scoped_name_by_buyer: dict[str, str] = {}
+    buyer_notice_tier = pd.cut(
+        clean_notices.groupby("buyer_id_true")["notice_id_synthetic"].transform("size"),
+        bins=[0, 1, 5, 20, np.inf],
+        labels=["1 (single)", "2-5", "6-20", "21+"],
+        right=True,
+    ).astype(str)
 
     rows = []
     for i, row in clean_notices.reset_index(drop=True).iterrows():
         m = float(mult.iloc[i])
         buyer = buyers_idx.loc[row["buyer_id_true"]]
 
-        siret_obs, siren_obs = _corrupt_identifier(row, siblings_by_siren, m, scenario.identifiers, rng, logger)
+        siret_obs, siren_obs = _corrupt_identifier(
+            row, siblings_by_siren, m, scenario.identifiers, rng, logger,
+            observation_model=observation_model,
+        )
 
         name_true = row["buyer_name_true"]
-        name_obs = name_true
-        if rng.random() < min(0.98, scenario.buyer_names.generic_collision_rate * m * float(buyer["alias_propensity"] + 0.3)):
-            pool = GENERIC_NAME_POOL.get(buyer["buyer_type_true"], GENERIC_NAME_POOL["AUTRE"])
-            name_obs = str(rng.choice(pool))
-            logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "GENERIC_NAME_COLLISION", severity=m)
-        elif rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
-            name_obs = _apply_name_transformation(name_true, row["department_true"], rng)
-            logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
+        use_stable_scoped_name = (
+            scoped_name_stability
+            and str(row["cpv_true"])[:2] in scoped_divisions
+        )
+        if use_stable_scoped_name and row["buyer_id_true"] in stable_scoped_name_by_buyer:
+            name_obs = stable_scoped_name_by_buyer[row["buyer_id_true"]]
+        else:
+            name_obs = name_true
+            if rng.random() < min(0.98, scenario.buyer_names.generic_collision_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                pool = GENERIC_NAME_POOL.get(buyer["buyer_type_true"], GENERIC_NAME_POOL["AUTRE"])
+                name_obs = str(rng.choice(pool))
+                logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "GENERIC_NAME_COLLISION", severity=m)
+            elif rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                name_obs = _apply_name_transformation(name_true, row["department_true"], rng)
+                logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
+            if use_stable_scoped_name:
+                stable_scoped_name_by_buyer[row["buyer_id_true"]] = name_obs
 
         cpv_obs = _corrupt_cpv(row, m, scenario.cpv, rng, logger)
-        duration_obs = _corrupt_duration(row, float(duration_mult.iloc[i]), scenario.duration, rng, logger)
+        duration_obs = _corrupt_duration(
+            row, float(duration_mult.iloc[i]), scenario.duration, rng, logger,
+            observation_model=observation_model,
+        )
 
         need_vocab = need_vocab_lookup.loc[row["need_id_true"], "objet_true"] if row["need_id_true"] in need_vocab_lookup.index else []
-        text_obs = _corrupt_text(row, m, scenario.text, need_vocab if isinstance(need_vocab, list) else [], rng, logger)
+        text_obs = _corrupt_text(
+            row, m, scenario.text, need_vocab if isinstance(need_vocab, list) else [], rng, logger,
+            observation_model=observation_model,
+            buyer_activity_tier=str(buyer_notice_tier.iloc[i]),
+        )
 
         linked_obs = row["linked_call_notice_id_true"]
         if row["role"] == "AWARD" and linked_obs is not None:

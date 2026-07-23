@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import yaml
 
 from boamp.synthetic.parameters import load_calibration_parameters
 from boamp.synthetic.scenarios import VALID_SCENARIOS, load_benchmark_defaults, load_scenario
@@ -85,3 +86,19 @@ def test_candidate_counts_are_fidelity_targets_not_do_not_use():
     df = pd.read_csv(REPO / "reports" / "tables" / "synthetic_calibration" / "generator_parameter_actions.csv")
     row = df[df["parameter_name"] == "candidates_per_source_distribution"].iloc[0]
     assert row["action"] == "USE_AS_FIDELITY_TARGET"
+
+
+def test_scoped_candidate_environment_config_does_not_assign_candidate_counts():
+    with open(REPO / "config/synthetic/scenarios/central_provisional.yaml", encoding="utf-8") as f:
+        scenario = yaml.safe_load(f)
+    cfg = scenario["recurrence"]["scoped_candidate_environment"]
+    forbidden = {
+        "candidate_count",
+        "candidate_counts",
+        "candidates_per_source",
+        "zero_candidate_rate",
+        "p75_candidate_count",
+        "p90_candidate_count",
+        "p95_candidate_count",
+    }
+    assert forbidden.isdisjoint(cfg)

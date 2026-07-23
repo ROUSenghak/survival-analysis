@@ -1,0 +1,5 @@
+dimension,metric,value,threshold,status
+year_share,TVD,0.1510323790001545,0.2,PASS
+schema_by_year,WMAE_pp,0.3394140921713416,3.0,PASS
+notice_type_by_year,WMAE_pp,3.802912035702543,5.0,PASS
+month_share,TVD,0.1784803743125055,0.2,PASS

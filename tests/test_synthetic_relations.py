@@ -1,10 +1,13 @@
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from boamp.synthetic.pipeline import generate_clean_world
 from boamp.synthetic.relations import build_true_relations
+from boamp.synthetic.scenarios import load_scenario
 from boamp.synthetic.validation import validate_relations
+from boamp.synthetic.cycles import _draw_successor_gap_months
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -65,3 +68,40 @@ def test_build_true_relations_is_pure_function_of_cycles(tiny_world):
     rel_a = build_true_relations(tiny_world["cycles"], "central_provisional")
     rel_b = build_true_relations(tiny_world["cycles"], "central_provisional")
     assert rel_a.equals(rel_b)
+
+
+def test_scoped_candidate_gap_mixture_draws_near_window_when_enabled():
+    scenario = SimpleNamespace(
+        recurrence=SimpleNamespace(
+            cycle_gap_distribution=SimpleNamespace(type="normal", mean_months=18.0, sd_months=9.0, min_months=1.0),
+            scoped_candidate_environment=SimpleNamespace(
+                enabled=True,
+                cpv_divisions=["32"],
+                near_window_share=1.0,
+                near_window_distribution=SimpleNamespace(
+                    type="normal", mean_months=2.0, sd_months=0.01, min_months=0.1, max_months=6.0
+                ),
+            ),
+        )
+    )
+    need = {"cpv_true": "32123456", "recurrence_propensity": 0.4}
+    gap = _draw_successor_gap_months(need, scenario, __import__("numpy").random.default_rng(123))
+    assert 0.1 <= gap <= 6.0
+    assert gap == pytest.approx(2.0, abs=0.1)
+
+
+def test_v0_3_scoped_candidate_revision_preserves_relation_integrity():
+    scenario = load_scenario(REPO, "central_provisional")
+    scenario.recurrence.scoped_candidate_environment.enabled = True
+    scenario.recurrence.scoped_candidate_environment.recurrence_propensity_multiplier = 2.0
+    scenario.recurrence.scoped_candidate_environment.near_window_share = 0.75
+    scenario.recurrence.scoped_candidate_environment.hard_negative_alignment_rate = 0.10
+    world = generate_clean_world(
+        "central_provisional", REPO, n_buyers=120, world_seed=202, scenario_override=scenario
+    )
+    result = validate_relations(world["cycles"], world["true_relations"])
+    assert result.passed, result.failures()
+    gaps = world["true_relations"].loc[
+        world["true_relations"]["relation_type"] == "NEXT_CYCLE", "true_gap_months"
+    ]
+    assert (gaps > 6).mean() >= 0.45

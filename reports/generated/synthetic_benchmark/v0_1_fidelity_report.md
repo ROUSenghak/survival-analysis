@@ -1,5 +1,13 @@
 # Synthetic benchmark v0.1 — fidelity report
 
+**Supersession note (conditional fidelity):** Section 6 below is superseded
+by `notebooks/07_synthetic_conditional_fidelity_validation.ipynb` and
+`reports/generated/synthetic_benchmark/v0_1_conditional_fidelity_report.md`.
+That executed follow-up validates the exact requested conditionals and marks
+`conditional_fidelity` as `NEEDS_REVISION`: CPV missingness by schema and
+notice type is close, but SIRET presence, duration presence, and generic
+repeated text do not reproduce the real conditional structure.
+
 Generated from `notebooks/06_synthetic_fidelity_validation.ipynb`, comparing
 the `central_provisional` pilot (`data/processed/synthetic_benchmark/v0_1_provisional/central_provisional/world_001/corruption_001/`,
 2,000 buyers, 9,624 observed notices — this count shifted from the original

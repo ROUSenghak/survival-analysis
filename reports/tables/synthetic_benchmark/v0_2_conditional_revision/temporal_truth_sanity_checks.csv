@@ -1,0 +1,6 @@
+metric,value,notes
+cycles,6914.0,Latent cycle count; synthetic-only structural check.
+successor_relation_rate,0.29230546716806477,Synthetic-only; no direct observed real truth baseline.
+true_gap_median_months,17.115637319316686,Median gap from source expected end to target start.
+true_gap_p90_months,28.416557161629434,Tail should not be artificially locked to the 6-month candidate window.
+share_true_gaps_over_6m,0.8901533894111826,Checks separation between latent truth and candidate-window design.

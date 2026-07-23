@@ -1,0 +1,24 @@
+{
+  "benchmark_version": "v0_2_conditional_revision",
+  "generated_at_utc": "2026-07-23T08:22:35.378445+00:00",
+  "fixed_seeds": {
+    "latent_world_seed": 20260721,
+    "corruption_seed": 20260722
+  },
+  "outputs": {
+    "small_sanity": "data/processed/synthetic_benchmark/v0_2_conditional_revision/clean_sanity/world_001/corruption_001",
+    "central_provisional": "data/processed/synthetic_benchmark/v0_2_conditional_revision/central_provisional/world_001/corruption_001"
+  },
+  "conditional_observation_parameters": {
+    "report_table": "reports/tables/synthetic_benchmark/v0_2_conditional_revision/conditional_observation_parameters.csv",
+    "central_output_copy": "data/processed/synthetic_benchmark/v0_2_conditional_revision/central_provisional/world_001/corruption_001/conditional_observation_parameters.csv",
+    "source_path": "data/interim/boamp_common_prepared.csv",
+    "smoothing": "beta-binomial global prior, prior_strength=25"
+  },
+  "scope": [
+    "latent truth unchanged",
+    "CPV missingness unchanged",
+    "linkage algorithm and thresholds unchanged",
+    "SIRET/duration/text observation revised from observable real-data conditionals"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "generated_at_utc": "2026-07-23T09:35:39.417366+00:00",
+  "fixed_seeds": {
+    "latent_world_seed": 20260721,
+    "corruption_seed": 20260722
+  },
+  "outputs": {
+    "small_sanity": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/clean_sanity/world_001/corruption_001",
+    "central_provisional": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001"
+  },
+  "selected_parameters": {
+    "benchmark_version": "v0_3_temporal_candidate_revision",
+    "selection_rule": "first fixed sweep candidate satisfying all candidate-readiness gates",
+    "parameters": {
+      "recurrence_propensity_multiplier": 1.3,
+      "near_window_share": 0.75,
+      "hard_negative_alignment_rate": 0.1,
+      "cluster_scoped_needs_by_buyer": true,
+      "scoped_buyer_affinity_share": 0.07,
+      "scoped_need_probability_high": 0.7,
+      "stabilize_scoped_establishment": true,
+      "stabilize_scoped_name_fallback": true,
+      "cpv_divisions": [
+        "32",
+        "35",
+        "48",
+        "72"
+      ],
+      "near_window_distribution": {
+        "type": "normal",
+        "mean_months": 2.0,
+        "sd_months": 2.0,
+        "min_months": 0.1,
+        "max_months": 6.0
+      }
+    },
+    "gates": {
+      "source_count_ratio_min": 0.8,
+      "source_count_ratio_max": 1.2,
+      "zero_candidate_abs_pp_max": 5.0,
+      "p75_abs_count_max": 3.0,
+      "p90_abs_count_max": 5.0,
+      "p95_abs_count_max": 8.0,
+      "cap_rate_max": 0.01,
+      "by_key_zero_abs_pp_max": 10.0,
+      "broad_gap_tail_min": 0.45
+    },
+    "selected_metrics": {
+      "recurrence_propensity_multiplier": 1.3,
+      "near_window_share": 0.75,
+      "hard_negative_alignment_rate": 0.1,
+      "n_sources": 395,
+      "zero_candidate_rate": 0.6303797468354431,
+      "mean_candidate_count": 0.6379746835443038,
+      "median_candidate_count": 0.0,
+      "p75_candidate_count": 1.0,
+      "p90_candidate_count": 2.0,
+      "p95_candidate_count": 3.0,
+      "p99_candidate_count": 6.0,
+      "max_candidate_count": 8,
+      "cap_reached_rate": 0.0,
+      "expected_scaled_sources": 353.55505004549593,
+      "source_count_ratio": 1.1172234704303357,
+      "zero_abs_diff_pp": 2.1642804765167667,
+      "p75_abs_diff": 1.0,
+      "p90_abs_diff": 4.0,
+      "p95_abs_diff": 7.0,
+      "truth_gap_gt6_share": 0.8117134559535334,
+      "by_key_zero_gate_pass": true,
+      "passes_candidate_readiness": "True",
+      "window_months": 6
+    }
+  },
+  "sweep_table": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/candidate_revision_sweep.csv",
+  "conditional_observation_parameters": {
+    "report_table": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/conditional_observation_parameters.csv",
+    "central_output_copy": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001/conditional_observation_parameters.csv",
+    "source_path": "data/interim/boamp_common_prepared.csv"
+  },
+  "scope": [
+    "candidate environment revised through latent recurrence timing and optional same-buyer distinct-need clustering",
+    "candidate counts used only as post-hoc fidelity gates",
+    "linkage scores, thresholds, accepted links, precision, and recall not used",
+    "conditional observation model preserved from v0.2"
+  ]
+}

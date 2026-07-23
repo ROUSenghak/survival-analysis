@@ -1,0 +1,6 @@
+dimension,real_value,synthetic_value,difference,threshold,status,notes
+algorithm_scope_source_count,358.6319676683644,354.0,-4.631967668364382,0.8,PASS,Synthetic APPEL_OFFRE and DIGITAL_ICT source count vs real Layer 1 count scaled to synthetic total notice volume.
+algorithm_scope_zero_candidate_rate,0.6087369420702754,0.903954802259887,0.2952178601896116,0.05,NEEDS_REVISION,Primary candidate readiness metric.
+algorithm_scope_p90_candidate_count,6.0,0.0,-6.0,5.0,NEEDS_REVISION,Tail ambiguity in the actual Layer 1 source scope.
+algorithm_scope_cap_reached_rate,0.0006331117442228553,0.0,-0.0006331117442228553,0.01,PASS,Cap pressure should be low before running linkage evaluation.
+broad_compatibility_runs,,33327.0,,,PASS,Diagnostic only: production candidate code can consume all adapted observed notices.

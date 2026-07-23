@@ -1,0 +1,5 @@
+version,pair_family,n_pairs,median_similarity,p90_similarity
+v0_1_provisional,successive_true_cycles,500,0.767822107031278,0.9040697084104968
+v0_1_provisional,unrelated_same_buyer_needs,500,0.4187555438389051,0.5591836403366862
+v0_2_conditional_revision,successive_true_cycles,500,0.5062021398990091,0.6080788989659445
+v0_2_conditional_revision,unrelated_same_buyer_needs,500,0.2813269059671072,0.3761873491199051

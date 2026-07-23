@@ -1,0 +1,7 @@
+version,target,schema_family,notice_type_normalized,successes_real,n_real,rate_real,successes_synthetic,n_synthetic,rate_synthetic,diff_pp,abs_diff_pp,eligible_cell
+v0_2_conditional_revision,cpv_missing,EFORMS,APPEL_OFFRE,0,6821,0.0,13.0,946.0,0.013742071881606765,1.3742071881606766,1.3742071881606766,True
+v0_2_conditional_revision,cpv_missing,EFORMS,ATTRIBUTION,0,3787,0.0,6.0,395.0,0.015189873417721518,1.5189873417721518,1.5189873417721518,True
+v0_2_conditional_revision,cpv_missing,EFORMS,OTHER,0,74,0.0,,,,,,False
+v0_2_conditional_revision,cpv_missing,LEGACY,APPEL_OFFRE,12460,51471,0.242078063375493,1258.0,5968.0,0.21079088471849866,-3.1287178656994348,3.1287178656994348,True
+v0_2_conditional_revision,cpv_missing,LEGACY,ATTRIBUTION,1611,18773,0.08581473392638364,158.0,2298.0,0.06875543951261967,-1.705929441376397,1.705929441376397,True
+v0_2_conditional_revision,cpv_missing,LEGACY,OTHER,367,3697,0.09926967811739248,,,,,,False

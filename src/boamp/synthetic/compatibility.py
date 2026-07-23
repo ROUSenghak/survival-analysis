@@ -49,6 +49,10 @@ def adapt_observed_notices_to_sources(observed: pd.DataFrame) -> pd.DataFrame:
 
     df["notice_id"] = df["notice_id_synthetic"]
 
+    df["declared_duration_months"] = pd.to_numeric(df["declared_duration_months"], errors="coerce")
+    plausible = df["declared_duration_months"].between(1, 120)
+    df.loc[~plausible, "declared_duration_months"] = pd.NA
+
     div_medians = df.groupby("cpv_division")["declared_duration_months"].median()
     global_median = df["declared_duration_months"].median()
     needs_impute = df["declared_duration_months"].isna()

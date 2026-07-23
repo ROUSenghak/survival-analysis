@@ -1,0 +1,6 @@
+dimension,headline,evidence,status
+conditional_fidelity,All v0.3 conditional targets pass,cpv_missing: WMAE 2.09 pp; duration_present: WMAE 0.62 pp; generic_repeated_text: WMAE 0.80 pp; siret_present: WMAE 1.60 pp,PASS
+temporal_similarity,Calendar and 12/24-month runway pass,year_share TVD=0.151; schema_by_year WMAE_pp=0.339; notice_type_by_year WMAE_pp=3.803; month_share TVD=0.178,PASS
+candidate_environment,Layer-1 candidate environment passes,"zero-candidate rate: real 60.9%, synthetic v0.3 63.0%; p75/p90/p95: real 2/6/10, synthetic 1/2/3",PASS
+structural_truth,Hidden truth is coherent and not leaked,observed truth columns = 0; metadata validation PASS; true gaps >6m = 81.2%,PASS
+caveat,60-month follow-up remains weaker,60m follow-up absolute error = 10.52 pp; documented non-blocking caveat,CAVEAT
