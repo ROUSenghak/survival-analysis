@@ -24,8 +24,105 @@
     "observed_notices": 2568,
     "corruption_log": 549
   },
-  "execution_timestamp_utc": "2026-07-23T09:31:48.746275+00:00",
-  "git_commit": "b3afe7c19a2efb44f0e1e37b874b7ddc3f891781",
+  "execution_timestamp_utc": "2026-07-24T07:44:07.590116+00:00",
+  "git_commit": "438c35162efdf275364450cd4d4f07216312787c",
+  "resolved_scenario": {
+    "scenario_id": "clean_sanity",
+    "display_name": "Clean sanity",
+    "version": "0.1",
+    "purpose": "Positive control. Verify the generator/pipeline implementation, not the real corpus. Near-noiseless world: if a linker cannot achieve near-perfect recovery here, the defect is in code, not in a modeling assumption.\n",
+    "provenance": "SCENARIO_ASSUMPTION",
+    "references": [
+      "config/synthetic/scenarios/01_clean_sanity.yaml"
+    ],
+    "baseline_reference": "central_provisional.yaml",
+    "recurrence": {
+      "base_recurrence_propensity": 0.95,
+      "cycle_gap_distribution": {
+        "type": "normal",
+        "mean_months": 12.0,
+        "sd_months": 1.0,
+        "min_months": 1.0
+      },
+      "max_cycles_per_need": 4,
+      "no_successor_at_window_end_only": true
+    },
+    "identifiers": {
+      "siret_missing_rate": 0.02,
+      "siren_only_rate": 0.01,
+      "both_missing_rate": 0.01,
+      "invalid_identifier_rate": 0.0,
+      "wrong_establishment_siret_rate": 0.0
+    },
+    "buyer_names": {
+      "false_split_rate": 0.02,
+      "false_merge_rate": 0.0,
+      "generic_collision_rate": 0.02
+    },
+    "cpv": {
+      "missing_rate": 0.02,
+      "parent_replace_rate": 0.02,
+      "division_only_rate": 0.0,
+      "generic_rate": 0.02,
+      "wrong_related_rate": 0.0,
+      "old_parser_failure_mode": false
+    },
+    "duration": {
+      "missing_rate": 0.02,
+      "rounding_severity": 0.1,
+      "common_admin_value_rate": 0.05,
+      "unit_conversion_failure_rate": 0.0
+    },
+    "text": {
+      "same_cycle_variation_severity": 0.05,
+      "next_cycle_drift_severity": 0.05,
+      "hard_negative_overlap_rate": 0.05,
+      "boilerplate_rate": 0.02
+    },
+    "linked_notice_visibility": {
+      "missing_rate": 0.02
+    },
+    "quality_class_mix": {
+      "HIGH": 0.9,
+      "MEDIUM": 0.08,
+      "LOW": 0.02
+    }
+  },
+  "resolved_benchmark_defaults": {
+    "version": "0.1",
+    "benchmark_id": "synthetic_benchmark_v0.1_provisional",
+    "target_n_buyers": 2000,
+    "target_n_notices": 10000,
+    "n_latent_world_replications": 1,
+    "n_corruption_replications": 1,
+    "seed": {
+      "latent_world_seed": 20260721,
+      "corruption_seed": 20260722
+    },
+    "output_format": {
+      "large_tables": "parquet",
+      "small_summaries": "csv",
+      "config": "yaml"
+    },
+    "observation_window": {
+      "start_date": "2015-01-01",
+      "end_date": "2026-07-31"
+    },
+    "validation_tolerances": {
+      "siret_siren_hierarchy_violations_max": 0,
+      "real_identifier_leakage_max": 0,
+      "reproducibility_row_count_tolerance": 0,
+      "buyer_activity_gini_target": 0.832,
+      "buyer_activity_gini_tolerance": 0.15,
+      "candidate_zero_rate_fidelity_band": [
+        0.4,
+        0.8
+      ]
+    },
+    "paths": {
+      "root": "data/processed/synthetic_benchmark"
+    }
+  },
   "validation_status": "PASS",
   "validation_failures": {},
   "warnings": []

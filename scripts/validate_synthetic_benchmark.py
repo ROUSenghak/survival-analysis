@@ -32,6 +32,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip the cross-scenario/seed sweep, which re-evaluates every generated replicate.",
     )
+    parser.add_argument(
+        "--no-replay",
+        action="store_true",
+        help="Skip regenerating the benchmark from its recorded seeds and configuration, which "
+        "downgrades the canonical replay check to inconclusive.",
+    )
     parser.add_argument("--output-dir", type=Path, default=None)
     return parser.parse_args()
 
@@ -48,6 +54,7 @@ def main() -> None:
         strict_60m=args.strict_60m,
         bootstrap_reps=args.bootstrap_reps,
         robustness=not args.no_robustness,
+        replay=not args.no_replay,
     )
     gates = result["gates"]
     summary = {
@@ -56,6 +63,11 @@ def main() -> None:
         "blocking_gates": gates.loc[gates["critical"] & gates["status"].eq("FAIL"), "gate"].tolist(),
         "gate_statuses": gates.set_index("gate")["status"].to_dict(),
         "n_discrepancies": int(len(result["discrepancies"])),
+        "n_metric_failures": result["manifest"]["n_metric_failures"],
+        "n_metric_failures_in_noncritical_gates": result["manifest"][
+            "n_metric_failures_in_noncritical_gates"
+        ],
+        "canonical_replay_checked": result["manifest"]["canonical_replay_checked"],
     }
     print(json.dumps(summary, indent=2, default=str))
 

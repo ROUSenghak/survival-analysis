@@ -1,12 +1,26 @@
 # Validation Framework for the BOAMP Synthetic Record-Linkage Benchmark
 
 **Prepared:** 23 July 2026  
-**Purpose:** research and implementation specification, with no code implementation  
+**Updated:** 24 July 2026 after reproducibility hardening  
+**Purpose:** research and implementation specification plus implementation status  
 **Benchmark reviewed:** `v0_3_temporal_candidate_revision`
 
 ## Executive conclusion
 
-The current generator is a credible prototype, but it is not yet a fully validated benchmark. It already has the most important architectural property: it separates a BOAMP-like observed table from hidden truth. It also distinguishes parameters that are observable in real BOAMP, approximated from silver-standard evidence, and unidentified. The latest version reproduces several conditional and short-horizon candidate-environment properties and is suitable for beginning linkage experiments.
+The current generator is a credible controlled benchmark for beginning linkage
+algorithm calibration and comparison, not a substitute for real BOAMP ground
+truth. It has the most important architectural property: it separates a
+BOAMP-like observed table from hidden truth. It also distinguishes parameters
+that are observable in real BOAMP, approximated from silver-standard evidence,
+and unidentified. After the 24 July 2026 reproducibility pass, the selected
+v0.3 candidate-environment parameters are part of the scenario configuration,
+the generated metadata stores a resolved scenario snapshot that is checked
+against the live scenario file, canonical replay passes for all observed and
+truth tables and is evaluated inside the validation run, and the validation
+suite reports `PASS_WITH_WARNINGS` with no blocking gates. The internal and
+specification-recovery gates both pass on their own merits: the true-gap
+recovery diagnostic was corrected to censor from each source cycle's expected
+end rather than its start, and no longer softens its own status.
 
 The remaining gap is not “one more goodness-of-fit test.” The benchmark needs a layered validation protocol:
 
@@ -32,7 +46,9 @@ The reviewed development sequence contains:
 - The v0.3 technical report.
 - The uploaded *Internship Guide – Predictive Modeling*.
 
-Only the internship guide was physically available in this turn. The benchmark summary below also uses the saved notebook and report findings already reviewed in the immediately preceding project conversation. The underlying datasets were not available for independent reruns in that review.
+In the 24 July 2026 hardening pass, the project files, generated benchmark
+tables, validation outputs, and the internship guide were available locally.
+The v0.3 generator, validation suite, and canonical replay check were rerun.
 
 ### 1.2 What the internship guide establishes
 
@@ -67,7 +83,7 @@ The generator appears to follow this conceptual sequence:
 7. Export hidden family and relation truth with corruption provenance.
 8. Build or evaluate the same candidate environment used in the real Layer-1 pipeline.
 
-The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycles**, and **6,866 truth-relation rows**. The reported zero-candidate rate is **63.0%**, compared with **60.9%** in the real Layer-1 scope. Conditional and short-horizon temporal gates passed. The 60-month runway comparison failed, and the candidate-count upper tail remained weaker than the real data.
+The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycles**, and **6,866 truth-relation rows**. The reported zero-candidate rate is **63.0%**, compared with **60.9%** in the real Layer-1 scope. Conditional and candidate-environment gates pass. The 60-month runway remains a warning, and the candidate-count upper tail remains weaker than the real data.
 
 ### 2.3 Information already available
 
@@ -81,8 +97,8 @@ The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycle
 
 ### 2.4 Important information still missing or insufficiently demonstrated
 
-1. **Executable specification of the data-generating process.** Every distribution, conditioning set, support restriction, random seed, and transformation needs a machine-readable specification tied to a version.
-2. **Formal invariant tests.** There is not yet enough evidence that every hidden relation is logically consistent, acyclic where required, temporally valid, and exactly reconstructable from family/cycle truth.
+1. **Broader scenario and seed coverage.** The current central scenario is replayable, but robustness remains weak because only limited scenario/seed replicates exist.
+2. **Metric-level fidelity failures under non-critical gates.** The headline `PASS_WITH_WARNINGS` currently sits on top of 18 failing metrics, all in non-critical gates (marginals, missingness/text/identifier, buyer activity, text). That is the documented gate policy, not a hidden defect, but the count is now reported in the validation manifest so it cannot be read past.
 3. **Uncertainty on calibration targets.** Point targets alone hide sampling uncertainty and sparse-subgroup instability.
 4. **Held-out real-data validation.** If the same BOAMP rows shaped and evaluated the generator, reported fidelity is optimistic.
 5. **Joint dependence coverage.** Passing marginal and selected conditional checks does not establish multivariate fidelity.
@@ -91,10 +107,10 @@ The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycle
 8. **Identifier/name variation calibration.** Edit types, distances, alias multiplicity, source dependence, and temporal persistence require distributions, not only examples.
 9. **Hard-negative realism.** The benchmark must reproduce near-duplicate non-matches, popular buyers, repeated CPVs, generic text, and dense temporal neighborhoods.
 10. **Long-tail candidate complexity.** The reported weak candidate-count tail and failed 60-month runway remain material.
-11. **Privacy/memorisation audit.** There is no demonstrated exact-copy, near-copy, rare-combination, or membership-inference assessment.
+11. **Extended privacy/memorisation audit.** Exact and near-copy text checks pass; membership-inference and rare-combination attacks remain out of scope.
 12. **Algorithmic validity.** `READY_FOR_LINKAGE` means ready to test algorithms, not already proven to rank them as real BOAMP would.
 13. **Parameter robustness.** A single calibrated parameter vector cannot represent unidentified real recurrence and corruption mechanisms.
-14. **Release governance.** Truth-table isolation, schema contracts, checksums, seeds, and benchmark versioning need formal controls.
+14. **Release governance.** Truth-table isolation, schema contracts, seeds, resolved configuration snapshots, validation manifests, and canonical replay are now in place for v0.3; scenario-robust evaluation and notebook/report synchronization remain ongoing maintenance work.
 
 ## 3. Validation concepts
 

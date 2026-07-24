@@ -29,7 +29,7 @@ from boamp.synthetic.needs import generate_latent_needs
 from boamp.synthetic.notices import generate_notice_families_and_clean_notices
 from boamp.synthetic.parameters import load_calibration_parameters
 from boamp.synthetic.relations import build_true_relations
-from boamp.synthetic.scenarios import load_benchmark_defaults, load_scenario
+from boamp.synthetic.scenarios import load_benchmark_defaults, load_scenario, to_plain_dict
 from boamp.synthetic.validation import run_full_structural_validation
 
 GENERATOR_VERSION = "0.3.0-temporal-candidate-revision"
@@ -130,7 +130,8 @@ def _git_commit(project_root: Path) -> str | None:
 def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, corruption_log: pd.DataFrame,
                          scenario_id: str, project_root: Path, world_seed: int, corruption_seed: int,
                          world_rep: int = 1, corruption_rep: int = 1,
-                         benchmark_version: str = "v0_1_provisional") -> Path:
+                         benchmark_version: str = "v0_1_provisional",
+                         resolved_scenario=None) -> Path:
     """Phase 7: write the full traceability output tree for one
     scenario/world/corruption replication."""
     project_root = Path(project_root)
@@ -149,6 +150,7 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
         df.to_parquet(out_dir / f"{name}.parquet", index=False)
 
     validation = world.get("_validation")
+    resolved_scenario = resolved_scenario or load_scenario(project_root, scenario_id)
     metadata = dict(
         generator_version=GENERATOR_VERSION,
         benchmark_id=f"synthetic_benchmark_{benchmark_version}",
@@ -163,6 +165,8 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
         },
         execution_timestamp_utc=datetime.now(timezone.utc).isoformat(),
         git_commit=_git_commit(project_root),
+        resolved_scenario=to_plain_dict(resolved_scenario),
+        resolved_benchmark_defaults=to_plain_dict(load_benchmark_defaults(project_root)),
         validation_status="PASS" if (validation is None or validation.passed) else "FAIL",
         validation_failures=validation.failures() if validation is not None else {},
         warnings=[],
@@ -186,11 +190,13 @@ def generate_pilot(scenario_id: str, project_root: Path, n_buyers: int | None = 
     world_seed = world_seed or defaults.seed.latent_world_seed
     corruption_seed = corruption_seed or defaults.seed.corruption_seed
 
-    world = generate_clean_world(scenario_id, project_root, n_buyers, world_seed, scenario_override=scenario_override)
+    resolved_scenario = scenario_override or load_scenario(project_root, scenario_id)
+    world = generate_clean_world(scenario_id, project_root, n_buyers, world_seed, scenario_override=resolved_scenario)
     observed, log = generate_observed_world(
-        world, scenario_id, project_root, corruption_seed, scenario_override=scenario_override
+        world, scenario_id, project_root, corruption_seed, scenario_override=resolved_scenario
     )
     return write_pilot_outputs(
         world, observed, log, scenario_id, project_root, world_seed, corruption_seed,
         world_rep=world_rep, corruption_rep=corruption_rep, benchmark_version=benchmark_version,
+        resolved_scenario=resolved_scenario,
     )

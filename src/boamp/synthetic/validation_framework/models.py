@@ -40,6 +40,7 @@ GATE_COLUMNS = [
     "n_inconclusive",
     "headline",
     "blocking_reason",
+    "warning_reason",
 ]
 
 
@@ -86,7 +87,11 @@ class GateResult:
     n_fail: int
     n_inconclusive: int
     headline: str
+    # `blocking_reason` is populated only when this gate actually blocks the
+    # release. Non-blocking discrepancies go to `warning_reason` so a reader
+    # cannot mistake a warning for a release blocker.
     blocking_reason: str = ""
+    warning_reason: str = ""
 
     def to_dict(self) -> dict:
         out = asdict(self)

@@ -33,25 +33,26 @@ recurrence:
     # requirement).
   max_cycles_per_need: 4
   scoped_candidate_environment:
-    enabled: false
+    enabled: true
     cpv_divisions: ["32", "35", "48", "72"]
-    recurrence_propensity_multiplier: 1.0
-    near_window_share: 0.0
+    recurrence_propensity_multiplier: 1.3
+    near_window_share: 0.75
     near_window_distribution: {type: normal, mean_months: 2.0, sd_months: 2.0, min_months: 0.1, max_months: 6.0}
-    hard_negative_alignment_rate: 0.0
-    cluster_scoped_needs_by_buyer: false
+    hard_negative_alignment_rate: 0.1
+    cluster_scoped_needs_by_buyer: true
     scoped_buyer_affinity_share: 0.07
     scoped_need_probability_high: 0.70
-    stabilize_scoped_establishment: false
-    stabilize_scoped_name_fallback: false
+    stabilize_scoped_establishment: true
+    stabilize_scoped_name_fallback: true
     note: >
-      v0.3 temporal/candidate revision hook. The bounded pilot sweep enables
-      this block in memory and saves selected parameter provenance with the
-      generated v0.3 outputs. Candidate counts remain post-hoc fidelity
-      targets: this block controls plausible scoped recurrence timing and
-      same-buyer distinct-need clustering, while preserving overall digital
-      source scale. It never sets per-source candidate counts, linkage scores,
-      accepted links, or thresholds.
+      v0.3 temporal/candidate revision block. These are the selected bounded
+      sweep parameters that were originally stored only in v0.3 metadata; they
+      now live in the scenario file so the released benchmark can be replayed
+      from configuration. Candidate counts remain post-hoc fidelity targets:
+      this block controls plausible scoped recurrence timing and same-buyer
+      distinct-need clustering, while preserving overall digital source scale.
+      It never sets per-source candidate counts, linkage scores, accepted links,
+      or thresholds.
 
 identifiers:
   # EMPIRICAL: siret_vs_name_fallback_share (calibration_parameters_v0_1.yaml#identifiers)

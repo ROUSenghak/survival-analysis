@@ -109,7 +109,7 @@ identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
 class.
 
-## Synthetic benchmark (v0.1, provisional)
+## Synthetic benchmark (v0.3, controlled linkage benchmark)
 
 `src/boamp/synthetic/` implements a synthetic linkage benchmark, adapting
 the gold-standard-and-corruption framework of Lam et al. (2024, *Generating
@@ -123,37 +123,45 @@ duration, text and lifecycle references, while a separate known-truth
 relation table (`true_relations.parquet`) is retained and never exposed to
 the Layer 1/Layer 2 linkage code.
 
-This exists to answer a question the real corpus cannot: whether Layer 1 and
-Layer 2 recover *known* synthetic recurrence relations, and how linkage
-errors propagate into downstream survival/prediction bias. It does **not**
-estimate true BOAMP recurrence prevalence, precision, or recall — those are
-either observable-and-frozen calibration inputs, scenario knobs swept across
-a documented range, or explicitly excluded (see
-`reports/tables/synthetic_calibration/generator_parameter_actions.csv`).
+This exists to answer a question the real corpus cannot: whether candidate
+linkage algorithms recover *known* synthetic recurrence relations under a
+BOAMP-like observed structure. It does **not** estimate true BOAMP recurrence
+prevalence, real-world precision, or real-world recall. The defensible claim is
+conditional: if the benchmark reproduces the observable BOAMP structure and
+candidate environment that materially affect linkage, then algorithm
+performance across plausible synthetic scenarios is useful calibration and
+comparison evidence.
 
+- Current version: `v0_3_temporal_candidate_revision`, central scenario
+  `central_provisional`, generated at
+  `data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/`.
 - Config: `config/synthetic/calibration_parameters_v0_1.yaml`,
-  `benchmark_defaults_v0_1.yaml`, `recurrence_ontology_v0_1.yaml`,
-  `scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`
-  (a narrowed v0.1 view of the richer, pre-existing
-  `config/synthetic/recurrence_ontology.yaml` and `scenarios/01-06_*.yaml`
-  built by the calibration audit in `notebooks/04_synthetic_benchmark_calibration.ipynb`).
-- Notebooks: `05_synthetic_benchmark_generation.ipynb` (walkthrough),
-  `06_synthetic_fidelity_validation.ipynb` (real-vs-synthetic comparison +
-  a compatibility check running the real Layer 1 candidate-generation code
-  on synthetic data).
-- Outputs: `data/processed/synthetic_benchmark/v0_1_provisional/<scenario>/world_001/corruption_001/`
-  (latent truth tables, `clean_notices`, `observed_notices`, `corruption_log`,
-  `generation_metadata.json` — full provenance per replication).
-- Reports: `reports/generated/synthetic_benchmark/` (Phase 0 audit,
-  clean-world structural validation, fidelity report),
-  `reports/tables/synthetic_benchmark/v0_1/benchmark_freeze_gate.csv`
-  (structural/identifier/relation/reproducibility gates PASS; several
-  fidelity-tuning dimensions are `PASS_WITH_LIMITATION`/`NEEDS_REVISION` —
-  the `_provisional` in the benchmark id is deliberate, not decorative).
+  `benchmark_defaults_v0_1.yaml`, `recurrence_ontology_v0_1.yaml`, and
+  `scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`.
+  The v0.3 scoped-candidate parameters are now written directly in
+  `central_provisional.yaml` and also snapshotted in `generation_metadata.json`.
+- Validation status: `PASS_WITH_WARNINGS`, with no blocking gates. Internal
+  integrity, specification recovery, candidate environment, conditional
+  fidelity, missingness structure, privacy, and algorithm-utility gates pass.
+  18 metrics still fail inside non-critical gates; that count is recorded in
+  `validation_manifest.json` and the detail sits in
+  `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/`.
+- Reproducibility: `scripts/validate_synthetic_benchmark.py` regenerates the
+  benchmark from saved seeds/config and compares canonical table-content hashes
+  for observed notices, hidden truth, relationships, and corruption histories,
+  so the headline status depends on replay. Pass `--no-replay` to skip it (the
+  check then reports inconclusive). `scripts/replay_synthetic_benchmark.py`
+  runs the same comparison standalone and writes `replay_comparison.json`.
 
-Reproduce: `.venv/bin/python -c "from boamp.synthetic.pipeline import generate_pilot; generate_pilot('central_provisional', '.')"`
-or run `notebooks/05_synthetic_benchmark_generation.ipynb`. Tests:
-`.venv/bin/python -m pytest -q tests/test_synthetic_*.py`.
+Reproduce the current benchmark and validation:
+
+```bash
+python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+python3 scripts/validate_synthetic_benchmark.py
+python3 scripts/replay_synthetic_benchmark.py \
+  --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json
+python3 -m pytest -q tests/test_synthetic_*.py
+```
 
 ## Name mapping vs earlier reports
 

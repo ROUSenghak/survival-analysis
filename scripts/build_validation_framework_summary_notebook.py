@@ -91,6 +91,38 @@ else:
         ]
     )"""
         ),
+        md(
+            """### Metric failures carried under non-critical gates
+
+A non-critical gate reports `WARNING` even when individual metrics fail, so the
+headline status alone understates how many metric-level failures the release is
+carrying. These do not block under the documented gate policy, but they are the
+fidelity debt the benchmark is shipping with."""
+        ),
+        code(
+            """print(
+    manifest["n_metric_failures"],
+    "metric failures total;",
+    manifest["n_metric_failures_in_noncritical_gates"],
+    "inside non-critical gates:",
+    manifest["noncritical_gates_with_metric_failures"],
+)
+carried = gates[(~gates["critical"]) & (gates["n_fail"] > 0)]
+display(carried[["gate", "status", "n_pass", "n_fail", "warning_reason"]])"""
+        ),
+        md(
+            """### Reproducibility
+
+`canonical_replay_matches_released_tables` regenerates the benchmark from the
+recorded seeds and the live scenario file and compares canonical table content.
+`scenario_snapshot_matches_scenario_file` checks that the scenario snapshot
+saved with the run still matches that file, so configuration drift is named
+rather than surfacing as an unexplained hash mismatch."""
+        ),
+        code(
+            """print("canonical replay checked:", manifest["canonical_replay_checked"])
+metrics[metrics["property"].eq("reproducibility")][["metric", "status", "notes"]]"""
+        ),
         md("## Discrepancy register"),
         code(
             """discrepancies.sort_values(["status", "scope", "property", "metric"])"""

@@ -71,10 +71,11 @@ def summarize_gates(metrics: list[MetricResult]) -> list[GateResult]:
         failures = sub.loc[sub["status"].astype(str).eq(str(Status.FAIL))]
         warnings = sub.loc[sub["status"].astype(str).eq(str(Status.WARNING))]
         blocking = ""
+        warning = ""
         if status == Status.FAIL and critical:
             blocking = "; ".join(f"{r.property}:{r.metric}" for r in failures.itertuples())
         elif status == Status.WARNING:
-            blocking = "; ".join(f"{r.property}:{r.metric}" for r in pd.concat([failures, warnings]).itertuples())
+            warning = "; ".join(f"{r.property}:{r.metric}" for r in pd.concat([failures, warnings]).itertuples())
         gates.append(
             GateResult(
                 gate=gate,
@@ -86,6 +87,7 @@ def summarize_gates(metrics: list[MetricResult]) -> list[GateResult]:
                 n_inconclusive=int((sub["status"].astype(str) == str(Status.INCONCLUSIVE)).sum()),
                 headline=f"{gate} validation {status}",
                 blocking_reason=blocking,
+                warning_reason=warning,
             )
         )
     return gates
@@ -116,9 +118,10 @@ def run_validation(
     strict_60m: bool = False,
     bootstrap_reps: int = 0,
     robustness: bool = True,
+    replay: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
     metrics: list[MetricResult] = []
-    metrics.extend(run_internal_validation(data))
+    metrics.extend(run_internal_validation(data, replay=replay))
     metrics.extend(run_fidelity_validation(data, strict_60m=strict_60m))
     metrics.extend(run_structure_validation(data, bootstrap_reps=bootstrap_reps))
     metrics.extend(run_text_validation(data))
@@ -144,6 +147,7 @@ def run_validation(
         "strict_60m": strict_60m,
         "bootstrap_reps": bootstrap_reps,
         "robustness_sweep": robustness,
+        "canonical_replay_checked": replay,
         "probe_linker_results": probe_frame.to_dict("records") if len(probe_frame) else [],
         "metric_count": int(len(metric_df)),
         "gate_count": int(len(gate_df)),
@@ -152,6 +156,15 @@ def run_validation(
         else "PASS_WITH_WARNINGS"
         if (gate_df["status"].astype(str) == str(Status.WARNING)).any()
         else "PASS",
+        # A non-critical gate reports WARNING even when individual metrics
+        # failed, so the headline status alone hides how many metric-level
+        # failures the release is carrying. Report the count explicitly rather
+        # than making a reader reconstruct it from the gate table.
+        "n_metric_failures": int(gate_df["n_fail"].sum()),
+        "n_metric_failures_in_noncritical_gates": int(gate_df.loc[~gate_df["critical"], "n_fail"].sum()),
+        "noncritical_gates_with_metric_failures": gate_df.loc[
+            (~gate_df["critical"]) & (gate_df["n_fail"] > 0), "gate"
+        ].tolist(),
         "input_checksums": checksums,
         "notes": [
             "Covers the Section 7 minimum suite: internal integrity, marginals, conditionals, "
@@ -178,10 +191,11 @@ def write_validation_outputs(
     strict_60m: bool = False,
     bootstrap_reps: int = 0,
     robustness: bool = True,
+    replay: bool = True,
 ) -> dict:
     data = load_benchmark_data(project_root, version, scenario, world, corruption)
     metric_df, gate_df, discrepancy_df, manifest = run_validation(
-        data, strict_60m=strict_60m, bootstrap_reps=bootstrap_reps, robustness=robustness
+        data, strict_60m=strict_60m, bootstrap_reps=bootstrap_reps, robustness=robustness, replay=replay
     )
     out_dir = output_dir or (
         Path(project_root)

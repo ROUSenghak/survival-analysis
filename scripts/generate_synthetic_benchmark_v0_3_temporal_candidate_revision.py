@@ -306,6 +306,7 @@ def main() -> None:
         defaults.seed.latent_world_seed,
         defaults.seed.corruption_seed,
         benchmark_version=VERSION,
+        resolved_scenario=selected["scenario"],
     )
     conditional_parameters.to_csv(central_dir / "conditional_observation_parameters.csv", index=False)
     provenance.to_csv(central_dir / "candidate_revision_selected_parameters.csv", index=False)

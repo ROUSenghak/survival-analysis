@@ -1,16 +1,16 @@
-gate,status,critical,n_pass,n_warning,n_fail,n_inconclusive,headline,blocking_reason
-internal,WARNING,True,31,0,0,1,internal validation WARNING,
-specification_recovery,FAIL,True,4,0,2,0,specification_recovery validation FAIL,parameter_recovery:scenario_file_describes_generated_data; parameter_recovery:mean_true_gap_months_in_monte_carlo_interval
-marginals,WARNING,False,8,1,9,0,marginals validation WARNING,department:TV; department:JS; duration:W1_scaled; duration:q50_relative_error; duration:q75_relative_error; duration:q90_relative_error; duration:q99_relative_error; text_length:W1_scaled; text_length:q50_relative_error; text_length:q90_relative_error
-conditionals,PASS,True,4,0,0,0,conditionals validation PASS,
-temporal,WARNING,True,7,1,0,0,temporal validation WARNING,followup_runway:abs_diff_pp
-candidate_environment,PASS,True,10,0,0,0,candidate_environment validation PASS,
-missingness_text_identifier,WARNING,False,3,4,3,0,missingness_text_identifier validation WARNING,siren_missing:rate_abs_diff_pp; text_length:q50_relative_error; siren_present:presence_rate_abs_diff_pp; siret_missing:rate_abs_diff_pp; text_length:q90_relative_error; text_length:q95_relative_error; siret_present:presence_rate_abs_diff_pp
-buyer_activity,WARNING,False,7,1,4,0,buyer_activity validation WARNING,activity_gini:abs_diff; activity_share:abs_diff_pp; activity_share:abs_diff_pp; relative_notices_per_buyer:q99_abs_diff; activity_share:abs_diff_pp
-missingness_structure,PASS,False,4,0,0,0,missingness_structure validation PASS,
-names_identifiers,WARNING,False,8,0,0,1,names_identifiers validation WARNING,
-text,WARNING,False,5,4,2,0,text validation WARNING,bigram_distribution:JS; internal_duplicate_share:abs_diff_pp; text_length_chars:q50_relative_error; token_count:q90_relative_error; token_count:q99_relative_error; unigram_distribution:JS
-privacy,PASS,True,4,0,0,0,privacy validation PASS,
-hidden_truth_difficulty,WARNING,True,9,1,0,0,hidden_truth_difficulty validation WARNING,blocking_pairs_completeness:PC
-algorithm_utility,PASS,True,15,0,0,0,algorithm_utility validation PASS,
-robustness,WARNING,False,1,2,0,3,robustness validation WARNING,blocking_pairs_completeness:coefficient_of_variation; probe_headroom:coefficient_of_variation
+gate,status,critical,n_pass,n_warning,n_fail,n_inconclusive,headline,blocking_reason,warning_reason
+internal,PASS,True,34,0,0,0,internal validation PASS,,
+specification_recovery,PASS,True,6,0,0,0,specification_recovery validation PASS,,
+marginals,WARNING,False,8,1,9,0,marginals validation WARNING,,department:TV; department:JS; duration:W1_scaled; duration:q50_relative_error; duration:q75_relative_error; duration:q90_relative_error; duration:q99_relative_error; text_length:W1_scaled; text_length:q50_relative_error; text_length:q90_relative_error
+conditionals,PASS,True,4,0,0,0,conditionals validation PASS,,
+temporal,WARNING,True,7,1,0,0,temporal validation WARNING,,followup_runway:abs_diff_pp
+candidate_environment,PASS,True,10,0,0,0,candidate_environment validation PASS,,
+missingness_text_identifier,WARNING,False,3,4,3,0,missingness_text_identifier validation WARNING,,siren_missing:rate_abs_diff_pp; text_length:q50_relative_error; siren_present:presence_rate_abs_diff_pp; siret_missing:rate_abs_diff_pp; text_length:q90_relative_error; text_length:q95_relative_error; siret_present:presence_rate_abs_diff_pp
+buyer_activity,WARNING,False,7,1,4,0,buyer_activity validation WARNING,,activity_gini:abs_diff; activity_share:abs_diff_pp; activity_share:abs_diff_pp; relative_notices_per_buyer:q99_abs_diff; activity_share:abs_diff_pp
+missingness_structure,PASS,False,4,0,0,0,missingness_structure validation PASS,,
+names_identifiers,WARNING,False,8,0,0,1,names_identifiers validation WARNING,,
+text,WARNING,False,5,4,2,0,text validation WARNING,,bigram_distribution:JS; internal_duplicate_share:abs_diff_pp; text_length_chars:q50_relative_error; token_count:q90_relative_error; token_count:q99_relative_error; unigram_distribution:JS
+privacy,PASS,True,4,0,0,0,privacy validation PASS,,
+hidden_truth_difficulty,WARNING,True,9,1,0,0,hidden_truth_difficulty validation WARNING,,blocking_pairs_completeness:PC
+algorithm_utility,PASS,True,15,0,0,0,algorithm_utility validation PASS,,
+robustness,WARNING,False,1,2,0,3,robustness validation WARNING,,blocking_pairs_completeness:coefficient_of_variation; probe_headroom:coefficient_of_variation

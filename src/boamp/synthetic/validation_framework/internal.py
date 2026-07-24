@@ -304,6 +304,23 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
     def _to_namespace(value):
         return SimpleNamespace(**value) if isinstance(value, dict) else None
 
+    def _plain(value):
+        if hasattr(value, "__dict__"):
+            return {k: _plain(v) for k, v in vars(value).items()}
+        if isinstance(value, dict):
+            return {k: _plain(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [_plain(v) for v in value]
+        return value
+
+    def _same_value(left, right) -> bool:
+        if isinstance(left, float) or isinstance(right, float):
+            try:
+                return bool(np.isclose(float(left), float(right), rtol=1e-12, atol=1e-12))
+            except (TypeError, ValueError):
+                return False
+        return _plain(left) == _plain(right)
+
     metrics: list[MetricResult] = []
     try:
         scenario = load_scenario(data.project_root, data.scenario)
@@ -336,32 +353,41 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
     )
     metrics.append(_base(data, "parameter_recovery", "cycle_numbers_contiguous_per_need", contiguous, scope=SPEC_SCOPE))
 
-    # The scenario YAML is not always what was actually run: the v0.3 sweep
-    # enables the scoped-candidate block in memory and records the parameters
-    # it chose in the run metadata instead. Recovery must be tested against the
-    # parameters that generated the data, and the fact that the two differ is
-    # itself reported, because a scenario file that does not describe its own
-    # output is a reproducibility defect.
+    # Older v0.3 artifacts carried the selected scoped-candidate parameters as
+    # an in-memory metadata override. Current released scenarios are expected to
+    # carry the same values directly in YAML; metadata may retain them as
+    # provenance, but a mismatch is a reproducibility defect.
     scoped = getattr(recurrence, "scoped_candidate_environment", None)
     override = (data.metadata.get("candidate_revision") or {}).get("parameters") or {}
     scoped_enabled = bool(getattr(scoped, "enabled", False))
     near_share = float(getattr(scoped, "near_window_share", 0.0)) if scoped_enabled else 0.0
     near_dist = getattr(scoped, "near_window_distribution", None) if scoped_enabled else None
+    override_mismatches = []
     if override:
+        for key, value in override.items():
+            scenario_value = getattr(scoped, key, None) if scoped is not None else None
+            if not _same_value(scenario_value, value):
+                override_mismatches.append(key)
         near_share = float(override.get("near_window_share", near_share))
         near_dist = _to_namespace(override.get("near_window_distribution")) or near_dist
         scoped_enabled = True
+    scenario_describes_data = not override_mismatches
     metrics.append(
         _base(
-            data, "parameter_recovery", "scenario_file_describes_generated_data", not override,
+            data, "parameter_recovery", "scenario_file_describes_generated_data", scenario_describes_data,
             scope=SPEC_SCOPE,
             notes=(
-                "run metadata carries a candidate_revision override, so "
-                f"{sorted(override)} were applied in memory and the scenario YAML alone does not "
-                "reproduce this dataset. Recovery below uses the effective parameters"
+                "candidate_revision metadata disagrees with the scenario YAML for "
+                f"{sorted(override_mismatches)}; recovery below uses metadata as the effective "
+                "parameters, but the release scenario is not replayable from YAML alone"
             )
-            if override
-            else "no in-memory parameter override recorded for this run",
+            if override_mismatches
+            else (
+                "candidate_revision metadata matches the scenario YAML and is retained only as "
+                "selection provenance"
+                if override
+                else "no in-memory parameter override recorded for this run"
+            ),
         )
     )
 
@@ -403,26 +429,38 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
             data.true_relations.loc[data.true_relations["relation_type"].eq("NEXT_CYCLE"), "source_cycle_id"]
             .map(data.latent_cycles.set_index("cycle_id_true")["need_id_true"])
         )
-        is_scoped = (
-            relation_needs.map(need_cpv).fillna("").str[:2].isin(scoped_divisions).to_numpy()
+        # `gaps` dropped any relation with a non-numeric gap, so every
+        # per-relation covariate below is realigned on `gaps.index` rather than
+        # by position. Tiling or truncating to length would pair a gap with
+        # another relation's scope flag and window, which corrupts the null
+        # silently instead of raising.
+        is_scoped_series = (
+            relation_needs.map(need_cpv).fillna("").str[:2].isin(scoped_divisions)
             if scoped_divisions
-            else np.zeros(len(relation_needs), dtype=bool)
+            else pd.Series(False, index=relation_needs.index)
         )
-        is_scoped = is_scoped[: len(gaps)] if len(is_scoped) >= len(gaps) else np.resize(is_scoped, len(gaps))
+        is_scoped = is_scoped_series.reindex(gaps.index).fillna(False).to_numpy(dtype=bool)
 
         # A successor cycle only exists if its start still falls inside the
         # observation window, so the gaps that survive into the truth table are
         # right-censored by the time each source cycle has left. Simulating the
         # unconditional draw would compare the data against a mechanism whose
         # long tail was never observable, and would fail every time.
+        #
+        # The generator measures that remaining time from the source cycle's
+        # *expected end*, not its start: cycles.py stops a chain when
+        # `expected_end + gap > observation_end`. Anchoring the null on
+        # `start_date_true` instead would overstate the headroom by one cycle
+        # duration (~13 months here), under-truncate the simulated draws, and
+        # bias the interval upward against correctly generated data.
         window_end = _observation_window_end(data)
-        source_starts = pd.to_datetime(
+        source_expected_end = pd.to_datetime(
             data.true_relations.loc[
-                data.true_relations["relation_type"].eq("NEXT_CYCLE"), "source_cycle_id"
-            ].map(data.latent_cycles.set_index("cycle_id_true")["start_date_true"])
-        )
-        headroom = ((window_end - source_starts).dt.days / 30.44).to_numpy(dtype=float)
-        headroom = headroom[: len(gaps)] if len(headroom) >= len(gaps) else np.resize(headroom, len(gaps))
+                data.true_relations["relation_type"].eq("NEXT_CYCLE"), "source_expected_end"
+            ],
+            errors="coerce",
+        ).reindex(gaps.index)
+        headroom = ((window_end - source_expected_end).dt.days / 30.44).to_numpy(dtype=float)
         headroom = np.where(np.isfinite(headroom), headroom, np.inf)
 
         rng = np.random.default_rng(20260723)
@@ -484,12 +522,13 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
                         if near_share
                         else ""
                     )
-                    + ", right-censored by each source cycle's remaining observation window. A miss "
-                    "means the recorded parameters do not fully describe how the gaps were actually "
-                    "drawn -- a specification defect rather than a bad draw. The known unmodelled "
-                    "component is cycles.py's hard-negative chain alignment, which relocates whole "
-                    "chains near a source's expected end and is not expressible in the saved "
-                    "parameter set"
+                    + ", right-censored at each source cycle's remaining window "
+                    "(observation_end - source_expected_end), which is the same rule cycles.py "
+                    "applies when it stops a chain. Same-buyer hard-negative chain alignment shifts "
+                    "whole chains by a constant offset and so leaves within-need gaps unchanged; it "
+                    "is deliberately not a reason to soften this metric. A miss means the recorded "
+                    "parameters do not fully describe how the gaps were actually drawn -- a "
+                    "specification defect rather than a bad draw"
                 ),
             )
         )
@@ -511,7 +550,49 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
     return metrics
 
 
-def validate_reproducibility_manifest(data: BenchmarkData) -> list[MetricResult]:
+def _scenario_snapshot_mismatches(data: BenchmarkData) -> tuple[list[str], str]:
+    """Compare the recorded scenario snapshot against the live scenario file.
+
+    Recording the resolved scenario in run metadata only helps if something
+    checks it: without this, a later edit to the YAML leaves the released
+    artifacts describing a configuration that no longer exists, and the only
+    symptom is an unexplained replay hash mismatch.
+    """
+    from boamp.synthetic.scenarios import load_scenario, to_plain_dict
+
+    snapshot = data.metadata.get("resolved_scenario")
+    if not snapshot:
+        return [], "run metadata carries no resolved_scenario snapshot to compare"
+    try:
+        live = to_plain_dict(load_scenario(data.project_root, data.scenario))
+    except (FileNotFoundError, ValueError) as exc:
+        return ["<scenario file unreadable>"], f"{type(exc).__name__}: {exc}"
+
+    mismatches: list[str] = []
+
+    def walk(recorded, current, path: str) -> None:
+        if isinstance(recorded, dict) and isinstance(current, dict):
+            for key in sorted(set(recorded) | set(current)):
+                walk(recorded.get(key), current.get(key), f"{path}.{key}" if path else key)
+            return
+        if isinstance(recorded, float) or isinstance(current, float):
+            try:
+                if np.isclose(float(recorded), float(current), rtol=1e-12, atol=1e-12):
+                    return
+            except (TypeError, ValueError):
+                pass
+        if recorded != current:
+            mismatches.append(path)
+
+    walk(snapshot, live, "")
+    return mismatches, (
+        f"scenario file differs from the recorded snapshot at {mismatches[:8]}"
+        if mismatches
+        else "recorded scenario snapshot matches the live scenario file"
+    )
+
+
+def validate_reproducibility_manifest(data: BenchmarkData, replay: bool = False) -> list[MetricResult]:
     """Is enough recorded to regenerate this benchmark exactly?"""
     metadata = data.metadata
     required = ["generator_version", "world_seed", "corruption_seed", "config_hashes", "git_commit"]
@@ -522,6 +603,14 @@ def validate_reproducibility_manifest(data: BenchmarkData) -> list[MetricResult]
             f"missing={missing}",
         )
     ]
+
+    snapshot_mismatches, snapshot_note = _scenario_snapshot_mismatches(data)
+    metrics.append(
+        _base(
+            data, "reproducibility", "scenario_snapshot_matches_scenario_file",
+            not snapshot_mismatches, snapshot_note,
+        )
+    )
 
     logged_seeds = set()
     if "seed" in data.corruption_log.columns and not data.corruption_log.empty:
@@ -535,36 +624,77 @@ def validate_reproducibility_manifest(data: BenchmarkData) -> list[MetricResult]
         )
     )
 
-    # Byte-level determinism requires generating the benchmark a second time,
-    # which this suite deliberately does not do: it validates artifacts that
-    # already exist. Recorded as inconclusive so it is never mistaken for a
-    # passed check.
+    # Regeneration is the only check that can prove the released tables still
+    # follow from the released configuration and seeds. It is compared on
+    # canonical table content rather than Parquet bytes, because writer and
+    # library versions change file bytes without changing the data.
+    replayed, replay_note = _canonical_replay_result(data) if replay else (None, "")
+    if replayed is None:
+        metrics.append(
+            MetricResult(
+                benchmark_version=data.benchmark_version,
+                scenario=data.scenario,
+                seed=data.seed_label,
+                scope="internal",
+                subgroup="overall",
+                property="reproducibility",
+                metric="canonical_replay_matches_released_tables",
+                real_estimate=None,
+                synthetic_estimate=None,
+                difference=None,
+                effect_size=None,
+                ci_low=None,
+                ci_high=None,
+                tolerance="exact canonical table content",
+                status=Status.INCONCLUSIVE,
+                provenance="synthetic_truth",
+                notes=(
+                    replay_note
+                    or "replay disabled for this pass; re-run with replay enabled to verify that the "
+                    "recorded seeds and configuration still regenerate the released tables"
+                ),
+            )
+        )
+        return metrics
+
     metrics.append(
-        MetricResult(
-            benchmark_version=data.benchmark_version,
-            scenario=data.scenario,
-            seed=data.seed_label,
-            scope="internal",
-            subgroup="overall",
-            property="reproducibility",
-            metric="byte_identical_regeneration",
-            real_estimate=None,
-            synthetic_estimate=None,
-            difference=None,
-            effect_size=None,
-            ci_low=None,
-            ci_high=None,
-            tolerance="exact",
-            status=Status.INCONCLUSIVE,
-            provenance="synthetic_truth",
-            notes=(
-                "requires re-running the generator at the recorded seeds and comparing output "
-                "checksums; not performed by this validation pass. Input checksums are recorded in "
-                "the run manifest so a later regeneration can be compared against them"
-            ),
+        _base(
+            data, "reproducibility", "canonical_replay_matches_released_tables",
+            replayed, replay_note, scope="internal",
         )
     )
     return metrics
+
+
+def _canonical_replay_result(data: BenchmarkData) -> tuple[bool | None, str]:
+    """Regenerate from recorded seeds and compare canonical table content."""
+    from boamp.synthetic.reproducibility import (
+        compare_table_sets,
+        regenerate_tables_from_metadata,
+    )
+
+    released = {
+        "latent_buyers": data.latent_buyers,
+        "latent_establishments": data.latent_establishments,
+        "latent_needs": data.latent_needs,
+        "latent_cycles": data.latent_cycles,
+        "true_relations": data.true_relations,
+        "notice_family_membership": data.notice_family_membership,
+        "clean_notices": data.clean,
+        "observed_notices": data.observed,
+        "corruption_log": data.corruption_log,
+    }
+    try:
+        regenerated = regenerate_tables_from_metadata(data.project_root, data.metadata, data.scenario)
+    except Exception as exc:  # noqa: BLE001 - a failed replay is a reportable outcome, not a crash
+        return False, f"regeneration failed: {type(exc).__name__}: {exc}"
+    comparisons = compare_table_sets(released, regenerated)
+    failed = [c.table for c in comparisons if not c.passed]
+    return (
+        not failed,
+        f"{len(comparisons) - len(failed)}/{len(comparisons)} tables reproduced from the recorded "
+        f"seeds and the live scenario file" + (f"; differing: {failed}" if failed else ""),
+    )
 
 
 def run_negative_controls(data: BenchmarkData) -> list[MetricResult]:
@@ -608,12 +738,32 @@ def run_negative_controls(data: BenchmarkData) -> list[MetricResult]:
         membership["role"] = membership["role"].to_numpy()[::-1]
         return validate_count_reconciliation(replace(data, notice_family_membership=membership))
 
+    def shifted_true_gaps():
+        """Gaps that no longer match the declared distribution must still FAIL.
+
+        This control exists because the gap recovery metric was once softened to
+        a warning whenever hard-negative chain alignment was enabled, which made
+        it unfalsifiable for every scenario that uses the scoped block. Chain
+        alignment translates whole chains by a constant offset and therefore
+        cannot move a within-need gap, so it is not an excuse for a miss: with
+        the scoped block active, an injected shift must still be detected.
+        """
+        rel = data.true_relations.copy()
+        mask = rel["relation_type"].eq("NEXT_CYCLE")
+        if int(mask.sum()) < 30:
+            return []
+        rel.loc[mask, "true_gap_months"] = (
+            pd.to_numeric(rel.loc[mask, "true_gap_months"], errors="coerce") + 6.0
+        )
+        return validate_parameter_recovery(replace(data, true_relations=rel))
+
     controls = [
         ("leaked_truth_column", leak_truth_column),
         ("self_referential_relation", self_referential_relation),
         ("broken_corruption_replay", broken_replay),
         ("dropped_required_column", dropped_column),
         ("scrambled_membership_roles", scrambled_membership),
+        ("shifted_true_gaps", shifted_true_gaps),
     ]
 
     metrics = []
@@ -633,7 +783,7 @@ def run_negative_controls(data: BenchmarkData) -> list[MetricResult]:
     return metrics
 
 
-def run_internal_validation(data: BenchmarkData) -> list[MetricResult]:
+def run_internal_validation(data: BenchmarkData, replay: bool = False) -> list[MetricResult]:
     metrics: list[MetricResult] = []
     metrics.extend(validate_schema_support(data))
     metrics.extend(validate_truth_graph(data))
@@ -641,6 +791,6 @@ def run_internal_validation(data: BenchmarkData) -> list[MetricResult]:
     metrics.extend(validate_leakage(data))
     metrics.extend(validate_corruption_replay(data))
     metrics.extend(validate_parameter_recovery(data))
-    metrics.extend(validate_reproducibility_manifest(data))
+    metrics.extend(validate_reproducibility_manifest(data, replay=replay))
     metrics.extend(run_negative_controls(data))
     return metrics

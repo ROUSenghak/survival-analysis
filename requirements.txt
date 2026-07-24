@@ -19,6 +19,7 @@ rapidfuzz>=3.9  # installed but not used by the current scripts: buyer_key
                 # reports/boamp_m0_preprocessing_report.md, section 16
 scikit-learn>=1.5
 matplotlib>=3.9
+seaborn>=0.13  # notebooks/11_synthetic_real_benchmark_comparison.ipynb
 
 # Notebook front-ends and reproducible notebook execution.
 notebook>=7.6

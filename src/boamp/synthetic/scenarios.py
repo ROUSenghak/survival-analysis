@@ -23,6 +23,19 @@ def _to_namespace(obj):
     return obj
 
 
+def to_plain_dict(obj):
+    """Convert nested scenario/default namespaces into JSON/YAML-safe data."""
+    if isinstance(obj, SimpleNamespace):
+        return {k: to_plain_dict(v) for k, v in vars(obj).items()}
+    if isinstance(obj, dict):
+        return {k: to_plain_dict(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [to_plain_dict(v) for v in obj]
+    if isinstance(obj, tuple):
+        return [to_plain_dict(v) for v in obj]
+    return obj
+
+
 def load_scenario(project_root: Path, scenario_id: str) -> SimpleNamespace:
     if scenario_id not in VALID_SCENARIOS:
         raise ValueError(f"unknown scenario_id {scenario_id!r}; expected one of {VALID_SCENARIOS}")

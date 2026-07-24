@@ -63,16 +63,65 @@ def test_negative_controls_all_detect_their_injected_defect():
     """The suite must fail when the data is deliberately broken (Section 6.9)."""
     data = load_benchmark_data(REPO, VERSION, SCENARIO)
     controls = run_negative_controls(data)
-    assert len(controls) == 5
+    assert len(controls) == 6
     assert {str(m.status) for m in controls} == {"PASS"}
 
 
-def test_v0_3_specification_recovery_flags_the_in_memory_override():
-    """v0.3 was generated with parameters that its scenario file does not carry."""
+def test_v0_3_specification_recovery_accepts_versioned_scenario_parameters():
+    """v0.3 selected candidate-revision parameters must live in scenario YAML."""
     data = load_benchmark_data(REPO, VERSION, SCENARIO)
     metrics = validate_parameter_recovery(data)
-    assert _status_for(metrics, "parameter_recovery", "scenario_file_describes_generated_data") == "FAIL"
+    assert _status_for(metrics, "parameter_recovery", "scenario_file_describes_generated_data") == "PASS"
     assert _status_for(metrics, "parameter_recovery", "max_cycles_per_need_respected") == "PASS"
+
+
+def test_gap_recovery_passes_on_correctly_generated_data():
+    """The declared gap mechanism must recover without any status softening.
+
+    This metric was once downgraded to a warning whenever hard-negative chain
+    alignment was enabled. The real defect was that the Monte Carlo null
+    measured the censoring window from the source cycle's start instead of its
+    expected end, which overstated the headroom by a full cycle duration and
+    biased the interval upward.
+    """
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    metrics = validate_parameter_recovery(data)
+    assert _status_for(metrics, "parameter_recovery", "mean_true_gap_months_in_monte_carlo_interval") == "PASS"
+
+
+def test_gap_recovery_still_fails_when_the_gap_mechanism_is_wrong():
+    """Chain alignment must not make this metric unfalsifiable.
+
+    central_provisional runs with hard_negative_alignment_rate > 0, so this is
+    exactly the configuration in which the metric was previously incapable of
+    reporting a failure.
+    """
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    relations = data.true_relations.copy()
+    is_next = relations["relation_type"].eq("NEXT_CYCLE")
+    relations.loc[is_next, "true_gap_months"] = (
+        pd.to_numeric(relations.loc[is_next, "true_gap_months"], errors="coerce") + 6.0
+    )
+    metrics = validate_parameter_recovery(replace(data, true_relations=relations))
+    assert _status_for(metrics, "parameter_recovery", "mean_true_gap_months_in_monte_carlo_interval") == "FAIL"
+
+
+def test_scenario_snapshot_mismatch_is_reported():
+    """Editing the scenario file behind a released benchmark must be detected."""
+    from boamp.synthetic.validation_framework.internal import validate_reproducibility_manifest
+
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    assert (
+        _status_for(validate_reproducibility_manifest(data), "reproducibility",
+                    "scenario_snapshot_matches_scenario_file") == "PASS"
+    )
+
+    metadata = dict(data.metadata)
+    snapshot = dict(metadata["resolved_scenario"])
+    snapshot["recurrence"] = dict(snapshot["recurrence"], max_cycles_per_need=99)
+    metadata["resolved_scenario"] = snapshot
+    drifted = validate_reproducibility_manifest(replace(data, metadata=metadata))
+    assert _status_for(drifted, "reproducibility", "scenario_snapshot_matches_scenario_file") == "FAIL"
 
 
 def test_difficulty_gate_is_neither_trivial_nor_impossible():

@@ -150,7 +150,7 @@ dummies, key-type dummies; PH tests; quadratic-duration functional-form check),
 Weibull vs log-normal AFT (AIC + concordance), 12/24-month risk calibration,
 and temporal validation (train ≤ 2021, test > 2021).
 
-## 8b. Synthetic benchmark (v0.1, provisional)
+## 8b. Synthetic benchmark (v0.3, controlled calibration benchmark)
 
 We adapt the gold-standard-and-corruption framework of Lam et al. (2024,
 *Generating synthetic identifiers to support development and evaluation of
@@ -164,9 +164,9 @@ and subjected to schema-dependent, attribute-dependent and co-occurring
 corruption in identifiers, names, CPV, duration, text and lifecycle
 references (`missingness.py`, `corruption.py`). Multiple corrupted linkage
 files can be generated (`n_corruption_replications` in
-`config/synthetic/benchmark_defaults_v0_1.yaml`) while retaining a separate
-known-truth relation table (`true_relations.parquet`) that Layer 1 and
-Layer 2 never receive.
+`config/synthetic/benchmark_defaults_v0_1.yaml`) while retaining separate
+known-truth tables (`true_relations.parquet`, latent entities, family
+membership, and corruption history) that linkage algorithms never receive.
 
 **Clean world vs observed world.** Every `*_true` column lives only in the
 latent tables and `clean_notices.parquet`; `observed_notices.parquet` is
@@ -176,7 +176,7 @@ structurally verified to carry no truth column
 **Recurrence ontology.** The real corpus's calibration work independently
 built a full 8-relation ontology (`config/synthetic/recurrence_ontology.yaml`:
 NEXT_CYCLE, PARTIAL_RECURRENCE, SPLIT, MERGE, SAME_THEME_DIFFERENT_NEED,
-UNRELATED, NO_SUCCESSOR, UNCERTAIN). v0.1's generator is deliberately
+UNRELATED, NO_SUCCESSOR, UNCERTAIN). The current generator is deliberately
 restricted to two relations only (`recurrence_ontology_v0_1.yaml`:
 NEXT_CYCLE, NO_SUCCESSOR) — every cycle has exactly one outgoing edge,
 verified structurally. The broader ontology remains defined and tested for
@@ -221,36 +221,44 @@ compatibility checks (`boamp.synthetic.compatibility`) run the *existing*
 Layer 1 candidate-generation code on synthetic `observed_notices` without
 ever consulting synthetic truth.
 
-**Fidelity validation.** `notebooks/06_synthetic_fidelity_validation.ipynb`
-compares the synthetic pilot against real-corpus calibration tables on
-volume, schema/notice-type mix, buyer concentration, identifier/CPV/duration
-availability, text length/duplication, missingness co-occurrence, and
-(via the real production candidate-generation code) emergent candidate
-counts. Results, including honestly-reported discrepancies requiring v0.2
-follow-up, are in `reports/generated/synthetic_benchmark/v0_1_fidelity_report.md`
-and the freeze gate,
-`reports/tables/synthetic_benchmark/v0_1/benchmark_freeze_gate.csv`.
+**Fidelity and benchmark validation.** The active version is
+`v0_3_temporal_candidate_revision`. It compares synthetic observed notices
+against real-corpus calibration tables on schema/notice type, calendar shape,
+buyer activity, identifiers, CPV, duration, text, missingness co-occurrence,
+names, privacy/memorisation, and the production Layer-1 candidate environment.
+Hidden-truth diagnostics additionally measure blocking completeness,
+hard-negative overlap, true-match rank, and frozen probe-linker utility. The
+validation framework reports `PASS_WITH_WARNINGS` with no blocking gates; the
+internal-integrity, specification-recovery, candidate-environment,
+conditional-fidelity, privacy, and algorithm-utility gates pass, while
+observable-fidelity warnings and 18 metric-level failures in non-critical gates
+remain visible in the discrepancy register and are counted in the validation
+manifest.
+
+Specification recovery includes a Monte Carlo check that the realized true gaps
+match the declared recurrence mixture. It censors each simulated draw at
+`observation_end - source_expected_end`, matching the rule the generator uses
+to stop a chain; measuring that window from the cycle start instead overstates
+the headroom by a full cycle duration and biases the interval. The metric
+carries no status softening, and a negative control asserts it still fails on an
+injected gap shift while hard-negative chain alignment is enabled.
 
 **Reproducibility.**
 ```bash
-.venv/bin/python -c "from boamp.synthetic.pipeline import generate_pilot; generate_pilot('central_provisional', '.')"
-.venv/bin/python -m pytest -q tests/test_synthetic_*.py
+python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+python3 scripts/validate_synthetic_benchmark.py
+python3 scripts/replay_synthetic_benchmark.py \
+  --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json
+python3 -m pytest -q tests/test_synthetic_*.py
 ```
 
-**Known limitations (v0.1).** No manually-validated CPV/technological
-taxonomy exists in this repo, so needs use broad CPV-division-derived
-segments as a placeholder (spec-documented, not a claim of taxonomic
-validity). Duration-value and call-to-award-delay distributions are
-generator design choices, not calibrated to an observed value distribution
-(only presence/missingness rates are OBSERVABLE-tier here). Several fidelity
-dimensions (schema-family mix over time, duration-missingness rate, exact
-text duplication, candidate-count tail) show a documented gap versus the
-real corpus and are tracked as `NEEDS_REVISION`/`PASS_WITH_LIMITATION` in
-the freeze gate, not silently accepted. See
-`reports/generated/synthetic_benchmark/v0_1_phase0_audit.md` for the
-eForms-CPV-correction staleness finding this benchmark build is downstream
-of (the correction is in production code; `data/processed/{boamp_only,enriched}/*`
-predate it by 3 days and must be regenerated before being read as current).
+**Current limitations.** No manually-validated CPV/technological taxonomy
+exists in this repo, so needs use broad CPV-division-derived segments as a
+placeholder. Duration-value and long-horizon recurrence timing remain partly
+scenario-controlled. The synthetic buyer-activity tail, department mix, text
+duplication/lexical distribution, and some identifier missingness rates still
+differ from the real corpus. Those discrepancies are not tuned away; they are
+kept as warnings and should be reflected in algorithm-calibration claims.
 
 ## 9. Known limitations
 

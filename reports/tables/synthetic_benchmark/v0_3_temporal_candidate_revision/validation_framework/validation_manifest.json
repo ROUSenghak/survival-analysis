@@ -4,10 +4,11 @@
   "world": "001",
   "corruption": "001",
   "synthetic_dir": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/central_provisional/world_001/corruption_001",
-  "generated_at_utc": "2026-07-23T14:34:06.223086+00:00",
+  "generated_at_utc": "2026-07-24T08:29:03.418936+00:00",
   "strict_60m": false,
   "bootstrap_reps": 200,
   "robustness_sweep": true,
+  "canonical_replay_checked": true,
   "probe_linker_results": [
     {
       "probe": "deterministic_top1",
@@ -40,15 +41,23 @@
       "bcubed_f1": 0.7998209987677678
     }
   ],
-  "metric_count": 159,
+  "metric_count": 161,
   "gate_count": 15,
-  "overall_status": "FAIL",
+  "overall_status": "PASS_WITH_WARNINGS",
+  "n_metric_failures": 18,
+  "n_metric_failures_in_noncritical_gates": 18,
+  "noncritical_gates_with_metric_failures": [
+    "marginals",
+    "missingness_text_identifier",
+    "buyer_activity",
+    "text"
+  ],
   "input_checksums": {
     "candidate_revision_selected_parameters.csv": "a23a8fe3453589efab95cbdd5b737d9619852c02ac0c061096deb0290735975c",
     "clean_notices.parquet": "d2293bcc3db2a19a054f7d9d9b78fab29654b08f36057955e5815cedded2804b",
     "conditional_observation_parameters.csv": "94e6f6de3ae6660ce21b1a319f12560b55f4e36f8e0427491abe4bb7d344a7ae",
     "corruption_log.parquet": "b489bac5d941288eb535e5baf9727c14777364cf6217e3a791c195dc8529b166",
-    "generation_metadata.json": "2785fc04954072d8b98fef5e2016c64ebead05cfc2faa246d82902f82a0b983a",
+    "generation_metadata.json": "ce10c86f54070d61853a53c19c4dbd310103208fcac7958f16e771f28b2fbd70",
     "latent_buyers.parquet": "5b9a4fa14de7f0ba8ebb90f3648b4dfb6864d0116eef81a2e615476d462db4fb",
     "latent_cycles.parquet": "f0df23b3f866450d23895debdd3df75e0dec1383b5ac8de0c83df22ad25455cb",
     "latent_establishments.parquet": "0b682fb459f83c122805075749ff0b26ab1e9a91520971a024d988308029f0d4",

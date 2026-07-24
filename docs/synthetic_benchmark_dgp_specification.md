@@ -96,28 +96,43 @@ Every scenario parameter belongs to exactly one class, recorded in
   timing and need clustering only; it never sets candidate counts, scores,
   accepted links, or thresholds directly.
 
-## 4. Known specification defects
+## 4. Current reproducibility status and remaining recovery warnings
 
-These are recorded here because the suite reports them as failures and a reader
-should find the explanation next to the specification, not only in a CSV.
+These are recorded here because a reader should find the explanation next to the
+specification, not only in a CSV.
 
-1. **The scenario file does not reproduce the v0.3 dataset.** The candidate sweep
-   enables the scoped-candidate block *in memory* and records its chosen
-   parameters in `generation_metadata.json` under `candidate_revision`. Loading
-   `central_provisional.yaml` and re-running does not reproduce this benchmark.
-   Until the selected parameters are written back into a versioned scenario file,
-   the reproducibility manifest is the only complete record.
+1. **The v0.3 scenario file now reproduces the released central dataset.** The
+   selected scoped-candidate parameters are written directly in
+   `config/synthetic/scenarios/central_provisional.yaml` and also retained under
+   `generation_metadata.json#candidate_revision` as selection provenance. The
+   generation metadata stores `resolved_scenario` and
+   `resolved_benchmark_defaults` snapshots.
 
-2. **The true-gap mean sits below its Monte Carlo interval.** Simulating the
-   effective mixture with window censoring still over-predicts the mean gap by
-   roughly half a month. The known unmodelled component is `cycles.py`'s
-   hard-negative chain alignment, which relocates whole chains near a source's
-   expected end and is not expressible in the saved parameter set.
+2. **Canonical replay passes.** `scripts/replay_synthetic_benchmark.py`
+   regenerates the benchmark from the recorded seeds and compares canonical
+   content hashes, rather than Parquet byte hashes, for all observed and truth
+   tables. The saved replay result is
+   `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json`.
 
-3. **Byte-identical regeneration is untested.** The suite validates artifacts that
-   already exist; it does not re-run the generator. Input checksums are recorded
-   in every run manifest so a later regeneration can be compared against them, but
-   determinism is reported `INCONCLUSIVE`, never `PASS`.
+3. **The true-gap mean recovers under the declared mechanism.** Simulating the
+   base/near-window mixture with window censoring reproduces the observed mean
+   gap: 15.75 months against a 99% Monte Carlo interval of [15.72, 16.65].
+
+   An earlier revision reported this as a warning and attributed the miss to
+   the hard-negative chain-alignment step not being replayed. That explanation
+   was wrong. Chain alignment translates a whole distinct-need chain by one
+   constant offset, so `target_start - source_expected_end` is unchanged by
+   construction and the step cannot move the gap distribution at all. The
+   actual defect was in the diagnostic: it measured each source's remaining
+   window from `start_date_true` while the generator stops a chain when
+   `expected_end + gap > observation_end`. That overstated the available
+   headroom by one cycle duration (13.2 months on average), under-truncated the
+   simulated draws, and biased the interval upward by roughly 0.7 months.
+
+   The diagnostic now censors from `source_expected_end` and carries no
+   status softening, so a genuine gap misspecification fails the gate. The
+   `shifted_true_gaps` negative control asserts that it still does so with the
+   scoped candidate block and chain alignment enabled.
 
 ## 5. What this specification cannot establish
 
