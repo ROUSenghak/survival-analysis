@@ -41,7 +41,7 @@ hand-picked):
   top1-top2 margin: genuine multi-candidate ambiguity for a human to
   adjudicate, not something a detector already decided.
 - **sources_with_no_candidates** — from the true eligible-source population
-  (`data/processed/boamp_only/boamp_only_sources.csv`, 3,159 rows), sources
+  (`data/processed/boamp_only/boamp_only_sources.csv`, 3,380 rows), sources
   for which the pipeline generated zero candidates.
 - **very_active_buyers** — pairs whose source belongs to the `21+` buyer
   activity tier.

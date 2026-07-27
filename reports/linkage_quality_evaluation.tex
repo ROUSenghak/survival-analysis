@@ -1,476 +1,151 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=2.5cm]{geometry}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
 \usepackage{hyperref}
 \usepackage{enumitem}
-\graphicspath{{figures/}}
+\usepackage{amsmath}
+\urlstyle{tt}
 \setlist[itemize]{leftmargin=1.2em}
-\setlist[enumerate]{leftmargin=1.4em}
 
-\title{Technical Audit of BOAMP Renewal-Linkage Quality and Survival Robustness\\
-\large Current M0 Pipeline, Credibility Diagnostics, Duration-Leakage Analysis, and Survival Implications}
-\author{Gigalis Predictive-Modeling Internship --- Current Independent Study}
-\date{Current generated results: July 2026 repository state}
+\title{BOAMP Linkage Quality Evaluation\\
+\large Current two-layer proxy-renewal evidence}
+\author{Current independent study}
+\date{End-to-end refresh: 2026-07-27}
 
 \begin{document}
 \maketitle
 
-\begin{center}
-\fbox{\parbox{0.94\textwidth}{%
-\textbf{Revision note (v2, 2026-07-17 --- two-layer restructure).}
-This report was regenerated after the repository was restructured into two
-controlled layers: \textbf{Layer 1 = \texttt{boamp\_only} (formerly M0)} and
-\textbf{Layer 2 = \texttt{enriched} (formerly M1)}. The full pipeline was rerun
-end-to-end on 2026-07-17 from \texttt{notebooks/01\_data\_engineering\_pipeline.ipynb}
-(logic extracted, parity-verified, into \texttt{src/boamp/}); every headline number in
-this report was reproduced exactly: 84{,}623 cleaned notices, 3{,}159 eligible
-sources, 6{,}137 Layer-1 candidate pairs, balanced links 618 (19.6\%) /
-Layer-2 847 (26.8\%), thresholds 0.2642/0.3230/0.3931.
-Corrections established during the rerun:
-(i) the cleaned corpus has \textbf{84{,}623} logical rows --- the 87{,}418 figure in the
-v1 reproducibility manifest was a raw line-count artifact caused by embedded newlines
-in quoted text fields (same artifact behind the ``3{,}170-row'' M1 table entry; the
-true count is 3{,}159);
-(ii) the raw input is \textbf{139} monthly data files plus a metadata JSON (the ``140''
-in v1 audit tables counted directory entries);
-(iii) the previously empty \texttt{survival\_logrank\_tests.csv} is now populated (the
-v1 script compared float-typed CPV divisions against string literals);
-(iv) links now carry an explicit three-way confidence tier --- 38\% of Layer-1 and 39\%
-of Layer-2 balanced links are \textsc{potential} (top1--top2 margin $<$ 0.05).
-Legacy file paths cited in the body (\texttt{boamp\_m0\_*}, \texttt{boamp\_m1\_*},
-\texttt{m0\_*}/\texttt{m1\_*} tables) now live under \texttt{archive/} (see
-\texttt{archive/ARCHIVE\_MANIFEST.csv}); their two-layer successors are under
-\texttt{data/processed/\{boamp\_only, enriched, comparison\}/}.}}
-\end{center}
-
-
 \begin{abstract}
-This report audits the current BOAMP-only renewal-linkage pipeline for digital public-procurement notices in Pays de la Loire. It treats the present repository as an independent study: executable code and generated datasets are the evidence, while prose claims, old notebook titles, and historical output filenames are not counted as implementation. The official reference event definition is the balanced M0 linkage rule: same buyer key, later notice, a six-month window around the estimated contract end date, a deterministic score combining text, CPV, temporal proximity, and buyer-key reliability, and a median threshold over rank-1 candidate scores. The current reference handoff contains 3,159 eligible source notices and 618 constructed proxy-renewal events. The event file is internally coherent, but credibility is limited by low blocking coverage (39.1\%), candidate reuse, substantial sensitivity to temporal-window design, and a high-priority duration-circularity risk: declared or imputed duration is used in expected-end construction, temporal blocking, temporal scoring, and downstream survival timing. Consequently, survival results should be interpreted as robustness diagnostics for a constructed BOAMP proxy event, not as verified renewal truth.
+This report audits the current BOAMP proxy-renewal linkage handoff. The
+reference event is still a constructed linkage event, not verified legal
+renewal truth. The 2026-07-27 run contains 3{,}380 eligible sources. Layer 1
+produces 10{,}862 candidate pairs and 1{,}003 balanced links; Layer 2 produces
+13{,}524 candidate pairs and 1{,}188 balanced links. The shared balanced
+threshold is \(0.343167\). Blocking remains the largest quality constraint,
+and the duration variable remains a high-risk design input because it affects
+candidate generation, temporal scoring, and survival modeling.
 \end{abstract}
 
-\section{Scope and Evidence Standard}
+\section{Reference Rule}
 
-The scientific object of interest is not a legally verified contract renewal. It is a \emph{proxy recurrence event} inferred from BOAMP notices. Let a source notice be an initial digital/ICT \texttt{APPEL\_OFFRE} notice from the current Pays de la Loire corpus. The linkage task asks whether a later notice from the same buyer plausibly represents a recurrence of the same procurement need.
-
-This report follows three rules.
-\begin{enumerate}
-    \item A method counts as implemented only if there is executable code and current output.
-    \item Internal scores, posterior probabilities, and corruption-recovery rates are not ground truth.
-    \item Survival findings are reported as conditional on the constructed BOAMP proxy event, not as facts about legal renewal behavior.
-\end{enumerate}
-
-The main machine-readable audit outputs are stored in \texttt{reports/tables/}. Notebooks 14--16 contain the temporal-window, duration-leakage, and survival-robustness analyses inline (14 and 15 import the M0 scoring machinery from \texttt{scripts/}, so the linkage rule has a single definition there); notebook 13 is a viewer over \texttt{scripts/audit\_current\_project.py}; the remaining audit scripts (\texttt{eval\_m6a/b/c}) are script-only.
-
-\paragraph{Relationship to other documents.} This is the focused credibility-audit companion. The master technical reference --- which subsumes this audit and adds the data dictionary, the full M0 algorithm specification with worked examples, the survival results, and a current implementation-status classification --- is \texttt{reports/boamp\_m0\_technical\_report.pdf}. \texttt{reports/credibility\_audit\_report.md} is the short executive summary of this document.
-
-\section{Data Lineage and Official Datasets}
-
-The active raw input is \texttt{data/raw/boamp/pdl/}, containing 139 monthly JSON data files (plus \texttt{download\_metadata.json}). The directory \texttt{data/raw/boamp\_national\_2024\_2026\_archive/} is explicitly superseded and is not part of the active lineage.
-
-\begin{table}[h!]
-\centering
-\caption{Official current datasets. Counts are generated by \texttt{scripts/audit\_current\_project.py}.}
-\small
-\begin{tabular}{p{0.34\textwidth}p{0.20\textwidth}rrp{0.22\textwidth}}
-\toprule
-Dataset & Unit & Rows & Columns & Creation script \\
-\midrule
-\texttt{boamp\_raw\_flattened.csv} & notice & 84,623 & 42 & \texttt{parse\_boamp.py} \\
-\texttt{boamp\_clean\_m0\_no\_enrichment.csv} & notice & 84,623 & 93 & \texttt{preprocess\_boamp\_m0.py} \\
-\texttt{boamp\_m0\_sources.csv} & source notice & 3,159 & 22 & \texttt{preprocess\_boamp\_m0.py} \\
-\texttt{boamp\_m0\_candidate\_pairs.csv} & source--candidate pair & 6,137 & 19 & \texttt{build\_m0\_candidate\_pairs.py} \\
-\texttt{boamp\_m0\_links\_balanced.csv} & accepted link & 618 & 21 & \texttt{run\_m0\_linkage.py} \\
-\texttt{boamp\_survival\_m0\_balanced.csv} & survival source & 3,159 & 18 & \texttt{run\_m0\_linkage.py} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The official current lineage is
-\begin{align*}
-&\text{raw BOAMP JSON} \rightarrow \text{flattened notice table} \rightarrow \text{cleaned notice table}\\
-&\rightarrow \text{M0 source population} \rightarrow \text{candidate pairs} \rightarrow \text{ranked candidates}\\
-&\rightarrow \text{balanced links} \rightarrow \text{survival handoff}.
-\end{align*}
-No external SIREN/SIRET enrichment is used. Raw BOAMP-provided identifiers are cleaned and validated, and missing buyer identifiers fall back to normalized buyer names.
-
-\section{Reference Linkage Rule}
-
-Let $i$ index a source notice and $j$ index a later candidate notice. The realized candidate universe is
+For each eligible source contract, the pipeline searches later notices from the
+same buyer identity within the configured temporal window around the estimated
+contract end date. Candidate scores combine text, CPV, temporal proximity, and
+buyer-identity reliability:
 \[
-\Omega = \{(i,j): \text{same buyer key},\; t_j > t_i,\; |t_j - \widehat e_i| \le W\},
+S_{ij}=0.35s_{\mathrm{text}}+0.30s_{\mathrm{cpv}}+0.25s_{\mathrm{time}}+0.10s_{\mathrm{buyer}}.
 \]
-where $t_i$ and $t_j$ are publication dates, $\widehat e_i$ is the estimated source end date, and the reference window is $W=6$ months.
+Only the rank-1 candidate can be accepted. The current Layer-1 percentile
+thresholds are \(0.278387\), \(0.343167\), and \(0.442070\) for broad,
+balanced, and strict variants.
 
-For each candidate pair, the M0 comparison vector is
-\[
-\gamma_{ij} = (s_{\text{text},ij}, s_{\text{cpv},ij}, s_{\text{time},ij}, s_{\text{buyer},i}).
-\]
-The deterministic score is
-\begin{equation}
-S_{ij} = 0.35s_{\text{text},ij} + 0.30s_{\text{cpv},ij} + 0.25s_{\text{time},ij} + 0.10s_{\text{buyer},i}.
-\end{equation}
-
-For every source with at least one candidate, candidates are ranked by $S_{ij}$. The reference balanced event set is
-\[
-L_{\text{balanced}} = \{(i,j): j=\arg\max_k S_{ik},\; S_{ij}\ge \tau_{0.50}\},
-\]
-where the current median rank-1 threshold is $\tau_{0.50}=0.323022$. The broad and strict variants use the 25th and 75th percentiles of the rank-1 score distribution, yielding 927 and 309 links respectively.
-
-\section{Implementation Matrix: Summary}
-
-The detailed implementation matrix is stored as \texttt{audit\_credibility\_implementation\_matrix.csv} in \texttt{reports/tables/}. The audit classified 26 credibility checks. The main statuses are:
-\begin{itemize}
-    \item \textbf{Implemented and verified}: eligibility definition; Fellegi--Sunter mixture; core survival handoff consistency.
-    \item \textbf{Partially implemented before this audit}: blocking coverage, candidate-pool diagnostics, duplicate-candidate analysis, score diagnostics, threshold sensitivity, feature ablation, broad/strict KM robustness.
-    \item \textbf{Documented or absent before this audit}: temporal-window sensitivity, duration-leakage analysis, censoring diagnostics, manual-validation readiness, Cox/AFT survival robustness, prediction-calibration summaries.
-    \item \textbf{Still deferred}: full reblocking corruption under corrupted fields, external/manual validation labels, full-pipeline bootstrap, full one-to-one versus many-to-one adjudication, and stable temporal validation.
-\end{itemize}
-
-\section{Eligibility and Blocking Coverage}
-
-The source population contains 3,159 digital/ICT \texttt{APPEL\_OFFRE} notices with non-missing buyer keys. Of these, only 1,236 have at least one scored candidate. Thus
-\begin{equation}
-\widehat{\text{blocking coverage}} = \frac{1{,}236}{3{,}159} = 0.391.
-\end{equation}
-The remaining 1,923 sources are structurally absent from the candidate-pair universe. No mixture-model recall estimate or score-based diagnostic can recover renewals outside this blocked universe.
+\section{Blocking and Acceptance}
 
 \begin{table}[h!]
 \centering
-\caption{Blocking coverage by selected publication years.}
-\begin{tabular}{rrrrr}
-\toprule
-Year & Eligible sources & With candidate & Zero candidate & Coverage \\
-\midrule
-2015 & 266 & 151 & 115 & 56.8\% \\
-2016 & 308 & 177 & 131 & 57.5\% \\
-2017 & 322 & 191 & 131 & 59.3\% \\
-2018 & 307 & 156 & 151 & 50.8\% \\
-2019 & 314 & 165 & 149 & 52.5\% \\
-2020 & 259 & 109 & 150 & 42.1\% \\
-2021 & 306 & 95 & 211 & 31.0\% \\
-2022 & 305 & 60 & 245 & 19.7\% \\
-2023 & 283 & 18 & 265 & 6.4\% \\
-2024 & 210 & 50 & 160 & 23.8\% \\
-2025 & 189 & 53 & 136 & 28.0\% \\
-2026 & 90 & 11 & 79 & 12.2\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The decline in later years is expected under administrative right-censoring and finite follow-up, but it is still a substantive limitation: recent sources are less likely to be linkable even before scoring.
-
-\section{Candidate-Pool and Duplicate-Candidate Diagnostics}
-
-For each eligible source, \texttt{audit\_candidate\_source\_diagnostics.csv} records candidate count, best score, second-best score, margin, singleton-pool status, selected candidate, and zero-candidate cause. This source-level table is the primary diagnostic table for distinguishing score ambiguity from blocking failure.
-
-Candidate reuse is material. In the balanced link set, 618 source links point to 443 unique candidate notices. There are 121 later notices selected by more than one source, and the maximum multiplicity is 6.
-
-\begin{table}[h!]
-\centering
-\caption{Balanced-link candidate reuse.}
-\begin{tabular}{lr}
-\toprule
-Quantity & Value \\
-\midrule
-Selected links & 618 \\
-Unique selected candidates & 443 \\
-Candidates reused by multiple sources & 121 \\
-Share of selected candidates reused & 27.3\% \\
-Maximum multiplicity & 6 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-This is not automatically an error. Public-procurement data may contain lots, framework agreements, repeated generic buyer notices, or publication structures where a many-to-one relation is defensible. However, it prevents a naive interpretation of each link as a unique one-to-one renewal. The examples in \texttt{audit\_duplicate\_candidate\_examples.csv} should be prioritized for manual review.
-\section{Score, Margin, and Threshold Diagnostics}
-
-The score distribution is an internal ranking device, not external validation evidence. The audit therefore separates all pairs, rank-1 candidates, accepted links, rejected candidates, and runner-up candidates in \texttt{audit\_score\_component\_distributions.csv}. This is important because a score component can matter in two different ways: it can change the within-source ranking, or it can shift all candidates for the same source equally and only affect threshold crossing.
-
-Threshold sensitivity was assessed around the balanced median threshold. A perturbation of $\pm0.005$ around the threshold changes 48 rank-1 sources; $\pm0.010$ changes 88; $\pm0.020$ changes 227; and $\pm0.050$ changes 516. Thus the balanced threshold lies in a non-negligible mass of the rank-1 score distribution. This does not invalidate the threshold, but it means borderline cases are common and should not be described as reliable without manual or external evidence.
-
-Feature ablation recomputes the score after dropping one component, renormalizes the remaining weights, reranks candidates, and rebuilds the balanced-sized link set. The Jaccard overlaps with the reference balanced set are shown in Table~\ref{tab:ablation}.
-
-\begin{table}[h!]
-\centering
-\caption{Feature ablation against the balanced reference link set.}
-\label{tab:ablation}
+\caption{Candidate generation and accepted links.}
 \begin{tabular}{lrr}
 \toprule
-Dropped component & Linked sources & Jaccard vs reference \\
+Quantity & Layer 1 & Layer 2 \\
 \midrule
-Time & 618 & 0.668 \\
-Text & 618 & 0.684 \\
-CPV & 618 & 0.751 \\
-Buyer & 618 & 0.904 \\
+Eligible sources & 3{,}380 & 3{,}380 \\
+Sources with candidates & 2{,}005 & 2{,}165 \\
+Blocking coverage & 59.3\% & 64.1\% \\
+Candidate pairs & 10{,}862 & 13{,}524 \\
+Balanced links & 1{,}003 & 1{,}188 \\
+Acceptance rate conditional on candidates & 50.0\% & 54.9\% \\
+Overall linking rate & 29.7\% & 35.1\% \\
+POTENTIAL-tier links & 327 & 430 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-The buyer component is least influential because \texttt{s\_buyer} is constant across candidates for a given source. It can move a source above or below a threshold, but it cannot by itself change which candidate ranks first within that source. The temporal component is more influential than its nominal weight alone suggests because it varies continuously within candidate pools.
-
-\section{Fellegi--Sunter Latent-Mixture Diagnostic}
-
-An unsupervised two-class mixture was fitted on the full candidate-pair universe $\Omega$ of 6,137 pairs, not only on rank-1 winners. Each candidate pair has comparison vector
-\[
-\gamma_j=(s_{\text{text},j},s_{\text{cpv},j},s_{\text{time},j},s_{\text{buyer},j}).
-\]
-The model assumes latent classes $M$ and $U$ with
-\begin{align}
-P(\gamma_j\mid M) &= \prod_d f_{M,d}(\gamma_{j,d}), \\
-P(\gamma_j\mid U) &= \prod_d f_{U,d}(\gamma_{j,d}), \\
-P(\gamma_j) &= pP(\gamma_j\mid M)+(1-p)P(\gamma_j\mid U),
-\end{align}
-where the implemented densities are regularized Beta distributions after squeezing exact 0 and 1 values into the open interval. This is an approximation: \texttt{s\_cpv} is discrete and \texttt{s\_buyer} is nearly source-level rather than pair-level. The model is therefore a model-based internal diagnostic, not verified accuracy.
-
-For posterior match probability $r_j=P(M\mid \gamma_j)$, the model-based precision estimate for the balanced links is
-\begin{equation}
-\widehat{\text{precision}}_{\text{FS}}=\frac{\sum_{j\in L_{\text{balanced}}} r_j}{|L_{\text{balanced}}|}=0.455.
-\end{equation}
-The conditional recall estimate is
-\begin{equation}
-\widehat{\text{recall}}_{\Omega}=\frac{\sum_{j\in L_{\text{balanced}}} r_j}{\sum_{j\in \Omega}r_j}=0.253.
-\end{equation}
-This recall is conditional on the blocked universe $\Omega$. It explicitly excludes the 1,923 eligible sources with zero candidates and therefore cannot be interpreted as recall over all true renewals.
-
-\section{Semi-Synthetic Corruption and Recovery}
-
-The corruption experiment uses the 309 strict links as a conservative reference subset. This subset is not ground truth; it is merely a high-scoring, internally separated set. For each strict source, text, CPV, and duration fields are corrupted at increasing severity and the true candidate is considered recovered if it remains the top candidate in the fixed real candidate pool and still clears the balanced threshold. Severity zero exactly reproduces the original strict-link pairs, satisfying the sanity gate.
 
 \begin{table}[h!]
 \centering
-\caption{Recovery under semi-synthetic corruption, using strict links as a reference subset.}
-\begin{tabular}{lrrrrr}
+\caption{Layer transition diagnostics.}
+\begin{tabular}{lr}
 \toprule
-Sweep & $R_0$ & $R_1$ & $R_2$ & $R_3$ & $R_0-R_3$ \\
+Transition & Sources \\
 \midrule
-Combined & 1.000 & 0.906 & 0.654 & 0.524 & 0.476 \\
-Text only & 1.000 & 0.916 & 0.777 & 0.718 & 0.282 \\
-CPV only & 1.000 & 0.990 & 0.984 & 0.851 & 0.149 \\
-Duration only & 1.000 & 0.987 & 0.864 & 0.981 & 0.019 \\
+Unlinked in both layers & 2{,}188 \\
+Same selected candidate & 962 \\
+Added by enrichment & 189 \\
+Changed candidate & 37 \\
+Removed by enrichment & 4 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The main breaking point is text degradation. Duration-only corruption is unusually robust because most strict-link sources already have imputed durations close to the CPV-division median. This experiment does not test corruption effects on blocking, because the candidate pool is held fixed; a full reblocking corruption study remains deferred.
-
-\section{Temporal-Window Sensitivity}
-
-The reference window is six months around the estimated end date. To test sensitivity, candidate generation, scoring, ranking, link acceptance, and survival handoff construction were rerun for $W\in\{6,9,12,18\}$ months. This is not a post hoc filter of existing links; it rebuilds the candidate universe for each window.
+\section{Quality Diagnostics}
 
 \begin{table}[h!]
 \centering
-\caption{Temporal-window sensitivity.}
-\small
-\begin{tabular}{rrrrrrr}
+\caption{Evidence classes. These diagnostics do not create real BOAMP ground truth.}
+\begin{tabular}{lrrp{0.34\textwidth}}
 \toprule
-Window & Sources w/ candidates & Pairs & Links & Coverage & Jaccard & Status changes \\
+Diagnostic & Layer 1 & Layer 2 & Interpretation \\
 \midrule
-6 mo & 1,236 & 6,137 & 618 & 39.1\% & 1.000 & 0 \\
-9 mo & 1,386 & 8,692 & 693 & 43.9\% & 0.736 & 97 \\
-12 mo & 1,508 & 10,793 & 754 & 47.7\% & 0.579 & 196 \\
-18 mo & 1,668 & 14,097 & 834 & 52.8\% & 0.453 & 306 \\
+Fellegi--Sunter precision & 0.602 & 0.815 & model-based precision over blocked pairs \\
+Fellegi--Sunter recall & 0.212 & 0.098 & model-based recall conditional on blocked pairs \\
+Median link text similarity & 0.207 & 0.191 & selected-link lexical support \\
+Median margin & 0.113 & 0.092 & ambiguity of best versus second-best candidate \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Larger windows increase blocking coverage and event counts, but they also change the selected link set substantially. The reference six-month window is therefore not a harmless computational detail; it is part of the scientific event definition.
+The enrichment-added links are lower-evidence on text: median \(s_{\mathrm{text}}\)
+is 0.087 for links added by enrichment versus 0.209 for links shared with Layer
+1. That pattern is consistent with the purpose of enrichment--recovering
+identity-blocking failures--but it also means added links should be interpreted
+as sensitivity evidence rather than as verified renewals.
 
-\section{Duration Leakage and Circularity}
+\section{Survival Handoff}
 
-Duration is central to the current event-construction design. Declared or imputed duration is used to construct the estimated end date, which then enters candidate blocking. The same duration-centered expected end date is used to compute temporal similarity. Duration also remains available for downstream survival modeling. This creates a circularity risk: the procedure can mechanically favor candidates near the duration-implied end date, and then survival analysis may rediscover duration-induced timing patterns.
+\begin{table}[h!]
+\centering
+\caption{Balanced survival comparison.}
+\begin{tabular}{lrr}
+\toprule
+Quantity & Layer 1 & Layer 2 \\
+\midrule
+Rows & 3{,}380 & 3{,}380 \\
+Events & 1{,}003 & 1{,}188 \\
+Censoring rate & 70.3\% & 64.9\% \\
+Survival at 12 months & 0.7209 & 0.6786 \\
+Survival at 24 months & 0.6908 & 0.6332 \\
+Median survival & Not reached & Not reached \\
+RMST at 60 months & 43.51 & 40.57 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Two alternative designs were evaluated.
+\section{Main Findings}
+
 \begin{enumerate}
-    \item \textbf{No temporal score, reference candidate pool}: keep the six-month duration-centered candidate pool, but remove \texttt{s\_time}, renormalize text, CPV, and buyer weights, rerank, and rebuild links.
-    \item \textbf{Forward 24-month no-duration design}: generate candidates in a broad forward window after the source publication date, without centering on declared or imputed duration, and score using text, CPV, and buyer reliability.
+    \item Layer 2 materially increases candidate coverage and accepted proxy
+    events, but it also shifts the evidence mix toward lower text similarity and
+    lower margins.
+    \item The balanced event remains a proxy. No manual-validation file in the
+    current repository contains completed labels sufficient for a verified
+    precision claim.
+    \item Blocking, not scoring alone, is the binding ceiling: 1{,}375 Layer-1
+    sources and 1{,}215 Layer-2 sources have no candidate.
+    \item Duration leakage remains central. Duration determines estimated end
+    dates, temporal blocking, temporal scoring, and then appears as a survival
+    covariate. Any causal reading of the duration hazard ratio is unsupported.
 \end{enumerate}
 
-\begin{table}[h!]
-\centering
-\caption{Duration-leakage linkage sensitivity.}
-\small
-\begin{tabular}{p{0.34\textwidth}rrrrr}
-\toprule
-Definition & Links & Event rate & Jaccard & Status changes & Median event time \\
-\midrule
-Balanced reference & 618 & 19.6\% & 1.000 & 0 & 37.7 mo \\
-No temporal score, reference pool & 618 & 19.6\% & 0.414 & 246 & 42.6 mo \\
-Forward 24 mo, no duration & 1,105 & 35.0\% & 0.064 & 901 & 5.8 mo \\
-\bottomrule
-\end{tabular}
-\end{table}
+\section{Current Source of Truth}
 
-The duration effect in Cox models is not stable across these definitions. In a duration-only Cox audit with buyer-clustered inference, log duration is associated with lower event hazard in the reference design (hazard ratio 0.620) and in the no-temporal-score reference-pool design (hazard ratio 0.698), but reverses under the forward 24-month no-duration design (hazard ratio 1.344). This sign reversal is strong evidence that declared duration should not be interpreted as an independent substantive predictor under the current linkage design.
-
-\section{Survival-Time and Censoring Construction}
-
-The balanced survival handoff contains one row per eligible source notice. For linked sources, \texttt{event}=1 and the observed time equals the selected candidate publication date minus the source publication date, stored as \texttt{gap\_months}. For unlinked sources, \texttt{event}=0 and censoring time equals study-end date minus source publication date.
-
-The construction audit found no duplicated survival units, no event rows missing linked candidates, no censored rows with candidate IDs, no nonpositive event/censoring times, no links missing from the survival file, and no events after study end. Thus the handoff is internally coherent. The limitation is not file consistency; it is the scientific construction of the event.
-
-Censoring is not purely administrative. Censored rows include sources with no later same-buyer notice, sources excluded by the temporal window, sources with candidates that did not pass threshold, and possible linkage failures. The table \texttt{audit\_censoring\_diagnostics.csv} should therefore be read as a balance diagnostic, not as proof of independent censoring.
-\section{Survival Robustness Results}
-
-Kaplan--Meier and parametric survival summaries were rebuilt for the reference event definition and for sensitivity event definitions. The reference balanced survival curve never crosses 50\%, so the median survival time is undefined. Restricted mean survival time (RMST) at 60 months is therefore a more useful descriptive summary.
-
-\begin{table}[h!]
-\centering
-\caption{Overall survival summaries under selected event definitions.}
-\begin{tabular}{lrrrr}
-\toprule
-Event definition & Events & Censoring & $S(24)$ & RMST 60 mo \\
-\midrule
-Balanced reference & 618 & 80.4\% & 0.914 & 53.5 \\
-Broad & 927 & 70.7\% & 0.880 & 50.5 \\
-Strict & 309 & 90.2\% & 0.960 & 56.9 \\
-No temporal score, reference pool & 618 & 80.4\% & 0.921 & 53.8 \\
-Forward 24 mo, no duration & 1,105 & 65.0\% & 0.637 & 41.1 \\
-Window 9 mo & 693 & 78.1\% & 0.905 & 52.8 \\
-Window 12 mo & 754 & 76.1\% & 0.899 & 52.2 \\
-Window 18 mo & 834 & 73.6\% & 0.890 & 51.4 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The broad and strict event definitions also produce different CPV-division rankings. In the earlier broad-versus-strict KM robustness table, division 32 moved from fastest-renewing under broad to slowest-renewing under strict, so segment ranking is not stable enough for confirmatory claims.
-
-\subsection{Quantitative Survival-Sensitivity Conclusion}
-
-The quantitative survival conclusion is deliberately modest. Under the M0
-balanced reference, 618 of 3,159 sources are linked to a constructed
-proxy-recurrence event, with 80.4\% censoring, no reached median survival,
-$S(24)=0.914$, and RMST at 60 months of 53.5 months. Because the
-Kaplan--Meier curve does not cross 50\%, RMST is the appropriate
-descriptive survival summary, not median survival.
-
-The temporal-window sensitivity is moderate in the survival summaries but
-large in the underlying event identities. Moving from the 6-month reference
-window to an 18-month window raises the event rate from 19.6\% to 26.4\%
-and lowers RMST$_{60}$ from 53.5 to 51.4 months. However, the link-set
-Jaccard overlap falls to 0.453 and 306 source event statuses change. The
-wider-window curve is therefore not simply a more complete version of the
-reference curve; it is based on a materially different constructed event.
-
-The duration-design checks are more severe. Removing the temporal score
-while keeping the reference candidate pool preserves the event count at 618
-but changes 246 source event statuses and lowers link-set overlap to 0.414.
-Replacing the duration-centered design with a forward 24-month no-duration
-window produces 1,105 events, lowers overlap to 0.064, changes 901 source
-event statuses, and reduces the median event time from 37.7 to 5.8 months.
-In the duration-only Cox audit, the clustered hazard ratio for
-$\log(1+\text{duration})$ is 0.620 in the balanced reference and 0.698 in
-the no-temporal-score reference-pool design, but reverses to 1.344 under
-the forward 24-month no-duration design.
-
-Among parametric AFT models fit to the balanced reference, the log-normal
-model fits better than the Weibull model (AIC 7,949.0 vs. 8,059.8;
-concordance 0.725 vs. 0.714). This comparison is still conditional on the
-constructed M0 event and should not be interpreted as validation of true
-renewal timing.
-
-In short, the survival results are directionally informative but not
-definitive. They should be reported as robustness diagnostics for a
-constructed BOAMP proxy-recurrence event, not as stable evidence of verified
-renewal timing or as causal evidence about duration.
-
-\subsection{Cox and AFT Diagnostics}
-
-Cluster-robust Cox models by buyer were fitted as diagnostics. Sparse CPV categories caused convergence and separation warnings in some model fits. This is itself an audit finding: the current source population does not support a high-dimensional categorical Cox model as a clean confirmatory analysis without collapsing sparse categories or imposing stronger regularization.
-
-Event-complexity diagnostics are more favorable at the aggregate level than at the sparse-category level. The balanced reference has 618 events over 3,159 sources and 790 buyers, with approximately 18.7 events per nominal model parameter in the compact Cox specification. The strict definition has only 309 events, about 9.4 events per nominal parameter, and is more vulnerable to overfitting.
-
-Parametric AFT models were also fitted. For the balanced reference, the log-normal AFT model has lower AIC than the Weibull AFT model and a concordance index around 0.725. This should be read as an internal predictive summary against the constructed proxy event, not as evidence that the proxy event is externally correct.
-
-\subsection{Prediction Calibration}
-
-The table \texttt{survival\_predictions\_12\_24m.csv} reports 12- and 24-month risk-group calibration against the constructed BOAMP proxy event. These are not calibrated probabilities of legal renewal. They are calibration checks for the event definition produced by M0. In the balanced reference, the highest predicted-risk group has higher observed event rates than lower groups, but calibration is uneven, especially in low-risk groups where observed events are rare.
-
-Temporal validation was attempted but deferred as a stable performance estimate. The audit table records train/test counts and the reason for deferral: the sparse high-dimensional Cox design did not yield a stable temporal-validation fit in this audit run. A future validation design should collapse sparse CPV divisions, pre-specify a smaller covariate set, and avoid a split that makes the test period almost entirely censored.
-
-\section{Manual-Validation Readiness}
-
-No completed manual labels were found, and none were fabricated. The audit created an unlabeled stratified sample at \texttt{reports/tables/manual\_validation\_sample\_unlabeled.csv} and an annotation guide at \texttt{reports/manual\_validation\_guide.md}. The sample covers score tiers, margin tiers, selected and non-selected pairs, buyer-key types, imputed and observed durations, single- and multiple-candidate sources, and duplicate-candidate cases.
-
-Recommended labels are:
+The current machine-readable evidence is in:
 \begin{itemize}
-    \item credible renewal;
-    \item likely not renewal;
-    \item uncertain;
-    \item insufficient evidence.
+    \item \texttt{data/processed/comparison/layer\_comparison\_summary.csv};
+    \item \texttt{data/processed/comparison/layer\_link\_comparison.csv};
+    \item \texttt{reports/tables/linkage\_fs\_precision\_recall\_by\_layer.csv};
+    \item \texttt{reports/tables/enrichment\_added\_links\_quality.csv};
+    \item \texttt{reports/tables/survival\_layer\_conclusions\_comparison.csv}.
 \end{itemize}
-At least two reviewers and an adjudication step are recommended before using labels as observed validation evidence.
-
-\section{What Can and Cannot Be Concluded}
-
-The following conclusions are supported by the current audit.
-\begin{enumerate}
-    \item The balanced M0 survival handoff is reproducible and internally coherent.
-    \item Blocking is restrictive: most eligible sources have no candidate and are outside the candidate universe.
-    \item Candidate reuse is common enough that one-to-one renewal language would be misleading without manual review.
-    \item Fellegi--Sunter estimates suggest moderate internal precision, but the estimate is model-based and conditional on the blocked candidate universe.
-    \item Text degradation is the strongest single-field corruption stressor among the fixed-pool corruption tests.
-    \item The event definition is sensitive to temporal-window design and duration use.
-    \item The estimated duration effect in survival models is not robust to alternative duration-independent linkage designs.
-\end{enumerate}
-
-The following conclusions are not supported.
-\begin{enumerate}
-    \item The pipeline does not establish verified legal renewal accuracy.
-    \item The Fellegi--Sunter recall estimate is not recall over all possible renewals.
-    \item Segment rankings are not stable enough for confirmatory claims.
-    \item Declared duration should not be interpreted as an independent predictor of renewal under the current duration-centered linkage design.
-    \item Prediction calibration is not calibration to ground truth; it is calibration to the constructed proxy event.
-\end{enumerate}
-
-\section{Limitations and Remaining Work}
-
-The most important remaining work is manual validation. Without labels, all quality estimates remain internal, model-based, or semi-synthetic. The next priority is a reviewer-labeled sample that deliberately includes duplicate-candidate cases, low-margin links, no-link sources, and sources with imputed durations.
-
-Other deferred items are:
-\begin{itemize}
-    \item one-to-one and capped many-to-one matching sensitivity;
-    \item full reblocking corruption when the corrupted field affects blocking;
-    \item negative controls using runner-up candidates, date-shifted windows, or different-buyer candidates;
-    \item collapsed-category Cox models with pre-specified sparse-category handling;
-    \item full-pipeline or buyer-level bootstrap uncertainty;
-    \item a cleaner temporal validation design.
-\end{itemize}
-
-\section{Reproducibility}
-
-The technical audit can be reproduced from the repository root with:
-\begin{verbatim}
-python3 scripts/download_boamp.py
-python3 scripts/parse_boamp.py
-python3 scripts/preprocess_boamp_m0.py
-python3 scripts/build_m0_candidate_pairs.py
-python3 scripts/run_m0_linkage.py
-python3 scripts/audit_current_project.py
-python3 scripts/eval_m3_fellegi_sunter_mixture.py
-python3 scripts/eval_m4_corruption_recovery.py
-python3 scripts/eval_m6a_threshold_sensitivity.py
-python3 scripts/eval_m6b_feature_ablation.py
-python3 scripts/eval_m6c_variant_km_robustness.py
-python3 scripts/eval_m6d_temporal_window_sensitivity.py
-python3 scripts/eval_duration_leakage.py
-python3 scripts/run_survival_analysis.py
-\end{verbatim}
-
-For notebook-centered work, use:
-\begin{itemize}
-    \item \texttt{notebooks/13\_audit\_current\_project.ipynb} --- a viewer over \texttt{audit\_current\_project.py} with a \texttt{RUN\_SCRIPT} toggle (default: read existing outputs; set true to regenerate);
-    \item \texttt{notebooks/14\_eval\_m6d\_temporal\_window\_sensitivity.ipynb};
-    \item \texttt{notebooks/15\_eval\_duration\_leakage.ipynb};
-    \item \texttt{notebooks/16\_survival\_robustness.ipynb}.
-\end{itemize}
-Notebooks 14--16 contain the analysis code inline and regenerate the corresponding link/survival datasets and \texttt{reports/tables/} outputs directly when executed, with results and diagnostic figures displayed in the notebook (figures \texttt{nb14\_*}, \texttt{nb15\_*}, \texttt{nb16\_*} under \texttt{reports/figures/}). The 2026-07-15 notebook regeneration reproduced the audited 2026-07-13 script outputs byte-for-byte for the key datasets (SHA-256 match against \texttt{audit\_dataset\_inventory.csv}).
-
-\section{Conclusion}
-
-The current M0 pipeline is a transparent and reproducible first linkage design, but it should be described conservatively. Its balanced event dataset is internally consistent, and several useful credibility diagnostics now exist. However, low blocking coverage, nontrivial candidate reuse, threshold and temporal-window sensitivity, and especially duration circularity prevent strong claims of validation or causal survival interpretation. The defensible conclusion is that M0 provides a useful BOAMP proxy-renewal event for exploratory survival analysis, provided that reports explicitly state its conditional, internally estimated nature and prioritize manual validation before operational or scientific claims are hardened.
 
 \end{document}

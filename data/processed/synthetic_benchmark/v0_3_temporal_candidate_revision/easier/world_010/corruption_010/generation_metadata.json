@@ -11,21 +11,21 @@
     "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
     "scenarios/easier.yaml": "7a8ae1cf0710da5c",
-    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
+    "boamp_common_prepared.csv": "e0df5cb916ac96c1"
   },
   "row_counts": {
     "buyers": 2000,
     "establishments": 2165,
-    "needs": 4482,
-    "cycles": 7766,
-    "true_relations": 7766,
-    "notice_family_membership": 10760,
-    "clean_notices": 10760,
-    "observed_notices": 10760,
-    "corruption_log": 26585
+    "needs": 4430,
+    "cycles": 7764,
+    "true_relations": 7764,
+    "notice_family_membership": 10778,
+    "clean_notices": 10778,
+    "observed_notices": 10778,
+    "corruption_log": 26555
   },
-  "execution_timestamp_utc": "2026-07-27T12:33:15.943271+00:00",
-  "git_commit": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "execution_timestamp_utc": "2026-07-27T20:49:51.771550+00:00",
+  "git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
   "resolved_scenario": {
     "scenario_id": "easier",
     "display_name": "Easier",
@@ -69,8 +69,8 @@
         },
         "hard_negative_alignment_rate": 0.04,
         "cluster_scoped_needs_by_buyer": true,
-        "scoped_buyer_affinity_share": 0.02,
-        "scoped_need_probability_high": 0.25,
+        "scoped_buyer_affinity_share": 0.102,
+        "scoped_need_probability_high": 0.74,
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,

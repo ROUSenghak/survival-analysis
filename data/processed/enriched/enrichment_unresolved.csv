@@ -1212,7 +1212,9 @@ notice_id,publication_date,buyer_name_raw,buyer_name_normalized,buyer_key,buyer_
 26-53177,2026-05-29,DEPARTEMENT DU MAINE ET LOIRE,departement du maine et loire,NAME:departement du maine et loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
 26-52332,2026-05-29,Conseil Départemental de la Mayenne,conseil departemental de la mayenne,NAME:conseil departemental de la mayenne,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,53
 26-59707,2026-06-16,GIP Loire Estuaire,gip loire estuaire,NAME:gip loire estuaire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,35;44;49;85
+26-54561,2026-06-04,INSEE,insee,NAME:insee,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;45;59;92
 26-53578,2026-06-01,Université Rennes 2,universite rennes 2,NAME:universite rennes 2,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,22;29;35;44;50;53;56
+26-58549,2026-06-14,Université d'Angers,universite d angers,NAME:universite d angers,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
 26-61953,2026-06-23,Centre Hospitalier de Cholet,centre hospitalier de cholet,NAME:centre hospitalier de cholet,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,49
 26-55163,2026-06-04,CHU NANTES,chu nantes,NAME:chu nantes,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44
 26-55110,2026-06-04,Région des Pays de la Loire,region des pays de la loire,NAME:region des pays de la loire,NAME_FALLBACK,NAME_FALLBACK,LOW,NOT_IN_ENRICHMENT,44;49;53;72;85

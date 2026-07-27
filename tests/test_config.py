@@ -11,7 +11,7 @@ def test_weights_sum_to_one(cfg):
 def test_thresholds_ordered_and_frozen(cfg):
     t = cfg.pipeline.thresholds
     assert t.broad < t.balanced < t.strict
-    assert abs(t.balanced - 0.323022) < 1e-6
+    assert abs(t.balanced - 0.3431669423310381) < 1e-12
 
 
 def test_survival_variants_include_window_6m(cfg):

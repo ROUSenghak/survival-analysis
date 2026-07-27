@@ -11,21 +11,21 @@
     "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
     "scenarios/moderate.yaml": "e790fa6a1988377e",
-    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
+    "boamp_common_prepared.csv": "e0df5cb916ac96c1"
   },
   "row_counts": {
     "buyers": 2000,
     "establishments": 2173,
-    "needs": 4592,
-    "cycles": 6418,
-    "true_relations": 6418,
-    "notice_family_membership": 8895,
-    "clean_notices": 8895,
-    "observed_notices": 8895,
-    "corruption_log": 24291
+    "needs": 4482,
+    "cycles": 6195,
+    "true_relations": 6195,
+    "notice_family_membership": 8607,
+    "clean_notices": 8607,
+    "observed_notices": 8607,
+    "corruption_log": 23591
   },
-  "execution_timestamp_utc": "2026-07-27T12:33:42.047813+00:00",
-  "git_commit": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "execution_timestamp_utc": "2026-07-27T20:50:13.971521+00:00",
+  "git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
   "resolved_scenario": {
     "scenario_id": "moderate",
     "display_name": "Moderate",
@@ -58,8 +58,8 @@
           "48",
           "72"
         ],
-        "recurrence_propensity_multiplier": 1.3,
-        "near_window_share": 0.8,
+        "recurrence_propensity_multiplier": 0.88,
+        "near_window_share": 1.0,
         "near_window_distribution": {
           "type": "normal",
           "mean_months": 2.0,
@@ -67,10 +67,10 @@
           "min_months": 0.1,
           "max_months": 6.0
         },
-        "hard_negative_alignment_rate": 0.0,
+        "hard_negative_alignment_rate": 0.34,
         "cluster_scoped_needs_by_buyer": true,
-        "scoped_buyer_affinity_share": 0.02,
-        "scoped_need_probability_high": 0.25,
+        "scoped_buyer_affinity_share": 0.102,
+        "scoped_need_probability_high": 0.74,
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,

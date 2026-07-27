@@ -100,9 +100,9 @@ thresholds:
   # (p25/p50/p75), then FROZEN and shared by both layers so that the layer
   # comparison is not confounded by threshold re-derivation.
   derivation: layer1_rank1_percentiles_25_50_75
-  broad: 0.264200
-  balanced: 0.323022
-  strict: 0.393100
+  broad: 0.27838673159124894
+  balanced: 0.3431669423310381
+  strict: 0.44206956893514254
   primary: balanced
   tolerance: 0.002               # runtime re-derivation must match within this
 

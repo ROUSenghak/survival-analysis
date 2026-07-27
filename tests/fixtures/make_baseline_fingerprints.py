@@ -1,8 +1,8 @@
-"""Freeze baseline fingerprints of the legacy (M0/M1) pipeline outputs.
+"""Freeze baseline fingerprints of the current two-layer pipeline outputs.
 
-Run once before the two-layer refactor; the resulting JSON is the parity
-oracle the new pipeline must reproduce (counts, link identities, rounded
-score hashes — not byte equality).
+Run after an approved end-to-end refresh. The resulting JSON is the parity
+oracle used by the slow tests: counts, link/source identities, and event counts,
+not byte equality.
 """
 
 from __future__ import annotations
@@ -15,21 +15,20 @@ from pathlib import Path
 import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
-PROCESSED = REPO / "data" / "processed"
 OUT = Path(__file__).resolve().parent / "baseline_fingerprints.json"
 
 FILES = {
-    "clean_m0": "boamp_clean_m0_no_enrichment.csv",
-    "m0_sources": "boamp_m0_sources.csv",
-    "m0_pairs": "boamp_m0_candidate_pairs.csv",
-    "m0_links_broad": "boamp_m0_links_broad.csv",
-    "m0_links_balanced": "boamp_m0_links_balanced.csv",
-    "m0_links_strict": "boamp_m0_links_strict.csv",
-    "m0_survival_balanced": "boamp_survival_m0_balanced.csv",
-    "m1_clean_sources": "boamp_clean_m1_buyer_enriched.csv",
-    "m1_pairs": "boamp_m1_candidate_pairs.csv",
-    "m1_links_balanced": "boamp_m1_links_balanced.csv",
-    "m1_survival_balanced": "boamp_survival_m1_balanced.csv",
+    "clean_m0": "data/interim/boamp_common_prepared.csv",
+    "m0_sources": "data/processed/boamp_only/boamp_only_sources.csv",
+    "m0_pairs": "data/processed/boamp_only/boamp_only_candidate_pairs.csv",
+    "m0_links_broad": "data/processed/boamp_only/boamp_only_links_broad.csv",
+    "m0_links_balanced": "data/processed/boamp_only/boamp_only_links_balanced.csv",
+    "m0_links_strict": "data/processed/boamp_only/boamp_only_links_strict.csv",
+    "m0_survival_balanced": "data/processed/boamp_only/boamp_only_survival.csv",
+    "m1_clean_sources": "data/processed/enriched/enriched_sources.csv",
+    "m1_pairs": "data/processed/enriched/enriched_candidate_pairs.csv",
+    "m1_links_balanced": "data/processed/enriched/enriched_links_balanced.csv",
+    "m1_survival_balanced": "data/processed/enriched/enriched_survival.csv",
 }
 
 
@@ -49,9 +48,9 @@ def main() -> None:
     fingerprints: dict = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "note": (
-            "Parity oracle for the two-layer refactor. Counts and sorted-ID "
-            "hashes of the legacy M0/M1 outputs. The M1 dedup fix "
-            "(3170 vs 3159 rows) is a user-approved allowed deviation."
+            "Parity oracle for the current two-layer pipeline. Counts and "
+            "sorted-ID hashes are generated from the refreshed boamp_only and "
+            "enriched artifacts."
         ),
         "files": {},
     }
@@ -59,11 +58,11 @@ def main() -> None:
     link_ids: dict[str, set] = {}
 
     for key, name in FILES.items():
-        path = PROCESSED / name
+        path = REPO / name
         if not path.exists():
             fingerprints["files"][key] = {"path": name, "missing": True}
             continue
-        # clean_m0 is 124MB; count logical CSV rows only (raw line counts are
+        # The prepared corpus is large; count logical CSV rows only (raw line counts are
         # inflated by embedded newlines in quoted text fields)
         if key == "clean_m0":
             n_rows = sum(

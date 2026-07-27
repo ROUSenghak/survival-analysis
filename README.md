@@ -14,28 +14,28 @@ digital/ICT contracts (CPV divisions 32/35/48/72 or keyword match). Layer 1
 remains the primary specification; Layer 2 quantifies what buyer-identity
 enrichment changes.
 
-## Headline results (reproduced 2026-07-17, verified against frozen fingerprints)
+## Headline results (reproduced 2026-07-27)
 
 | Quantity | Layer 1 (boamp_only) | Layer 2 (enriched) |
 |---|---|---|
 | Cleaned notices (shared) | 84,623 | same |
-| Eligible source contracts (shared) | 3,159 | same |
-| Candidate pairs | 6,137 | 8,228 |
-| Sources with ≥1 candidate | 1,236 | 1,504 |
-| Balanced links / rate | **618 / 19.6%** | **847 / 26.8%** |
-| POTENTIAL-tier links (margin < 0.05) | 235 (38%) | 328 (39%) |
-| Censoring rate | 80.4% | 73.2% |
+| Eligible source contracts (shared) | 3,380 | same |
+| Candidate pairs | 10,862 | 13,524 |
+| Sources with >=1 candidate | 2,005 | 2,165 |
+| Balanced links / rate | **1,003 / 29.7%** | **1,188 / 35.1%** |
+| POTENTIAL-tier links (margin < 0.05) | 327 (33%) | 430 (36%) |
+| Censoring rate | 70.3% | 64.9% |
 
-Enrichment effect on the balanced link set (source view): **+230 added**
-(170 historical-alias, 60 same-SIREN), **1 removed**, **43 changed candidate**.
-Added links have markedly weaker text similarity (median s_text 0.070 vs 0.169)
-— enrichment recovers plausible blocking failures but at lower evidence quality;
+Enrichment effect on the balanced link set (source view): **+189 added**,
+**4 removed**, and **37 changed candidate**. Added links have weaker text
+similarity (median s_text 0.087 vs 0.209 for links shared with Layer 1) --
+enrichment recovers plausible blocking failures but at lower evidence quality;
 see `notebooks/03_analysis.ipynb` §1.7 and `data/processed/comparison/`.
 
 Survival: median survival not reached in either layer (heavy censoring);
-RMST(60m) ≈ 53.5 months in Layer 1. The duration covariate's hazard ratio is
-**not robust** to the duration-leakage counterfactuals and must not be read
-causally (03 §2.5).
+RMST(60m) is 43.51 months in Layer 1 and 40.57 months in Layer 2. The duration
+covariate's hazard ratio is **not robust** to the duration-leakage
+counterfactuals and must not be read causally (03 §2.5).
 
 ## Repository layout
 
@@ -94,8 +94,9 @@ months of the contract's estimated end date are scored on
 `S = 0.35·s_text + 0.30·s_cpv + 0.25·s_time + 0.10·s_buyer`
 (TF-IDF cosine text similarity; CPV hierarchy ladder with missing = 0.1;
 triangular temporal score; identity-reliability score). The rank-1 candidate is
-linked if `S ≥ 0.3230` (the frozen "balanced" threshold — p50 of Layer 1 rank-1
-scores; broad/strict = p25/p75 sensitivity variants). Linked sources are events
+linked if `S >= 0.343167` (the refreshed "balanced" threshold -- p50 of Layer 1
+rank-1 scores; broad/strict = 0.278387/0.442070 p25/p75 sensitivity variants).
+Linked sources are events
 (time = gap to the linked notice); unlinked sources are censored at the study
 end. Links with top1–top2 margin < 0.05 are tiered POTENTIAL, per the
 three-way match / potential / non-match classification. Full details, notation,
@@ -103,7 +104,7 @@ and limitations: [docs/methodology.md](docs/methodology.md).
 
 **Honest caveats.** The renewal event is an unverified proxy (no legal-renewal
 ground truth exists in BOAMP; manual validation samples exist but have zero
-completed labels). 88% of durations are imputed. Score weights are fixed a
+completed labels). 83% of durations are imputed. Score weights are fixed a
 priori, not fitted. External enrichment covers 2024–2026 only; historical
 identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
@@ -142,7 +143,7 @@ comparison evidence.
   `moderate`, `difficult`, and `stress`.
   The v0.3 scoped-candidate parameters are now written directly in
   `central_provisional.yaml` and also snapshotted in `generation_metadata.json`.
-- Validation-framework status: `PASS_WITH_WARNINGS` across 210 metrics, with no
+- Validation-framework status: `PASS_WITH_WARNINGS`, with no
   blocking gates under the current framework policy. This is **not** final
   benchmark readiness. The leakage gate now checks explicit truth columns,
   hidden-truth alias column names, exact/normalised truth-ID values, and direct
@@ -151,20 +152,18 @@ comparison evidence.
   recall decomposition. The separate readiness assessment reports:
   `PIPELINE_TECHNICALLY_VALID = PASS_WITH_LIMITATIONS`,
   `READY_FOR_PRELIMINARY_MODELING = PASS_WITH_LIMITATIONS`,
-  `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON = PASS_WITH_LIMITATIONS`, and
-  `READY_FOR_FINAL_ALGORITHM_RANKING`, and
+  `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON = FAIL`,
+  `READY_FOR_FINAL_ALGORITHM_RANKING = FAIL`, and
   `READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE = FAIL`.
   The current v0.3 geography check uses primary department codes and passes
   after the generator stopped pooling the empirical department tail into a
-  synthetic `OTHER` bucket. The current validation has no metric-level
-  failures, but warning-level buyer-activity concentration, text lexical and
-  identifier completeness gaps remain. Main-scenario seed robustness now
-  passes for the headline difficulty metrics, but cross-scenario spread and
-  probe-ranking instability still block final ranking/release. The current
-  worktree is not committed, so `HEAD` does not yet fully identify the
-  source/artifact state. `source_state_manifest.json` hashes the current dirty
-  state for auditability, but release still requires a commit or immutable
-  archive. See
+  synthetic `OTHER` bucket. The current validation has 2 metric-level failures
+  in noncritical SIRET missing/present rates, plus warning-level buyer-activity,
+  text, identifier, temporal, hidden-truth-difficulty, and robustness gaps.
+  Main-scenario seed robustness is warning-level or inconclusive, so controlled
+  algorithm comparison, final ranking, and release are blocked. The current
+  worktree is not committed; `source_state_manifest.json` hashes the current
+  dirty state and `dirty_state_overlay.tar.gz` packages it for auditability. See
   `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`.
 - Scenario provenance: `registries/scenario_manifest.csv` distinguishes
   `CONFIG_ONLY` scenarios from `GENERATED_REPLICATE` artifacts, so a loadable
@@ -219,9 +218,6 @@ PYTHONPATH=src python3 -m pytest -q tests/test_synthetic_*.py
 
 ## Name mapping vs earlier reports
 
-Reports produced before 2026-07-17 (`boamp_m0_technical_report.pdf`,
-`boamp_m1_technical_report.pdf`, `linkage_quality_evaluation.pdf`, `m0_*`/`m1_*`
-tables) use the old naming: **M0 = Layer 1 = boamp_only**,
-**M1 = Layer 2 = enriched**. Their headline numbers (618 and 847 balanced
-links) are unchanged by the refactor; superseded artifacts live in `archive/`
-with `ARCHIVE_MANIFEST.csv` recording origin and reason.
+Reports produced before 2026-07-27 may use the old naming:
+**M0 = Layer 1 = boamp_only**, **M1 = Layer 2 = enriched**. Superseded artifacts
+live in `archive/` with `ARCHIVE_MANIFEST.csv` recording origin and reason.

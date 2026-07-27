@@ -1,2 +1,2 @@
 pairs_common,pairs_only_l1,pairs_only_l2,pair_jaccard,sources_common,sources_only_l1,sources_only_l2,source_jaccard,same_source_different_candidate,sources_gaining_candidates_l2,sources_losing_candidates_l2
-574,44,273,0.6442199775533108,617,1,230,0.7275943396226415,43,269,1
+962,41,226,0.7827502034174125,999,4,189,0.8380872483221476,37,160,0

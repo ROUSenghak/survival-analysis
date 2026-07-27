@@ -11,7 +11,10 @@ from __future__ import annotations
 
 def download_enrichment(cfg, force: bool = False) -> list[str]:
     raw_dir = cfg.paths.raw_enrichment_dir
-    existing = sorted(raw_dir.glob(cfg.pipeline.enrichment.file_glob))
+    existing = sorted(
+        p for p in raw_dir.rglob(cfg.pipeline.enrichment.file_glob)
+        if p.suffix == ".parquet" and p.stat().st_size > 0
+    )
     if existing and not force:
         print(f"Enrichment files already present in {raw_dir} ({len(existing)} files); skipping download.")
         return [str(p) for p in existing]
@@ -32,6 +35,9 @@ def download_enrichment(cfg, force: bool = False) -> list[str]:
         local_dir=raw_dir,
         allow_patterns=["*.parquet*"],
     )
-    files = sorted(raw_dir.glob(cfg.pipeline.enrichment.file_glob))
+    files = sorted(
+        p for p in raw_dir.rglob(cfg.pipeline.enrichment.file_glob)
+        if p.suffix == ".parquet" and p.stat().st_size > 0
+    )
     print(f"Downloaded {len(files)} enrichment files to {raw_dir}")
     return [str(p) for p in files]

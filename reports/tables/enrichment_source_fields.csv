@@ -1,46 +1,46 @@
 file,year_in_filename,field,non_null_count,non_null_rate,sample_values
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_04_codeDepartement,136622,0.9999780420860018,"75 | 78 | 50,27,14,61,76,29,79,22"
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_09_dateParution,136625,1.0,2024-01-01 00:00:00+00:00 | 2024-01-02 00:00:00+00:00 | 2024-01-03 00:00:00+00:00
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_17_idweb,136625,1.0,23-181338 | 23-181344 | 23-178583
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_20_nature,136619,0.9999560841720037,ATTRIBUTION | APPEL_OFFRE | RECTIFICATIF
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_24_nomAcheteur,136625,1.0,CAISSE DES DEPOTS | Le Syndicat Intercommunal d'aménagemen | MAISON ST GABRIEL
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_38_urlAvis,136625,1.0,https://www.boamp.fr/pages/avis/?q=idweb:23-181338 | https://www.boamp.fr/pages/avis/?q=idweb:23-181344 | https://www.boamp.fr/pages/avis/?q=idweb:23-178583
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_46_NUM_SIRET_ACHETEURS_RECUP,114462,0.8377822506861848,24971006200012 | 20004998900029 | 21420302800011
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_47_NOM_SIRET_ACHETEURS_RECUP,114462,0.8377822506861848,COMMUNAUTE D'AGGLOMERATION DU NORD BASSE TERRE | SYNDICAT MIXTE DU PAYS DE SARREBOURG | COMMUNE DE SORBIERS
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_48_NOM_CAT_JUR_ACHETEUR,136620,0.9999634034766697,"Autre personne morale de droit administratif  | Autre société civile  | SAS, société par actions simplifiée"
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_06_categorieJuridiqueUniteLegale,136620,0.9999634034766697,7490 | 6599 | 5710
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_10_denominationUniteLegale,136620,0.9999634034766697,CAISSE DES DEPOTS ET CONSIGNATIONS | SOC CIVILE DU CHATEAU MONTE CRISTO | MAISON ST GABRIEL
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_15_etatAdministratifUniteLegale,136620,0.9999634034766697,A | C
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_18_nomUniteLegale,2,1.4638609332113449e-05,[ND]
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_29_sigleUniteLegale,36237,0.2652296431838975,CDC | PETR | CUB
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_30_siren,136620,0.9999634034766697,180020026 | 431518075 | 390013191
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_04_codeDepartement,137423,1.0,75 | 59 | 44
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_09_dateParution,137423,1.0,2025-01-01 00:00:00+00:00 | 2025-01-02 00:00:00+00:00 | 2025-01-03 00:00:00+00:00
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_17_idweb,137423,1.0,24-145875 | 24-145797 | 24-145774
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_20_nature,137416,0.9999490623840259,APPEL_OFFRE | ATTRIBUTION | MODIFICATION
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_24_nomAcheteur,137423,1.0,"Ministère de l'Europe et des Affaires étrangères | Communauté Urbaine de Dunkerque | SEMITAN, mandataire de Nantes Métropole"
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_38_urlAvis,137423,1.0,https://www.boamp.fr/pages/avis/?q=idweb:24-145875 | https://www.boamp.fr/pages/avis/?q=idweb:24-145797 | https://www.boamp.fr/pages/avis/?q=idweb:24-145774
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_46_NUM_SIRET_ACHETEURS_RECUP,96918,0.7052531235673796,11000601200014 | 24590042800013 | 24170045900043
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_47_NOM_SIRET_ACHETEURS_RECUP,96918,0.7052531235673796,MINISTERE DE L'EUROPE ET DES AFFAIRES ETRANGERES | COMMUNAUTE URBAINE DE DUNKERQUE | COMMUNAUTE DE COMMUNES DE L ILE DE RE
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_48_NOM_CAT_JUR_ACHETEUR,137422,0.999992723197718,Ministère  | Communauté urbaine  | Métropole
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_06_categorieJuridiqueUniteLegale,137422,0.999992723197718,7113 | 7343 | 7344
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_10_denominationUniteLegale,137420,0.999978169593154,MINISTERE DE L'EUROPE ET DES AFFAIRES ETRANGERES | COMMUNAUTE URBAINE DE DUNKERQUE | METROPOLE NANTES METROPOLE
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_15_etatAdministratifUniteLegale,137422,0.999992723197718,A | C
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_18_nomUniteLegale,2,1.4553604564010391e-05,MAYO | DENTAL
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_29_sigleUniteLegale,36276,0.2639732795820205,SILA | G.P.M.G. | I.CDC
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_30_siren,137422,0.999992723197718,110006012 | 245900428 | 244400404
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_04_codeDepartement,49890,1.0,"75,77,78,91,92,93,94,95 | 17 | 6"
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_09_dateParution,49890,1.0,2026-01-01 00:00:00+00:00 | 2026-01-02 00:00:00+00:00 | 2026-01-03 00:00:00+00:00
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_17_idweb,49890,1.0,25-143165 | 25-143166 | 25-143151
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_20_nature,49889,0.9999799559029866,APPEL_OFFRE | ATTRIBUTION | EX_ANTE_VOLONTAIRE
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_24_nomAcheteur,49890,1.0,Service du Premier ministre - DSAF | Syndicat Départemental de la Voirie (17) | SICTIAM (06)
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_38_urlAvis,49890,1.0,https://www.boamp.fr/pages/avis/?q=idweb:25-143165 | https://www.boamp.fr/pages/avis/?q=idweb:25-143166 | https://www.boamp.fr/pages/avis/?q=idweb:25-143151
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_46_NUM_SIRET_ACHETEURS_RECUP,34682,0.6951693726197635,12000103700023 | 25170182700015 | 25060187900076
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_47_NOM_SIRET_ACHETEURS_RECUP,34682,0.6951693726197635,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS | SYNDICAT DEPARTEMENTAL DE LA VOIRIE DES COLLECTIVITES DU DEPARTEMENT DE LA CHARE | SM D'INGENIERIE POUR LES COLLECTIVITES ET TERRITOIRES INNOVANTS DES ALPES-MEDITE
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_48_NOM_CAT_JUR_ACHETEUR,49889,0.9999799559029866,Service central d'un ministère  | Syndicat mixte ouvert | Communauté de communes 
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_06_categorieJuridiqueUniteLegale,49889,0.9999799559029866,7120 | 7355 | 7346
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_10_denominationUniteLegale,49887,0.9999398677089597,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS | SYNDICAT DEPARTEMENTAL DE LA VOIRIE DES COLLECTIVITES DU DEPARTEMENT DE LA CHARE | SM D'INGENIERIE POUR LES COLLECTIVITES ET TERRITOIRES INNOVANTS DES ALPES-MEDITE
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_15_etatAdministratifUniteLegale,49889,0.9999799559029866,A | C
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_18_nomUniteLegale,2,4.008819402685909e-05,DENTAL
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_29_sigleUniteLegale,13809,0.2767889356584486,DSAF | SICTIAM | COMPA
-data/raw/buyer_siren_enrichment_m1/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_30_siren,49889,0.9999799559029866,120001037 | 251701827 | 250601879
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_04_codeDepartement,136622,0.9999780420860018,"75 | 78 | 50,27,14,61,76,29,79,22"
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_09_dateParution,136625,1.0,2024-01-01 00:00:00+00:00 | 2024-01-02 00:00:00+00:00 | 2024-01-03 00:00:00+00:00
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_17_idweb,136625,1.0,23-181338 | 23-181344 | 23-178583
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_20_nature,136619,0.9999560841720037,ATTRIBUTION | APPEL_OFFRE | RECTIFICATIF
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_24_nomAcheteur,136625,1.0,CAISSE DES DEPOTS | Le Syndicat Intercommunal d'aménagemen | MAISON ST GABRIEL
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_38_urlAvis,136625,1.0,https://www.boamp.fr/pages/avis/?q=idweb:23-181338 | https://www.boamp.fr/pages/avis/?q=idweb:23-181344 | https://www.boamp.fr/pages/avis/?q=idweb:23-178583
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_46_NUM_SIRET_ACHETEURS_RECUP,114462,0.8377822506861848,24971006200012 | 20004998900029 | 21420302800011
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_47_NOM_SIRET_ACHETEURS_RECUP,114462,0.8377822506861848,COMMUNAUTE D'AGGLOMERATION DU NORD BASSE TERRE | SYNDICAT MIXTE DU PAYS DE SARREBOURG | COMMUNE DE SORBIERS
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,B_48_NOM_CAT_JUR_ACHETEUR,136620,0.9999634034766697,"Autre personne morale de droit administratif  | Autre société civile  | SAS, société par actions simplifiée"
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_06_categorieJuridiqueUniteLegale,136620,0.9999634034766697,7490 | 6599 | 5710
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_10_denominationUniteLegale,136620,0.9999634034766697,CAISSE DES DEPOTS ET CONSIGNATIONS | SOC CIVILE DU CHATEAU MONTE CRISTO | MAISON ST GABRIEL
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_15_etatAdministratifUniteLegale,136620,0.9999634034766697,A | C
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_18_nomUniteLegale,2,1.4638609332113449e-05,[ND]
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_29_sigleUniteLegale,36237,0.2652296431838975,CDC | PETR | CUB
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2024.parquet.parquet,2024,SN_30_siren,136620,0.9999634034766697,180020026 | 431518075 | 390013191
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_04_codeDepartement,137423,1.0,75 | 59 | 44
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_09_dateParution,137423,1.0,2025-01-01 00:00:00+00:00 | 2025-01-02 00:00:00+00:00 | 2025-01-03 00:00:00+00:00
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_17_idweb,137423,1.0,24-145875 | 24-145797 | 24-145774
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_20_nature,137416,0.9999490623840259,APPEL_OFFRE | ATTRIBUTION | MODIFICATION
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_24_nomAcheteur,137423,1.0,"Ministère de l'Europe et des Affaires étrangères | Communauté Urbaine de Dunkerque | SEMITAN, mandataire de Nantes Métropole"
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_38_urlAvis,137423,1.0,https://www.boamp.fr/pages/avis/?q=idweb:24-145875 | https://www.boamp.fr/pages/avis/?q=idweb:24-145797 | https://www.boamp.fr/pages/avis/?q=idweb:24-145774
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_46_NUM_SIRET_ACHETEURS_RECUP,96918,0.7052531235673796,11000601200014 | 24590042800013 | 24170045900043
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_47_NOM_SIRET_ACHETEURS_RECUP,96918,0.7052531235673796,MINISTERE DE L'EUROPE ET DES AFFAIRES ETRANGERES | COMMUNAUTE URBAINE DE DUNKERQUE | COMMUNAUTE DE COMMUNES DE L ILE DE RE
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,B_48_NOM_CAT_JUR_ACHETEUR,137422,0.999992723197718,Ministère  | Communauté urbaine  | Métropole
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_06_categorieJuridiqueUniteLegale,137422,0.999992723197718,7113 | 7343 | 7344
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_10_denominationUniteLegale,137420,0.999978169593154,MINISTERE DE L'EUROPE ET DES AFFAIRES ETRANGERES | COMMUNAUTE URBAINE DE DUNKERQUE | METROPOLE NANTES METROPOLE
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_15_etatAdministratifUniteLegale,137422,0.999992723197718,A | C
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_18_nomUniteLegale,2,1.4553604564010391e-05,MAYO | DENTAL
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_29_sigleUniteLegale,36276,0.2639732795820205,SILA | G.P.M.G. | I.CDC
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2025.parquet.parquet,2025,SN_30_siren,137422,0.999992723197718,110006012 | 245900428 | 244400404
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_04_codeDepartement,49890,1.0,"75,77,78,91,92,93,94,95 | 17 | 6"
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_09_dateParution,49890,1.0,2026-01-01 00:00:00+00:00 | 2026-01-02 00:00:00+00:00 | 2026-01-03 00:00:00+00:00
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_17_idweb,49890,1.0,25-143165 | 25-143166 | 25-143151
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_20_nature,49889,0.9999799559029866,APPEL_OFFRE | ATTRIBUTION | EX_ANTE_VOLONTAIRE
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_24_nomAcheteur,49890,1.0,Service du Premier ministre - DSAF | Syndicat Départemental de la Voirie (17) | SICTIAM (06)
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_38_urlAvis,49890,1.0,https://www.boamp.fr/pages/avis/?q=idweb:25-143165 | https://www.boamp.fr/pages/avis/?q=idweb:25-143166 | https://www.boamp.fr/pages/avis/?q=idweb:25-143151
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_46_NUM_SIRET_ACHETEURS_RECUP,34682,0.6951693726197635,12000103700023 | 25170182700015 | 25060187900076
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_47_NOM_SIRET_ACHETEURS_RECUP,34682,0.6951693726197635,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS | SYNDICAT DEPARTEMENTAL DE LA VOIRIE DES COLLECTIVITES DU DEPARTEMENT DE LA CHARE | SM D'INGENIERIE POUR LES COLLECTIVITES ET TERRITOIRES INNOVANTS DES ALPES-MEDITE
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,B_48_NOM_CAT_JUR_ACHETEUR,49889,0.9999799559029866,Service central d'un ministère  | Syndicat mixte ouvert | Communauté de communes 
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_06_categorieJuridiqueUniteLegale,49889,0.9999799559029866,7120 | 7355 | 7346
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_10_denominationUniteLegale,49887,0.9999398677089597,DIRECTION DES SERVICES ADMINISTRATIFS ET FINANCIERS | SYNDICAT DEPARTEMENTAL DE LA VOIRIE DES COLLECTIVITES DU DEPARTEMENT DE LA CHARE | SM D'INGENIERIE POUR LES COLLECTIVITES ET TERRITOIRES INNOVANTS DES ALPES-MEDITE
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_15_etatAdministratifUniteLegale,49889,0.9999799559029866,A | C
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_18_nomUniteLegale,2,4.008819402685909e-05,DENTAL
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_29_sigleUniteLegale,13809,0.2767889356584486,DSAF | SICTIAM | COMPA
+data/raw/buyer_siren_enrichment_m1/data/boamp-avec-siren-acheteurs-2026.parquet.parquet,2026,SN_30_siren,49889,0.9999799559029866,120001037 | 251701827 | 250601879

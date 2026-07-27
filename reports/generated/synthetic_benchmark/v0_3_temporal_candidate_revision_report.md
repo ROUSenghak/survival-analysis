@@ -9,14 +9,13 @@ assessment is:
 
 - `PIPELINE_TECHNICALLY_VALID`: **PASS_WITH_LIMITATIONS**
 - `READY_FOR_PRELIMINARY_MODELING`: **PASS_WITH_LIMITATIONS**
-- `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON`: **PASS_WITH_LIMITATIONS**
+- `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON`: **FAIL**
 - `READY_FOR_FINAL_ALGORITHM_RANKING`: **FAIL**
 - `READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE`: **FAIL**
 
-The benchmark may be used for preliminary synthetic-only linker debugging,
-pipeline integration, and controlled synthetic algorithm comparisons within
-documented scenarios. It is not ready for final algorithm ranking or release
-as a validated synthetic benchmark.
+The benchmark may be used for preliminary synthetic-only linker debugging and
+pipeline integration. It is not ready for controlled algorithm comparison,
+final algorithm ranking, or release as a validated synthetic benchmark.
 
 Critical gates:
 
@@ -26,7 +25,7 @@ Critical gates:
 - internal: **PASS**
 - privacy: **PASS**
 - specification_recovery: **PASS**
-- hidden_truth_difficulty: **PASS**
+- hidden_truth_difficulty: **WARNING**
 - temporal: **WARNING**
 
 Canonical replay from the recorded seeds and the live scenario file was evaluated inside the validation run (internal gate: **PASS**). The all-artifact replay audit also passes for 51 generated artifacts. `source_state_manifest.json` hashes the current dirty source/artifact state for auditability.
@@ -44,9 +43,9 @@ follow-up runway is still weak.
 
 ## Candidate improvement
 
-- Zero-candidate rate: v0.2 90.4% -> v0.3 63.7%; real 60.9%.
-- P75/P90/P95 candidates: v0.3 1/2/3; real 2/6/10.
-- Source-count ratio vs scaled real target: 1.09.
+- Zero-candidate rate: v0.2 90.4% -> v0.3 38.6%; real 40.7%.
+- P75/P90/P95 candidates: v0.3 6/11/13; real 4/9.1/14.
+- Source-count ratio vs scaled real target: 1.20.
 - Cap-reached rate: 0.0%.
 - Primary-department marginal fidelity now passes after removing the synthetic
   `OTHER` bucket and sampling the empirical primary-department tail explicitly
@@ -54,8 +53,8 @@ follow-up runway is still weak.
 
 ## Blocking and scoring separation
 
-- `PRODUCTION_BLOCKING`: `R_blocking = 0.317`.
-- `36M_BLOCKING`: `R_blocking = 0.945`, above the 0.80 widened-window floor.
+- `PRODUCTION_BLOCKING`: `R_blocking = 0.467`.
+- `36M_BLOCKING`: `R_blocking = 0.942`, above the 0.80 widened-window floor.
 - `END_TO_END` recall decomposes exactly as
   `R_end_to_end = R_blocking * R_scoring_given_reachable`; for the frozen probes,
   end-to-end pair recall is reported in `probe_linker_results.csv`.
@@ -73,13 +72,13 @@ follow-up runway is still weak.
   scenario manifest. All generated artifacts replay with exact canonical table
   hashes (`51/51` PASS).
 - Central seed summaries are reported in the robustness gate. Production
-  blocking completeness has mean 0.354, standard deviation 0.046, empirical
-  95% interval 0.278-0.421, worst case 0.267, and no non-pass central seeds.
-- Probe-headroom pair-F1 has mean 0.314, standard deviation 0.066, empirical
-  95% interval 0.184-0.380, and no non-pass central seeds.
+  blocking completeness has mean 0.399, standard deviation 0.128, empirical
+  95% interval 0.182-0.596, worst case 0.145, and one non-pass central seed.
+- Probe-headroom pair-F1 has mean 0.281, standard deviation 0.110, empirical
+  95% interval 0.068-0.413, and one non-pass central seed.
 - `probe_replicate_results.csv` records 150 benchmark-scenario probe results.
-  `probe_ranking_stability.csv` shows the top probe is rank 1 in 80% of
-  central/moderate seeds and 76% of all benchmark-scenario artifacts, while
+  `probe_ranking_stability.csv` shows the top probe is rank 1 in 50% of
+  central/moderate seeds and 58% of all benchmark-scenario artifacts, while
   lower-rank orderings still flip; this is enough for diagnostic comparison,
   not final ranking.
 
@@ -88,7 +87,12 @@ follow-up runway is still weak.
 - The benchmark is credible for preliminary synthetic-only linkage debugging, but the resulting evaluation is still synthetic-benchmark evidence, not a replacement for inaccessible real BOAMP ground truth.
 - Long 60m follow-up remains diagnostic, not a hard blocker for the next linkage stage.
 - Linkage-score calibration and threshold optimization were not performed here.
-- No metric currently fails. The run remains `PASS_WITH_WARNINGS` because buyer-activity concentration, text lexical JS, identifier completeness, 60-month follow-up runway, cross-scenario spread, and probe-ranking diagnostics still carry warnings.
+- Two noncritical metrics currently fail: SIRET missing and SIRET present rates
+  differ from the real corpus by 4.37 percentage points against a 2 percentage
+  point tolerance. The run remains `PASS_WITH_WARNINGS` because the failures are
+  noncritical, while buyer-activity concentration, text lexical JS, identifier
+  completeness, 60-month follow-up runway, hidden-truth difficulty,
+  cross-scenario spread, and probe-ranking diagnostics still carry warnings.
 - A tested notice-type split of family-level identifier persistence reduced one
   attribution-specific identifier mismatch but introduced a critical
   conditional text failure and degraded widened blocking reachability. The
@@ -97,8 +101,8 @@ follow-up runway is still weak.
 - Ten-seed summaries now exist for every required benchmark scenario. Main-scenario
   seed robustness passes for the headline difficulty metrics, but cross-scenario
   spread remains material and probe rankings are unstable even within scenarios;
-  this permits controlled synthetic comparison with limitations but blocks final
-  algorithm ranking.
+  this blocks controlled synthetic comparison, final algorithm ranking, and
+  release.
 - Central metadata now records the current Git HEAD, and `source_state_manifest.json`
   hashes the current dirty source/artifact state. `dirty_state_overlay.tar.gz`
   packages that overlay against the recorded Git HEAD for auditability, and

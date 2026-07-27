@@ -1,7 +1,7 @@
 # Methodology — two-layer BOAMP renewal linkage and survival analysis
 
-*This document describes the redesigned pipeline (branch `restructure/two-layer`).
-Layer 1 = `boamp_only` (formerly M0); Layer 2 = `enriched` (formerly M1).*
+*This document describes the current two-layer pipeline. Layer 1 =
+`boamp_only` (formerly M0); Layer 2 = `enriched` (formerly M1).*
 
 ## 1. Problem and data
 
@@ -12,7 +12,7 @@ buyer — and measure how buyer-identity enrichment changes that estimate.
 **Data.** BOAMP notices (DILA Opendatasoft API), Pays de la Loire buyers
 (departments 44/49/53/72/85), 2015-01 → 2026-07: 84,623 unique notices after
 cleaning. Digital/ICT scope: CPV division ∈ {32, 35, 48, 72} OR one of ~18
-French digital keywords in the cleaned contract object → **3,159 eligible source
+French digital keywords in the cleaned contract object → **3,380 eligible source
 contracts**. There is no verified legal-renewal field anywhere in BOAMP: the
 event is a *proxy* constructed by record linkage, and its quality is evaluated,
 not assumed.
@@ -40,7 +40,7 @@ Start date: the earliest ATTRIBUTION notice referencing $i$ via `annonce_lie`
 
 Duration: cleaned to 1–120 months; missing values imputed with the median
 observed duration of the same CPV division within the in-scope APPEL_OFFRE
-population (global median fallback). **88% of sources are imputed** — the
+population (global median fallback). **83% of sources are imputed** — the
 highest-leverage assumption in the pipeline, stress-tested in `03_analysis`.
 
 ## 3. Buyer identity — the only controlled difference
@@ -63,8 +63,9 @@ No fuzzy matching is used. Conflicts (native SIRET-derived SIREN ≠ enriched
 SIREN) are flagged, never overwritten; unresolved identities remain transparent
 (`NAME_FALLBACK`, `CONFLICT_UNRESOLVED`). Every row carries provenance
 (`buyer_identity_source`) and a confidence grade (HIGH … LOW / CONFLICT).
-Coverage: SIREN known for 1,928/3,159 sources (61%) — mostly via the alias
-bridge (919) and native SIRET (686), only 296 via the direct external join.
+Coverage: SIREN known for 2,147/3,380 sources (64%) — mostly via the alias
+bridge (919), native BOAMP SIRET (826), and direct enrichment joins (354), with
+48 native/enriched conflicts flagged rather than overwritten.
 
 ## 4. Candidate generation (indexing/blocking)
 
@@ -100,15 +101,15 @@ and threshold/window sensitivity in `03_analysis`.
 
 **Decision.** Only the rank-1 candidate can be linked. Thresholds were derived
 once from the Layer 1 rank-1 score distribution — p25/p50/p75 =
-0.2642 / **0.3230** / 0.3931 (broad/balanced/strict) — then **frozen in config
+0.278387 / **0.343167** / 0.442070 (broad/balanced/strict) — then **frozen in config
 and shared by both layers** so the layer comparison is not confounded by
 threshold re-derivation; the pipeline re-derives them at every run and fails if
 they drift beyond ±0.002.
 
 **Three-way classification** (matches / potential matches / non-matches):
 linked pairs with margin $m_i <$ 0.05 are tiered **POTENTIAL** — kept in the
-linked set but flagged; 235 of Layer 1's 618 balanced links (38%) and 328 of
-Layer 2's 847 (39%) are POTENTIAL, and robustness of survival conclusions to
+linked set but flagged; 327 of Layer 1's 1,003 balanced links (33%) and 430 of
+Layer 2's 1,188 (36%) are POTENTIAL, and robustness of survival conclusions to
 their exclusion is part of the analysis. Remaining links are HIGH
 ($S \ge 0.50$) or MEDIUM.
 
@@ -117,8 +118,8 @@ their exclusion is part of the analysis. Remaining links are HIGH
 $\delta_i = 1$ with $T_i = t_{j^*} - t_i$ (months) if source $i$'s rank-1
 candidate $j^*$ clears the balanced threshold; otherwise $\delta_i = 0$ with
 $T_i = (\text{study end} - t_i)/30.44$, study end = max publication date
-observed (2026-07-13). One row per eligible source, both layers: 3,159 rows;
-618 events (19.6%) in Layer 1, 847 (26.8%) in Layer 2.
+observed (2026-07-13). One row per eligible source, both layers: 3,380 rows;
+1,003 events (29.7%) in Layer 1, 1,188 (35.1%) in Layer 2.
 
 ## 7. Evaluation (deliberately not a feedback loop)
 
@@ -143,7 +144,7 @@ circular. Instead `03_analysis` reports, with explicit evidence classes:
 ## 8. Survival analysis
 
 Per layer: Kaplan–Meier with CIs (median survival not reached — censoring
-~80%/73% — so RMST at 60 months is the summary statistic), log-rank between
+70.3%/64.9% — so RMST at 60 months is the summary statistic), log-rank between
 layers and across CPV divisions, Cox PH (penalizer 0.01, robust SEs clustered
 on the layer's buyer key; covariates log1p duration, imputation flag, CPV
 dummies, key-type dummies; PH tests; quadratic-duration functional-form check),
@@ -230,18 +231,18 @@ buyer activity, identifiers, CPV, duration, text, missingness co-occurrence,
 names, privacy/memorisation, and the production Layer-1 candidate environment.
 Hidden-truth diagnostics additionally measure blocking completeness,
 hard-negative overlap, true-match rank, and frozen probe-linker utility. The
-validation framework reports `PASS_WITH_WARNINGS` across 210 metrics, with no
+validation framework reports `PASS_WITH_WARNINGS`, with no
 blocking gates under its current gate policy; the internal-integrity,
 specification-recovery,
 candidate-environment, conditional-fidelity, privacy, and algorithm-utility
 gates pass, while observable-fidelity warnings remain visible in the
-discrepancy register; the current regenerated run has no metric-level
-failures. This framework status is deliberately narrower than
+discrepancy register; the current regenerated run has 2 metric-level failures
+in noncritical SIRET missing/present rates. This framework status is deliberately narrower than
 benchmark readiness. `scripts/assess_synthetic_benchmark_readiness.py` now
 reports the required five-level decision: the pipeline is technically valid and
-usable for preliminary synthetic-only modeling and controlled synthetic
-algorithm comparison with limitations, but it is not ready for final algorithm
-ranking or validated synthetic benchmark release.
+usable for preliminary synthetic-only modeling with limitations, but it is not
+ready for controlled synthetic algorithm comparison, final algorithm ranking, or
+validated synthetic benchmark release.
 
 Blocking and scoring are reported separately. `PRODUCTION_BLOCKING` measures
 candidate recall before scoring; `ORACLE_CANDIDATE_SCORING` inserts hidden true
@@ -257,7 +258,7 @@ generated seeds each. The central scenario also has 10 generated seeds, while
 `clean_sanity` remains a single-seed smoke test. Final algorithm-ranking
 readiness still fails because cross-scenario headline difficulty and
 probe-linker rankings remain scenario-specific; observable warning-level gaps
-remain but no longer include metric-level failures. Replicate-level probe
+and the 2 noncritical SIRET failures remain. Replicate-level probe
 results are written to `probe_replicate_results.csv`, and rank intervals, mean
 F1, and rank-1 frequencies are written to `probe_ranking_stability.csv`.
 
@@ -324,12 +325,13 @@ benchmark artifact.
 
 1. The renewal event is an unverified proxy; all downstream inference is
    conditional on linkage quality.
-2. 88% duration imputation propagates into blocking, scoring, and covariates.
+2. 83% duration imputation propagates into blocking, scoring, and covariates.
 3. Composite weights are unfitted; thresholds are percentile conventions.
 4. External enrichment covers 2024–2026 only; historical gains rest on the
    alias bridge's exactness assumptions (name+department uniqueness).
 5. Buyer merges by SIREN can conflate establishments that tender independently
    (flagged as `cross_establishment_same_siren`, not resolved).
-6. Zero-candidate sources (1,923/3,159) are structurally censored — blocking
-   recall is the binding constraint in both layers.
+6. Zero-candidate sources remain structurally censored: 1,375/3,380 in Layer 1
+   and 1,215/3,380 in Layer 2 have no generated candidate — blocking recall is
+   the binding constraint in both layers.
 7. No completed manual validation labels yet.

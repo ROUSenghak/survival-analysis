@@ -1,88 +1,88 @@
 {
-  "generated_at": "2026-07-17T08:32:49.749143+00:00",
-  "note": "Parity oracle for the two-layer refactor. Counts and sorted-ID hashes of the legacy M0/M1 outputs. The M1 dedup fix (3170 vs 3159 rows) is a user-approved allowed deviation.",
+  "generated_at": "2026-07-27T21:24:16.867148+00:00",
+  "note": "Parity oracle for the current two-layer pipeline. Counts and sorted-ID hashes are generated from the refreshed boamp_only and enriched artifacts.",
   "files": {
     "clean_m0": {
-      "path": "boamp_clean_m0_no_enrichment.csv",
+      "path": "data/interim/boamp_common_prepared.csv",
       "rows": 84623
     },
     "m0_sources": {
-      "path": "boamp_m0_sources.csv",
-      "rows": 3159,
-      "cols": 22,
+      "path": "data/processed/boamp_only/boamp_only_sources.csv",
+      "rows": 3380,
+      "cols": 26,
       "id_col": "notice_id",
-      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f"
+      "ids_sha256": "b6b6f9afefe49f0f3f29f339e319956a0419423d6c9d962fc41bc5ac0d8619c3"
     },
     "m0_pairs": {
-      "path": "boamp_m0_candidate_pairs.csv",
-      "rows": 6137,
+      "path": "data/processed/boamp_only/boamp_only_candidate_pairs.csv",
+      "rows": 10862,
       "cols": 19,
       "id_col": "source_notice_id",
-      "ids_sha256": "7cbbddfebbdf8869f2fc8a5a89a940f5234ef2af6175a24c834d043fed5d8112"
+      "ids_sha256": "b5b82e7e62194088909661defb243441ccc69af960b14544abc33f127ffeae0d"
     },
     "m0_links_broad": {
-      "path": "boamp_m0_links_broad.csv",
-      "rows": 927,
-      "cols": 21,
+      "path": "data/processed/boamp_only/boamp_only_links_broad.csv",
+      "rows": 1504,
+      "cols": 22,
       "id_col": "source_notice_id",
-      "ids_sha256": "0ccfb4ee16d9be825880be63e505bd068e91da80e6287be4233dce5a239155e8"
+      "ids_sha256": "db001edb05651b37c77cbc4669fda4f23c0cc0f4f4755b1379f8f7b51056f909"
     },
     "m0_links_balanced": {
-      "path": "boamp_m0_links_balanced.csv",
-      "rows": 618,
-      "cols": 21,
+      "path": "data/processed/boamp_only/boamp_only_links_balanced.csv",
+      "rows": 1003,
+      "cols": 22,
       "id_col": "source_notice_id",
-      "ids_sha256": "f5964c5aaa85f2d1e803f198e73f7d2e35e4eb80dd479d43b9893bbad22a2a45"
+      "ids_sha256": "484857bf87bbb1a4d3b6f5f54a89fdbbc6584160fa6cf87f88899a457ee38fdc"
     },
     "m0_links_strict": {
-      "path": "boamp_m0_links_strict.csv",
-      "rows": 309,
-      "cols": 21,
+      "path": "data/processed/boamp_only/boamp_only_links_strict.csv",
+      "rows": 502,
+      "cols": 22,
       "id_col": "source_notice_id",
-      "ids_sha256": "062cd2465f11204d2fd9d598120b111d53783fe8638bda820bed8fa553be5350"
+      "ids_sha256": "6b0f0e16ae6b4d9b736d84142b26049478beec6accb45ae55b0ad514fa4ee2f5"
     },
     "m0_survival_balanced": {
-      "path": "boamp_survival_m0_balanced.csv",
-      "rows": 3159,
-      "cols": 18,
+      "path": "data/processed/boamp_only/boamp_only_survival.csv",
+      "rows": 3380,
+      "cols": 19,
       "id_col": "notice_id",
-      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f",
-      "events": 618
+      "ids_sha256": "b6b6f9afefe49f0f3f29f339e319956a0419423d6c9d962fc41bc5ac0d8619c3",
+      "events": 1003
     },
     "m1_clean_sources": {
-      "path": "boamp_clean_m1_buyer_enriched.csv",
-      "rows": 3159,
-      "cols": 45,
+      "path": "data/processed/enriched/enriched_sources.csv",
+      "rows": 3380,
+      "cols": 46,
       "id_col": "notice_id",
-      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f"
+      "ids_sha256": "b6b6f9afefe49f0f3f29f339e319956a0419423d6c9d962fc41bc5ac0d8619c3"
     },
     "m1_pairs": {
-      "path": "boamp_m1_candidate_pairs.csv",
-      "rows": 8228,
-      "cols": 30,
+      "path": "data/processed/enriched/enriched_candidate_pairs.csv",
+      "rows": 13524,
+      "cols": 29,
       "id_col": "source_notice_id",
-      "ids_sha256": "0d78fa23ecf5d3e573bd3758d8d05a65fff7f2e616aab7d5f45b5e9436af9539"
+      "ids_sha256": "1d63475a29ab6380053b391267bed44dacd59d7c060ee7a25bdcb29bffdd38fd"
     },
     "m1_links_balanced": {
-      "path": "boamp_m1_links_balanced.csv",
-      "rows": 847,
-      "cols": 32,
+      "path": "data/processed/enriched/enriched_links_balanced.csv",
+      "rows": 1188,
+      "cols": 24,
       "id_col": "source_notice_id",
-      "ids_sha256": "b82d316cd004c57d06c789820c7fa536f23b43456c5db8a28ab31e4daa49e835"
+      "ids_sha256": "b8d44c8cb7af2a2e50d6aafa917d2016acc62d9634fae8dd0c52644852ed2cb9"
     },
     "m1_survival_balanced": {
-      "path": "boamp_survival_m1_balanced.csv",
-      "rows": 3159,
-      "cols": 21,
+      "path": "data/processed/enriched/enriched_survival.csv",
+      "rows": 3380,
+      "cols": 23,
       "id_col": "notice_id",
-      "ids_sha256": "038df3574e1c2893615634d3d69b882d485ce78c47c0acbfd41b68ee7fd56e1f",
-      "events": 847
+      "ids_sha256": "b6b6f9afefe49f0f3f29f339e319956a0419423d6c9d962fc41bc5ac0d8619c3",
+      "events": 1188
     }
   },
   "layer_overlap": {
-    "common": 617,
-    "m0_only": 1,
-    "m1_only": 230,
-    "jaccard": 0.7276
+    "common": 999,
+    "m0_only": 4,
+    "m1_only": 189,
+    "jaccard": 0.8381
   }
 }

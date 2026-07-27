@@ -1,3 +1,3 @@
 layer,n,events,censoring_rate,survival_at_24m,rmst_60m,median_survival,cox_log_duration_HR,lognormal_aft_c_index
-boamp_only,3159,618,0.8044,0.9141,53.51,inf,0.9231,0.7248
-enriched,3159,847,0.7319,0.8972,51.7,inf,0.9946,0.6774
+boamp_only,3380,1003,0.7033,0.6908,43.51,inf,0.3173,0.6231
+enriched,3380,1188,0.6485,0.6332,40.57,inf,0.3258,0.6203

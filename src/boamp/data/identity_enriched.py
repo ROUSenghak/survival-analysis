@@ -128,7 +128,10 @@ def load_enrichment(cfg) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Read the pinned enrichment Parquets. Returns (enrichment, audit, fields)."""
     raw_dir = cfg.paths.raw_enrichment_dir
     project_root = cfg.project_root
-    files = sorted(raw_dir.glob(cfg.pipeline.enrichment.file_glob))
+    files = sorted(
+        p for p in raw_dir.rglob(cfg.pipeline.enrichment.file_glob)
+        if p.suffix == ".parquet" and p.stat().st_size > 0
+    )
     if not files:
         raise FileNotFoundError(
             f"No enrichment Parquet files matching {cfg.pipeline.enrichment.file_glob} in {raw_dir}. "

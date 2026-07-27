@@ -1,22 +1,22 @@
 scope,scenario,probe,n_units,mean_pair_f1,sd_pair_f1,min_pair_f1,max_pair_f1,mean_rank,min_rank,max_rank,prob_rank1,notes
-within_scenario,central_provisional,deterministic_top1,10,0.30961584077383303,0.07252529791023833,0.13438735177865616,0.37962962962962965,1.2,1,2,0.8,rank distribution across generated seeds for one scenario
-within_scenario,central_provisional,fellegi_sunter,10,0.25442224026292737,0.0668310979293386,0.10579345088161209,0.33999999999999997,2.6,1,3,0.1,rank distribution across generated seeds for one scenario
-within_scenario,central_provisional,score_threshold_all_ranks,10,0.2593135883989604,0.05828850476435504,0.15463917525773194,0.3222222222222222,2.2,1,3,0.1,rank distribution across generated seeds for one scenario
-within_scenario,difficult,deterministic_top1,10,0.13991370164173783,0.07348446962257862,0.06535947712418301,0.3076923076923077,1.4,1,2,0.6,rank distribution across generated seeds for one scenario
+within_scenario,central_provisional,deterministic_top1,10,0.2672532909351421,0.11063758961365253,0.03063829787234042,0.4305555555555556,1.5,1,2,0.5,rank distribution across generated seeds for one scenario
+within_scenario,central_provisional,fellegi_sunter,10,0.16099218308982127,0.08116408447885144,0.010928961748633882,0.28571428571428575,3.0,3,3,0.0,rank distribution across generated seeds for one scenario
+within_scenario,central_provisional,score_threshold_all_ranks,10,0.2562112226928343,0.09771964121426788,0.03644646924829158,0.37288135593220345,1.5,1,2,0.5,rank distribution across generated seeds for one scenario
+within_scenario,difficult,deterministic_top1,10,0.1398727551938422,0.07350478541544814,0.06535947712418301,0.3076923076923077,1.4,1,2,0.6,rank distribution across generated seeds for one scenario
 within_scenario,difficult,fellegi_sunter,10,0.09643772229219692,0.04555602126093888,0.0423728813559322,0.16363636363636366,2.6,1,3,0.1,rank distribution across generated seeds for one scenario
 within_scenario,difficult,score_threshold_all_ranks,10,0.1110005493425585,0.05176449198904303,0.04285714285714285,0.21428571428571427,2.0,1,3,0.3,rank distribution across generated seeds for one scenario
-within_scenario,easier,deterministic_top1,10,0.4011018702001447,0.07145055642972066,0.2826086956521739,0.5020408163265305,1.1,1,2,0.9,rank distribution across generated seeds for one scenario
-within_scenario,easier,fellegi_sunter,10,0.3016465449488399,0.08813371237478566,0.12446351931330472,0.4029574861367837,2.9,2,3,0.0,rank distribution across generated seeds for one scenario
-within_scenario,easier,score_threshold_all_ranks,10,0.3666133320612955,0.06346460434239228,0.2824601366742597,0.46511627906976744,2.0,1,3,0.1,rank distribution across generated seeds for one scenario
-within_scenario,moderate,deterministic_top1,10,0.30961584077383303,0.07252529791023833,0.13438735177865616,0.37962962962962965,1.2,1,2,0.8,rank distribution across generated seeds for one scenario
-within_scenario,moderate,fellegi_sunter,10,0.25442224026292737,0.0668310979293386,0.10579345088161209,0.33999999999999997,2.6,1,3,0.1,rank distribution across generated seeds for one scenario
-within_scenario,moderate,score_threshold_all_ranks,10,0.2593135883989604,0.05828850476435504,0.15463917525773194,0.3222222222222222,2.2,1,3,0.1,rank distribution across generated seeds for one scenario
+within_scenario,easier,deterministic_top1,10,0.31432052673143207,0.11219905063219814,0.047880299251870324,0.45522388059701496,1.4,1,2,0.6,rank distribution across generated seeds for one scenario
+within_scenario,easier,fellegi_sunter,10,0.1915682247470093,0.09199754956548521,0.01716527709661599,0.32055749128919864,3.0,3,3,0.0,rank distribution across generated seeds for one scenario
+within_scenario,easier,score_threshold_all_ranks,10,0.30367331658992064,0.09741126306238997,0.05708200212992545,0.40869565217391307,1.6,1,2,0.4,rank distribution across generated seeds for one scenario
+within_scenario,moderate,deterministic_top1,10,0.2672532909351421,0.11063758961365253,0.03063829787234042,0.4305555555555556,1.5,1,2,0.5,rank distribution across generated seeds for one scenario
+within_scenario,moderate,fellegi_sunter,10,0.16099218308982127,0.08116408447885144,0.010928961748633882,0.28571428571428575,3.0,3,3,0.0,rank distribution across generated seeds for one scenario
+within_scenario,moderate,score_threshold_all_ranks,10,0.2562112226928343,0.09771964121426788,0.03644646924829158,0.37288135593220345,1.5,1,2,0.5,rank distribution across generated seeds for one scenario
 within_scenario,stress,deterministic_top1,10,0.07538982433126612,0.02957816471338249,0.05063291139240506,0.15517241379310345,1.3,1,2,0.7,rank distribution across generated seeds for one scenario
 within_scenario,stress,fellegi_sunter,10,0.05497475716992828,0.03257427763650133,0.022727272727272728,0.13513513513513514,2.5,1,3,0.1,rank distribution across generated seeds for one scenario
 within_scenario,stress,score_threshold_all_ranks,10,0.05070562533184344,0.025039902995734012,0.0,0.0898876404494382,2.2,1,3,0.2,rank distribution across generated seeds for one scenario
-cross_scenario_means,BENCHMARK_SCENARIOS,deterministic_top1,5,0.24712741554416295,0.134634987973348,0.07538982433126613,0.4011018702001447,1.0,1,1,1.0,rank distribution across mean pair-F1 by benchmark scenario
-cross_scenario_means,BENCHMARK_SCENARIOS,fellegi_sunter,5,0.19238070098736398,0.10922771901541034,0.05497475716992828,0.30164654494883997,2.8,2,3,0.0,rank distribution across mean pair-F1 by benchmark scenario
-cross_scenario_means,BENCHMARK_SCENARIOS,score_threshold_all_ranks,5,0.2093893367067236,0.12704833751766612,0.05070562533184344,0.3666133320612955,2.2,2,3,0.0,rank distribution across mean pair-F1 by benchmark scenario
-all_benchmark_replicates,ALL,deterministic_top1,50,0.24712741554416293,0.13718465825656415,0.05063291139240506,0.5020408163265305,1.24,1,2,0.76,rank distribution across all benchmark scenario/seed artifacts
-all_benchmark_replicates,ALL,fellegi_sunter,50,0.19238070098736398,0.11568419174834885,0.022727272727272728,0.4029574861367837,2.64,1,3,0.08,rank distribution across all benchmark scenario/seed artifacts
-all_benchmark_replicates,ALL,score_threshold_all_ranks,50,0.20938933670672363,0.12558564337009645,0.0,0.46511627906976744,2.12,1,3,0.16,rank distribution across all benchmark scenario/seed artifacts
+cross_scenario_means,BENCHMARK_SCENARIOS,deterministic_top1,5,0.21281793762536488,0.10054436450977676,0.07538982433126613,0.31432052673143207,1.0,1,1,1.0,rank distribution across mean pair-F1 by benchmark scenario
+cross_scenario_means,BENCHMARK_SCENARIOS,fellegi_sunter,5,0.13299301407775538,0.055727237514843146,0.05497475716992828,0.1915682247470093,2.8,2,3,0.0,rank distribution across mean pair-F1 by benchmark scenario
+cross_scenario_means,BENCHMARK_SCENARIOS,score_threshold_all_ranks,5,0.19556038732999825,0.108603316486635,0.05070562533184344,0.30367331658992064,2.2,2,3,0.0,rank distribution across mean pair-F1 by benchmark scenario
+all_benchmark_replicates,ALL,deterministic_top1,50,0.2128179376253649,0.12733508550696856,0.03063829787234042,0.45522388059701496,1.42,1,2,0.58,rank distribution across all benchmark scenario/seed artifacts
+all_benchmark_replicates,ALL,fellegi_sunter,50,0.1329930140777554,0.08417641931586062,0.010928961748633882,0.32055749128919864,2.82,1,3,0.04,rank distribution across all benchmark scenario/seed artifacts
+all_benchmark_replicates,ALL,score_threshold_all_ranks,50,0.19556038732999823,0.12444416377601158,0.0,0.40869565217391307,1.76,1,3,0.38,rank distribution across all benchmark scenario/seed artifacts

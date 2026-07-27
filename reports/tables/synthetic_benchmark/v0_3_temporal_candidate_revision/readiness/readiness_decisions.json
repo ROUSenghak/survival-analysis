@@ -1,20 +1,20 @@
 {
-  "generated_at_utc": "2026-07-27T14:14:57.705578+00:00",
+  "generated_at_utc": "2026-07-27T21:01:56.777644+00:00",
   "benchmark_version": "v0_3_temporal_candidate_revision",
   "scenario": "central_provisional",
   "world": "001",
   "corruption": "001",
   "validation_manifest_status": "PASS_WITH_WARNINGS",
-  "current_git_head": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "current_git_head": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
   "worktree_dirty": true,
-  "generated_data_git_commit": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "generated_data_git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
   "replicate_counts": {
     "difficult": 10,
     "clean_sanity": 1,
     "moderate": 10,
-    "stress": 10,
     "central_provisional": 10,
-    "easier": 10
+    "easier": 10,
+    "stress": 10
   },
   "current_problem_inventory": [
     {
@@ -24,8 +24,8 @@
       "metric": "W1_scaled",
       "real_estimate": NaN,
       "synthetic_estimate": NaN,
-      "difference": 0.1642360109026767,
-      "effect_size": 0.1642360109026767,
+      "difference": 0.16073112073112,
+      "effect_size": 0.16073112073112,
       "tolerance": "0.1",
       "status": "WARNING",
       "notes": NaN
@@ -36,9 +36,9 @@
       "property": "followup_runway",
       "metric": "abs_diff_pp",
       "real_estimate": 0.5501577585290052,
-      "synthetic_estimate": "0.4479144611475757",
-      "difference": -10.224329738142943,
-      "effect_size": 10.224329738142943,
+      "synthetic_estimate": "0.4307709724895279",
+      "difference": -11.938678603947729,
+      "effect_size": 11.938678603947729,
       "tolerance": "5.0",
       "status": "WARNING",
       "notes": NaN
@@ -49,11 +49,11 @@
       "property": "siret_missing",
       "metric": "rate_abs_diff_pp",
       "real_estimate": 0.7277572291221063,
-      "synthetic_estimate": "0.6921448232055897",
-      "difference": -3.56124059165166,
-      "effect_size": 3.56124059165166,
+      "synthetic_estimate": "0.6840258122948035",
+      "difference": -4.3731416827302745,
+      "effect_size": 4.3731416827302745,
       "tolerance": "2.0",
-      "status": "WARNING",
+      "status": "FAIL",
       "notes": NaN
     },
     {
@@ -62,9 +62,9 @@
       "property": "siren_missing",
       "metric": "rate_abs_diff_pp",
       "real_estimate": 0.7277572291221063,
-      "synthetic_estimate": "0.6980732585221258",
-      "difference": -2.968397059998052,
-      "effect_size": 2.968397059998052,
+      "synthetic_estimate": "0.69398845239443",
+      "difference": -3.376877672767631,
+      "effect_size": 3.376877672767631,
       "tolerance": "2.0",
       "status": "WARNING",
       "notes": NaN
@@ -75,11 +75,11 @@
       "property": "siret_present",
       "metric": "presence_rate_abs_diff_pp",
       "real_estimate": 0.2722427708778937,
-      "synthetic_estimate": "0.3078551767944103",
-      "difference": 3.56124059165166,
-      "effect_size": 3.56124059165166,
+      "synthetic_estimate": "0.3159741877051964",
+      "difference": 4.373141682730269,
+      "effect_size": 4.373141682730269,
       "tolerance": "2.0",
-      "status": "WARNING",
+      "status": "FAIL",
       "notes": NaN
     },
     {
@@ -88,9 +88,9 @@
       "property": "siren_present",
       "metric": "presence_rate_abs_diff_pp",
       "real_estimate": 0.2722427708778937,
-      "synthetic_estimate": "0.30192674147787424",
-      "difference": 2.968397059998052,
-      "effect_size": 2.968397059998052,
+      "synthetic_estimate": "0.30601154760557003",
+      "difference": 3.376877672767631,
+      "effect_size": 3.376877672767631,
       "tolerance": "2.0",
       "status": "WARNING",
       "notes": NaN
@@ -101,12 +101,12 @@
       "property": "activity_gini",
       "metric": "abs_diff",
       "real_estimate": 0.8316141557268819,
-      "synthetic_estimate": "0.7274026236809981",
-      "difference": -0.1042115320458838,
-      "effect_size": 0.1042115320458838,
+      "synthetic_estimate": "0.7138582998635006",
+      "difference": -0.1177558558633813,
+      "effect_size": 0.1177558558633813,
       "tolerance": "0.1",
       "status": "WARNING",
-      "notes": "bootstrap_reps=200; n_real_buyers=5268; n_syn_buyers=1173"
+      "notes": "bootstrap_reps=200; n_real_buyers=5268; n_syn_buyers=1158"
     },
     {
       "scope": "buyer_activity",
@@ -114,9 +114,9 @@
       "property": "activity_share",
       "metric": "abs_diff_pp",
       "real_estimate": 0.3827800952459733,
-      "synthetic_estimate": "0.32373491424941775",
-      "difference": -5.904518099655559,
-      "effect_size": 5.904518099655559,
+      "synthetic_estimate": "0.3064643948828258",
+      "difference": -7.631570036314756,
+      "effect_size": 7.631570036314756,
       "tolerance": "10.0",
       "status": "WARNING",
       "notes": "share of all notices held by the top1pct most active buyers"
@@ -127,9 +127,9 @@
       "property": "activity_share",
       "metric": "abs_diff_pp",
       "real_estimate": 0.6612859388109615,
-      "synthetic_estimate": "0.559284353165361",
-      "difference": -10.200158564560056,
-      "effect_size": 10.200158564560056,
+      "synthetic_estimate": "0.5419449790558134",
+      "difference": -11.934095975514811,
+      "effect_size": 11.934095975514811,
       "tolerance": "10.0",
       "status": "WARNING",
       "notes": "share of all notices held by the top5pct most active buyers"
@@ -140,12 +140,25 @@
       "property": "activity_share",
       "metric": "abs_diff_pp",
       "real_estimate": 0.7798234522529336,
-      "synthetic_estimate": "0.665890323946644",
-      "difference": -11.393312830628954,
-      "effect_size": 11.393312830628954,
+      "synthetic_estimate": "0.6559492811049473",
+      "difference": -12.387417114798629,
+      "effect_size": 12.387417114798629,
       "tolerance": "10.0",
       "status": "WARNING",
       "notes": "share of all notices held by the top10pct most active buyers"
+    },
+    {
+      "scope": "buyer_activity",
+      "subgroup": "overall",
+      "property": "relative_notices_per_buyer",
+      "metric": "q99_abs_diff",
+      "real_estimate": 16.20559138768418,
+      "synthetic_estimate": "14.365859843767739",
+      "difference": -1.8397315439164412,
+      "effect_size": 1.8397315439164412,
+      "tolerance": "1.0",
+      "status": "WARNING",
+      "notes": "activity divided by that corpus's own mean activity (scale-free)"
     },
     {
       "scope": "text",
@@ -154,8 +167,8 @@
       "metric": "JS",
       "real_estimate": NaN,
       "synthetic_estimate": NaN,
-      "difference": 0.4253820065080732,
-      "effect_size": 0.4253820065080732,
+      "difference": 0.4255640695754855,
+      "effect_size": 0.4255640695754855,
       "tolerance": "0.3",
       "status": "WARNING",
       "notes": "sampled 4000 real / 4000 synthetic texts"
@@ -167,11 +180,102 @@
       "metric": "JS",
       "real_estimate": NaN,
       "synthetic_estimate": NaN,
-      "difference": 0.7762602091290521,
-      "effect_size": 0.7762602091290521,
+      "difference": 0.776259241085664,
+      "effect_size": 0.776259241085664,
       "tolerance": "0.4",
       "status": "WARNING",
       "notes": "sampled 4000 real / 4000 synthetic texts"
+    },
+    {
+      "scope": "hidden_truth_difficulty",
+      "subgroup": "production_window",
+      "property": "pairs_quality",
+      "metric": "PQ",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.038435140700068635",
+      "difference": NaN,
+      "effect_size": 0.0384351407000686,
+      "tolerance": "0.05",
+      "status": "WARNING",
+      "notes": "56 true matches among 1457 candidate pairs"
+    },
+    {
+      "scope": "hidden_truth_difficulty",
+      "subgroup": "36m_window",
+      "property": "pairs_quality",
+      "metric": "PQ",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.030213903743315507",
+      "difference": NaN,
+      "effect_size": 0.0302139037433155,
+      "tolerance": "0.05",
+      "status": "WARNING",
+      "notes": "113 true matches among 3740 candidate pairs"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "seed_replicates:central_provisional",
+      "property": "blocking_pairs_completeness",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.32152326847656354",
+      "difference": NaN,
+      "effect_size": 0.3215232684765635,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "within-scenario seed stability; high values mean one seed is not representative"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "seed_replicates:central_provisional",
+      "property": "blocking_pairs_completeness",
+      "metric": "nonpass_frequency",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.1",
+      "difference": NaN,
+      "effect_size": 0.1,
+      "tolerance": "0",
+      "status": "WARNING",
+      "notes": "share of generated seeds whose underlying headline metric was not PASS (WARNING/FAIL/INCONCLUSIVE); affected seeds=002-002"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "seed_replicates:central_provisional",
+      "property": "match_vs_hard_negative_score",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3232700104040579",
+      "difference": NaN,
+      "effect_size": 0.3232700104040579,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "within-scenario seed stability; high values mean one seed is not representative"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "seed_replicates:central_provisional",
+      "property": "probe_headroom",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3904025982709695",
+      "difference": NaN,
+      "effect_size": 0.3904025982709695,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "within-scenario seed stability; high values mean one seed is not representative"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "seed_replicates:central_provisional",
+      "property": "probe_headroom",
+      "metric": "nonpass_frequency",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.1",
+      "difference": NaN,
+      "effect_size": 0.1,
+      "tolerance": "0",
+      "status": "WARNING",
+      "notes": "share of generated seeds whose underlying headline metric was not PASS (WARNING/FAIL/INCONCLUSIVE); affected seeds=002-002"
     },
     {
       "scope": "robustness",
@@ -179,12 +283,25 @@
       "property": "blocking_pairs_completeness",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.2594557828845025",
+      "synthetic_estimate": "0.36674663847145395",
       "difference": NaN,
-      "effect_size": 0.2594557828845025,
+      "effect_size": 0.3667466384714539,
       "tolerance": "0.25",
       "status": "WARNING",
-      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.354,range=0.267-0.429,n=10; difficult:mean=0.274,range=0.216-0.373,n=10; easier:mean=0.406,range=0.303-0.505,n=10; moderate:mean=0.354,range=0.267-0.429,n=10; stress:mean=0.215,range=0.158-0.261,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
+      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.399,range=0.145-0.622,n=10; difficult:mean=0.274,range=0.216-0.373,n=10; easier:mean=0.375,range=0.085-0.460,n=10; moderate:mean=0.399,range=0.145-0.622,n=10; stress:mean=0.215,range=0.158-0.261,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "cross_scenario",
+      "property": "match_vs_hard_negative_score",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.28378895702782286",
+      "difference": NaN,
+      "effect_size": 0.2837889570278228,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.307,range=0.154-0.463,n=10; difficult:mean=0.355,range=0.253-0.515,n=10; easier:mean=0.292,range=0.214-0.364,n=10; moderate:mean=0.307,range=0.154-0.463,n=10; stress:mean=0.263,range=0.176-0.404,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
     },
     {
       "scope": "robustness",
@@ -192,12 +309,12 @@
       "property": "probe_headroom",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.5448003032017842",
+      "synthetic_estimate": "0.5871439400907855",
       "difference": NaN,
-      "effect_size": 0.5448003032017842,
+      "effect_size": 0.5871439400907855,
       "tolerance": "0.25",
       "status": "WARNING",
-      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.314,range=0.155-0.380,n=10; difficult:mean=0.143,range=0.065-0.308,n=10; easier:mean=0.402,range=0.283-0.502,n=10; moderate:mean=0.314,range=0.155-0.380,n=10; stress:mean=0.076,range=0.051-0.155,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
+      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.281,range=0.036-0.431,n=10; difficult:mean=0.143,range=0.065-0.308,n=10; easier:mean=0.322,range=0.057-0.455,n=10; moderate:mean=0.281,range=0.036-0.431,n=10; stress:mean=0.076,range=0.051-0.155,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
     },
     {
       "scope": "robustness",
@@ -205,12 +322,12 @@
       "property": "probe_ranking",
       "metric": "min_kendall_tau",
       "real_estimate": NaN,
-      "synthetic_estimate": "-1.0",
+      "synthetic_estimate": "0.3333333333333333",
       "difference": NaN,
-      "effect_size": -1.0,
+      "effect_size": 0.3333333333333333,
       "tolerance": "0.8",
       "status": "WARNING",
-      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('005', '005') vs ('008', '008'): tau=-1.00; ('001', '001') vs ('005', '005'): tau=-0.33; ('002', '002') vs ('005', '005'): tau=-0.33; ('003', '003') vs ('008', '008'): tau=-0.33; ('004', '004') vs ('005', '005'): tau=-0.33; ('005', '005') vs ('006', '006'): tau=-0.33; ('005', '005') vs ('007', '007'): tau=-0.33; ('005', '005') vs ('010', '010'): tau=-0.33"
+      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('001', '001') vs ('003', '003'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('001', '001') vs ('007', '007'): tau=0.33; ('001', '001') vs ('008', '008'): tau=0.33; ('001', '001') vs ('010', '010'): tau=0.33; ('002', '002') vs ('003', '003'): tau=0.33; ('002', '002') vs ('005', '005'): tau=0.33; ('002', '002') vs ('007', '007'): tau=0.33"
     },
     {
       "scope": "robustness",
@@ -231,12 +348,12 @@
       "property": "probe_ranking",
       "metric": "min_kendall_tau",
       "real_estimate": NaN,
-      "synthetic_estimate": "-0.3333333333333333",
+      "synthetic_estimate": "0.3333333333333333",
       "difference": NaN,
-      "effect_size": -0.3333333333333333,
+      "effect_size": 0.3333333333333333,
       "tolerance": "0.8",
       "status": "WARNING",
-      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('002', '002') vs ('005', '005'): tau=-0.33; ('001', '001') vs ('002', '002'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('002', '002') vs ('003', '003'): tau=0.33; ('002', '002') vs ('004', '004'): tau=0.33; ('002', '002') vs ('006', '006'): tau=0.33; ('002', '002') vs ('007', '007'): tau=0.33; ('002', '002') vs ('008', '008'): tau=0.33"
+      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('001', '001') vs ('002', '002'): tau=0.33; ('001', '001') vs ('004', '004'): tau=0.33; ('001', '001') vs ('006', '006'): tau=0.33; ('001', '001') vs ('007', '007'): tau=0.33; ('002', '002') vs ('003', '003'): tau=0.33; ('002', '002') vs ('005', '005'): tau=0.33; ('002', '002') vs ('008', '008'): tau=0.33; ('002', '002') vs ('009', '009'): tau=0.33"
     },
     {
       "scope": "robustness",
@@ -244,12 +361,12 @@
       "property": "probe_ranking",
       "metric": "min_kendall_tau",
       "real_estimate": NaN,
-      "synthetic_estimate": "-1.0",
+      "synthetic_estimate": "0.3333333333333333",
       "difference": NaN,
-      "effect_size": -1.0,
+      "effect_size": 0.3333333333333333,
       "tolerance": "0.8",
       "status": "WARNING",
-      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('005', '005') vs ('008', '008'): tau=-1.00; ('001', '001') vs ('005', '005'): tau=-0.33; ('002', '002') vs ('005', '005'): tau=-0.33; ('003', '003') vs ('008', '008'): tau=-0.33; ('004', '004') vs ('005', '005'): tau=-0.33; ('005', '005') vs ('006', '006'): tau=-0.33; ('005', '005') vs ('007', '007'): tau=-0.33; ('005', '005') vs ('010', '010'): tau=-0.33"
+      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('001', '001') vs ('003', '003'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('001', '001') vs ('007', '007'): tau=0.33; ('001', '001') vs ('008', '008'): tau=0.33; ('001', '001') vs ('010', '010'): tau=0.33; ('002', '002') vs ('003', '003'): tau=0.33; ('002', '002') vs ('005', '005'): tau=0.33; ('002', '002') vs ('007', '007'): tau=0.33"
     },
     {
       "scope": "robustness",
@@ -288,7 +405,7 @@
       "effect_size": -1.0,
       "tolerance": "0.8",
       "status": "WARNING",
-      "notes": "overall probe-ranking stability across all generated scenario/seed artifacts; a low value means a single global algorithm ranking is not supported; scenario/seed replicates compared=50; pairwise comparisons=1225; worst examples=('central_provisional', '005', '005') vs ('central_provisional', '008', '008'): tau=-1.00; ('central_provisional', '005', '005') vs ('difficult', '002', '002'): tau=-1.00; ('central_provisional', '005', '005') vs ('difficult', '006', '006'): tau=-1.00; ('central_provisional', '005', '005') vs ('difficult', '008', '008'): tau=-1.00; ('central_provisional', '005', '005') vs ('easier', '002', '002'): tau=-1.00; ('central_provisional', '005', '005') vs ('moderate', '008', '008'): tau=-1.00; ('central_provisional', '005', '005') vs ('stress', '002', '002'): tau=-1.00; ('central_provisional', '005', '005') vs ('stress', '006', '006'): tau=-1.00"
+      "notes": "overall probe-ranking stability across all generated scenario/seed artifacts; a low value means a single global algorithm ranking is not supported; scenario/seed replicates compared=50; pairwise comparisons=1225; worst examples=('central_provisional', '001', '001') vs ('difficult', '007', '007'): tau=-1.00; ('central_provisional', '001', '001') vs ('stress', '010', '010'): tau=-1.00; ('central_provisional', '002', '002') vs ('difficult', '007', '007'): tau=-1.00; ('central_provisional', '002', '002') vs ('stress', '010', '010'): tau=-1.00; ('central_provisional', '004', '004') vs ('difficult', '007', '007'): tau=-1.00; ('central_provisional', '004', '004') vs ('stress', '010', '010'): tau=-1.00; ('central_provisional', '006', '006') vs ('difficult', '007', '007'): tau=-1.00; ('central_provisional', '006', '006') vs ('stress', '010', '010'): tau=-1.00"
     }
   ],
   "decisions": [
@@ -302,7 +419,7 @@
         "canonical replay checked: True",
         "all generated artifacts replay: PASS",
         "replayed artifacts: 51",
-        "source state manifest hashed paths: 591",
+        "source state manifest hashed paths: 619",
         "worktree dirty: True"
       ],
       "failed_hard_gates": [],
@@ -325,7 +442,7 @@
       "status": "PASS_WITH_LIMITATIONS",
       "supporting_evidence": [
         "validation framework overall_status: PASS_WITH_WARNINGS",
-        "probe linker best pair-F1: 0.37962962962962965"
+        "probe linker best pair-F1: 0.35220125786163525"
       ],
       "failed_hard_gates": [],
       "remaining_warnings": [
@@ -346,15 +463,18 @@
     },
     {
       "level": "READY_FOR_CONTROLLED_ALGORITHM_COMPARISON",
-      "status": "PASS_WITH_LIMITATIONS",
+      "status": "FAIL",
       "supporting_evidence": [
         "scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']",
-        "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'stress': 10, 'central_provisional': 10, 'easier': 10}",
-        "metric failures: 0",
+        "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'central_provisional': 10, 'easier': 10, 'stress': 10}",
+        "metric failures: 2",
         "three evaluation settings reported: True",
         "required executable scenario configs present: True"
       ],
-      "failed_hard_gates": [],
+      "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates",
+        "main-scenario seed robustness is warning or inconclusive"
+      ],
       "remaining_warnings": [
         "headline difficulty varies materially across scenarios; comparisons must be scenario-labelled",
         "main-scenario probe-linker ranking stability remains a warning; do not claim final ranking",
@@ -377,13 +497,15 @@
       "supporting_evidence": [
         "multi-seed ready: True",
         "required scenario artifacts ready: True",
-        "observable hard failures: False",
+        "observable hard failures: True",
         "probe ranking summary rows: 21",
-        "main-scenario top-probe rank-1 frequency: 0.8",
-        "all-benchmark top-probe rank-1 frequency: 0.76",
+        "main-scenario top-probe rank-1 frequency: 0.5",
+        "all-benchmark top-probe rank-1 frequency: 0.58",
         "cross-scenario-mean top-probe rank-1 frequency: 1.0"
       ],
       "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates",
+        "main-scenario seed robustness is warning or inconclusive",
         "headline difficulty varies materially across scenarios and must be scenario-labelled",
         "main-scenario probe-linker ranking stability is warning or inconclusive",
         "cross-scenario probe-linker ranking stability is warning or inconclusive"
@@ -408,10 +530,12 @@
         "validation status: PASS_WITH_WARNINGS",
         "calendar-month metric present in saved outputs: True",
         "generated_from_current_head: True",
-        "source state manifest hashed paths: 591",
+        "source state manifest hashed paths: 619",
         "worktree dirty: True"
       ],
       "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates",
+        "main-scenario seed robustness is warning or inconclusive",
         "headline difficulty varies materially across scenarios and must be scenario-labelled",
         "main-scenario probe-linker ranking stability is warning or inconclusive",
         "cross-scenario probe-linker ranking stability is warning or inconclusive",
