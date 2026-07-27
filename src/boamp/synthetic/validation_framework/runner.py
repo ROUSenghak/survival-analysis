@@ -12,7 +12,12 @@ from boamp.synthetic.validation_framework.difficulty import run_difficulty_metri
 from boamp.synthetic.validation_framework.fidelity import run_fidelity_validation
 from boamp.synthetic.validation_framework.internal import checksum_file, run_internal_validation
 from boamp.synthetic.validation_framework.loaders import BenchmarkData, load_benchmark_data
-from boamp.synthetic.validation_framework.robustness import run_robustness_validation
+from boamp.synthetic.validation_framework.robustness import (
+    PROBE_RANKING_SUMMARY_COLUMNS,
+    PROBE_REPLICATE_COLUMNS,
+    run_robustness_validation,
+    summarize_probe_ranking_stability,
+)
 from boamp.synthetic.validation_framework.structure import run_structure_validation
 from boamp.synthetic.validation_framework.text import run_text_validation
 from boamp.synthetic.validation_framework.models import (
@@ -127,8 +132,9 @@ def run_validation(
     metrics.extend(run_text_validation(data))
     difficulty_metrics, probe_frame = run_difficulty_metrics(data)
     metrics.extend(difficulty_metrics)
-    robustness_metrics, _replicate_probes = run_robustness_validation(data, enabled=robustness)
+    robustness_metrics, replicate_probes = run_robustness_validation(data, enabled=robustness)
     metrics.extend(robustness_metrics)
+    probe_ranking_summary = summarize_probe_ranking_stability(replicate_probes)
     metric_df = metric_frame(metrics)
     gate_df = gate_frame(summarize_gates(metrics))
     discrepancy_df = discrepancy_register(metrics)
@@ -149,6 +155,12 @@ def run_validation(
         "robustness_sweep": robustness,
         "canonical_replay_checked": replay,
         "probe_linker_results": probe_frame.to_dict("records") if len(probe_frame) else [],
+        "probe_replicate_results": replicate_probes.to_dict("records") if len(replicate_probes) else [],
+        "probe_ranking_stability": (
+            probe_ranking_summary.to_dict("records") if len(probe_ranking_summary) else []
+        ),
+        "probe_replicate_result_count": int(len(replicate_probes)),
+        "probe_ranking_summary_count": int(len(probe_ranking_summary)),
         "metric_count": int(len(metric_df)),
         "gate_count": int(len(gate_df)),
         "overall_status": "FAIL"
@@ -210,6 +222,14 @@ def write_validation_outputs(
     gate_df.to_csv(out_dir / "validation_gate_summary.csv", index=False)
     discrepancy_df.to_csv(out_dir / "discrepancy_register.csv", index=False)
     pd.DataFrame(manifest["probe_linker_results"]).to_csv(out_dir / "probe_linker_results.csv", index=False)
+    replicate_probes = pd.DataFrame(manifest.get("probe_replicate_results", []))
+    if replicate_probes.empty:
+        replicate_probes = pd.DataFrame(columns=PROBE_REPLICATE_COLUMNS)
+    replicate_probes.to_csv(out_dir / "probe_replicate_results.csv", index=False)
+    ranking_summary = pd.DataFrame(manifest.get("probe_ranking_stability", []))
+    if ranking_summary.empty:
+        ranking_summary = pd.DataFrame(columns=PROBE_RANKING_SUMMARY_COLUMNS)
+    ranking_summary.to_csv(out_dir / "probe_ranking_stability.csv", index=False)
     (out_dir / "validation_manifest.json").write_text(json.dumps(manifest, indent=2, default=str), encoding="utf-8")
     return {
         "output_dir": out_dir,

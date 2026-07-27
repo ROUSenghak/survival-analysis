@@ -39,6 +39,19 @@ def test_fixed_seed_corruption_is_also_reproducible():
     assert len(log1) == len(log2)
 
 
+def test_observed_buyer_identity_is_stable_within_notice_family():
+    w = generate_clean_world("central_provisional", REPO, n_buyers=80, world_seed=20260721)
+    observed, _ = generate_observed_world(w, "central_provisional", REPO, corruption_seed=20260722)
+    cycle_lookup = w["clean_notices"][["notice_id_synthetic", "cycle_id_true"]]
+    with_cycle = observed.merge(cycle_lookup, on="notice_id_synthetic", how="left")
+    sibling_cycles = with_cycle.groupby("cycle_id_true").filter(lambda g: len(g) > 1)
+
+    assert not sibling_cycles.empty
+    for field in ["buyer_siret_raw", "buyer_siren_raw", "buyer_name_raw"]:
+        max_distinct = sibling_cycles.groupby("cycle_id_true")[field].nunique(dropna=False).max()
+        assert max_distinct == 1
+
+
 def test_different_world_seed_changes_the_generated_population():
     w1 = generate_clean_world("central_provisional", REPO, n_buyers=50, world_seed=1)
     w2 = generate_clean_world("central_provisional", REPO, n_buyers=50, world_seed=2)

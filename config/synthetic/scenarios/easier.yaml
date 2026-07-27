@@ -1,0 +1,67 @@
+# Executable required scenario: easier.
+# Overlay on central_provisional. Values below are scenario assumptions chosen
+# to reduce linkage difficulty without changing production scoring parameters.
+
+extends: central_provisional
+
+scenario_id: easier
+display_name: "Easier"
+version: "0.3"
+purpose: >
+  Easier controlled setting where true successors are more often temporally
+  reachable and observed identity/text fields are less corrupted.
+provenance: "SCENARIO_UNIDENTIFIED"
+references:
+  - config/synthetic/scenarios/01_clean_sanity.yaml
+  - config/synthetic/scenarios/central_provisional.yaml
+baseline_reference: moderate.yaml
+scenario_design_note: >
+  Varies only unidentified or stress-test parameters: recurrence timing,
+  identifier persistence, name corruption, missingness severity, text drift,
+  and hard-negative density. Linkage thresholds and score weights are held
+  fixed algorithm parameters and do not define truth.
+
+recurrence:
+  base_recurrence_propensity: 0.55
+  cycle_gap_distribution: {type: normal, mean_months: 12.0, sd_months: 5.0, min_months: 1.0}
+  scoped_candidate_environment:
+    recurrence_propensity_multiplier: 1.45
+    near_window_share: 0.90
+    hard_negative_alignment_rate: 0.04
+
+identifiers:
+  siret_missing_rate: 0.62
+  siren_only_rate: 0.16
+  both_missing_rate: 0.64
+  invalid_identifier_rate: 0.006
+  wrong_establishment_siret_rate: 0.01
+
+buyer_names:
+  false_split_rate: 0.16
+  false_merge_rate: 0.04
+  generic_collision_rate: 0.25
+
+cpv:
+  parent_replace_rate: 0.03
+  division_only_rate: 0.01
+  generic_rate: 0.05
+  wrong_related_rate: 0.01
+
+duration:
+  rounding_severity: 0.25
+  common_admin_value_rate: 0.14
+  unit_conversion_failure_rate: 0.005
+
+text:
+  next_cycle_drift_severity: 0.30
+  hard_negative_overlap_rate: 0.08
+  boilerplate_rate: 0.34
+  conditional_reuse:
+    exact_template_share: 0.72
+    near_boilerplate_extra_rate: 0.05
+    generic_weak_extra_rate: 0.025
+
+quality_class_mix:
+  HIGH: 0.45
+  MEDIUM: 0.40
+  LOW: 0.15

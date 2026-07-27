@@ -815,7 +815,7 @@ Therefore, the next valid step is to run the linkage algorithms on \texttt{obser
 
 The layered validation framework sharpens what ``ready'' means here, and narrows it. The framework confirms the two properties that would otherwise invalidate every downstream number: hidden truth is internally coherent and does not leak, and no real record has been copied. It also confirms that the task is worth running --- three substantively different probe linkers separate from one another, none of them solves the benchmark, and true matches genuinely overlap with hard negatives in score space.
 
-What it does not yet support is a defensible \emph{comparison} of linkage algorithms. One critical gate fails: the saved parameters do not reproduce the dataset, so a result obtained here cannot be regenerated from version control alone. Only one world exists per scenario, so no result can be separated from its seed. Buyer-activity concentration and internal text duplication are both materially below the real corpus, and both make linkage easier than it should be. Accordingly, \texttt{READY\_FOR\_LINKAGE} should be read as \emph{ready to begin controlled algorithm experiments}, not as \emph{ready to rank algorithms}.
+What it does not yet support is a defensible \emph{final ranking} of linkage algorithms. The current saved scenario parameters reproduce the central dataset, the validation run performs canonical replay, and the all-artifact replay audit passes for 51 generated artifacts. Ten seeds now exist for the central scenario and for each required easier/moderate/difficult/stress scenario. However, headline difficulty remains scenario-dependent and the probe-linker rankings are unstable within scenarios and across scenario means. Accordingly, the five-level readiness assessment is authoritative: \texttt{PIPELINE\_TECHNICALLY\_VALID}, \texttt{READY\_FOR\_PRELIMINARY\_MODELING}, and \texttt{READY\_FOR\_CONTROLLED\_ALGORITHM\_COMPARISON} pass with limitations, while \texttt{READY\_FOR\_FINAL\_ALGORITHM\_RANKING} and \texttt{READY\_FOR\_VALIDATED\_SYNTHETIC\_BENCHMARK\_RELEASE} fail.
 
 \section{Limitations and Caveats}
 
@@ -824,12 +824,12 @@ The benchmark has passed the current readiness gate, but several limitations rem
     \item \textbf{Synthetic evidence is not real legal truth.} It can test whether an algorithm behaves sensibly in a controlled realistic environment, but it cannot prove real-world renewal accuracy.
     \item \textbf{Some latent quantities are scenario assumptions.} Recurrence prevalence, broad successor-gap distribution, and text drift are documented assumptions where real truth is unavailable.
     \item \textbf{The 60-month follow-up runway is weaker.} The 12- and 24-month gates pass, but the 60-month comparison remains a caveat.
-    \item \textbf{Candidate tail is lighter than real.} v0.3 passes p75/p90/p95 gates, but real p90 and p95 counts remain higher than synthetic values.
-    \item \textbf{No score calibration has been done yet.} The benchmark is ready for running linkage algorithms, not for claiming final linkage performance.
-    \item \textbf{The dataset is not reproducible from its scenario file.} The parameters actually used exist only in the run manifest. This is a release-blocking defect and is the first thing to fix.
-    \item \textbf{Buyer activity is too evenly spread.} Gini 0.56 against a real 0.83. Dense candidate neighbourhoods around highly active buyers are under-represented, so the hardest linkage cases are under-tested.
-    \item \textbf{Internal text duplication regressed in v0.2.} 9.0\% of synthetic objects are non-unique against 51.4\% in real \boamp{}. Text carries more discriminating signal here than it does in reality.
-    \item \textbf{Only one seed exists per scenario.} No reported quantity can currently be separated from its particular world draw, so seed-stability claims are unsupportable and are reported \textsc{Inconclusive}.
+    \item \textbf{Candidate upper tail remains lighter than real.} The candidate-environment gate passes, but the real p90 and p95 candidate counts remain higher than the central synthetic values.
+    \item \textbf{No score calibration has been done yet.} The benchmark is ready only for controlled synthetic comparisons with limitations, not for claiming final linkage performance.
+    \item \textbf{The current worktree is not release-clean.} \texttt{source\_state\_manifest.json} hashes the dirty source/artifact state, \texttt{dirty\_state\_overlay.tar.gz} packages that overlay against the recorded Git HEAD, and \texttt{dirty\_state\_overlay\_verification.json} verifies replay onto a clean Git HEAD snapshot. A release still requires a clean commit or standalone release package.
+    \item \textbf{Observable fidelity warnings remain.} Buyer-activity concentration, text lexical distance, identifier completeness, and follow-up-runway warnings remain visible in the discrepancy register and validation manifest.
+    \item \textbf{Identifier persistence is a documented trade-off.} A tested notice-type split of family-level identifier persistence reduced one attribution-specific mismatch but introduced a critical conditional text failure and degraded widened blocking reachability. The current generator therefore retains family/need-level identifier persistence.
+    \item \textbf{Probe ranking is unstable.} Ten seeds exist for the central and required benchmark scenarios, but probe-linker Kendall-\(\tau\) diagnostics warn within scenarios and across scenario means. This blocks final algorithm-ranking claims.
     \item \textbf{Parts of the specification remain untested.} Byte-identical regeneration, membership-inference risk, neural-embedding semantic distances, Sobol sensitivity analysis, and a held-out real partition never used during generator design are all out of scope. They are reported as not run, never as passed.
 \end{enumerate}
 
@@ -839,10 +839,17 @@ The main notebook for the final validation is
 \nolinkurl{notebooks/10_synthetic_temporal_candidate_revision_validation.ipynb}.
 The concise generated report is
 \nolinkurl{reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_report.md}.
-The final machine-readable readiness gate is
-\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/temporal_candidate_freeze_gate.csv}.
+The final machine-readable readiness assessment is
+\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json}.
 The selected parameter provenance is
 \nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/candidate_revision_selected_parameters.csv}.
+The dirty-state overlay archive and its external hash manifest are
+\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz}
+and
+\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json};
+the replay verification is
+\nolinkurl{reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json}.
+These are audit artifacts, not final-release approval.
 
 The layered validation framework is documented by the data-generating-process specification at
 \nolinkurl{docs/synthetic_benchmark_dgp_specification.md}
@@ -869,13 +876,13 @@ The primary implementation modules reviewed for this report are:
 
 \section{Recommended Next Step}
 
-The correct next step is to run linkage algorithms against the v0.3 observed synthetic notices, store their predicted links, and evaluate them against the hidden truth relations. The evaluation should report candidate coverage, ranking quality, precision/recall against hidden truth, threshold sensitivity, and failure cases by buyer-key type, \cpv{} division, text pattern, and temporal gap.
+The correct next step is to run linkage algorithms against the v0.3 observed synthetic notices inside labelled scenarios, store their predicted links, and evaluate them against the hidden truth relations. The evaluation should report candidate coverage, ranking quality, precision/recall against hidden truth, threshold sensitivity, seed intervals, scenario sensitivity, and failure cases by buyer-key type, \cpv{} division, text pattern, and temporal gap.
 
-Before that evaluation can support algorithm \emph{comparisons}, four things should be fixed in order. First, write the swept v0.3 parameters back into a versioned scenario file so the dataset regenerates from version control, which clears the only failing critical gate. Second, generate at least a second world seed for the central scenario so seed stability stops being unmeasurable. Third, restore the buyer-activity concentration and the internal text-duplication rate, both of which currently make linkage easier than reality. Fourth, decide explicitly whether the 60-month runway and candidate upper tail are being fixed or being accepted into the fidelity budget.
+Before that evaluation can support final algorithm \emph{rankings}, three things should be fixed or explicitly bounded. First, demonstrate that algorithm rankings are stable within the intended scenario and under the required scenario envelope, or else report rankings only scenario by scenario. Second, decide whether the remaining observable warnings, especially buyer activity, text lexical distance, identifier completeness, follow-up runway, and candidate upper tail, are scientifically acceptable for the intended comparison. Third, commit or otherwise package the exact source/artifact state so release users can identify the evaluated benchmark immutably.
 
 Until that evaluation is complete, the defensible claim is:
 \begin{quote}
-Within declared observable tolerances and a documented scenario envelope, the synthetic benchmark reproduces selected \boamp{} structures and candidate difficulties; its hidden truth is internally coherent, does not leak, and contains no copied real records; and conclusions about linkage algorithms must still be reported with sensitivity to the properties that remain unidentified, to the single available seed, and to the specification defect that currently blocks exact regeneration.
+Within declared observable tolerances and a documented scenario envelope, the synthetic benchmark reproduces selected \boamp{} structures and candidate difficulties; its hidden truth is internally coherent, does not leak, contains no copied real records, and replays exactly across 51 generated artifacts; and conclusions about linkage algorithms must still be reported with sensitivity to scenario assumptions, seed variation, remaining observable warnings, and the unknown real \boamp{} recurrence truth.
 \end{quote}
 
 \end{document}

@@ -3,4 +3,4 @@ conditional_fidelity,PASS,v0.3 WMAE remains under threshold with <=1pp regressio
 temporal_validation,PASS,Calendar and 12m/24m follow-up gates.
 candidate_environment_validation,PASS,Production Layer 1 candidate generation on algorithm source scope.
 structural_truth_validation,PASS,"Metadata, truth leakage, and broad true-gap tail."
-linkage_algorithm_readiness,READY_FOR_LINKAGE,Run linking algorithms only if READY_FOR_LINKAGE.
+linkage_algorithm_readiness,SUPERSEDED_BY_READINESS_ASSESSMENT,Use the five-level readiness assessment in reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/.

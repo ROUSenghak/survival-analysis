@@ -19,6 +19,7 @@ from boamp.synthetic.text_generation import DIVISION_VOCAB, sample_division_voca
 # calibration table rather than hardcoded (spec: "prefer references to
 # machine-readable calibration tables").
 _TIER_LAMBDA = {"21+": 8.0, "6-20": 4.0, "2-5": 1.8, "1": 1.2}
+LOW_ACTIVITY_NEED_FLOOR = 0.10
 
 
 def _division_distribution(calib) -> tuple[list[str], list[float]]:
@@ -94,11 +95,27 @@ def generate_latent_needs(buyers: pd.DataFrame, establishments: pd.DataFrame,
     divisions, division_probs, sampler = _division_sampler(calib, scenario)
     estab_by_buyer = {k: v["establishment_id_true"].tolist() for k, v in establishments.groupby("buyer_id_true")}
 
+    # The buyer generator already draws a realistic heavy-tailed activity
+    # weight. Earlier versions collapsed that signal into three activity-tier
+    # Poisson means, reducing the needs-per-buyer Gini from ~0.8 to ~0.34 and
+    # erasing the high-activity tail that creates dense candidate
+    # neighbourhoods. Keep the old tier means only to set the total benchmark
+    # scale, then allocate that expected total continuously according to the
+    # buyer activity weights. The small floor preserves low-activity buyers and
+    # allows genuinely inactive buyers, matching the benchmark design brief.
+    tier_lam = buyers["activity_tier"].map(_TIER_LAMBDA).fillna(_TIER_LAMBDA["2-5"]).astype(float)
+    target_total_needs = float(tier_lam.sum())
+    floor = min(LOW_ACTIVITY_NEED_FLOOR, target_total_needs / max(len(buyers), 1))
+    activity = buyers["activity_rate"].astype(float).clip(lower=0.0)
+    activity = activity / activity.sum() if activity.sum() > 0 else pd.Series(1.0 / len(buyers), index=buyers.index)
+    expected_needs = floor + activity * max(0.0, target_total_needs - floor * len(buyers))
+
     rows = []
     need_seq = 0
-    for _, b in buyers.iterrows():
-        lam = _TIER_LAMBDA.get(b["activity_tier"], 1.2)
-        n_needs = max(1, int(rng.poisson(lam)))
+    for pos, (_, b) in enumerate(buyers.iterrows()):
+        n_needs = int(rng.poisson(float(expected_needs.iloc[pos])))
+        if n_needs <= 0:
+            continue
         estabs = estab_by_buyer.get(b["buyer_id_true"], [f"{b['buyer_id_true']}-EST01"])
         buyer_has_scoped_affinity = bool(
             sampler is not None and rng.random() < sampler["affinity_share"]

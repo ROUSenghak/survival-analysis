@@ -253,7 +253,11 @@ def _corrupt_duration(row, mult: float, scen_dur, rng: np.random.Generator, logg
             logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, None,
                        "MISSING", severity=1.0)
             return None
-        base_rate = 0.0
+        val = observation_model.declared_duration_value(row["notice_id_synthetic"])
+        if val != true_val:
+            logger.log(row["notice_id_synthetic"], "declared_duration_months", true_val, val,
+                       "EMPIRICAL_RAW_DECLARED_DURATION", severity=1.0)
+        return val
     else:
         by_schema = getattr(scen_dur, "missing_rate_by_schema", None)
         base_rate = (getattr(by_schema, row["schema_family_true"], scen_dur.missing_rate)
@@ -359,8 +363,13 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
         getattr(scoped_candidate_cfg, "enabled", False)
         and getattr(scoped_candidate_cfg, "stabilize_scoped_name_fallback", False)
     )
+    scoped_identity_by_need = bool(
+        getattr(scoped_candidate_cfg, "enabled", False)
+        and getattr(scoped_candidate_cfg, "stabilize_scoped_identity_by_need", False)
+    )
     scoped_divisions = {str(v) for v in getattr(scoped_candidate_cfg, "cpv_divisions", [])}
     stable_scoped_name_by_buyer: dict[str, str] = {}
+    family_identity_cache: dict[str, tuple[str | None, str | None, str]] = {}
     buyer_notice_tier = pd.cut(
         clean_notices.groupby("buyer_id_true")["notice_id_synthetic"].transform("size"),
         bins=[0, 1, 5, 20, np.inf],
@@ -373,29 +382,48 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
         m = float(mult.iloc[i])
         buyer = buyers_idx.loc[row["buyer_id_true"]]
 
-        siret_obs, siren_obs = _corrupt_identifier(
-            row, siblings_by_siren, m, scenario.identifiers, rng, logger,
-            observation_model=observation_model,
+        is_scoped_notice = str(row["cpv_true"])[:2] in scoped_divisions
+        identity_cache_key = (
+            f"NEED::{row['need_id_true']}"
+            if scoped_identity_by_need and is_scoped_notice
+            else str(row["cycle_id_true"])
         )
-
-        name_true = row["buyer_name_true"]
-        use_stable_scoped_name = (
-            scoped_name_stability
-            and str(row["cpv_true"])[:2] in scoped_divisions
-        )
-        if use_stable_scoped_name and row["buyer_id_true"] in stable_scoped_name_by_buyer:
-            name_obs = stable_scoped_name_by_buyer[row["buyer_id_true"]]
+        if identity_cache_key in family_identity_cache:
+            siret_obs, siren_obs, name_obs = family_identity_cache[identity_cache_key]
         else:
-            name_obs = name_true
-            if rng.random() < min(0.98, scenario.buyer_names.generic_collision_rate * m * float(buyer["alias_propensity"] + 0.3)):
-                pool = GENERIC_NAME_POOL.get(buyer["buyer_type_true"], GENERIC_NAME_POOL["AUTRE"])
-                name_obs = str(rng.choice(pool))
-                logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "GENERIC_NAME_COLLISION", severity=m)
-            elif rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
-                name_obs = _apply_name_transformation(name_true, row["department_true"], rng)
-                logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
-            if use_stable_scoped_name:
-                stable_scoped_name_by_buyer[row["buyer_id_true"]] = name_obs
+            # Buyer identity is an observation of the notice family, not an
+            # independent latent buyer per CALL/AWARD sibling. Keeping the
+            # observed identifier/name draw stable within a cycle prevents
+            # exact same-family text from being misclassified as cross-buyer
+            # generic boilerplate solely because sibling buyer keys drifted.
+            # For the scoped candidate-environment scenario, the same logic
+            # can extend across cycles of a hidden need: this is a labelled
+            # identifier-persistence assumption used to keep the moderate
+            # benchmark reachable under production-style buyer-key blocking.
+            siret_obs, siren_obs = _corrupt_identifier(
+                row, siblings_by_siren, m, scenario.identifiers, rng, logger,
+                observation_model=observation_model,
+            )
+
+            name_true = row["buyer_name_true"]
+            use_stable_scoped_name = (
+                scoped_name_stability
+                and is_scoped_notice
+            )
+            if use_stable_scoped_name and row["buyer_id_true"] in stable_scoped_name_by_buyer:
+                name_obs = stable_scoped_name_by_buyer[row["buyer_id_true"]]
+            else:
+                name_obs = name_true
+                if rng.random() < min(0.98, scenario.buyer_names.generic_collision_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                    pool = GENERIC_NAME_POOL.get(buyer["buyer_type_true"], GENERIC_NAME_POOL["AUTRE"])
+                    name_obs = str(rng.choice(pool))
+                    logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "GENERIC_NAME_COLLISION", severity=m)
+                elif rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                    name_obs = _apply_name_transformation(name_true, row["department_true"], rng)
+                    logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
+                if use_stable_scoped_name:
+                    stable_scoped_name_by_buyer[row["buyer_id_true"]] = name_obs
+            family_identity_cache[identity_cache_key] = (siret_obs, siren_obs, name_obs)
 
         cpv_obs = _corrupt_cpv(row, m, scenario.cpv, rng, logger)
         duration_obs = _corrupt_duration(

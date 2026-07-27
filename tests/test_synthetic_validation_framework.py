@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from pathlib import Path
+import hashlib
 
 import pandas as pd
 
@@ -17,7 +18,8 @@ from boamp.synthetic.validation_framework.internal import (
 )
 from boamp.synthetic.validation_framework.loaders import load_benchmark_data
 from boamp.synthetic.validation_framework.models import Status, classify_abs, classify_range, classify_upper
-from boamp.synthetic.validation_framework.runner import run_validation
+from boamp.synthetic.validation_framework.robustness import run_robustness_validation
+from boamp.synthetic.validation_framework.runner import run_validation, write_validation_outputs
 from boamp.synthetic.validation_framework.text import run_text_memorisation_audit
 
 REPO = Path(__file__).resolve().parents[1]
@@ -134,6 +136,75 @@ def test_difficulty_gate_is_neither_trivial_nor_impossible():
     assert _status_for(metrics, "match_vs_hard_negative_score", "overlap") == "PASS"
 
 
+def test_difficulty_reports_blocking_scoring_and_end_to_end_settings():
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    metrics, _probes = run_difficulty_metrics(data)
+    rows = pd.DataFrame([m.to_dict() for m in metrics])
+    subgroups = set(rows["subgroup"])
+    assert "PRODUCTION_BLOCKING" in subgroups
+    assert any(s.startswith("ORACLE_CANDIDATE_SCORING:") for s in subgroups)
+    assert any(s.startswith("END_TO_END:") for s in subgroups)
+
+    product_checks = rows.loc[
+        rows["property"].eq("recall_decomposition")
+        & rows["metric"].eq("R_blocking_times_scoring")
+    ]
+    assert not product_checks.empty
+    assert set(product_checks["status"]) == {"PASS"}
+    assert product_checks["effect_size"].max() < 1e-12
+
+
+def test_robustness_reports_central_multi_seed_summary_when_available():
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    metrics, _probes = run_robustness_validation(data)
+    rows = pd.DataFrame([m.to_dict() for m in metrics])
+    central = rows.loc[rows["subgroup"].eq(f"seed_replicates:{SCENARIO}")]
+    if len(central):
+        assert {
+            "seed_count",
+            "mean",
+            "std",
+            "central_95pct_interval",
+            "worst_case",
+            "coefficient_of_variation",
+            "nonpass_frequency",
+        }.issubset(set(central["metric"]))
+        counts = central.loc[central["metric"].eq("seed_count"), "synthetic_estimate"].astype(float)
+        assert counts.max() >= 10
+    ranking_subgroups = set(rows.loc[rows["property"].eq("probe_ranking"), "subgroup"])
+    assert f"ranking_stability:{SCENARIO}" in ranking_subgroups
+    assert "ranking_stability:cross_scenario" in ranking_subgroups
+    assert "ranking_stability" in ranking_subgroups
+
+
+def test_probe_ranking_stability_artifact_is_written(tmp_path):
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    result = write_validation_outputs(
+        REPO,
+        VERSION,
+        SCENARIO,
+        output_dir=tmp_path,
+        bootstrap_reps=0,
+        replay=False,
+    )
+    replicate_path = tmp_path / "probe_replicate_results.csv"
+    ranking_path = tmp_path / "probe_ranking_stability.csv"
+    assert replicate_path.exists()
+    assert ranking_path.exists()
+    ranking = pd.read_csv(ranking_path)
+    assert {
+        "scope",
+        "scenario",
+        "probe",
+        "n_units",
+        "mean_pair_f1",
+        "mean_rank",
+        "prob_rank1",
+    }.issubset(ranking.columns)
+    assert result["manifest"]["probe_replicate_result_count"] >= 3
+    assert result["manifest"]["probe_ranking_summary_count"] == len(ranking)
+
+
 def test_no_record_specific_text_copied_from_real_corpus():
     data = load_benchmark_data(REPO, VERSION, SCENARIO)
     metrics = run_text_memorisation_audit(data)
@@ -157,6 +228,27 @@ def test_leaked_truth_columns_fail_leakage_check():
     broken = replace(data, observed=observed)
     metrics = validate_leakage(broken)
     assert _status_for(metrics, "leakage", "no_truth_columns_in_observed") == "FAIL"
+
+
+def test_unsuffixed_hidden_truth_alias_columns_fail_leakage_check():
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    observed = data.observed.copy()
+    observed["buyer_id"] = data.clean["buyer_id_true"].to_numpy()
+    broken = replace(data, observed=observed)
+    metrics = validate_leakage(broken)
+    assert _status_for(metrics, "leakage", "no_hidden_truth_alias_columns_in_observed") == "FAIL"
+
+
+def test_transformed_truth_id_values_fail_leakage_check():
+    data = load_benchmark_data(REPO, VERSION, SCENARIO)
+    observed = data.observed.copy()
+    raw_cycle_ids = data.clean["cycle_id_true"].astype(str)
+    observed["opaque_cycle_key"] = raw_cycle_ids.map(
+        lambda value: hashlib.sha256(value.encode("utf-8")).hexdigest()
+    ).to_numpy()
+    broken = replace(data, observed=observed)
+    metrics = validate_leakage(broken)
+    assert _status_for(metrics, "leakage", "no_internal_truth_id_values_in_observed") == "FAIL"
 
 
 def test_broken_truth_graph_target_dates_fail():

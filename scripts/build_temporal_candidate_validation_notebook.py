@@ -631,7 +631,7 @@ candidate_gate_status = (
     else "NEEDS_REVISION"
 )
 
-overall_status = "READY_FOR_LINKAGE" if temporal_gate_status == "PASS" and candidate_gate_status == "PASS" else "NOT_READY_FOR_LINKAGE"
+overall_status = "SUPERSEDED_BY_V0_3_READINESS_ASSESSMENT"
 
 freeze_gate = pd.DataFrame(
     [
@@ -648,7 +648,7 @@ freeze_gate = pd.DataFrame(
         {
             "dimension": "linkage_algorithm_readiness",
             "status": overall_status,
-            "notes": "Run linkage algorithms only after candidate-environment revision passes.",
+            "notes": "Historical v0.2 diagnostic. Use the v0.3 five-level readiness assessment for current permitted uses.",
         },
     ]
 )
@@ -664,7 +664,11 @@ report = f\"\"\"# Synthetic benchmark v0.2 temporal and candidate validation
 
 ## Result
 
-**Overall status: {overall_status}.**
+**Legacy freeze-gate status: {overall_status}.**
+
+This v0.2 notebook is retained as historical diagnostic evidence. It does not
+define current benchmark readiness; use the v0.3 five-level readiness
+assessment for permitted uses and prohibited claims.
 
 Temporal validation status: **{temporal_gate_status}**.
 Candidate-environment validation status: **{candidate_gate_status}**.

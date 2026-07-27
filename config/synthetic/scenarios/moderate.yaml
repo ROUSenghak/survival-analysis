@@ -1,0 +1,24 @@
+# Executable required scenario: moderate.
+# This is an alias of central_provisional with a stable benchmark-facing name.
+# It is BOAMP-like only in observable calibration where that calibration exists;
+# latent recurrence truth remains unidentified and scenario-defined.
+
+extends: central_provisional
+
+scenario_id: moderate
+display_name: "Moderate"
+version: "0.3"
+purpose: >
+  Main BOAMP-like synthetic benchmark scenario for preliminary experiments.
+  Reuses central_provisional's observable calibration and v0.3 candidate
+  environment assumptions under the required scenario name.
+provenance: "EMPIRICAL_OBSERVABLE, SILVER_STANDARD_APPROXIMATION, SCENARIO_UNIDENTIFIED"
+references:
+  - config/synthetic/scenarios/central_provisional.yaml
+  - config/synthetic/scenarios/02_central_boamp_like.yaml
+baseline_reference: central_provisional.yaml
+scenario_design_note: >
+  Moderate is not an empirical estimate of true BOAMP recurrence. It is the
+  central scenario assumption under a clearer required name; accepted links,
+  scores, thresholds, and the six-month production window are not used as
+  real truth.

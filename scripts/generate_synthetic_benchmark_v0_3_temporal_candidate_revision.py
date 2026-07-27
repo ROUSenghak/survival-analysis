@@ -38,10 +38,10 @@ SANITY_SCENARIO = "clean_sanity"
 SANITY_N_BUYERS = 300
 
 MULTIPLIERS = [1.3, 1.6, 2.0]
-NEAR_WINDOW_SHARES = [0.45, 0.60, 0.75]
+NEAR_WINDOW_SHARES = [0.80, 0.90]
 HARD_NEGATIVE_RATES = [0.0, 0.05, 0.10]
-SCOPED_BUYER_AFFINITY_SHARE = 0.07
-SCOPED_NEED_PROBABILITY_HIGH = 0.70
+SCOPED_BUYER_AFFINITY_SHARE = 0.02
+SCOPED_NEED_PROBABILITY_HIGH = 0.25
 
 GATES = {
     "source_count_ratio_min": 0.80,
@@ -177,6 +177,7 @@ def _scenario_for_params(params: dict):
     scoped.scoped_need_probability_high = SCOPED_NEED_PROBABILITY_HIGH
     scoped.stabilize_scoped_establishment = True
     scoped.stabilize_scoped_name_fallback = True
+    scoped.stabilize_scoped_identity_by_need = True
     return scenario
 
 
@@ -277,6 +278,7 @@ def main() -> None:
             "scoped_need_probability_high": SCOPED_NEED_PROBABILITY_HIGH,
             "stabilize_scoped_establishment": True,
             "stabilize_scoped_name_fallback": True,
+            "stabilize_scoped_identity_by_need": True,
             "cpv_divisions": ["32", "35", "48", "72"],
             "near_window_distribution": {
                 "type": "normal",

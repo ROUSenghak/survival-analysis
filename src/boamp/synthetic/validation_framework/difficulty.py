@@ -29,6 +29,7 @@ import pandas as pd
 from boamp.config import load_config
 from boamp.data.prepare import tag_digital_scope
 from boamp.linkage.candidates import generate_pairs_single_key
+from boamp.linkage.scoring import add_rank_and_margin, build_tfidf_matrix, cpv_pair_score, estimate_window_months
 from boamp.synthetic.compatibility import adapt_observed_notices_to_sources
 from boamp.synthetic.validation_framework.bootstrap import overlap_coefficient
 from boamp.synthetic.validation_framework.loaders import BenchmarkData
@@ -144,6 +145,105 @@ def _pair_key_set(frame: pd.DataFrame, a_col: str, b_col: str) -> set[tuple[str,
 def _generate_candidates(scoped: pd.DataFrame, cfg, window: int | None) -> pd.DataFrame:
     pairs, _ = generate_pairs_single_key(scoped, cfg, verbose=False, window_override=window)
     return pairs
+
+
+def _score_truth_pairs(scoped: pd.DataFrame, truth_pairs: pd.DataFrame, cfg) -> pd.DataFrame:
+    """Score true successor pairs under the production feature definitions.
+
+    This is used only for the ORACLE_CANDIDATE_SCORING diagnostic: the true
+    successor is inserted into each source's candidate list, while any
+    production-generated distractors for the same source are left in place.
+    """
+    if truth_pairs.empty:
+        return pd.DataFrame()
+
+    p = cfg.pipeline
+    month_days = p.run.month_days
+    weights = p.scoring.weights
+    buyer_type_score = vars(p.buyer_score.boamp_only)
+    window, _median_dur = estimate_window_months(scoped, cfg)
+
+    scoped = scoped.reset_index(drop=True)
+    id_to_idx = {str(nid): idx for idx, nid in enumerate(scoped["notice_id"].astype(str))}
+    _vectorizer, tfidf = build_tfidf_matrix(scoped["objet_clean"].fillna("").tolist(), cfg)
+    rows = []
+    for rel in truth_pairs.itertuples(index=False):
+        source_id = str(rel.notice_a)
+        candidate_id = str(rel.notice_b)
+        if source_id not in id_to_idx or candidate_id not in id_to_idx:
+            continue
+        src = scoped.iloc[id_to_idx[source_id]]
+        cand = scoped.iloc[id_to_idx[candidate_id]]
+        if pd.to_datetime(cand["publication_date"]) <= pd.to_datetime(src["publication_date"]):
+            continue
+
+        abs_gap = abs(
+            (pd.to_datetime(cand["publication_date"]) - pd.to_datetime(src["estimated_end_date"])).total_seconds()
+            / (3600 * 24 * month_days)
+        )
+        gap_months = (
+            (pd.to_datetime(cand["publication_date"]) - pd.to_datetime(src["publication_date"])).total_seconds()
+            / (3600 * 24 * month_days)
+        )
+        s_time = max(1.0 - abs_gap / window, 0.0) if window else 0.0
+        s_text = float(tfidf[id_to_idx[candidate_id]].dot(tfidf[id_to_idx[source_id]].T).toarray().ravel()[0])
+        s_cpv = cpv_pair_score(
+            src["cpv_clean"], cand["cpv_clean"],
+            src["cpv_category"], cand["cpv_category"],
+            src["cpv_class"], cand["cpv_class"],
+            src["cpv_group"], cand["cpv_group"],
+            src["cpv_division"], cand["cpv_division"],
+            p.cpv_score,
+        )
+        s_buyer = buyer_type_score.get(src["buyer_key_type"], 0.0)
+        rows.append(
+            {
+                "source_notice_id": source_id,
+                "candidate_notice_id": candidate_id,
+                "source_date": src["publication_date"],
+                "candidate_date": cand["publication_date"],
+                "buyer_key": src["buyer_key"],
+                "buyer_key_type": src["buyer_key_type"],
+                "gap_months": gap_months,
+                "expected_end_date": src["estimated_end_date"],
+                "abs_gap_to_expected_end": abs_gap,
+                "s_time": s_time,
+                "s_text": s_text,
+                "s_cpv": s_cpv,
+                "s_buyer": s_buyer,
+                "composite_score": (
+                    weights.text * s_text + weights.cpv * s_cpv + weights.time * s_time + weights.buyer * s_buyer
+                ),
+                "cpv_missing": bool(pd.isna(src["cpv_clean"]) or pd.isna(cand["cpv_clean"])),
+                "cpv_generic_flag": bool(src["cpv_generic_flag"] or cand["cpv_generic_flag"]),
+                "oracle_inserted_true_successor": True,
+            }
+        )
+    return pd.DataFrame.from_records(rows)
+
+
+def _oracle_candidate_scoring_frame(
+    production_pairs: pd.DataFrame,
+    scoped: pd.DataFrame,
+    truth_in_scope: pd.DataFrame,
+    cfg,
+) -> pd.DataFrame:
+    oracle_truth = _score_truth_pairs(scoped, truth_in_scope, cfg)
+    production = production_pairs.copy()
+    if len(production):
+        production["oracle_inserted_true_successor"] = False
+    combined = pd.concat([production, oracle_truth], ignore_index=True, sort=False)
+    if combined.empty:
+        return combined
+    combined["_pair_key"] = [
+        _unordered(a, b) for a, b in zip(combined["source_notice_id"], combined["candidate_notice_id"])
+    ]
+    combined = (
+        combined.sort_values("oracle_inserted_true_successor", ascending=True)
+        .drop_duplicates(["source_notice_id", "candidate_notice_id"], keep="first")
+        .drop(columns="_pair_key")
+    )
+    return add_rank_and_margin(combined)
 
 
 def _connected_components(nodes: list[str], edges: set[tuple[str, str]]) -> dict[str, int]:
@@ -267,10 +367,17 @@ def run_difficulty_metrics(data: BenchmarkData) -> tuple[list[MetricResult], pd.
     widened_pairs = _generate_candidates(scoped, cfg, window=WIDENED_PROBE_WINDOW_MONTHS)
     n_universe = len(scoped) * (len(scoped) - 1) / 2
 
+    production_candidate_set: set[tuple[str, str]] = set()
+    production_recovered: set[tuple[str, str]] = set()
+    production_pc = float("nan")
     for label, pairs in [("production_window", production_pairs), (f"{WIDENED_PROBE_WINDOW_MONTHS}m_window", widened_pairs)]:
         candidate_set = _pair_key_set(pairs, "source_notice_id", "candidate_notice_id")
         recovered = candidate_set & truth_set
         pc = len(recovered) / len(truth_set)
+        if label == "production_window":
+            production_candidate_set = candidate_set
+            production_recovered = recovered
+            production_pc = pc
         pq = len(recovered) / len(candidate_set) if candidate_set else float("nan")
         rr = 1 - len(candidate_set) / n_universe if n_universe else float("nan")
         is_widened = label != "production_window"
@@ -289,6 +396,18 @@ def run_difficulty_metrics(data: BenchmarkData) -> tuple[list[MetricResult], pd.
                     "pipeline's own 6-month rule and a low value there is a property of that pipeline "
                     "against this benchmark's true renewal gaps, not a generator defect; the widened "
                     "window tests whether buyer-key blocking can reach the truth at all"
+                ),
+            )
+        )
+        setting_label = "PRODUCTION_BLOCKING" if label == "production_window" else f"{WIDENED_PROBE_WINDOW_MONTHS}M_BLOCKING"
+        metrics.append(
+            _metric(
+                data, "hidden_truth_difficulty", setting_label, "evaluation_setting", "R_blocking",
+                None, pc, pc - pc_floor, pc, pc_floor,
+                Status.PASS if pc >= pc_floor else Status.WARNING if pc >= pc_floor * 0.6 else Status.FAIL,
+                notes=(
+                    f"{setting_label}: blocking-only recall over {len(truth_set)} in-scope true pairs; "
+                    "no scoring or acceptance threshold is applied"
                 ),
             )
         )
@@ -358,6 +477,25 @@ def run_difficulty_metrics(data: BenchmarkData) -> tuple[list[MetricResult], pd.
 
     # Probe linkers.
     truth_labels = _connected_components(sorted(scoped_ids), truth_set)
+    oracle_scored = _pair_scores(
+        _oracle_candidate_scoring_frame(production_pairs, scoped, truth_in_scope, cfg),
+        truth_set,
+    )
+    oracle_inserted = int(
+        oracle_scored.get("oracle_inserted_true_successor", pd.Series(dtype=bool)).fillna(False).sum()
+    )
+    metrics.append(
+        _metric(
+            data, "algorithm_utility", "ORACLE_CANDIDATE_SCORING", "evaluation_setting",
+            "inserted_true_successor_pairs",
+            None, oracle_inserted, None, None, "context_only", Status.PASS,
+            notes=(
+                "Oracle scoring inserts missing true successors into the production-distractor environment. "
+                "It evaluates ranking/scoring conditional on truth being reachable and is not a production "
+                "blocking result"
+            ),
+        )
+    )
     probe_rows = []
     for probe, accept in _probe_predictions(scored).items():
         accepted = scored.loc[accept.reindex(scored.index, fill_value=False)]
@@ -397,6 +535,70 @@ def run_difficulty_metrics(data: BenchmarkData) -> tuple[list[MetricResult], pd.
                     ),
                 )
             )
+
+        reachable_tp = len(predicted_set & production_recovered)
+        scoring_given_reachable = (
+            reachable_tp / len(production_recovered) if production_recovered else float("nan")
+        )
+        product_recall = production_pc * scoring_given_reachable if pd.notna(scoring_given_reachable) else float("nan")
+        metrics.extend(
+            [
+                _metric(
+                    data, "algorithm_utility", f"END_TO_END:{probe}", "recall_decomposition",
+                    "R_end_to_end",
+                    None, recall, None, recall, "context_only", Status.PASS,
+                    notes="pair recall over all in-scope true matches after production blocking and probe scoring",
+                ),
+                _metric(
+                    data, "algorithm_utility", f"END_TO_END:{probe}", "recall_decomposition",
+                    "R_scoring_given_reachable",
+                    None, scoring_given_reachable, None, scoring_given_reachable,
+                    "context_only", Status.PASS,
+                    notes=(
+                        f"probe recall among {len(production_recovered)} true matches reachable under "
+                        "production blocking"
+                    ),
+                ),
+                _metric(
+                    data, "algorithm_utility", f"END_TO_END:{probe}", "recall_decomposition",
+                    "R_blocking_times_scoring",
+                    None, product_recall, product_recall - recall if pd.notna(product_recall) else None,
+                    abs(product_recall - recall) if pd.notna(product_recall) else None,
+                    "exact", Status.PASS if pd.notna(product_recall) and np.isclose(product_recall, recall) else Status.INCONCLUSIVE,
+                    notes="checks R_end_to_end = R_blocking * R_scoring_given_reachable",
+                ),
+            ]
+        )
+
+        if not oracle_scored.empty:
+            oracle_accept = _probe_predictions(oracle_scored)[probe].reindex(oracle_scored.index, fill_value=False)
+            oracle_accepted = oracle_scored.loc[oracle_accept]
+            oracle_predicted_set = _pair_key_set(
+                oracle_accepted, "source_notice_id", "candidate_notice_id"
+            )
+            oracle_tp = len(oracle_predicted_set & truth_set)
+            oracle_precision = oracle_tp / len(oracle_predicted_set) if oracle_predicted_set else float("nan")
+            oracle_recall = oracle_tp / len(truth_set)
+            oracle_f1 = (
+                2 * oracle_precision * oracle_recall / (oracle_precision + oracle_recall)
+                if oracle_precision and oracle_recall else 0.0
+            )
+            for name, value in [
+                ("pair_precision", oracle_precision),
+                ("pair_recall", oracle_recall),
+                ("pair_f1", oracle_f1),
+            ]:
+                metrics.append(
+                    _metric(
+                        data, "algorithm_utility", f"ORACLE_CANDIDATE_SCORING:{probe}",
+                        "oracle_candidate_scoring", name,
+                        None, value, None, value, "context_only", Status.PASS,
+                        notes=(
+                            "true successors are inserted before ranking/scoring; production distractors are "
+                            "retained where they exist. This is a scoring/ranking diagnostic, not a blocking result"
+                        ),
+                    )
+                )
 
     probe_frame = pd.DataFrame(probe_rows)
     f1_values = probe_frame["pair_f1"].astype(float)

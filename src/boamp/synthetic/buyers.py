@@ -20,10 +20,34 @@ import pandas as pd
 
 from boamp.synthetic.establishments import generate_valid_siren
 
-# Department shares: calibration_parameters_v0_1.yaml#departments (top-5,
-# EMPIRICAL, USE_DIRECTLY); remainder pooled into a synthetic OTHER bucket.
+# Primary department shares from data/interim/boamp_common_prepared.csv
+# code_departement split on ";" and taking the first code. The corpus is
+# Pays-de-la-Loire download-scoped, but BOAMP contains cross-department notices;
+# do not collapse that observable tail into an artificial "OTHER" code.
 DEPARTMENT_SHARES: dict[str, float] = {
-    "44": 0.397, "49": 0.175, "85": 0.142, "72": 0.136, "53": 0.048,
+    "44": 0.39659431, "49": 0.17472791, "85": 0.14243173, "72": 0.13555416,
+    "53": 0.04774116, "35": 0.02661215, "61": 0.00804746, "75": 0.00772840,
+    "56": 0.00670031, "17": 0.00654668, "29": 0.00639306, "79": 0.00603855,
+    "22": 0.00569585, "37": 0.00540042, "14": 0.00231616, "28": 0.00220980,
+    "45": 0.00189074, "86": 0.00170167, "76": 0.00152441, "77": 0.00112263,
+    "50": 0.00105172, "41": 0.00100446, "16": 0.00096900, "69": 0.00090992,
+    "33": 0.00088628, "57": 0.00061449, "18": 0.00057904, "94": 0.00049632,
+    "92": 0.00048450, "36": 0.00047268, "13": 0.00044905, "93": 0.00040178,
+    "59": 0.00036633, "6": 0.00035451, "31": 0.00033088, "19": 0.00033088,
+    "1": 0.00027179, "27": 0.00023634, "78": 0.00023634, "64": 0.00021271,
+    "34": 0.00017726, "91": 0.00017726, "60": 0.00014181, "38": 0.00012999,
+    "83": 0.00010635, "65": 0.00010635, "21": 0.00010635, "87": 0.00008272,
+    "95": 0.00008272, "40": 0.00008272, "62": 0.00007090, "54": 0.00007090,
+    "8": 0.00005909, "80": 0.00005909, "24": 0.00005909, "51": 0.00005909,
+    "70": 0.00005909, "974": 0.00004727, "67": 0.00004727, "3": 0.00004727,
+    "988": 0.00004727, "2": 0.00003545, "5": 0.00003545, "26": 0.00003545,
+    "973": 0.00003545, "68": 0.00003545, "63": 0.00003545, "11": 0.00003545,
+    "66": 0.00002363, "23": 0.00002363, "42": 0.00002363, "4": 0.00002363,
+    "47": 0.00002363, "986": 0.00001182, "9": 0.00001182, "99": 0.00001182,
+    "976": 0.00001182, "20A": 0.00001182, "971": 0.00001182,
+    "46": 0.00001182, "972": 0.00001182, "10": 0.00001182, "7": 0.00001182,
+    "987": 0.00001182, "52": 0.00001182, "43": 0.00001182,
+    "12": 0.00001182, "71": 0.00001182,
 }
 
 BUYER_TYPE_PROBS: dict[str, float] = {
@@ -56,11 +80,34 @@ def generate_synthetic_buyer_name(buyer_type: str, rng: np.random.Generator) -> 
 
 
 def _department_choices() -> tuple[list[str], list[float]]:
-    depts = list(DEPARTMENT_SHARES) + ["OTHER"]
+    depts = list(DEPARTMENT_SHARES)
     probs = list(DEPARTMENT_SHARES.values())
-    probs.append(max(0.0, 1.0 - sum(probs)))
     total = sum(probs)
     return depts, [p / total for p in probs]
+
+
+def _assign_departments_by_activity(activity_rate: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """Assign buyer departments so expected notice mass follows calibration.
+
+    BOAMP department fidelity is notice-level: a randomly assigned department
+    per buyer lets a single high-activity buyer distort the observed notice
+    shares. Assigning larger buyers first against remaining department-mass
+    deficits preserves realistic heavy-tailed activity while keeping the
+    notice-weighted geography close to the empirical primary-department target.
+    """
+    depts, probs = _department_choices()
+    targets = dict(zip(depts, probs, strict=False))
+    current = {dept: 0.0 for dept in depts}
+    assigned = np.empty(len(activity_rate), dtype=object)
+    for idx in np.argsort(-activity_rate):
+        deficits = np.array([max(0.0, targets[dept] - current[dept]) for dept in depts], dtype=float)
+        if deficits.sum() <= 0:
+            choice = str(rng.choice(depts, p=probs))
+        else:
+            choice = depts[int(deficits.argmax())]
+        assigned[idx] = choice
+        current[choice] += float(activity_rate[idx])
+    return assigned
 
 
 def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Generator,
@@ -106,8 +153,7 @@ def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Gen
     raw = rng.pareto(pareto_shape, size=n_buyers) + pareto_offset
     activity_rate = raw / raw.sum()
 
-    depts, probs = _department_choices()
-    department = rng.choice(depts, size=n_buyers, p=probs)
+    department = _assign_departments_by_activity(activity_rate, rng)
     buyer_type = rng.choice(list(BUYER_TYPE_PROBS), size=n_buyers, p=list(BUYER_TYPE_PROBS.values()))
 
     p99, p80 = np.quantile(activity_rate, [0.99, 0.80])

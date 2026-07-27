@@ -1,0 +1,22 @@
+{
+  "generated_at_utc": "2026-07-27T14:15:55.887281+00:00",
+  "status": "PASS",
+  "archive_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+  "archive_sha256": "38d46702505b4112171004646e73398998c74423a59d126af9f8ac23ff615a70",
+  "archive_sha_matches_manifest": true,
+  "git_head": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "source_state_manifest_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/source_state_manifest.json",
+  "source_state_manifest_sha_matches_manifest": true,
+  "member_list_matches_manifest": true,
+  "n_members": 592,
+  "n_expected_members": 592,
+  "n_hashed_paths_checked": 591,
+  "n_missing": 0,
+  "n_mismatches": 0,
+  "missing": [],
+  "mismatches": [],
+  "limitations": [
+    "Verification applies the overlay to a clean git archive of git_head and checks recorded dirty-file hashes.",
+    "This verifies archive replayability only; it does not change final algorithm-ranking readiness."
+  ]
+}

@@ -216,10 +216,12 @@ duration missingness and text weakness co-occur on the same notices —
 matching Lam et al.'s core corruption-design principle.
 
 **Truth-table isolation.** `true_relations.parquet` and every `*_true`
-column are structurally excluded from `observed_notices.parquet`; Phase 12
-compatibility checks (`boamp.synthetic.compatibility`) run the *existing*
-Layer 1 candidate-generation code on synthetic `observed_notices` without
-ever consulting synthetic truth.
+column are structurally excluded from `observed_notices.parquet`; the leakage
+gate also rejects unsuffixed hidden-entity aliases, exact or normalised
+truth-ID values, and direct MD5/SHA1/SHA256 hashes of hidden truth IDs. Phase
+12 compatibility checks (`boamp.synthetic.compatibility`) run the *existing*
+Layer 1 candidate-generation code on synthetic `observed_notices` without ever
+consulting synthetic truth.
 
 **Fidelity and benchmark validation.** The active version is
 `v0_3_temporal_candidate_revision`. It compares synthetic observed notices
@@ -228,12 +230,36 @@ buyer activity, identifiers, CPV, duration, text, missingness co-occurrence,
 names, privacy/memorisation, and the production Layer-1 candidate environment.
 Hidden-truth diagnostics additionally measure blocking completeness,
 hard-negative overlap, true-match rank, and frozen probe-linker utility. The
-validation framework reports `PASS_WITH_WARNINGS` with no blocking gates; the
-internal-integrity, specification-recovery, candidate-environment,
-conditional-fidelity, privacy, and algorithm-utility gates pass, while
-observable-fidelity warnings and 18 metric-level failures in non-critical gates
-remain visible in the discrepancy register and are counted in the validation
-manifest.
+validation framework reports `PASS_WITH_WARNINGS` across 210 metrics, with no
+blocking gates under its current gate policy; the internal-integrity,
+specification-recovery,
+candidate-environment, conditional-fidelity, privacy, and algorithm-utility
+gates pass, while observable-fidelity warnings remain visible in the
+discrepancy register; the current regenerated run has no metric-level
+failures. This framework status is deliberately narrower than
+benchmark readiness. `scripts/assess_synthetic_benchmark_readiness.py` now
+reports the required five-level decision: the pipeline is technically valid and
+usable for preliminary synthetic-only modeling and controlled synthetic
+algorithm comparison with limitations, but it is not ready for final algorithm
+ranking or validated synthetic benchmark release.
+
+Blocking and scoring are reported separately. `PRODUCTION_BLOCKING` measures
+candidate recall before scoring; `ORACLE_CANDIDATE_SCORING` inserts hidden true
+successors into the production-distractor environment to evaluate ranking when
+truth is reachable; and `END_TO_END` reports probe-linker recall after both
+blocking and scoring, with the explicit identity
+`R_end_to_end = R_blocking * R_scoring_given_reachable`.
+
+Scenario coverage is now split into executable configuration coverage and
+generated-artifact coverage. The required `easier`, `moderate`, `difficult`,
+and `stress` scenarios are loadable generator configurations and have 10
+generated seeds each. The central scenario also has 10 generated seeds, while
+`clean_sanity` remains a single-seed smoke test. Final algorithm-ranking
+readiness still fails because cross-scenario headline difficulty and
+probe-linker rankings remain scenario-specific; observable warning-level gaps
+remain but no longer include metric-level failures. Replicate-level probe
+results are written to `probe_replicate_results.csv`, and rank intervals, mean
+F1, and rank-1 frequencies are written to `probe_ranking_stability.csv`.
 
 Specification recovery includes a Monte Carlo check that the realized true gaps
 match the declared recurrence mixture. It censors each simulated draw at
@@ -245,12 +271,38 @@ injected gap shift while hard-negative chain alignment is enabled.
 
 **Reproducibility.**
 ```bash
-python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
-python3 scripts/validate_synthetic_benchmark.py
-python3 scripts/replay_synthetic_benchmark.py \
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
+  --scenarios easier,moderate,difficult,stress \
+  --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
+  --force \
+  --manifest reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/required_scenario_10_seed_generation_manifest.json
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
+  --scenarios central_provisional \
+  --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
+  --force \
+  --manifest reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/central_10_seed_generation_manifest.json
+PYTHONPATH=src python3 scripts/validate_synthetic_benchmark.py
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark.py \
   --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json
-python3 -m pytest -q tests/test_synthetic_*.py
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark_replicates.py \
+  --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_replicates.json
+PYTHONPATH=src python3 scripts/build_source_state_manifest.py
+PYTHONPATH=src python3 scripts/build_benchmark_registries.py
+PYTHONPATH=src python3 scripts/build_mechanism_tradeoff_log.py
+PYTHONPATH=src python3 scripts/assess_synthetic_benchmark_readiness.py
+PYTHONPATH=scripts python3 scripts/build_dirty_state_overlay_archive.py
+PYTHONPATH=scripts python3 scripts/verify_dirty_state_overlay_archive.py
+PYTHONPATH=src python3 -m pytest -q tests/test_synthetic_*.py
 ```
+The current all-artifact replay result is `PASS` for 51 generated artifacts
+across central, sanity, easier, moderate, difficult, and stress scenarios. The
+current source-state manifest hashes the dirty worktree, and
+`dirty_state_overlay.tar.gz` packages that dirty overlay against the recorded
+Git HEAD for auditability. `dirty_state_overlay_verification.json` verifies
+that the overlay replays onto a clean Git HEAD snapshot with no missing files or
+hash mismatches. This does not replace the release requirement for a clean
+commit or standalone release package.
 
 **Current limitations.** No manually-validated CPV/technological taxonomy
 exists in this repo, so needs use broad CPV-division-derived segments as a
@@ -259,6 +311,14 @@ scenario-controlled. The synthetic buyer-activity tail, department mix, text
 duplication/lexical distribution, and some identifier missingness rates still
 differ from the real corpus. Those discrepancies are not tuned away; they are
 kept as warnings and should be reflected in algorithm-calibration claims.
+An attempted split of family-level identifier persistence by notice type
+reduced one attribution-specific mismatch but produced a critical conditional
+text failure and degraded widened blocking reachability in the tested central
+run, so the current generator retains family/need-level identifier persistence
+as an explicit reachability-vs-conditional-fidelity trade-off.
+`mechanism_tradeoff_log.csv` and `mechanism_tradeoff_log.json` record this as a
+machine-readable rejected-local-audit decision rather than as an accepted
+benchmark artifact.
 
 ## 9. Known limitations
 

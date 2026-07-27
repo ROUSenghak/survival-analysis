@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "2026-07-27T14:15:04.277320+00:00",
+  "git_head": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "archive_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+  "archive_sha256": "38d46702505b4112171004646e73398998c74423a59d126af9f8ac23ff615a70",
+  "archive_size_bytes": 85216485,
+  "source_state_manifest_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/source_state_manifest.json",
+  "source_state_manifest_sha256": "813549b4e121e60a332cf8924fb78b16c6864e3ab1f571f4484b724e010cd30d",
+  "overlay_file_count": 592,
+  "overlay_payload_file_count": 591,
+  "overlay_payload_size_bytes": 117647625,
+  "member_list_matches_manifest": true,
+  "excluded_paths": [
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/source_state_manifest.json"
+  ],
+  "status": "PASS",
+  "limitations": [
+    "This is a dirty-state overlay on the recorded git_head, not a clean standalone release.",
+    "It does not change scientific readiness decisions and must not be cited as final algorithm-ranking evidence.",
+    "The archive excludes itself and its manifest to avoid self-referential hashes."
+  ]
+}

@@ -4,7 +4,9 @@ import pandas as pd
 import pytest
 
 from boamp.synthetic.pipeline import generate_clean_world, generate_observed_world
+from boamp.synthetic.text_generation import render_text
 from boamp.synthetic.validation import run_full_structural_validation
+from boamp.synthetic.validation_framework.bootstrap import gini, top_share
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -45,6 +47,26 @@ def test_every_cycle_belongs_to_exactly_one_need(tiny_world):
 def test_a_buyer_can_have_several_simultaneous_needs(tiny_world):
     needs_per_buyer = tiny_world["needs"].groupby("buyer_id_true").size()
     assert (needs_per_buyer > 1).any()
+
+
+def test_need_generation_preserves_high_activity_buyer_tail():
+    world = generate_clean_world("central_provisional", REPO, n_buyers=500, world_seed=20260721)
+    buyers = world["buyers"].set_index("buyer_id_true")
+    needs_per_buyer = world["needs"].groupby("buyer_id_true").size()
+    active_activity = buyers.loc[needs_per_buyer.index, "activity_rate"]
+    top_activity_buyers = set(active_activity.nlargest(max(1, int(len(active_activity) * 0.05))).index)
+    top_activity_need_share = needs_per_buyer.loc[list(top_activity_buyers)].sum() / needs_per_buyer.sum()
+
+    assert gini(needs_per_buyer) >= 0.55
+    assert top_share(needs_per_buyer, 0.05) >= 0.35
+    assert top_activity_need_share >= 0.35
+
+
+def test_department_sampler_does_not_emit_artificial_other_bucket():
+    world = generate_clean_world("central_provisional", REPO, n_buyers=500, world_seed=20260721)
+    departments = set(world["buyers"]["department_true"])
+    assert "OTHER" not in departments
+    assert {"44", "49", "53", "72", "85"}.issubset(departments)
 
 
 def test_same_buyer_same_cpv_distinct_needs_exist(tiny_world):
@@ -92,6 +114,32 @@ def test_no_real_identifier_or_text_is_copied_structurally(tiny_world):
     assert names.map(lambda n: isinstance(n, str) and len(n) > 0).all()
     texts = tiny_world["clean_notices"]["objet_true"]
     assert texts.map(lambda t: isinstance(t, str) and len(t) > 0).all()
+
+
+def test_text_renderer_has_noncopying_short_medium_and_long_shapes():
+    import numpy as np
+
+    rng = np.random.default_rng(20260727)
+    texts = pd.Series(
+        [
+            render_text(
+                ["maintenance applicative", "développement logiciel"],
+                ["logiciel", "application", "support", "hébergement"],
+                "Commune de Test",
+                "44",
+                "CALL",
+                rng,
+            )
+            for _ in range(500)
+        ]
+    )
+    lengths = texts.str.len()
+    digit_rate = texts.str.count(r"\d").sum() / lengths.sum()
+
+    assert lengths.quantile(0.50) < 120
+    assert lengths.quantile(0.90) > 150
+    assert digit_rate < 0.02
+    assert not texts.str.contains("réf\\.", case=False, regex=True).any()
 
 
 def test_structural_validation_failure_blocks_progression(monkeypatch):

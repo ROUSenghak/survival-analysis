@@ -46,7 +46,14 @@ def generate_clean_world(scenario_id: str, project_root: Path, n_buyers: int,
     scenario = scenario_override or load_scenario(project_root, scenario_id)
     benchmark_defaults = load_benchmark_defaults(project_root)
 
-    buyers = generate_latent_buyers(n_buyers, benchmark_defaults, rng)
+    buyer_cfg = getattr(scenario, "buyers", None)
+    buyers = generate_latent_buyers(
+        n_buyers,
+        benchmark_defaults,
+        rng,
+        pareto_shape=float(getattr(buyer_cfg, "activity_pareto_shape", 1.0)),
+        pareto_offset=float(getattr(buyer_cfg, "activity_pareto_offset", 0.15)),
+    )
     establishments = generate_latent_establishments(buyers, rng)
     needs = generate_latent_needs(
         buyers, establishments, calib, rng,

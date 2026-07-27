@@ -1,4 +1,4 @@
 dimension,status,notes
 temporal_validation,PASS,Calendar/share checks plus 12m/24m follow-up runway.
 candidate_environment_validation,NEEDS_REVISION,Production Layer 1 candidate generator on APPEL_OFFRE + DIGITAL_ICT source scope.
-linkage_algorithm_readiness,NOT_READY_FOR_LINKAGE,Run linkage algorithms only after candidate-environment revision passes.
+linkage_algorithm_readiness,SUPERSEDED_BY_V0_3_READINESS_ASSESSMENT,Historical v0.2 diagnostic. Use the v0.3 five-level readiness assessment for current permitted uses.

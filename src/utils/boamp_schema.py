@@ -57,9 +57,135 @@ def _path_str(path) -> str:
     return "/".join(str(p) for p in path)
 
 
+def _as_list(value) -> list:
+    if value is None:
+        return []
+    return value if isinstance(value, list) else [value]
+
+
+def _first_mapping(*values):
+    for value in values:
+        if isinstance(value, dict):
+            return value
+    return {}
+
+
+def _get_nested(obj, keys: tuple[str, ...]):
+    cur = obj
+    for key in keys:
+        if not isinstance(cur, dict):
+            return None
+        cur = cur.get(key)
+    return cur
+
+
+def _text_value(value) -> Optional[str]:
+    if isinstance(value, dict):
+        value = value.get("#text")
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def _eforms_document(donnees_obj):
+    eforms = donnees_obj.get("EFORMS") if isinstance(donnees_obj, dict) else None
+    if not isinstance(eforms, dict):
+        return None
+    for key in ("ContractNotice", "ContractAwardNotice", "PriorInformationNotice"):
+        if isinstance(eforms.get(key), dict):
+            return eforms[key]
+    return None
+
+
+def _eforms_organizations(document) -> dict[str, dict]:
+    """Return eForms organizations keyed by ORG-* technical id."""
+    orgs = _get_nested(
+        document,
+        (
+            "ext:UBLExtensions",
+            "ext:UBLExtension",
+            "ext:ExtensionContent",
+            "efext:EformsExtension",
+            "efac:Organizations",
+            "efac:Organization",
+        ),
+    )
+    out = {}
+    for org in _as_list(orgs):
+        if not isinstance(org, dict):
+            continue
+        company = org.get("efac:Company")
+        party_id = _get_nested(company, ("cac:PartyIdentification", "cbc:ID"))
+        org_id = _text_value(party_id)
+        if org_id:
+            out[org_id] = org
+    return out
+
+
+def _eforms_contracting_party_refs(document) -> list[str]:
+    """Extract organization references used as buyer/contracting parties.
+
+    eForms stores all organizations in one extension list, then points buyer,
+    service-provider and appeal roles at ORG-* identifiers elsewhere. The
+    generic identifier extractor is intentionally broad for legacy schemas, but
+    for eForms it can accidentally include non-buyer roles. Prefer explicit
+    ContractingParty references when they are present.
+    """
+    refs = []
+    for path, value in walk(document):
+        ctx = _path_str(path)
+        if "ContractingParty" not in ctx or "ServiceProviderParty" in ctx:
+            continue
+        if not ctx.endswith("PartyIdentification/cbc:ID/#text") and not ctx.endswith("PartyIdentification/cbc:ID"):
+            continue
+        text = _text_value(value)
+        if text and text.startswith("ORG-"):
+            refs.append(text)
+    return list(dict.fromkeys(refs))
+
+
+def _company_identifier(org: dict, length: int) -> Optional[str]:
+    company = org.get("efac:Company") if isinstance(org, dict) else None
+    value = _get_nested(company, ("cac:PartyLegalEntity", "cbc:CompanyID"))
+    text = _text_value(value)
+    if text and text.isdigit() and len(text) == length:
+        return text
+    return None
+
+
+def _extract_eforms_buyer_identifiers(donnees_obj) -> tuple[list, list]:
+    document = _eforms_document(donnees_obj)
+    if document is None:
+        return [], []
+    organizations = _eforms_organizations(document)
+    refs = _eforms_contracting_party_refs(document)
+    sirets, sirens = [], []
+    for ref in refs:
+        org = organizations.get(ref)
+        siret = _company_identifier(org, 14)
+        siren = _company_identifier(org, 9)
+        if siret:
+            sirets.append(siret)
+        if siren:
+            sirens.append(siren)
+    return list(dict.fromkeys(sirets)), list(dict.fromkeys(sirens))
+
+
 def extract_siret_siren(donnees_obj) -> tuple[list, list]:
-    """Return (siret_candidates, siren_candidates) as lists of raw strings,
-    found via key-name pattern matching anywhere in the nested structure."""
+    """Return (siret_candidates, siren_candidates) as lists of raw strings.
+
+    For eForms notices, buyer identifiers are first extracted from
+    ContractingParty organization references. This avoids treating appeal
+    bodies, publication platforms, service providers, or awardees from the
+    shared eForms organization list as buyer identifiers. If those role
+    references are absent, the function falls back to the legacy broad
+    recursive search.
+    """
+    eforms_sirets, eforms_sirens = _extract_eforms_buyer_identifiers(donnees_obj)
+    if eforms_sirets or eforms_sirens:
+        return eforms_sirets, eforms_sirens
+
     sirets, sirens = [], []
     for path, value in walk(donnees_obj):
         if not isinstance(value, str):

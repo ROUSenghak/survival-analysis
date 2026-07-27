@@ -841,9 +841,10 @@ savefig("final_evidence_status.png")"""
         md(
             """## Takeaways
 
-1. **The v0.3 synthetic benchmark is ready for linkage-algorithm testing.**
-   The final freeze gate is `READY_FOR_LINKAGE` because conditional fidelity,
-   temporal validation, candidate environment, and structural truth all pass.
+1. **The v0.3 synthetic benchmark is ready for controlled synthetic comparison
+   with limitations.** The current five-level readiness assessment reports
+   `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON = PASS_WITH_LIMITATIONS`; final
+   algorithm ranking and validated release still fail.
 
 2. **The strongest visual evidence is the candidate environment.** The v0.3
    zero-candidate rate is close to the real Layer-1 source scope, so the
@@ -857,7 +858,9 @@ savefig("final_evidence_status.png")"""
 4. **The synthetic dataset is not a replacement for real truth.** It is a
    controlled benchmark with hidden labels, designed to evaluate whether
    linkage algorithms can recover known synthetic recurrence structure under
-   realistic observed-data corruption.
+   realistic observed-data corruption. It cannot prove real BOAMP precision,
+   recall, recurrence prevalence, survival estimates, or final algorithm
+   rankings.
 """
         ),
     ]

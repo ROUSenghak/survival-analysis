@@ -44,6 +44,14 @@ def test_observed_notices_never_leaks_truth_columns(tiny_observed):
         assert col not in observed.columns
 
 
+def test_observed_notices_rejects_hidden_truth_alias_columns(tiny_observed):
+    observed, _log = tiny_observed
+    leaked = observed.copy()
+    leaked["buyer_id"] = "BUYER-000001"
+    with pytest.raises(ValueError, match="buyer_id"):
+        schemas.assert_no_truth_leakage(leaked)
+
+
 def test_corruption_log_has_required_columns(tiny_observed):
     _observed, log = tiny_observed
     schemas.validate_columns(log, schemas.CORRUPTION_LOG, "corruption_log")

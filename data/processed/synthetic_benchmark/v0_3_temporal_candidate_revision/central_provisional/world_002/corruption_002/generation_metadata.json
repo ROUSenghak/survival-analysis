@@ -1,0 +1,246 @@
+{
+  "generator_version": "0.3.0-temporal-candidate-revision",
+  "benchmark_id": "synthetic_benchmark_v0_3_temporal_candidate_revision",
+  "scenario": "central_provisional",
+  "world_seed": 20260731,
+  "corruption_seed": 20260732,
+  "world_replication": 2,
+  "corruption_replication": 2,
+  "config_hashes": {
+    "calibration_parameters_v0_1.yaml": "7c76cbb0dd763cae",
+    "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
+    "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
+    "scenarios/central_provisional.yaml": "048829f1c9c1b243",
+    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
+  },
+  "row_counts": {
+    "buyers": 2000,
+    "establishments": 2162,
+    "needs": 4603,
+    "cycles": 7012,
+    "true_relations": 7012,
+    "notice_family_membership": 9734,
+    "clean_notices": 9734,
+    "observed_notices": 9734,
+    "corruption_log": 28545
+  },
+  "execution_timestamp_utc": "2026-07-27T12:17:33.172566+00:00",
+  "git_commit": "9ca1edb91f09f4b39f5e7aa59620145197c9f443",
+  "resolved_scenario": {
+    "scenario_id": "central_provisional",
+    "display_name": "Central provisional",
+    "version": "0.1",
+    "purpose": "Principal v0.1 benchmark. Uses calibrated BOAMP observation mechanisms (identifier/CPV/duration/text missingness and buyer-name variation) at their observed real-corpus rates; recurrence prevalence, cycle-gap distribution, and text drift remain explicit scenario assumptions, never calibrated to a point (see calib_unidentified_parameters_scenarios.csv).\n",
+    "provenance": "EMPIRICAL, SCENARIO_ASSUMPTION",
+    "references": [
+      "config/synthetic/scenarios/02_central_boamp_like.yaml"
+    ],
+    "baseline_reference": "central_provisional.yaml",
+    "buyers": {
+      "activity_pareto_shape": 0.9,
+      "activity_pareto_offset": 0.15
+    },
+    "recurrence": {
+      "base_recurrence_propensity": 0.4,
+      "cycle_gap_distribution": {
+        "type": "normal",
+        "mean_months": 18.0,
+        "sd_months": 9.0,
+        "min_months": 1.0
+      },
+      "max_cycles_per_need": 4,
+      "scoped_candidate_environment": {
+        "enabled": true,
+        "cpv_divisions": [
+          "32",
+          "35",
+          "48",
+          "72"
+        ],
+        "recurrence_propensity_multiplier": 1.3,
+        "near_window_share": 0.8,
+        "near_window_distribution": {
+          "type": "normal",
+          "mean_months": 2.0,
+          "sd_months": 2.0,
+          "min_months": 0.1,
+          "max_months": 6.0
+        },
+        "hard_negative_alignment_rate": 0.0,
+        "cluster_scoped_needs_by_buyer": true,
+        "scoped_buyer_affinity_share": 0.02,
+        "scoped_need_probability_high": 0.25,
+        "stabilize_scoped_establishment": true,
+        "stabilize_scoped_name_fallback": true,
+        "stabilize_scoped_identity_by_need": true,
+        "note": "v0.3 temporal/candidate revision block. These are bounded scenario parameters that originally lived only in v0.3 metadata; they now live in the scenario file so the released benchmark can be replayed from configuration. The scoped buyer-affinity/share values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario: the older 0.07/0.70 and 0.07/0.50 settings became too dense once the observed high-activity tail was restored. The current 0.02/0.25 setting with near-window share 0.80 preserves the digital source scale and zero-candidate rate in the central world, while keeping production blocking completeness above its warning floor across the documented 10 central seeds and leaving the buyer-activity tail to be checked separately by the validation framework. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
+      }
+    },
+    "identifiers": {
+      "siret_missing_rate": 0.728,
+      "siren_only_rate": 0.1285,
+      "both_missing_rate": 0.807,
+      "invalid_identifier_rate": 0.0129,
+      "wrong_establishment_siret_rate": 0.02,
+      "year_regime_scale": {
+        "early": {
+          "end_year": 2021,
+          "scale": 2.5
+        },
+        "mid": {
+          "end_year": 2023,
+          "scale": 0.52
+        },
+        "late": {
+          "end_year": 9999,
+          "scale": 0.69
+        }
+      },
+      "conditional_siret_presence": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "schema_family",
+          "publication_year",
+          "notice_type_normalized"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "siren_only_among_absent_rate": 0.0,
+        "invalid_among_absent_rate": 0.01,
+        "note": "Overrides the older year-regime scale for central_provisional in the v0.2 conditional revision. The target is checksum-clean SIRET presence; the absent mass is still split into SIREN-only, invalid, and missing official-identifier outcomes so the corruption vocabulary remains compatible with the current linkage pipeline.\n"
+      }
+    },
+    "buyer_names": {
+      "false_split_rate": 0.279,
+      "false_merge_rate": 0.076,
+      "generic_collision_rate": 0.368
+    },
+    "cpv": {
+      "missing_rate": 0.1706,
+      "parent_replace_rate": 0.05,
+      "division_only_rate": 0.02,
+      "generic_rate": 0.0714,
+      "wrong_related_rate": 0.02,
+      "old_parser_failure_mode": false,
+      "missing_rate_by_condition": {
+        "eforms": 0.01,
+        "legacy": {
+          "APPEL_OFFRE": 0.213,
+          "ATTRIBUTION": 0.072
+        }
+      }
+    },
+    "duration": {
+      "missing_rate": 0.885,
+      "rounding_severity": 0.4,
+      "common_admin_value_rate": 0.2,
+      "unit_conversion_failure_rate": 0.005,
+      "missing_rate_by_schema": {
+        "LEGACY": 0.995,
+        "EFORMS": 0.06
+      },
+      "conditional_presence": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "schema_family",
+          "publication_year",
+          "notice_type_normalized"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "value_sampler": {
+          "method": "low_discrepancy_empirical_inverted_cdf",
+          "source_field": "duration_raw",
+          "valid_month_range": [
+            1,
+            120
+          ],
+          "offset": 0.0
+        },
+        "note": "Overrides missing_rate_by_schema for central_provisional in the v0.2 conditional revision. Presence is estimated by observable schema/year/type rates. When present, the visible declared duration is sampled from valid raw BOAMP duration values instead of being rounded from hidden cycle length; latent true contract-cycle timing remains generated by the clean-world mechanism and is not inferred from BOAMP.\n"
+      }
+    },
+    "text": {
+      "same_cycle_variation_severity": 0.03,
+      "next_cycle_drift_severity": 0.5,
+      "hard_negative_overlap_rate": 0.15,
+      "boilerplate_rate": 0.44,
+      "conditional_reuse": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "notice_type_normalized",
+          "buyer_activity_tier"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "exact_template_share": 0.82,
+        "near_boilerplate_extra_rate": 0.08,
+        "generic_weak_extra_rate": 0.04,
+        "same_family_near_duplicate_rate": 0.0,
+        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact unless lexical drift is separately drawn; converting almost every award into a row-specific \"near duplicate\" erased the real corpus's high normalized duplicate share after corruption.\n"
+      }
+    },
+    "linked_notice_visibility": {
+      "missing_rate": 0.6788
+    },
+    "conditional_observation": {
+      "enabled": true,
+      "version": "v0_2_conditional_revision",
+      "source": "data/interim/boamp_common_prepared.csv",
+      "provenance": "EMPIRICAL_OBSERVABLE",
+      "note": "Added after notebooks/07_synthetic_conditional_fidelity_validation.ipynb. Builds smoothed observable-rate tables for SIRET presence, duration presence, and exact cross-buyer repeated text. This changes only observed/corrupted fields; latent truth and CPV missingness remain governed by their existing mechanisms.\n"
+    },
+    "quality_class_mix": {
+      "HIGH": 0.3,
+      "MEDIUM": 0.45,
+      "LOW": 0.25
+    }
+  },
+  "resolved_benchmark_defaults": {
+    "version": "0.1",
+    "benchmark_id": "synthetic_benchmark_v0.1_provisional",
+    "target_n_buyers": 2000,
+    "target_n_notices": 10000,
+    "n_latent_world_replications": 1,
+    "n_corruption_replications": 1,
+    "seed": {
+      "latent_world_seed": 20260721,
+      "corruption_seed": 20260722
+    },
+    "output_format": {
+      "large_tables": "parquet",
+      "small_summaries": "csv",
+      "config": "yaml"
+    },
+    "observation_window": {
+      "start_date": "2015-01-01",
+      "end_date": "2026-07-31"
+    },
+    "validation_tolerances": {
+      "siret_siren_hierarchy_violations_max": 0,
+      "real_identifier_leakage_max": 0,
+      "reproducibility_row_count_tolerance": 0,
+      "buyer_activity_gini_target": 0.832,
+      "buyer_activity_gini_tolerance": 0.15,
+      "candidate_zero_rate_fidelity_band": [
+        0.4,
+        0.8
+      ]
+    },
+    "paths": {
+      "root": "data/processed/synthetic_benchmark"
+    }
+  },
+  "validation_status": "PASS",
+  "validation_failures": {},
+  "warnings": []
+}

@@ -10,6 +10,8 @@ would make the schema brittle for no real benefit here.
 """
 from __future__ import annotations
 
+import re
+
 import pandas as pd
 
 LATENT_BUYERS: tuple[str, ...] = (
@@ -72,6 +74,33 @@ CORRUPTION_LOG: tuple[str, ...] = (
     "corruption_type", "scenario", "severity", "seed",
 )
 
+OBSERVED_FORBIDDEN_TRUTH_ALIASES: tuple[str, ...] = (
+    "cycle_id",
+    "need_id",
+    "buyer_id",
+    "establishment_id",
+    "contract_family_id",
+    "family_id",
+    "source_cycle_id",
+    "target_cycle_id",
+    "successor_cycle_id",
+    "predecessor_cycle_id",
+    "relation_type",
+    "strict_label",
+    "broad_label",
+    "true_gap_months",
+    "source_expected_end",
+    "target_start",
+    "corruption_type",
+    "corruption_history",
+    "quality_class",
+    "scenario_label",
+)
+
+
+def _column_signature(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", name.lower())
+
 
 def validate_columns(df: pd.DataFrame, schema: tuple[str, ...], table_name: str) -> None:
     """Raise ValueError if df is missing any column required by schema."""
@@ -81,7 +110,12 @@ def validate_columns(df: pd.DataFrame, schema: tuple[str, ...], table_name: str)
 
 
 def assert_no_truth_leakage(observed: pd.DataFrame) -> None:
-    """observed_notices must not carry any *_true / cycle_id_true-style truth column."""
-    leaked = [c for c in observed.columns if c.endswith("_true")]
+    """observed_notices must not carry truth columns or hidden-label aliases."""
+    forbidden_aliases = {_column_signature(c) for c in OBSERVED_FORBIDDEN_TRUTH_ALIASES}
+    leaked = [
+        c
+        for c in observed.columns
+        if c.endswith("_true") or _column_signature(c) in forbidden_aliases
+    ]
     if leaked:
         raise ValueError(f"observed_notices leaks truth columns: {leaked}")

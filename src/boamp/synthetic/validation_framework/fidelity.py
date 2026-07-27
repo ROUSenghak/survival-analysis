@@ -32,6 +32,7 @@ TOLERANCES = {
     "conditional_max_warning_pp": 10.0,
     "temporal_year_tvd": 0.20,
     "temporal_month_tvd": 0.20,
+    "temporal_calendar_month_tvd": 0.10,
     "temporal_schema_by_year_wmae_pp": 3.0,
     "temporal_notice_type_by_year_wmae_pp": 5.0,
     "runway_12_24_abs_pp": 3.0,
@@ -49,6 +50,9 @@ TOLERANCES = {
     "text_length_quantile_rel": 0.10,
     "identifier_rate_pp": 2.0,
 }
+
+MIN_VALID_DURATION_MONTHS = 1.0
+MAX_VALID_DURATION_MONTHS = 120.0
 
 
 def _metric(
@@ -92,6 +96,10 @@ def _shares(s: pd.Series) -> pd.Series:
     return counts / counts.sum() if counts.sum() else counts
 
 
+def _primary_department(series: pd.Series) -> pd.Series:
+    return series.fillna("__MISSING__").astype(str).str.split(";").str[0]
+
+
 def _tv(real: pd.Series, synthetic: pd.Series) -> float:
     idx = real.index.union(synthetic.index)
     return float(0.5 * (real.reindex(idx, fill_value=0) - synthetic.reindex(idx, fill_value=0)).abs().sum())
@@ -112,6 +120,11 @@ def _js(real: pd.Series, synthetic: pd.Series) -> float:
 
 def _numeric(series: pd.Series) -> pd.Series:
     return pd.to_numeric(series, errors="coerce").dropna()
+
+
+def _valid_raw_duration(series: pd.Series) -> pd.Series:
+    values = _numeric(series)
+    return values.loc[values.between(MIN_VALID_DURATION_MONTHS, MAX_VALID_DURATION_MONTHS)]
 
 
 def _scaled_w1(real: pd.Series, synthetic: pd.Series) -> float:
@@ -139,32 +152,40 @@ def run_marginal_metrics(data: BenchmarkData) -> list[MetricResult]:
         ("schema_family", "schema_family"),
         ("notice_type_normalized", "notice_type"),
         ("cpv_division", "cpv_division"),
-        ("code_departement", "department"),
+        ("code_departement", "department_primary"),
     ]
     for col, prop in categorical:
         if col not in real.columns or col not in syn.columns:
             continue
-        real_shares = _shares(real[col])
-        syn_shares = _shares(syn[col])
+        real_values = _primary_department(real[col]) if prop == "department_primary" else real[col]
+        syn_values = _primary_department(syn[col]) if prop == "department_primary" else syn[col]
+        real_shares = _shares(real_values)
+        syn_shares = _shares(syn_values)
         tv = _tv(real_shares, syn_shares)
         js = _js(real_shares, syn_shares)
         metrics.append(_metric(data, "marginals", "overall", prop, "TV", None, None, tv, tv, TOLERANCES["categorical_tv"], classify_upper(tv, TOLERANCES["categorical_tv"])))
         metrics.append(_metric(data, "marginals", "overall", prop, "JS", None, None, js, js, TOLERANCES["categorical_js"], classify_upper(js, TOLERANCES["categorical_js"])))
 
     numeric_pairs = [
-        ("declared_duration_months", "declared_duration_months", "duration"),
+        ("duration_raw", "declared_duration_months", "duration"),
         ("text_length", "text_length", "text_length"),
     ]
     for real_col, syn_col, prop in numeric_pairs:
         if real_col not in real.columns or syn_col not in syn.columns:
             continue
-        r = _numeric(real[real_col])
+        r = _valid_raw_duration(real[real_col]) if prop == "duration" else _numeric(real[real_col])
         s = _numeric(syn[syn_col])
         if r.empty or s.empty:
             metrics.append(_metric(data, "marginals", "overall", prop, "W1_scaled", None, None, None, None, TOLERANCES["w1_scaled"], Status.INCONCLUSIVE))
             continue
         w1 = _scaled_w1(r, s)
-        metrics.append(_metric(data, "marginals", "overall", prop, "W1_scaled", None, None, w1, w1, TOLERANCES["w1_scaled"], classify_upper(w1, TOLERANCES["w1_scaled"])))
+        duration_notes = (
+            "Real reference uses valid raw observed BOAMP duration_raw values within 1-120 months, "
+            "excluding prepared source-scope imputation."
+            if prop == "duration"
+            else ""
+        )
+        metrics.append(_metric(data, "marginals", "overall", prop, "W1_scaled", None, None, w1, w1, TOLERANCES["w1_scaled"], classify_upper(w1, TOLERANCES["w1_scaled"]), notes=duration_notes))
         for q in [0.50, 0.75, 0.90, 0.95, 0.99]:
             rq = float(r.quantile(q))
             sq = float(s.quantile(q))
@@ -184,6 +205,7 @@ def run_marginal_metrics(data: BenchmarkData) -> list[MetricResult]:
                     rel,
                     tol,
                     classify_upper(rel, tol),
+                    notes=duration_notes,
                 )
             )
     return metrics
@@ -307,21 +329,54 @@ def run_temporal_metrics(data: BenchmarkData, strict_60m: bool = False) -> list[
     syn["publication_year"] = pd.to_datetime(syn["publication_date"]).dt.year
     real["publication_month_period"] = pd.to_datetime(real["publication_date"]).dt.to_period("M").astype(str)
     syn["publication_month_period"] = pd.to_datetime(syn["publication_date"]).dt.to_period("M").astype(str)
+    real["publication_calendar_month"] = pd.to_datetime(real["publication_date"]).dt.month.astype("Int64")
+    syn["publication_calendar_month"] = pd.to_datetime(syn["publication_date"]).dt.month.astype("Int64")
 
     year_tvd = _tv(
         _distribution_comparison(real["publication_year"], syn["publication_year"])["real_share"],
         _distribution_comparison(real["publication_year"], syn["publication_year"])["synthetic_share"],
     )
-    month_tvd = _tv(
+    month_period_tvd = _tv(
         _distribution_comparison(real["publication_month_period"], syn["publication_month_period"])["real_share"],
         _distribution_comparison(real["publication_month_period"], syn["publication_month_period"])["synthetic_share"],
+    )
+    calendar_month_tvd = _tv(
+        _distribution_comparison(real["publication_calendar_month"], syn["publication_calendar_month"])["real_share"],
+        _distribution_comparison(real["publication_calendar_month"], syn["publication_calendar_month"])["synthetic_share"],
     )
     schema_wmae = _conditional_share_wmae(real, syn, "publication_year", "schema_family")
     type_wmae = _conditional_share_wmae(real, syn, "publication_year", "notice_type_normalized")
 
     metrics = [
         _metric(data, "temporal", "overall", "publication_year", "TVD", None, None, year_tvd, year_tvd, TOLERANCES["temporal_year_tvd"], classify_upper(year_tvd, TOLERANCES["temporal_year_tvd"])),
-        _metric(data, "temporal", "overall", "publication_month", "TVD", None, None, month_tvd, month_tvd, TOLERANCES["temporal_month_tvd"], classify_upper(month_tvd, TOLERANCES["temporal_month_tvd"])),
+        _metric(
+            data,
+            "temporal",
+            "overall",
+            "publication_month_period",
+            "TVD",
+            None,
+            None,
+            month_period_tvd,
+            month_period_tvd,
+            TOLERANCES["temporal_month_tvd"],
+            classify_upper(month_period_tvd, TOLERANCES["temporal_month_tvd"]),
+            notes="chronological YYYY-MM publication periods; not calendar-month seasonality",
+        ),
+        _metric(
+            data,
+            "temporal",
+            "overall",
+            "publication_calendar_month",
+            "TVD",
+            None,
+            None,
+            calendar_month_tvd,
+            calendar_month_tvd,
+            TOLERANCES["temporal_calendar_month_tvd"],
+            classify_upper(calendar_month_tvd, TOLERANCES["temporal_calendar_month_tvd"]),
+            notes="calendar month-of-year seasonality, computed after explicit datetime parsing",
+        ),
         _metric(data, "temporal", "publication_year", "schema_family", "WMAE_pp", None, None, schema_wmae, schema_wmae, TOLERANCES["temporal_schema_by_year_wmae_pp"], classify_upper(schema_wmae, TOLERANCES["temporal_schema_by_year_wmae_pp"])),
         _metric(data, "temporal", "publication_year", "notice_type", "WMAE_pp", None, None, type_wmae, type_wmae, TOLERANCES["temporal_notice_type_by_year_wmae_pp"], classify_upper(type_wmae, TOLERANCES["temporal_notice_type_by_year_wmae_pp"])),
     ]

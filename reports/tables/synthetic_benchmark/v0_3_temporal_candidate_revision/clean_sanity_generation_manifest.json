@@ -1,0 +1,18 @@
+{
+  "generated_at_utc": "2026-07-27T12:17:15.941144+00:00",
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "dry_run": false,
+  "force": true,
+  "rows": [
+    {
+      "scenario": "clean_sanity",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 300,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/clean_sanity/world_001/corruption_001",
+      "status": "OVERWRITTEN"
+    }
+  ]
+}

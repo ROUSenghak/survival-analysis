@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import re
 from pathlib import Path
 
 import numpy as np
@@ -61,6 +62,36 @@ INTERNAL_ID_COLUMNS = [
     "buyer_id_true",
     "establishment_id_true",
 ]
+
+# Column names that would expose hidden entities or labels even if a developer
+# dropped the "_true" suffix before writing the observed layer.
+HIDDEN_OBSERVED_COLUMN_NAMES = {
+    "cycle_id",
+    "need_id",
+    "buyer_id",
+    "establishment_id",
+    "contract_family_id",
+    "family_id",
+    "source_cycle_id",
+    "target_cycle_id",
+    "successor_cycle_id",
+    "predecessor_cycle_id",
+    "relation_type",
+    "strict_label",
+    "broad_label",
+    "true_gap_months",
+    "source_expected_end",
+    "target_start",
+    "corruption_type",
+    "corruption_history",
+    "quality_class",
+    "scenario_label",
+}
+HIDDEN_OBSERVED_COLUMN_SIGNATURES = {
+    re.sub(r"[^a-z0-9]+", "", name.lower()) for name in HIDDEN_OBSERVED_COLUMN_NAMES
+}
+
+HASH_ALGORITHMS = ("md5", "sha1", "sha256")
 
 
 def checksum_file(path: Path) -> str:
@@ -143,6 +174,34 @@ def _detect_cycle(edges: dict[str, str]) -> bool:
     return any(visit(node) for node in edges)
 
 
+def _normalised_truth_token(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
+def _truth_id_value_signatures(values: set[str]) -> set[str]:
+    """Return exact, normalised and hashed signatures of hidden truth IDs."""
+    signatures: set[str] = set()
+    for value in values:
+        text = str(value)
+        if not text:
+            continue
+        signatures.add(text)
+        norm = _normalised_truth_token(text)
+        if norm:
+            signatures.add(norm)
+        payload = text.encode("utf-8")
+        for algorithm in HASH_ALGORITHMS:
+            signatures.add(hashlib.new(algorithm, payload).hexdigest())
+    return signatures
+
+
+def _observed_text_signatures(series: pd.Series) -> pd.Series:
+    values = series.dropna().astype(str)
+    exact = values
+    normalised = values.map(_normalised_truth_token)
+    return pd.concat([exact, normalised], ignore_index=True)
+
+
 def validate_schema_support(data: BenchmarkData) -> list[MetricResult]:
     metrics = []
     for table, required in SCHEMAS.items():
@@ -222,16 +281,30 @@ def validate_count_reconciliation(data: BenchmarkData) -> list[MetricResult]:
 def validate_leakage(data: BenchmarkData) -> list[MetricResult]:
     observed = data.observed
     leaked_columns = [c for c in observed.columns if c.endswith("_true") or c in INTERNAL_ID_COLUMNS]
+    hidden_alias_columns = [
+        c for c in observed.columns if _normalised_truth_token(c) in HIDDEN_OBSERVED_COLUMN_SIGNATURES
+    ]
     truth_values: set[str] = set()
     for col in INTERNAL_ID_COLUMNS:
         if col in data.clean.columns:
             truth_values.update(data.clean[col].dropna().astype(str))
+        truth_table = col.replace("_id_true", "_id")
+        if truth_table in data.true_relations.columns:
+            truth_values.update(data.true_relations[truth_table].dropna().astype(str))
+    truth_signatures = _truth_id_value_signatures(truth_values)
     value_hits = 0
     for col in observed.select_dtypes(include=["object", "string"]).columns:
-        value_hits += int(observed[col].dropna().astype(str).isin(truth_values).sum())
+        value_hits += int(_observed_text_signatures(observed[col]).isin(truth_signatures).sum())
     index_leaks = any((name or "").endswith("_true") for name in observed.index.names)
     return [
         _base(data, "leakage", "no_truth_columns_in_observed", not leaked_columns, f"leaked_columns={leaked_columns}"),
+        _base(
+            data,
+            "leakage",
+            "no_hidden_truth_alias_columns_in_observed",
+            not hidden_alias_columns,
+            f"hidden_alias_columns={hidden_alias_columns}",
+        ),
         _base(data, "leakage", "no_internal_truth_id_values_in_observed", value_hits == 0, f"value_hits={value_hits}", value_hits),
         _base(data, "leakage", "observed_index_has_no_truth_name", not index_leaks),
     ]

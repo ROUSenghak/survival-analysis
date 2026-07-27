@@ -137,30 +137,84 @@ comparison evidence.
   `data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/`.
 - Config: `config/synthetic/calibration_parameters_v0_1.yaml`,
   `benchmark_defaults_v0_1.yaml`, `recurrence_ontology_v0_1.yaml`, and
-  `scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`.
+  executable scenarios
+  `clean_sanity`, `central_provisional`, `adverse_identity`, `easier`,
+  `moderate`, `difficult`, and `stress`.
   The v0.3 scoped-candidate parameters are now written directly in
   `central_provisional.yaml` and also snapshotted in `generation_metadata.json`.
-- Validation status: `PASS_WITH_WARNINGS`, with no blocking gates. Internal
-  integrity, specification recovery, candidate environment, conditional
-  fidelity, missingness structure, privacy, and algorithm-utility gates pass.
-  18 metrics still fail inside non-critical gates; that count is recorded in
-  `validation_manifest.json` and the detail sits in
-  `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/`.
+- Validation-framework status: `PASS_WITH_WARNINGS` across 210 metrics, with no
+  blocking gates under the current framework policy. This is **not** final
+  benchmark readiness. The leakage gate now checks explicit truth columns,
+  hidden-truth alias column names, exact/normalised truth-ID values, and direct
+  truth-ID hashes. Difficulty diagnostics now separately report
+  `ORACLE_CANDIDATE_SCORING`, `PRODUCTION_BLOCKING`, and `END_TO_END`
+  recall decomposition. The separate readiness assessment reports:
+  `PIPELINE_TECHNICALLY_VALID = PASS_WITH_LIMITATIONS`,
+  `READY_FOR_PRELIMINARY_MODELING = PASS_WITH_LIMITATIONS`,
+  `READY_FOR_CONTROLLED_ALGORITHM_COMPARISON = PASS_WITH_LIMITATIONS`, and
+  `READY_FOR_FINAL_ALGORITHM_RANKING`, and
+  `READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE = FAIL`.
+  The current v0.3 geography check uses primary department codes and passes
+  after the generator stopped pooling the empirical department tail into a
+  synthetic `OTHER` bucket. The current validation has no metric-level
+  failures, but warning-level buyer-activity concentration, text lexical and
+  identifier completeness gaps remain. Main-scenario seed robustness now
+  passes for the headline difficulty metrics, but cross-scenario spread and
+  probe-ranking instability still block final ranking/release. The current
+  worktree is not committed, so `HEAD` does not yet fully identify the
+  source/artifact state. `source_state_manifest.json` hashes the current dirty
+  state for auditability, but release still requires a commit or immutable
+  archive. See
+  `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`.
+- Scenario provenance: `registries/scenario_manifest.csv` distinguishes
+  `CONFIG_ONLY` scenarios from `GENERATED_REPLICATE` artifacts, so a loadable
+  scenario cannot be mistaken for multi-seed validation evidence. Current
+  artifacts include 10 seeds each for `central_provisional`, `easier`,
+  `moderate`, `difficult`, and `stress`; `clean_sanity` remains a single-seed
+  smoke-test artifact.
 - Reproducibility: `scripts/validate_synthetic_benchmark.py` regenerates the
   benchmark from saved seeds/config and compares canonical table-content hashes
   for observed notices, hidden truth, relationships, and corruption histories,
   so the headline status depends on replay. Pass `--no-replay` to skip it (the
   check then reports inconclusive). `scripts/replay_synthetic_benchmark.py`
   runs the same comparison standalone and writes `replay_comparison.json`.
+  `scripts/replay_synthetic_benchmark_replicates.py` replays every generated
+  artifact; the current run passes for 51 artifacts across central, sanity,
+  easier, moderate, difficult, and stress scenarios.
+  `probe_replicate_results.csv` and `probe_ranking_stability.csv` record the
+  replicate-level probe scores, rank intervals, and rank-1 frequencies behind
+  the final-ranking caveat. `dirty_state_overlay.tar.gz` packages the current
+  dirty source/artifact overlay against the recorded Git HEAD for auditability;
+  `dirty_state_overlay_verification.json` verifies that the overlay applies to
+  a clean Git HEAD snapshot with no hash mismatches. These are not final release
+  approvals.
 
 Reproduce the current benchmark and validation:
 
 ```bash
-python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
-python3 scripts/validate_synthetic_benchmark.py
-python3 scripts/replay_synthetic_benchmark.py \
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
+  --scenarios easier,moderate,difficult,stress \
+  --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
+  --force \
+  --manifest reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/required_scenario_10_seed_generation_manifest.json
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
+  --scenarios central_provisional \
+  --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
+  --force \
+  --manifest reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/central_10_seed_generation_manifest.json
+PYTHONPATH=src python3 scripts/validate_synthetic_benchmark.py
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark.py \
   --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json
-python3 -m pytest -q tests/test_synthetic_*.py
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark_replicates.py \
+  --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_replicates.json
+PYTHONPATH=src python3 scripts/build_source_state_manifest.py
+PYTHONPATH=src python3 scripts/build_benchmark_registries.py
+PYTHONPATH=src python3 scripts/build_mechanism_tradeoff_log.py
+PYTHONPATH=src python3 scripts/assess_synthetic_benchmark_readiness.py
+PYTHONPATH=scripts python3 scripts/build_dirty_state_overlay_archive.py
+PYTHONPATH=scripts python3 scripts/verify_dirty_state_overlay_archive.py
+PYTHONPATH=src python3 -m pytest -q tests/test_synthetic_*.py
 ```
 
 ## Name mapping vs earlier reports

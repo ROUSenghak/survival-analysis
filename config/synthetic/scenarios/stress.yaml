@@ -1,0 +1,69 @@
+# Executable required scenario: stress.
+# Overlay on central_provisional. This is a labelled adverse scenario for
+# robustness, not a plausible central estimate.
+
+extends: central_provisional
+
+scenario_id: stress
+display_name: "Stress"
+version: "0.3"
+purpose: >
+  Adverse combined setting with compounded missingness, identity ambiguity,
+  semantic drift, duration unreliability, and dense hard negatives.
+provenance: "SCENARIO_UNIDENTIFIED"
+references:
+  - config/synthetic/scenarios/06_adverse_combined.yaml
+  - config/synthetic/scenarios/adverse_identity.yaml
+  - config/synthetic/scenarios/central_provisional.yaml
+baseline_reference: moderate.yaml
+scenario_design_note: >
+  A deliberately difficult stress case. Failures under this scenario should be
+  reported as sensitivity evidence; they must not be used to recalibrate the
+  generator until a preferred linkage method wins.
+
+recurrence:
+  base_recurrence_propensity: 0.25
+  cycle_gap_distribution: {type: normal, mean_months: 28.0, sd_months: 16.0, min_months: 1.0}
+  scoped_candidate_environment:
+    recurrence_propensity_multiplier: 1.00
+    near_window_share: 0.35
+    hard_negative_alignment_rate: 0.25
+    scoped_buyer_affinity_share: 0.14
+    scoped_need_probability_high: 0.85
+
+identifiers:
+  siret_missing_rate: 0.92
+  siren_only_rate: 0.06
+  both_missing_rate: 0.93
+  invalid_identifier_rate: 0.035
+  wrong_establishment_siret_rate: 0.08
+
+buyer_names:
+  false_split_rate: 0.50
+  false_merge_rate: 0.18
+  generic_collision_rate: 0.60
+
+cpv:
+  parent_replace_rate: 0.12
+  division_only_rate: 0.08
+  generic_rate: 0.22
+  wrong_related_rate: 0.07
+
+duration:
+  rounding_severity: 0.70
+  common_admin_value_rate: 0.35
+  unit_conversion_failure_rate: 0.06
+
+text:
+  next_cycle_drift_severity: 0.88
+  hard_negative_overlap_rate: 0.35
+  boilerplate_rate: 0.65
+  conditional_reuse:
+    exact_template_share: 0.92
+    near_boilerplate_extra_rate: 0.16
+    generic_weak_extra_rate: 0.10
+
+quality_class_mix:
+  HIGH: 0.08
+  MEDIUM: 0.34
+  LOW: 0.58

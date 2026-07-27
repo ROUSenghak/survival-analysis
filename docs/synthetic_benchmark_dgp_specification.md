@@ -84,17 +84,33 @@ Every scenario parameter belongs to exactly one class, recorded in
 - **EMPIRICAL_OBSERVABLE** — calibrated to a measurable real-BOAMP quantity
   (identifier presence by year and schema, CPV missingness by schema and notice
   type, buyer-name variation rates, text reuse).
-- **DERIVED_RESWEPT** — a value with an empirical *target* that had to be re-swept
-  because it passes through a severity multiplier before taking effect. The target
-  is empirical; the number in the file is not.
+- **SILVER_STANDARD_APPROXIMATION** — estimated from a documented imperfect
+  proxy, such as checksum-valid SIREN groupings used where real buyer entities
+  are not observed.
 - **SCENARIO_UNIDENTIFIED** — an assumption about something real BOAMP cannot
   identify: true recurrence prevalence, the gap distribution, text drift severity,
   the specific CPV corruption mode. These must be varied across scenarios, never
   quoted as estimates.
-- **SCENARIO_TUNED_TO_CANDIDATE_TARGETS** — the v0.3 scoped-candidate block, tuned
-  so emergent candidate counts resemble the real corpus. It controls recurrence
-  timing and need clustering only; it never sets candidate counts, scores,
-  accepted links, or thresholds directly.
+- **FIDELITY_TARGET** — an observable property used only to judge realism, not to
+  define synthetic truth. Candidate-count tails and text-duplication rates belong
+  here when they are used as held-out diagnostics.
+- **ALGORITHM_PARAMETER** — linkage/blocking settings such as score weights,
+  thresholds, caps, or temporal windows. These may be reported for operational
+  comparison but must never define synthetic truth.
+- **IMPLEMENTATION_CONSTANT** — a technical choice with no empirical
+  interpretation.
+
+The registry records, for each parameter or validation rule, its definition,
+value or distribution, source population, estimation code, uncertainty,
+version, rationale, whether it may be used for calibration, whether it must
+remain held out, and known limitations. Scenario assumptions must stay
+explicitly labelled; a swept value chosen to improve candidate realism is not an
+empirical estimate of the real renewal process.
+
+`registries/scenario_manifest.csv` separately records configured scenarios and
+generated artifacts. `CONFIG_ONLY` means the scenario can be loaded by the
+generator but has not been released as a generated benchmark world; it is not
+multi-seed evidence and cannot support algorithm-ranking claims.
 
 ## 4. Current reproducibility status and remaining recovery warnings
 
@@ -113,6 +129,8 @@ specification, not only in a CSV.
    content hashes, rather than Parquet byte hashes, for all observed and truth
    tables. The saved replay result is
    `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json`.
+   `scripts/replay_synthetic_benchmark_replicates.py` additionally passes for
+   all 51 generated artifacts in the expanded scenario/seed grid.
 
 3. **The true-gap mean recovers under the declared mechanism.** Simulating the
    base/near-window mixture with window censoring reproduces the observed mean

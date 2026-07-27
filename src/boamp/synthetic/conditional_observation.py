@@ -23,6 +23,11 @@ REAL_USECOLS = [
     "buyer_key",
 ]
 
+MIN_VALID_DECLARED_DURATION_MONTHS = 1.0
+MAX_VALID_DECLARED_DURATION_MONTHS = 120.0
+LOW_DISCREPANCY_DURATION_OFFSET = 0.0
+_GOLDEN_RATIO_CONJUGATE = (5**0.5 - 1) / 2
+
 
 def _activity_tier(counts: pd.Series) -> pd.Series:
     return pd.cut(
@@ -83,6 +88,7 @@ class ConditionalObservationModel:
     siret_table: pd.DataFrame
     duration_table: pd.DataFrame
     generic_text_table: pd.DataFrame
+    declared_duration_values: tuple[float, ...]
     siret_rates: dict[tuple, float]
     duration_rates: dict[tuple, float]
     generic_text_rates: dict[tuple, float]
@@ -107,6 +113,29 @@ class ConditionalObservationModel:
     def duration_present_rate(self, row) -> float:
         key = (row["schema_family_true"], int(row["publication_date_true"].year), row["notice_type_true"])
         return self.duration_rates.get(key, self.duration_global_rate)
+
+    def declared_duration_value(
+        self,
+        notice_id_synthetic: object,
+        *,
+        offset: float = LOW_DISCREPANCY_DURATION_OFFSET,
+    ) -> float:
+        """Empirical observed-duration value via deterministic inverted CDF.
+
+        Presence is still sampled separately from conditional BOAMP rates.
+        When a duration is present, the visible value is drawn from valid raw
+        BOAMP durations rather than transformed from hidden cycle length.
+        """
+        if not self.declared_duration_values:
+            raise ValueError("conditional observation model has no valid real duration values")
+        digits = "".join(ch for ch in str(notice_id_synthetic) if ch.isdigit())
+        integer_id = int(digits or 0)
+        u = (float(offset) + (integer_id + 1) * _GOLDEN_RATIO_CONJUGATE) % 1.0
+        pos = min(
+            len(self.declared_duration_values) - 1,
+            max(0, int(np.ceil(u * len(self.declared_duration_values)) - 1)),
+        )
+        return float(self.declared_duration_values[pos])
 
     def generic_text_rate(self, notice_type: str, buyer_activity_tier: str) -> float:
         return self.generic_text_rates.get((notice_type, buyer_activity_tier), self.generic_text_global_rate)
@@ -140,6 +169,14 @@ def build_conditional_observation_model(
     real = _add_generic_text_flag(real)
     real["siret_present"] = real["buyer_siret_clean"].notna()
     real["duration_present"] = real["duration_raw"].notna()
+    duration_values = (
+        pd.to_numeric(real["duration_raw"], errors="coerce")
+        .dropna()
+        .loc[lambda s: s.between(MIN_VALID_DECLARED_DURATION_MONTHS, MAX_VALID_DECLARED_DURATION_MONTHS)]
+        .sort_values()
+        .astype(float)
+        .tolist()
+    )
 
     siret_cols = ["schema_family", "publication_year", "notice_type_normalized"]
     duration_cols = ["schema_family", "publication_year", "notice_type_normalized"]
@@ -157,6 +194,7 @@ def build_conditional_observation_model(
         siret_table=siret_table,
         duration_table=duration_table,
         generic_text_table=generic_text_table,
+        declared_duration_values=tuple(duration_values),
         siret_rates=_mapping(siret_table, siret_cols),
         duration_rates=_mapping(duration_table, duration_cols),
         generic_text_rates=_mapping(generic_text_table, generic_text_cols),

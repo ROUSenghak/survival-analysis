@@ -97,8 +97,12 @@ The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycle
 
 ### 2.4 Important information still missing or insufficiently demonstrated
 
-1. **Broader scenario and seed coverage.** The current central scenario is replayable, but robustness remains weak because only limited scenario/seed replicates exist.
-2. **Metric-level fidelity failures under non-critical gates.** The headline `PASS_WITH_WARNINGS` currently sits on top of 18 failing metrics, all in non-critical gates (marginals, missingness/text/identifier, buyer activity, text). That is the documented gate policy, not a hidden defect, but the count is now reported in the validation manifest so it cannot be read past.
+1. **Scenario-specific ranking evidence.** The current central scenario and the
+required easier/moderate/difficult/stress scenarios each have 10 generated
+seeds. Main-scenario headline robustness passes, but probe-linker rankings are
+unstable within scenarios and across scenario means, so final algorithm-ranking
+claims remain unsupported.
+2. **Warning-level observable gaps.** The headline `PASS_WITH_WARNINGS` currently has zero metric-level failures, but buyer-activity concentration, text lexical distance, identifier completeness, and follow-up-runway warnings remain visible in the discrepancy register and validation manifest.
 3. **Uncertainty on calibration targets.** Point targets alone hide sampling uncertainty and sparse-subgroup instability.
 4. **Held-out real-data validation.** If the same BOAMP rows shaped and evaluated the generator, reported fidelity is optimistic.
 5. **Joint dependence coverage.** Passing marginal and selected conditional checks does not establish multivariate fidelity.
@@ -108,7 +112,7 @@ The active v0.3 output contains **9,471 observed notices**, **6,866 latent cycle
 9. **Hard-negative realism.** The benchmark must reproduce near-duplicate non-matches, popular buyers, repeated CPVs, generic text, and dense temporal neighborhoods.
 10. **Long-tail candidate complexity.** The reported weak candidate-count tail and failed 60-month runway remain material.
 11. **Extended privacy/memorisation audit.** Exact and near-copy text checks pass; membership-inference and rare-combination attacks remain out of scope.
-12. **Algorithmic validity.** `READY_FOR_LINKAGE` means ready to test algorithms, not already proven to rank them as real BOAMP would.
+12. **Algorithmic validity.** The current readiness taxonomy uses five explicit levels. Controlled synthetic comparison can pass with limitations, while final algorithm ranking remains failed until ranking stability across seeds and scenarios is demonstrated.
 13. **Parameter robustness.** A single calibrated parameter vector cannot represent unidentified real recurrence and corruption mechanisms.
 14. **Release governance.** Truth-table isolation, schema contracts, seeds, resolved configuration snapshots, validation manifests, and canonical replay are now in place for v0.3; scenario-robust evaluation and notebook/report synchronization remain ongoing maintenance work.
 
@@ -475,12 +479,12 @@ The first implementation priority should be the internal-invariant suite and the
 
 ## Final assessment
 
-The v0.3 generator has moved beyond a simple synthetic-table exercise. Its hidden truth, parameter provenance, conditional revision history, and candidate-environment checks form a sound base. But the label `READY_FOR_LINKAGE` should currently be interpreted narrowly: ready to begin controlled algorithm experiments.
+The v0.3 generator has moved beyond a simple synthetic-table exercise. Its hidden truth, parameter provenance, conditional revision history, candidate-environment checks, and central multi-seed evidence form a sound base for controlled synthetic comparisons with limitations. This does not imply final algorithm-ranking readiness or validated release readiness.
 
-Before the benchmark supports defensible algorithm comparisons, the project should:
+Before the benchmark supports defensible final algorithm ranking or validated release, the project should:
 
 1. formalize and test internal invariants;
-2. resolve or explicitly scope the 60-month runway and candidate-tail failures;
+2. resolve or explicitly scope the 60-month runway warning and remaining candidate-tail lightness;
 3. validate multivariate, missingness, corruption, text, name, and identifier structure;
 4. audit copying and membership risk;
 5. demonstrate algorithm conclusions over multiple seeds and unidentified scenarios.

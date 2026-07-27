@@ -1,0 +1,285 @@
+{
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "scenario": "central_provisional",
+  "world": "001",
+  "corruption": "001",
+  "overall_status": "PASS",
+  "tables": [
+    {
+      "table": "clean_notices",
+      "status": "PASS",
+      "expected_hash": "c9967c56dc90c5d080429f1f50a31cbb3a965902bb5a8956ac4a8351c4b04e7c",
+      "actual_hash": "c9967c56dc90c5d080429f1f50a31cbb3a965902bb5a8956ac4a8351c4b04e7c",
+      "expected_rows": 9471,
+      "actual_rows": 9471,
+      "expected_columns": [
+        "notice_id_synthetic",
+        "role",
+        "publication_date_true",
+        "notice_type_true",
+        "schema_family_true",
+        "objet_true",
+        "linked_call_notice_id_true",
+        "cycle_id_true",
+        "need_id_true",
+        "buyer_id_true",
+        "establishment_id_true",
+        "siret_true",
+        "siren_true",
+        "buyer_name_true",
+        "department_true",
+        "cpv_true",
+        "duration_true_months"
+      ],
+      "actual_columns": [
+        "notice_id_synthetic",
+        "role",
+        "publication_date_true",
+        "notice_type_true",
+        "schema_family_true",
+        "objet_true",
+        "linked_call_notice_id_true",
+        "cycle_id_true",
+        "need_id_true",
+        "buyer_id_true",
+        "establishment_id_true",
+        "siret_true",
+        "siren_true",
+        "buyer_name_true",
+        "department_true",
+        "cpv_true",
+        "duration_true_months"
+      ]
+    },
+    {
+      "table": "corruption_log",
+      "status": "PASS",
+      "expected_hash": "de85d95e8c90b28e7afa0f7444c6e861df515371671a2a4931690f55711d005c",
+      "actual_hash": "de85d95e8c90b28e7afa0f7444c6e861df515371671a2a4931690f55711d005c",
+      "expected_rows": 32344,
+      "actual_rows": 32344,
+      "expected_columns": [
+        "notice_id_synthetic",
+        "field",
+        "clean_value",
+        "observed_value",
+        "corruption_type",
+        "scenario",
+        "severity",
+        "seed"
+      ],
+      "actual_columns": [
+        "notice_id_synthetic",
+        "field",
+        "clean_value",
+        "observed_value",
+        "corruption_type",
+        "scenario",
+        "severity",
+        "seed"
+      ]
+    },
+    {
+      "table": "latent_buyers",
+      "status": "PASS",
+      "expected_hash": "8725214083bf15be35ee86ae7c2ff9fbb0257d6ac56f6b624b4f73adc22449f4",
+      "actual_hash": "8725214083bf15be35ee86ae7c2ff9fbb0257d6ac56f6b624b4f73adc22449f4",
+      "expected_rows": 2000,
+      "actual_rows": 2000,
+      "expected_columns": [
+        "buyer_id_true",
+        "siren_true",
+        "department_true",
+        "buyer_type_true",
+        "buyer_name_true",
+        "activity_rate",
+        "activity_tier",
+        "active_start",
+        "active_end",
+        "alias_propensity",
+        "identifier_quality_propensity"
+      ],
+      "actual_columns": [
+        "buyer_id_true",
+        "siren_true",
+        "department_true",
+        "buyer_type_true",
+        "buyer_name_true",
+        "activity_rate",
+        "activity_tier",
+        "active_start",
+        "active_end",
+        "alias_propensity",
+        "identifier_quality_propensity"
+      ]
+    },
+    {
+      "table": "latent_cycles",
+      "status": "PASS",
+      "expected_hash": "bfc8fa53a6d542bb5e171521235b8498b647d35d8b5384850db8a2308885b626",
+      "actual_hash": "bfc8fa53a6d542bb5e171521235b8498b647d35d8b5384850db8a2308885b626",
+      "expected_rows": 6866,
+      "actual_rows": 6866,
+      "expected_columns": [
+        "cycle_id_true",
+        "need_id_true",
+        "buyer_id_true",
+        "cycle_number",
+        "start_date_true",
+        "duration_true_months",
+        "expected_end_true",
+        "scenario"
+      ],
+      "actual_columns": [
+        "cycle_id_true",
+        "need_id_true",
+        "buyer_id_true",
+        "cycle_number",
+        "start_date_true",
+        "duration_true_months",
+        "expected_end_true",
+        "scenario"
+      ]
+    },
+    {
+      "table": "latent_establishments",
+      "status": "PASS",
+      "expected_hash": "a3b5ac04d64df918349be31a3f4b82a89a4b14b28e715eebc4e201939f415e2a",
+      "actual_hash": "a3b5ac04d64df918349be31a3f4b82a89a4b14b28e715eebc4e201939f415e2a",
+      "expected_rows": 2174,
+      "actual_rows": 2174,
+      "expected_columns": [
+        "establishment_id_true",
+        "buyer_id_true",
+        "siren_true",
+        "siret_true",
+        "department_true",
+        "active_start",
+        "active_end"
+      ],
+      "actual_columns": [
+        "establishment_id_true",
+        "buyer_id_true",
+        "siren_true",
+        "siret_true",
+        "department_true",
+        "active_start",
+        "active_end"
+      ]
+    },
+    {
+      "table": "latent_needs",
+      "status": "PASS",
+      "expected_hash": "34f7f64a7d4ced88bc5a39ee5f4c226252068d2e2fc651d046431acab968bcff",
+      "actual_hash": "34f7f64a7d4ced88bc5a39ee5f4c226252068d2e2fc651d046431acab968bcff",
+      "expected_rows": 4800,
+      "actual_rows": 4800,
+      "expected_columns": [
+        "need_id_true",
+        "buyer_id_true",
+        "establishment_id_true",
+        "segment_true",
+        "cpv_true",
+        "base_concepts",
+        "base_vocabulary",
+        "duration_profile_months",
+        "recurrence_propensity"
+      ],
+      "actual_columns": [
+        "need_id_true",
+        "buyer_id_true",
+        "establishment_id_true",
+        "segment_true",
+        "cpv_true",
+        "base_concepts",
+        "base_vocabulary",
+        "duration_profile_months",
+        "recurrence_propensity"
+      ]
+    },
+    {
+      "table": "notice_family_membership",
+      "status": "PASS",
+      "expected_hash": "169524dba9d454daff189bf2324bc407cba94d9d4801fa113b35c510eb621168",
+      "actual_hash": "169524dba9d454daff189bf2324bc407cba94d9d4801fa113b35c510eb621168",
+      "expected_rows": 9471,
+      "actual_rows": 9471,
+      "expected_columns": [
+        "notice_id_synthetic",
+        "cycle_id_true",
+        "role"
+      ],
+      "actual_columns": [
+        "notice_id_synthetic",
+        "cycle_id_true",
+        "role"
+      ]
+    },
+    {
+      "table": "observed_notices",
+      "status": "PASS",
+      "expected_hash": "46c4197c38af0bbf3197fa36774425ae15350f29db38c896590c7180a4088c9f",
+      "actual_hash": "46c4197c38af0bbf3197fa36774425ae15350f29db38c896590c7180a4088c9f",
+      "expected_rows": 9471,
+      "actual_rows": 9471,
+      "expected_columns": [
+        "notice_id_synthetic",
+        "publication_date",
+        "notice_type_normalized",
+        "schema_family",
+        "buyer_siret_raw",
+        "buyer_siren_raw",
+        "buyer_name_raw",
+        "code_departement",
+        "cpv_clean",
+        "declared_duration_months",
+        "objet_clean",
+        "linked_call_notice_id"
+      ],
+      "actual_columns": [
+        "notice_id_synthetic",
+        "publication_date",
+        "notice_type_normalized",
+        "schema_family",
+        "buyer_siret_raw",
+        "buyer_siren_raw",
+        "buyer_name_raw",
+        "code_departement",
+        "cpv_clean",
+        "declared_duration_months",
+        "objet_clean",
+        "linked_call_notice_id"
+      ]
+    },
+    {
+      "table": "true_relations",
+      "status": "PASS",
+      "expected_hash": "e5b13bdb7706694af6affd4b7dcc37f98443d365b0f2b35c2da0d5d149ffe75d",
+      "actual_hash": "e5b13bdb7706694af6affd4b7dcc37f98443d365b0f2b35c2da0d5d149ffe75d",
+      "expected_rows": 6866,
+      "actual_rows": 6866,
+      "expected_columns": [
+        "source_cycle_id",
+        "target_cycle_id",
+        "relation_type",
+        "strict_label",
+        "broad_label",
+        "true_gap_months",
+        "source_expected_end",
+        "target_start",
+        "scenario"
+      ],
+      "actual_columns": [
+        "source_cycle_id",
+        "target_cycle_id",
+        "relation_type",
+        "strict_label",
+        "broad_label",
+        "true_gap_months",
+        "source_expected_end",
+        "target_start",
+        "scenario"
+      ]
+    }
+  ]
+}

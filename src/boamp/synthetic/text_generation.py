@@ -71,18 +71,70 @@ def sample_division_vocab(cpv_division: str, rng: np.random.Generator) -> tuple[
 
 def render_text(base_concepts: list[str], base_vocabulary: list[str], buyer_name: str,
                  department: str, role: str, rng: np.random.Generator) -> str:
-    """Trimmed to land near the real corpus's median `objet` length (v0.1
-    fidelity follow-up, median_text_length_chars: was 120 vs real 98.0).
-    Dropped the "(département {department})" clause — `department` is kept
-    as a parameter (unused here) since other call sites still pass it and
-    corruption/needs code elsewhere may want it; not removed from the
-    signature to avoid a wider refactor for a text-trimming fix."""
+    """Render a non-copying BOAMP-like procurement object.
+
+    Real BOAMP objects mix terse titles, medium administrative descriptions,
+    and a visible long tail. Earlier synthetic texts were all one reference +
+    lot pattern, which compressed q90/q99 and over-produced synthetic-only
+    bigrams such as ``ref/lot``. This keeps the text generator fully
+    synthetic while varying common public-procurement constructions.
+    """
     concept = rng.choice(base_concepts)
     vocab_terms = list(rng.choice(base_vocabulary, size=min(2, len(base_vocabulary)), replace=False))
-    lot = int(rng.integers(1, 4))
-    reference = int(rng.integers(100000, 999999))
     prefix = "Avis d'attribution" if role == "AWARD" else "Marché public"
-    return f"{prefix} de {concept} - {buyer_name} - réf. {reference} - lot {lot} : {' et '.join(vocab_terms)}."
+    terms = " et ".join(vocab_terms)
+    descriptor = str(rng.choice([
+        "périmètre",
+        "besoins",
+        "utilisateurs",
+        "sites",
+        "équipements",
+        "continuité",
+        "suivi",
+        "mise en service",
+        "support",
+        "prestations",
+        "coordination",
+        "exploitation",
+        "adaptation",
+        "renouvellement",
+        "déploiement",
+        "appui",
+    ]))
+    draw = rng.random()
+
+    if draw < 0.32:
+        patterns = [
+            f"{concept.capitalize()} pour {buyer_name} - {descriptor}.",
+            f"{prefix} pour la {concept} - {buyer_name} - {descriptor}.",
+            f"{concept.capitalize()} : {terms} pour {buyer_name} - {descriptor}.",
+        ]
+        return str(rng.choice(patterns))
+
+    if draw < 0.80:
+        patterns = [
+            f"{prefix} de {concept} pour {buyer_name} : {terms} et {descriptor}.",
+            f"Fourniture et prestations de {concept} pour les besoins de {buyer_name}, {descriptor}.",
+            f"Accord-cadre relatif à {concept} et prestations associées pour {buyer_name}, {descriptor}.",
+            f"Mise en oeuvre de {concept} avec {terms} pour {buyer_name}, {descriptor}.",
+        ]
+        return str(rng.choice(patterns))
+
+    long_clauses = [
+        "comprenant maintenance, assistance aux utilisateurs et suivi des prestations",
+        "incluant fourniture, installation, mise en service et accompagnement",
+        "avec prestations associées, réunions de suivi et reporting périodique",
+        "dans le cadre d'un accord-cadre à bons de commande",
+        f"sur le département {department}, avec coordination technique et appui au démarrage",
+    ]
+    lot_clause = (
+        f" lot {int(rng.integers(1, 4))}"
+        if rng.random() < 0.20
+        else ""
+    )
+    return (
+        f"{prefix} de {concept}{lot_clause} pour {buyer_name}, {str(rng.choice(long_clauses))} : {terms}."
+    )
 
 
 def apply_same_cycle_variation(text: str, severity: float, rng: np.random.Generator) -> str:

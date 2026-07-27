@@ -2,12 +2,17 @@
 
 ## Result
 
-**Overall status: NOT_READY_FOR_LINKAGE.**
+**Historical status: SUPERSEDED_BY_V0_3_READINESS_ASSESSMENT.**
+
+This v0.2 report is retained as historical diagnostic evidence only. It does
+not define current benchmark readiness; use
+`reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`
+for permitted uses and prohibited claims.
 
 Temporal validation status: **PASS**.
 Candidate-environment validation status: **NEEDS_REVISION**.
 
-This means the v0.2 benchmark should **not yet be used as the main benchmark
+At the time this report was generated, the v0.2 benchmark should **not yet be used as the main benchmark
 for linkage-algorithm evaluation**. The candidate code runs, but the
 algorithm-scope candidate environment does not yet resemble the real Layer 1
 source universe closely enough.

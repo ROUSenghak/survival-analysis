@@ -82,7 +82,7 @@ departments:
     source_table: reports/tables/synthetic_calibration/parameter_inventory.csv#department_distribution_top5
     status: OBSERVABLE
     conditioning_variables: n/a
-    limitations: "Top-5 only; remainder (~10.2%) is spread thin and pooled into an OTHER department bucket in v0.1."
+    limitations: "Top-5 headline only; the generator samples the empirical primary-department tail explicitly in buyers.py instead of pooling it into an artificial OTHER code."
 
 buyers:
   activity_tier_mix_reference:

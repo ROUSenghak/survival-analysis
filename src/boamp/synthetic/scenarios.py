@@ -12,7 +12,44 @@ from types import SimpleNamespace
 
 import yaml
 
-VALID_SCENARIOS: tuple[str, ...] = ("clean_sanity", "central_provisional", "adverse_identity")
+VALID_SCENARIOS: tuple[str, ...] = (
+    "clean_sanity",
+    "central_provisional",
+    "adverse_identity",
+    "easier",
+    "moderate",
+    "difficult",
+    "stress",
+)
+
+
+def _deep_merge(base: dict, overlay: dict) -> dict:
+    merged = dict(base)
+    for key, value in overlay.items():
+        if (
+            key in merged
+            and isinstance(merged[key], dict)
+            and isinstance(value, dict)
+        ):
+            merged[key] = _deep_merge(merged[key], value)
+        else:
+            merged[key] = value
+    return merged
+
+
+def _load_raw_scenario(project_root: Path, scenario_id: str, stack: tuple[str, ...] = ()) -> dict:
+    if scenario_id in stack:
+        chain = " -> ".join((*stack, scenario_id))
+        raise ValueError(f"cyclic scenario inheritance: {chain}")
+    path = Path(project_root) / "config" / "synthetic" / "scenarios" / f"{scenario_id}.yaml"
+    with open(path, encoding="utf-8") as f:
+        raw = yaml.safe_load(f) or {}
+    parent = raw.get("extends")
+    if not parent:
+        return raw
+    base = _load_raw_scenario(project_root, str(parent), (*stack, scenario_id))
+    child = {k: v for k, v in raw.items() if k != "extends"}
+    return _deep_merge(base, child)
 
 
 def _to_namespace(obj):
@@ -39,9 +76,7 @@ def to_plain_dict(obj):
 def load_scenario(project_root: Path, scenario_id: str) -> SimpleNamespace:
     if scenario_id not in VALID_SCENARIOS:
         raise ValueError(f"unknown scenario_id {scenario_id!r}; expected one of {VALID_SCENARIOS}")
-    path = Path(project_root) / "config" / "synthetic" / "scenarios" / f"{scenario_id}.yaml"
-    with open(path, encoding="utf-8") as f:
-        raw = yaml.safe_load(f)
+    raw = _load_raw_scenario(project_root, scenario_id)
     ns = _to_namespace(raw)
     ns.scenario_id = scenario_id
     return ns

@@ -72,7 +72,7 @@ REAL_PAIRS_PATH = PROJECT_ROOT / "data/processed/boamp_only/boamp_only_candidate
 
 OUT_TABLES = PROJECT_ROOT / "reports/tables/synthetic_benchmark" / V3
 OUT_FIGURES = PROJECT_ROOT / "reports/figures/synthetic_benchmark" / V3
-OUT_REPORT = PROJECT_ROOT / "reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_report.md"
+OUT_REPORT = PROJECT_ROOT / "reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_legacy_temporal_candidate_report.md"
 OUT_TABLES.mkdir(parents=True, exist_ok=True)
 OUT_FIGURES.mkdir(parents=True, exist_ok=True)
 OUT_REPORT.parent.mkdir(parents=True, exist_ok=True)
@@ -500,7 +500,7 @@ temporal_status = "PASS" if (
 ) else "NEEDS_REVISION"
 candidate_status = "PASS" if candidate_gate.loc[candidate_gate["version"].eq(V3), "status"].eq("PASS").all() else "NEEDS_REVISION"
 truth_status = "PASS" if truth_sanity.loc[truth_sanity["status"].ne("DIAGNOSTIC"), "status"].eq("PASS").all() else "NEEDS_REVISION"
-overall_status = "READY_FOR_LINKAGE" if all(s == "PASS" for s in [conditional_status, temporal_status, candidate_status, truth_status]) else "NOT_READY_FOR_LINKAGE"
+overall_status = "SUPERSEDED_BY_READINESS_ASSESSMENT"
 
 freeze_gate = pd.DataFrame(
     [
@@ -508,7 +508,11 @@ freeze_gate = pd.DataFrame(
         {"dimension": "temporal_validation", "status": temporal_status, "notes": "Calendar and 12m/24m follow-up gates."},
         {"dimension": "candidate_environment_validation", "status": candidate_status, "notes": "Production Layer 1 candidate generation on algorithm source scope."},
         {"dimension": "structural_truth_validation", "status": truth_status, "notes": "Metadata, truth leakage, and broad true-gap tail."},
-        {"dimension": "linkage_algorithm_readiness", "status": overall_status, "notes": "Run linking algorithms only if READY_FOR_LINKAGE."},
+        {
+            "dimension": "linkage_algorithm_readiness",
+            "status": overall_status,
+            "notes": "Use the five-level readiness assessment in reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/.",
+        },
     ]
 )
 freeze_gate.to_csv(OUT_TABLES / "temporal_candidate_freeze_gate.csv", index=False)
@@ -519,7 +523,13 @@ report = f\"\"\"# Synthetic benchmark v0.3 temporal/candidate revision report
 
 ## Result
 
-**Overall status: {overall_status}.**
+**Legacy freeze-gate status: {overall_status}.**
+
+This notebook-level gate is retained only as historical temporal/candidate
+diagnostics. It does not define benchmark readiness. Use the five-level
+readiness assessment in
+`reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`
+for permitted uses and prohibited claims.
 
 - Conditional fidelity: **{conditional_status}**
 - Temporal validation: **{temporal_status}**
@@ -535,16 +545,21 @@ report = f\"\"\"# Synthetic benchmark v0.3 temporal/candidate revision report
 
 ## Remaining caveats
 
-- The benchmark is credible for running linkage algorithms, but the resulting evaluation is still synthetic-benchmark evidence, not a replacement for inaccessible ground truth.
+- This legacy notebook supports preliminary synthetic-only linkage debugging,
+  but it is not a controlled-comparison or release-readiness gate.
+- The resulting evaluation is still synthetic-benchmark evidence, not a
+  replacement for inaccessible real BOAMP recurrence ground truth.
 - Long 60m follow-up remains diagnostic, not a hard blocker for the next linkage stage.
 - Linkage-score calibration and threshold optimization were not performed here.
+- Use the five-level readiness assessment for permitted uses and prohibited claims.
 
 ## Artifacts
 
 - `notebooks/10_synthetic_temporal_candidate_revision_validation.ipynb`
 - `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/temporal_candidate_freeze_gate.csv`
 - `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/candidate_environment_validation_gate_by_version.csv`
-- `reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_report.md`
+- `reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_legacy_temporal_candidate_report.md`
+- `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`
 \"\"\"
 OUT_REPORT.write_text(report, encoding="utf-8")
 print(report)

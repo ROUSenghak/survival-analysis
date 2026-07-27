@@ -34,6 +34,38 @@ TOLERANCES = {
     "ranking_kendall_tau_min": 0.80,
 }
 
+SCENARIOS_EXCLUDED_FROM_STABILITY = ("clean_sanity",)
+
+PROBE_REPLICATE_COLUMNS = [
+    "scenario",
+    "world",
+    "corruption",
+    "probe",
+    "n_predicted_pairs",
+    "pair_precision",
+    "pair_recall",
+    "pair_f1",
+    "bcubed_precision",
+    "bcubed_recall",
+    "bcubed_f1",
+]
+
+PROBE_RANKING_SUMMARY_COLUMNS = [
+    "scope",
+    "scenario",
+    "probe",
+    "n_units",
+    "mean_pair_f1",
+    "sd_pair_f1",
+    "min_pair_f1",
+    "max_pair_f1",
+    "mean_rank",
+    "min_rank",
+    "max_rank",
+    "prob_rank1",
+    "notes",
+]
+
 HEADLINE_PROPERTIES = [
     ("hidden_truth_difficulty", "production_window", "blocking_pairs_completeness", "PC"),
     ("hidden_truth_difficulty", "production_window", "match_vs_hard_negative_score", "overlap"),
@@ -90,6 +122,133 @@ def _kendall_tau(a: list[float], b: list[float]) -> float:
     return float((concordant - discordant) / total) if total else float("nan")
 
 
+def _probe_rank_tau_summary(pivot: pd.DataFrame, max_examples: int = 8) -> tuple[float, list[str], int, int]:
+    """Return the worst pairwise Kendall tau and compact worst-pair examples."""
+    columns = list(pivot.columns)
+    pair_rows = []
+    for i in range(len(columns)):
+        for j in range(i + 1, len(columns)):
+            a = pivot[columns[i]].astype(float)
+            b = pivot[columns[j]].astype(float)
+            joint = pd.concat([a, b], axis=1).dropna()
+            if len(joint) < 2:
+                continue
+            tau = _kendall_tau(joint.iloc[:, 0].tolist(), joint.iloc[:, 1].tolist())
+            if np.isfinite(tau):
+                pair_rows.append((float(tau), f"{columns[i]} vs {columns[j]}"))
+    if not pair_rows:
+        return float("nan"), [], len(columns), 0
+    pair_rows.sort(key=lambda row: row[0])
+    worst = pair_rows[0][0]
+    examples = [f"{label}: tau={tau:.2f}" for tau, label in pair_rows[:max_examples]]
+    return worst, examples, len(columns), len(pair_rows)
+
+
+def _probe_ranking_metric(
+    data: BenchmarkData,
+    subgroup: str,
+    pivot: pd.DataFrame,
+    comparison_unit: str,
+    notes_prefix: str,
+) -> MetricResult:
+    worst, worst_examples, n_columns, n_pairs = _probe_rank_tau_summary(pivot)
+    if n_columns < 2:
+        return _metric(
+            data, subgroup, "probe_ranking", "min_kendall_tau", None, None,
+            TOLERANCES["ranking_kendall_tau_min"], Status.INCONCLUSIVE,
+            notes=f"{notes_prefix}; only {n_columns} {comparison_unit}(s) available",
+        )
+    return _metric(
+        data, subgroup, "probe_ranking", "min_kendall_tau", worst, worst,
+        TOLERANCES["ranking_kendall_tau_min"],
+        Status.PASS
+        if np.isfinite(worst) and worst >= TOLERANCES["ranking_kendall_tau_min"]
+        else Status.WARNING
+        if np.isfinite(worst)
+        else Status.INCONCLUSIVE,
+        notes=(
+            f"{notes_prefix}; {comparison_unit}s compared={n_columns}; "
+            f"pairwise comparisons={n_pairs}; worst examples="
+            + "; ".join(worst_examples)
+        ),
+    )
+
+
+def _summarize_rank_units(frame: pd.DataFrame, scope: str, scenario: str, notes: str) -> list[dict]:
+    if frame.empty:
+        return []
+    ranked = frame.copy()
+    ranked["rank"] = ranked.groupby("unit")["pair_f1"].rank(ascending=False, method="min")
+    rows = []
+    for probe, group in ranked.groupby("probe"):
+        f1 = pd.to_numeric(group["pair_f1"], errors="coerce").dropna()
+        ranks = pd.to_numeric(group["rank"], errors="coerce").dropna()
+        if f1.empty or ranks.empty:
+            continue
+        rows.append(
+            {
+                "scope": scope,
+                "scenario": scenario,
+                "probe": probe,
+                "n_units": int(len(f1)),
+                "mean_pair_f1": float(f1.mean()),
+                "sd_pair_f1": float(f1.std(ddof=1)) if len(f1) > 1 else 0.0,
+                "min_pair_f1": float(f1.min()),
+                "max_pair_f1": float(f1.max()),
+                "mean_rank": float(ranks.mean()),
+                "min_rank": int(ranks.min()),
+                "max_rank": int(ranks.max()),
+                "prob_rank1": float(ranks.eq(1).mean()),
+                "notes": notes,
+            }
+        )
+    return rows
+
+
+def summarize_probe_ranking_stability(probes: pd.DataFrame) -> pd.DataFrame:
+    """Probe rank intervals and rank-1 frequencies across generated artifacts."""
+    if probes.empty:
+        return pd.DataFrame(columns=PROBE_RANKING_SUMMARY_COLUMNS)
+    usable = probes.loc[~probes["scenario"].isin(SCENARIOS_EXCLUDED_FROM_STABILITY)].copy()
+    if usable.empty:
+        return pd.DataFrame(columns=PROBE_RANKING_SUMMARY_COLUMNS)
+    usable["unit"] = usable["scenario"].astype(str) + "/" + usable["world"].astype(str) + "-" + usable["corruption"].astype(str)
+    rows: list[dict] = []
+    for scenario, group in usable.groupby("scenario"):
+        scenario_units = group.copy()
+        scenario_units["unit"] = scenario_units["world"].astype(str) + "-" + scenario_units["corruption"].astype(str)
+        rows.extend(
+            _summarize_rank_units(
+                scenario_units,
+                "within_scenario",
+                str(scenario),
+                "rank distribution across generated seeds for one scenario",
+            )
+        )
+    scenario_means = (
+        usable.groupby(["scenario", "probe"], as_index=False)["pair_f1"]
+        .mean()
+        .rename(columns={"scenario": "unit"})
+    )
+    rows.extend(
+        _summarize_rank_units(
+            scenario_means,
+            "cross_scenario_means",
+            "BENCHMARK_SCENARIOS",
+            "rank distribution across mean pair-F1 by benchmark scenario",
+        )
+    )
+    rows.extend(
+        _summarize_rank_units(
+            usable,
+            "all_benchmark_replicates",
+            "ALL",
+            "rank distribution across all benchmark scenario/seed artifacts",
+        )
+    )
+    return pd.DataFrame(rows, columns=PROBE_RANKING_SUMMARY_COLUMNS)
+
+
 def collect_replicates(project_root, version: str, exclude_scenarios: tuple[str, ...] = ()) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Headline metrics and probe rankings for every generated replicate.
 
@@ -127,6 +286,7 @@ def collect_replicates(project_root, version: str, exclude_scenarios: tuple[str,
                     "property": prop,
                     "metric": metric,
                     "value": float(hit["synthetic_estimate"].iloc[0]) if len(hit) else float("nan"),
+                    "status": str(hit["status"].iloc[0]) if len(hit) else str(Status.INCONCLUSIVE),
                     "error": "",
                 }
             )
@@ -179,8 +339,23 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
                 ),
             )
         )
+    elif seeds_per_scenario.get(data.scenario, 0) < 10:
+        metrics.append(
+            _metric(
+                data, f"seed_replicates:{data.scenario}", "seed_stability", "availability",
+                seeds_per_scenario.get(data.scenario, 0), None, ">=10", Status.WARNING,
+                notes=(
+                    f"{data.scenario} has {seeds_per_scenario.get(data.scenario, 0)} generated seed "
+                    "replicates; final ranking readiness asks for at least 10"
+                ),
+            )
+        )
 
-    headline, probes = collect_replicates(data.project_root, data.benchmark_version)
+    headline, probes = collect_replicates(
+        data.project_root,
+        data.benchmark_version,
+        exclude_scenarios=SCENARIOS_EXCLUDED_FROM_STABILITY,
+    )
     if headline.empty:
         metrics.append(
             _metric(
@@ -189,6 +364,73 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
             )
         )
         return metrics, empty
+
+    main = headline.loc[headline["scenario"].eq(data.scenario)].copy()
+    if not main.empty:
+        for prop, group in main.groupby("property"):
+            values = pd.to_numeric(group["value"], errors="coerce").dropna()
+            n = int(len(values))
+            subgroup = f"seed_replicates:{data.scenario}"
+            if n < 2:
+                metrics.append(
+                    _metric(
+                        data, subgroup, prop, "seed_count", n, None, ">=10", Status.INCONCLUSIVE,
+                        notes="fewer than two valid seeds, so within-scenario stability cannot be estimated",
+                    )
+                )
+                continue
+            mean = float(values.mean())
+            sd = float(values.std(ddof=1))
+            lo = float(values.quantile(0.025))
+            hi = float(values.quantile(0.975))
+            worst = float(values.min())
+            cv = float(sd / mean) if mean else float("nan")
+            nonpass = group.loc[
+                group["status"].astype(str).isin({str(Status.WARNING), str(Status.FAIL), str(Status.INCONCLUSIVE)})
+            ]
+            nonpass_frequency = float(len(nonpass) / len(group))
+            metrics.extend(
+                [
+                    _metric(
+                        data, subgroup, prop, "seed_count", n, None, ">=10",
+                        Status.PASS if n >= 10 else Status.WARNING,
+                        notes="number of generated seed replicates included in the within-scenario summary",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "mean", mean, None, "context_only", Status.PASS,
+                        notes=f"within-scenario mean over {n} generated seeds",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "std", sd, sd, "context_only", Status.PASS,
+                        notes=f"within-scenario standard deviation over {n} generated seeds",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "central_95pct_interval", f"{lo:.6g}-{hi:.6g}",
+                        None, "context_only", Status.PASS,
+                        notes="empirical 2.5%-97.5% interval across generated seeds",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "worst_case", worst, None, "context_only", Status.PASS,
+                        notes="minimum value observed across generated seeds",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "coefficient_of_variation", cv, cv,
+                        TOLERANCES["headline_cv_max"],
+                        Status.PASS if np.isfinite(cv) and cv <= TOLERANCES["headline_cv_max"] else Status.WARNING,
+                        notes="within-scenario seed stability; high values mean one seed is not representative",
+                    ),
+                    _metric(
+                        data, subgroup, prop, "nonpass_frequency", nonpass_frequency,
+                        nonpass_frequency, "0",
+                        Status.PASS if nonpass_frequency == 0 else Status.WARNING,
+                        notes=(
+                            "share of generated seeds whose underlying headline metric was not PASS "
+                            f"(WARNING/FAIL/INCONCLUSIVE); affected seeds="
+                            + ", ".join(f"{r.world}-{r.corruption}" for r in nonpass.itertuples())
+                        ),
+                    ),
+                ]
+            )
 
     # Cross-scenario spread of each headline property. Scenarios are meant to
     # differ, so a large spread here is informative rather than a failure: it
@@ -206,18 +448,24 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
             continue
         mean = float(values.mean())
         cv = float(values.std(ddof=1) / mean) if mean else float("nan")
+        scenario_summaries = []
+        for scenario_name, scenario_group in group.groupby("scenario"):
+            scenario_values = pd.to_numeric(scenario_group["value"], errors="coerce").dropna()
+            if scenario_values.empty:
+                continue
+            scenario_summaries.append(
+                f"{scenario_name}:mean={scenario_values.mean():.3f},"
+                f"range={scenario_values.min():.3f}-{scenario_values.max():.3f},n={len(scenario_values)}"
+            )
         metrics.append(
             _metric(
                 data, "cross_scenario", prop, "coefficient_of_variation", cv, cv,
                 TOLERANCES["headline_cv_max"],
                 Status.PASS if np.isfinite(cv) and cv <= TOLERANCES["headline_cv_max"] else Status.WARNING,
                 notes=(
-                    f"n_replicates={len(values)}; values="
-                    + ", ".join(
-                        f"{r.scenario}/{r.world}-{r.corruption}={r.value:.3f}"
-                        for r in group.itertuples()
-                        if np.isfinite(r.value)
-                    )
+                    f"n_replicates={len(values)}; excluded={SCENARIOS_EXCLUDED_FROM_STABILITY}; "
+                    "scenario summaries="
+                    + "; ".join(scenario_summaries)
                     + ". A high value means this headline property is scenario-dependent and must be "
                     "quoted with its scenario, not as a single benchmark number"
                 ),
@@ -225,51 +473,49 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
         )
 
     # Probe-linker ranking stability. This is the conclusion a benchmark user
-    # actually draws, so it matters more than any single metric value.
+    # actually draws, so it matters more than any single metric value. Report
+    # within-scenario seed stability separately from cross-scenario stability:
+    # scenarios are intentionally different and should not be silently averaged
+    # into a single ranking claim.
     if not probes.empty:
-        pivot = probes.pivot_table(
+        for scenario, group in probes.groupby("scenario"):
+            seed_pivot = group.pivot_table(
+                index="probe", columns=["world", "corruption"], values="pair_f1"
+            )
+            metrics.append(
+                _probe_ranking_metric(
+                    data,
+                    f"ranking_stability:{scenario}",
+                    seed_pivot,
+                    "seed replicate",
+                    "within-scenario probe-ranking stability across generated seeds",
+                )
+            )
+
+        scenario_pivot = probes.pivot_table(index="probe", columns="scenario", values="pair_f1", aggfunc="mean")
+        metrics.append(
+            _probe_ranking_metric(
+                data,
+                "ranking_stability:cross_scenario",
+                scenario_pivot,
+                "scenario mean",
+                "cross-scenario probe-ranking stability using mean pair-F1 by scenario",
+            )
+        )
+
+        overall_pivot = probes.pivot_table(
             index="probe", columns=["scenario", "world", "corruption"], values="pair_f1"
         )
-        columns = list(pivot.columns)
-        if len(columns) < 2:
-            metrics.append(
-                _metric(
-                    data, "ranking_stability", "probe_ranking", "kendall_tau", None, None,
-                    TOLERANCES["ranking_kendall_tau_min"], Status.INCONCLUSIVE,
-                    notes=(
-                        f"probe rankings available for only {len(columns)} replicate; ranking stability "
-                        "needs at least two"
-                    ),
-                )
+        metrics.append(
+            _probe_ranking_metric(
+                data,
+                "ranking_stability",
+                overall_pivot,
+                "scenario/seed replicate",
+                (
+                    "overall probe-ranking stability across all generated scenario/seed artifacts; "
+                    "a low value means a single global algorithm ranking is not supported"
+                ),
             )
-        else:
-            taus, pairs_compared = [], []
-            for i in range(len(columns)):
-                for j in range(i + 1, len(columns)):
-                    a = pivot[columns[i]].astype(float)
-                    b = pivot[columns[j]].astype(float)
-                    joint = pd.concat([a, b], axis=1).dropna()
-                    if len(joint) < 2:
-                        continue
-                    tau = _kendall_tau(joint.iloc[:, 0].tolist(), joint.iloc[:, 1].tolist())
-                    taus.append(tau)
-                    pairs_compared.append(f"{columns[i][0]} vs {columns[j][0]}: tau={tau:.2f}")
-            finite_taus = [t for t in taus if np.isfinite(t)]
-            worst = float(min(finite_taus)) if finite_taus else float("nan")
-            metrics.append(
-                _metric(
-                    data, "ranking_stability", "probe_ranking", "min_kendall_tau", worst, worst,
-                    TOLERANCES["ranking_kendall_tau_min"],
-                    Status.PASS
-                    if np.isfinite(worst) and worst >= TOLERANCES["ranking_kendall_tau_min"]
-                    else Status.WARNING
-                    if np.isfinite(worst)
-                    else Status.INCONCLUSIVE,
-                    notes=(
-                        "; ".join(pairs_compared)
-                        + ". Rank agreement across replicates that differ only by scenario; a low value "
-                        "means algorithm conclusions from this benchmark are scenario-specific"
-                    ),
-                )
-            )
+        )
     return metrics, probes

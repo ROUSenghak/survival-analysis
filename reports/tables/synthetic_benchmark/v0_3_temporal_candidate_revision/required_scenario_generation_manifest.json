@@ -1,0 +1,51 @@
+{
+  "generated_at_utc": "2026-07-27T12:17:54.526535+00:00",
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "status": "SUPERSEDED",
+  "superseded_by": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/required_scenario_10_seed_generation_manifest.json",
+  "note": "Historical one-seed required-scenario generation manifest retained for audit only. Current required-scenario evidence uses 10 seeds per scenario.",
+  "dry_run": false,
+  "force": true,
+  "rows": [
+    {
+      "scenario": "easier",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 2000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/easier/world_001/corruption_001",
+      "status": "OVERWRITTEN"
+    },
+    {
+      "scenario": "moderate",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 2000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/moderate/world_001/corruption_001",
+      "status": "OVERWRITTEN"
+    },
+    {
+      "scenario": "difficult",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 2000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/difficult/world_001/corruption_001",
+      "status": "OVERWRITTEN"
+    },
+    {
+      "scenario": "stress",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 2000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision/stress/world_001/corruption_001",
+      "status": "OVERWRITTEN"
+    }
+  ]
+}
