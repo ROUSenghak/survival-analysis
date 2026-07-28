@@ -1,5 +1,5 @@
 version,dimension,value,status
-v0_2_conditional_revision,source_count_ratio,1.003382984516768,PASS
+v0_2_conditional_revision,source_count_ratio,0.922544212399366,PASS
 v0_2_conditional_revision,zero_candidate_abs_diff_pp,49.71500685320763,NEEDS_REVISION
 v0_2_conditional_revision,p75_abs_diff,4.0,NEEDS_REVISION
 v0_2_conditional_revision,p90_abs_diff,9.099999999999909,NEEDS_REVISION

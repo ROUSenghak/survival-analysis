@@ -11,7 +11,7 @@
     "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
     "scenarios/easier.yaml": "7a8ae1cf0710da5c",
-    "boamp_common_prepared.csv": "e0df5cb916ac96c1"
+    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
   },
   "row_counts": {
     "buyers": 2000,
@@ -24,8 +24,14 @@
     "observed_notices": 11169,
     "corruption_log": 27407
   },
-  "execution_timestamp_utc": "2026-07-27T20:49:17.387912+00:00",
-  "git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
+  "execution_timestamp_utc": "2026-07-28T08:02:56.191033+00:00",
+  "git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "runtime_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.0"
+  },
   "resolved_scenario": {
     "scenario_id": "easier",
     "display_name": "Easier",

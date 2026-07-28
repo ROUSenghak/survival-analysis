@@ -130,11 +130,25 @@ specification, not only in a CSV.
    tables. The saved replay result is
    `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json`.
    `scripts/replay_synthetic_benchmark_replicates.py` additionally passes for
-   all 51 generated artifacts in the expanded scenario/seed grid.
+   every generated artifact in the expanded scenario/seed grid.
+
+   Canonical content hashing tolerates Parquet writer differences but **not** a
+   different NumPy build: the generator and reduction kernels are bit-stable per
+   build, not across builds, so a different NumPy replays every count and
+   identity while differing in the last unit in the last place of float columns
+   — enough to change a SHA-256. `requirements-lock.txt` pins the environment,
+   `generation_metadata.json#runtime_environment` records what each artifact was
+   generated under, and `replay_comparison.json` reports
+   `environment_drift_since_generation` so such a mismatch is diagnosable rather
+   than mistaken for generator drift.
 
 3. **The true-gap mean recovers under the declared mechanism.** Simulating the
    base/near-window mixture with window censoring reproduces the observed mean
-   gap: 15.75 months against a 99% Monte Carlo interval of [15.72, 16.65].
+   gap. The current run's realised mean and its 99% Monte Carlo interval are in
+   `validation_metrics_long.csv`
+   (`specification_recovery / mean_true_gap_months_in_monte_carlo_interval`);
+   they are not repeated here, because a number copied into prose is a number
+   that goes stale.
 
    An earlier revision reported this as a warning and attributed the miss to
    the hard-negative chain-alignment step not being replayed. That explanation

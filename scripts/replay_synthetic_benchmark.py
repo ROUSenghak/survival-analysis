@@ -10,7 +10,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from boamp.synthetic.reproducibility import compare_table_sets, regenerate_tables_from_metadata  # noqa: E402
+from boamp.synthetic.reproducibility import (  # noqa: E402
+    compare_table_sets,
+    environment_drift,
+    regenerate_tables_from_metadata,
+)
 from boamp.synthetic.validation_framework.loaders import load_benchmark_data  # noqa: E402
 
 
@@ -62,6 +66,8 @@ def main() -> None:
         "world": args.world,
         "corruption": args.corruption,
         "overall_status": "PASS" if all(item.passed for item in comparisons) else "FAIL",
+        "recorded_runtime_environment": data.metadata.get("runtime_environment") or {},
+        "environment_drift_since_generation": environment_drift(data.metadata),
         "tables": rows,
     }
     text = json.dumps(result, indent=2)

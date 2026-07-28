@@ -43,7 +43,9 @@ duration:
   max_plausible_months: 120
   # Missing durations on in-scope APPEL_OFFRE sources are imputed with the
   # median observed duration of the same CPV division (fallback: global median
-  # of in-scope observed durations). ~88% of sources are imputed - a documented
+  # of in-scope observed durations). 82.7% of the 3,380 eligible sources are
+  # imputed (reports/tables/synthetic_calibration/parameter_inventory.csv
+  # #duration_imputation_rate) - a documented
   # high-leverage assumption tested in 03_analysis (duration-leakage variants).
   imputation: median_by_cpv_division
 

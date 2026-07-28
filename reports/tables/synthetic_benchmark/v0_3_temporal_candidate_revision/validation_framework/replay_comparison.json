@@ -4,12 +4,19 @@
   "world": "001",
   "corruption": "001",
   "overall_status": "PASS",
+  "recorded_runtime_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.0"
+  },
+  "environment_drift_since_generation": {},
   "tables": [
     {
       "table": "clean_notices",
       "status": "PASS",
-      "expected_hash": "cb93a7d474864c6ff58b9b079962fd50f67a3e751f91ca22472807deb8f26a09",
-      "actual_hash": "cb93a7d474864c6ff58b9b079962fd50f67a3e751f91ca22472807deb8f26a09",
+      "expected_hash": "080079a60c28d22c4097d8b3fd0e4838d4cd72a72534f024e2fe5dbddbd41737",
+      "actual_hash": "080079a60c28d22c4097d8b3fd0e4838d4cd72a72534f024e2fe5dbddbd41737",
       "expected_rows": 8833,
       "actual_rows": 8833,
       "expected_columns": [
@@ -54,8 +61,8 @@
     {
       "table": "corruption_log",
       "status": "PASS",
-      "expected_hash": "0ea96186aee0d3b04ce4b79620e0820a42257cdba785c744b557c9d091adcba4",
-      "actual_hash": "0ea96186aee0d3b04ce4b79620e0820a42257cdba785c744b557c9d091adcba4",
+      "expected_hash": "5708afef4f7851e85293ff080be0cd47ae9582b8a3fd23576556dadb21e8854c",
+      "actual_hash": "5708afef4f7851e85293ff080be0cd47ae9582b8a3fd23576556dadb21e8854c",
       "expected_rows": 24483,
       "actual_rows": 24483,
       "expected_columns": [
@@ -82,8 +89,8 @@
     {
       "table": "latent_buyers",
       "status": "PASS",
-      "expected_hash": "af63b9d0ecdd9857e5ea2e581b89905a624722d9261fc9a1cc4ad8a6e82fff36",
-      "actual_hash": "af63b9d0ecdd9857e5ea2e581b89905a624722d9261fc9a1cc4ad8a6e82fff36",
+      "expected_hash": "7794d5ccf13870185deaad13549e85367b52d0778e2b4321d9b37923faad3cff",
+      "actual_hash": "7794d5ccf13870185deaad13549e85367b52d0778e2b4321d9b37923faad3cff",
       "expected_rows": 2000,
       "actual_rows": 2000,
       "expected_columns": [
@@ -116,8 +123,8 @@
     {
       "table": "latent_cycles",
       "status": "PASS",
-      "expected_hash": "6a173420a9d912ced12d31d016c40c6f0f861ce67a9f7d2c712c7f1bd4baaf68",
-      "actual_hash": "6a173420a9d912ced12d31d016c40c6f0f861ce67a9f7d2c712c7f1bd4baaf68",
+      "expected_hash": "1ca9369fc35e85502c5cd9edf170060c120080dba6f4a1fc0519571daad38b10",
+      "actual_hash": "1ca9369fc35e85502c5cd9edf170060c120080dba6f4a1fc0519571daad38b10",
       "expected_rows": 6334,
       "actual_rows": 6334,
       "expected_columns": [
@@ -170,8 +177,8 @@
     {
       "table": "latent_needs",
       "status": "PASS",
-      "expected_hash": "ff3c2f2e2378d4577d7e4be3f6f4c50a515af693a750822957446b1b6c9b0acf",
-      "actual_hash": "ff3c2f2e2378d4577d7e4be3f6f4c50a515af693a750822957446b1b6c9b0acf",
+      "expected_hash": "138ca7191521eee3cb54323c638de8019cc7d97b4a70aee27307e15c15bfd968",
+      "actual_hash": "138ca7191521eee3cb54323c638de8019cc7d97b4a70aee27307e15c15bfd968",
       "expected_rows": 4466,
       "actual_rows": 4466,
       "expected_columns": [
@@ -218,8 +225,8 @@
     {
       "table": "observed_notices",
       "status": "PASS",
-      "expected_hash": "db012ea2dcb5e3144e0901f2c1af221c79f31735099884a8b75e3e5801794340",
-      "actual_hash": "db012ea2dcb5e3144e0901f2c1af221c79f31735099884a8b75e3e5801794340",
+      "expected_hash": "53736d724154c183c51ca39a4b905dffc4e59272397092e6c1ceaf176d2eef12",
+      "actual_hash": "53736d724154c183c51ca39a4b905dffc4e59272397092e6c1ceaf176d2eef12",
       "expected_rows": 8833,
       "actual_rows": 8833,
       "expected_columns": [

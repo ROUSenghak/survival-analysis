@@ -1,12 +1,12 @@
 version,target,notice_type_normalized,buyer_activity_tier,successes_real,n_real,rate_real,successes_synthetic,n_synthetic,rate_synthetic,diff_pp,abs_diff_pp,eligible_cell
-v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,1 (single),135,1709,0.07899356348741954,61.0,918.0,0.0664488017429194,-1.2544761744500144,1.2544761744500144,True
-v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,2-5,306,3894,0.07858243451463791,152.0,2291.0,0.0663465735486687,-1.2235860965969207,1.2235860965969207,True
-v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,21+,2958,45763,0.0646373708017394,112.0,1508.0,0.07427055702917772,0.963318622743832,0.963318622743832,True
-v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,6-20,520,6926,0.07507941091539128,154.0,2149.0,0.07166123778501629,-0.3418173130374985,0.3418173130374985,True
-v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,1 (single),93,243,0.38271604938271603,35.0,305.0,0.11475409836065574,-26.796195102206028,26.796195102206028,True
-v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,2-5,106,947,0.1119324181626188,98.0,877.0,0.11174458380843785,-0.01878343541809463,0.01878343541809463,True
-v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,21+,2008,19376,0.10363336085879439,58.0,569.0,0.10193321616871705,-0.17001446900773431,0.17001446900773431,True
-v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,6-20,243,1994,0.12186559679037111,110.0,854.0,0.1288056206088993,0.6940023818528194,0.6940023818528194,True
+v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,1 (single),135,1709,0.07899356348741954,14.0,327.0,0.04281345565749235,-3.6180107829927186,3.6180107829927186,True
+v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,2-5,306,3894,0.07858243451463791,68.0,1118.0,0.06082289803220036,-1.7759536482437548,1.7759536482437548,True
+v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,21+,2958,45763,0.0646373708017394,303.0,3670.0,0.08256130790190735,1.7923937100167957,1.7923937100167957,True
+v0_3_temporal_candidate_revision,generic_repeated_text,APPEL_OFFRE,6-20,520,6926,0.07507941091539128,83.0,1219.0,0.06808859721082855,-0.6990813704562726,0.6990813704562726,True
+v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,1 (single),93,243,0.38271604938271603,,,,,,False
+v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,2-5,106,947,0.1119324181626188,54.0,536.0,0.10074626865671642,-1.118614950590238,1.118614950590238,True
+v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,21+,2008,19376,0.10363336085879439,184.0,1449.0,0.12698412698412698,2.3350766125332587,2.3350766125332587,True
+v0_3_temporal_candidate_revision,generic_repeated_text,ATTRIBUTION,6-20,243,1994,0.12186559679037111,50.0,514.0,0.09727626459143969,-2.458933219893142,2.458933219893142,True
 v0_3_temporal_candidate_revision,generic_repeated_text,OTHER,1 (single),12,48,0.25,,,,,,False
 v0_3_temporal_candidate_revision,generic_repeated_text,OTHER,2-5,25,269,0.09293680297397769,,,,,,False
 v0_3_temporal_candidate_revision,generic_repeated_text,OTHER,21+,202,3035,0.06655683690280066,,,,,,False

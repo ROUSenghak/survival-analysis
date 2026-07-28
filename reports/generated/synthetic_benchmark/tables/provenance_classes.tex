@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Parameter-provenance classes and how many registry rows carry each. Source: \texttt{registries/parameter\_registry.csv}.}
+\label{tab:provenance}
+\begin{tabularx}{\textwidth}{l>{\raggedright\arraybackslash}Xr}
+\toprule
+Provenance class & Meaning & Rows \\
+\midrule
+\texttt{EMPIRICAL\_OBSERVABLE} & estimated from a measurable real-BOAMP quantity & 263 \\
+\texttt{SILVER\_STANDARD\_APPROXIMATION} & estimated through a documented imperfect proxy & 28 \\
+\texttt{SCENARIO\_UNIDENTIFIED} & assumption about a quantity BOAMP cannot identify & 206 \\
+\texttt{FIDELITY\_TARGET} & observable property used only to judge realism & 5 \\
+\texttt{ALGORITHM\_PARAMETER} & linkage or blocking setting, never synthetic truth & 77 \\
+\texttt{IMPLEMENTATION\_CONSTANT} & technical choice with no empirical interpretation & 14 \\
+\bottomrule
+\end{tabularx}
+\end{table}

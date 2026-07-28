@@ -133,6 +133,28 @@ def benchmark_tables_from_world(
     }
 
 
+def environment_drift(metadata: Mapping) -> dict[str, dict[str, str]]:
+    """Compare the recorded generation environment with the current one.
+
+    Returned keys are libraries whose version differs. A replay mismatch
+    confined to floating-point columns is expected under such a difference:
+    NumPy's generator and reduction kernels are bit-stable per build, not
+    across builds. An empty dict means the environment cannot explain a
+    mismatch, so the generator or its configuration really did change.
+    """
+    from boamp.synthetic.pipeline import _runtime_environment
+
+    recorded = dict(metadata.get("runtime_environment") or {})
+    if not recorded:
+        return {}
+    current = _runtime_environment()
+    return {
+        key: {"recorded": str(recorded[key]), "current": str(current.get(key, "MISSING"))}
+        for key in sorted(recorded)
+        if str(recorded[key]) != str(current.get(key, "MISSING"))
+    }
+
+
 def regenerate_tables_from_metadata(project_root: Path, metadata: dict, scenario_id: str) -> dict[str, pd.DataFrame]:
     """Regenerate benchmark tables using recorded seeds and row-count scale."""
     n_buyers = int((metadata.get("row_counts") or {}).get("buyers") or metadata.get("n_buyers") or 0)

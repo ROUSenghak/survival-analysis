@@ -353,8 +353,66 @@ def build_parameter_registry(project_root: Path, scenario: str, metadata: dict) 
                 "generator_version": metadata.get("generator_version", ""),
             }
         )
+    rows.extend(_algorithm_parameter_rows(project_root, scenario, metadata))
     frame = pd.DataFrame(rows)
     return frame
+
+
+# The production linkage settings are not generator inputs, but the DGP
+# specification promises the registry records them: they may be reported for
+# operational comparison and must never define synthetic truth. Leaving them out
+# produced a registry with zero ALGORITHM_PARAMETER rows while the class was
+# documented as populated.
+ALGORITHM_PARAMETERS: dict[str, str] = {
+    "scoring.weights.text": "Weight of TF-IDF cosine text similarity in the composite candidate score (unitless, weights sum to 1).",
+    "scoring.weights.cpv": "Weight of the CPV-hierarchy ladder score in the composite candidate score (unitless).",
+    "scoring.weights.time": "Weight of the triangular temporal-proximity score in the composite candidate score (unitless).",
+    "scoring.weights.buyer": "Weight of the buyer-identity reliability score in the composite candidate score (unitless).",
+    "thresholds.broad": "Composite-score acceptance threshold, p25 of the Layer-1 rank-1 score distribution (score units, 0-1).",
+    "thresholds.balanced": "Primary composite-score acceptance threshold, p50 of the Layer-1 rank-1 score distribution (score units, 0-1).",
+    "thresholds.strict": "Composite-score acceptance threshold, p75 of the Layer-1 rank-1 score distribution (score units, 0-1).",
+    "temporal_window.expected_value_months": "Half-width of the blocking window around a source's estimated contract end (months).",
+    "candidates.max_candidates_per_source": "Cap on temporally-nearest candidates retained per source (count).",
+    "confidence_tiers.potential_margin_max": "Top1-to-top2 margin below which an accepted link is tiered POTENTIAL (score units).",
+    "run.month_days": "Days-per-month constant used for every month conversion (days).",
+}
+
+
+def _algorithm_parameter_rows(project_root: Path, scenario: str, metadata: dict) -> list[dict]:
+    with open(project_root / "config" / "pipeline.yaml", encoding="utf-8") as f:
+        pipeline = yaml.safe_load(f)
+    defaults = PROVENANCE_DEFAULTS["ALGORITHM_PARAMETER"]
+    rows = []
+    for key, definition in ALGORITHM_PARAMETERS.items():
+        node = pipeline
+        for part in key.split("."):
+            node = node[part]
+        rows.append(
+            {
+                "parameter": f"pipeline.{key}",
+                "name": f"pipeline.{key}",
+                "definition": definition,
+                "value_or_distribution": _jsonable(node),
+                "scenario_file_value": "",
+                "provenance_category": "ALGORITHM_PARAMETER",
+                "provenance_class": "ALGORITHM_PARAMETER",
+                "overridden_at_runtime": False,
+                "metadata_selected_parameter": False,
+                "effective_value": _jsonable(node),
+                "source_dataset_population": defaults["source_dataset_population"],
+                "estimation_code": "config/pipeline.yaml + scripts/build_benchmark_registries.py",
+                "uncertainty": defaults["uncertainty"],
+                "version": metadata.get("generator_version", ""),
+                "rationale": defaults["rationale"],
+                "may_be_used_for_calibration": defaults["may_be_used_for_calibration"],
+                "must_remain_held_out": defaults["must_remain_held_out"],
+                "known_limitations": defaults["known_limitations"],
+                "scenario": scenario,
+                "scenario_file": "config/pipeline.yaml",
+                "generator_version": metadata.get("generator_version", ""),
+            }
+        )
+    return rows
 
 
 def build_tolerance_registry() -> pd.DataFrame:
@@ -385,10 +443,16 @@ def build_tolerance_registry() -> pd.DataFrame:
 def build_scenario_manifest(project_root: Path, version: str) -> pd.DataFrame:
     rows = []
     configured = set(VALID_SCENARIOS)
-    generated = {}
-    for scenario, world, corruption in loaders.available_replicates(project_root, version):
-        generated.setdefault(scenario, 0)
-        generated[scenario] += 1
+    replicates = list(loaders.available_replicates(project_root, version))
+    # Scenario-level total, computed before emitting rows. An earlier version
+    # wrote a running counter here, so any single row understated how much
+    # multi-seed evidence the scenario actually has.
+    generated: dict[str, int] = {}
+    for scenario, _world, _corruption in replicates:
+        generated[scenario] = generated.get(scenario, 0) + 1
+    replicate_index: dict[str, int] = {}
+    for scenario, world, corruption in replicates:
+        replicate_index[scenario] = replicate_index.get(scenario, 0) + 1
         directory = loaders.benchmark_output_dir(project_root, version, scenario, world, corruption)
         metadata = pd.read_json(directory / "generation_metadata.json", typ="series")
         rows.append(
@@ -405,6 +469,7 @@ def build_scenario_manifest(project_root: Path, version: str) -> pd.DataFrame:
                 "generator_version": metadata.get("generator_version"),
                 "git_commit": metadata.get("git_commit"),
                 "n_observed_notices": (metadata.get("row_counts") or {}).get("observed_notices"),
+                "replicate_index_for_scenario": replicate_index[scenario],
                 "generated_replicates_for_scenario": generated[scenario],
                 "path": str(directory.relative_to(project_root)),
             }

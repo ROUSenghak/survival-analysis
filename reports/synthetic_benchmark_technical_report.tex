@@ -1,193 +1,1415 @@
-\documentclass[11pt]{article}
-\usepackage[a4paper,margin=2.5cm]{geometry}
+% BOAMP synthetic record-linkage benchmark -- technical report.
+%
+% Build:  latexmk -pdf synthetic_benchmark_technical_report.tex
+% Inputs: every statistic comes from ../reports/generated/synthetic_benchmark/
+%         report_values.tex, which scripts/build_report_values.py regenerates
+%         from the current artifacts. There are no hand-typed numbers in this
+%         file, by design -- see section "Reproducibility instructions".
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.4cm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{enumitem}
 \usepackage{amsmath}
-\urlstyle{tt}
-\setlist[itemize]{leftmargin=1.2em}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, backgrounds}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
 
-\title{Synthetic BOAMP Benchmark Technical Report\\
-\large Latent-truth generator, validation framework, and current readiness}
-\author{Current independent study}
-\date{End-to-end refresh: 2026-07-27}
+\urlstyle{tt}
+\setlist[itemize]{leftmargin=1.2em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\graphicspath{{figures/synthetic_benchmark/report/}{figures/}}
+
+\definecolor{slotone}{HTML}{2A78D6}
+\definecolor{slottwo}{HTML}{EB6834}
+\definecolor{slotthree}{HTML}{1BAF7A}
+\definecolor{inkmuted}{HTML}{52514E}
+\definecolor{rulegray}{HTML}{C3C2B7}
+
+% Generated values -- do not edit; regenerate with scripts/build_report_values.py.
+\input{generated/synthetic_benchmark/report_values}
+
+\newcommand{\tabledir}{generated/synthetic_benchmark/tables}
+\newcommand{\code}[1]{\texttt{\small #1}}
+% Paths break at / and _ ; \path (url, loaded by hyperref) does that and also
+% takes underscores literally, so \file arguments are written unescaped.
+% Robust, because \file appears inside captions, which are moving arguments.
+% Urlmuskip=0mu stops \path inserting visible glue around every breakpoint.
+\Urlmuskip=0mu plus 1mu
+\DeclareRobustCommand{\file}[1]{{\footnotesize\path{#1}}}
+
+\title{\bfseries A Synthetic Record-Linkage Benchmark for BOAMP\\
+Procurement-Renewal Detection\\[0.35em]
+\large Calibration, data-generating process, validation, and current readiness\\[0.2em]
+\normalsize Benchmark version \code{\rvBenchmarkVersion}, central scenario \code{\rvCentralScenario}}
+\author{BOAMP renewal-linkage and survival-analysis study}
+\date{Generated \rvReportBuildDate\ from the artifacts listed in
+Section~\ref{sec:repro}}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The synthetic BOAMP benchmark creates a controlled procurement-renewal world
-with hidden truth relations, corrupts the observable fields to resemble BOAMP,
-and evaluates linkage algorithms against sealed truth. The current benchmark
-version is \texttt{v0\_3\_temporal\_candidate\_revision}. The validation
-framework reports \texttt{PASS\_WITH\_WARNINGS}; critical internal,
-specification-recovery, candidate-environment, privacy, and algorithm-utility
-gates pass, but conditionals, temporal runway, hidden-truth difficulty, and
-robustness carry warnings. Two noncritical SIRET missing/present metrics fail.
-The five-level readiness assessment is authoritative: preliminary synthetic
-modeling is allowed with limitations, while controlled algorithm comparison,
-final algorithm ranking, and validated benchmark release currently fail.
+\noindent
+Real BOAMP notices carry no field stating that one contract renews another, so
+no direct measurement of linkage precision or recall is possible on them. This
+report documents a synthetic benchmark built to answer the narrower question
+that \emph{is} answerable: whether a candidate linkage method recovers
+\emph{known} recurrence relations in a population whose observable structure has
+been calibrated to BOAMP. A latent procurement world --- buyers, establishments,
+recurring needs, contract cycles, and the successor relation between them --- is
+generated first; BOAMP-like publication notices are then emitted from it and
+subjected to identifier, name, CPV, duration, and text corruption whose rates are
+estimated from the real corpus conditionally, not marginally. A sealed truth
+layer is retained and never exposed to any linkage code.
+
+The current central world contains \rvRowsObservedNotices\ observed notices
+drawn from \rvRowsBuyers\ latent buyers and \rvRowsCycles\ contract cycles, with
+\rvRowsCorruptionLog\ logged corruption events. Across \rvValidationMetricCount\
+metrics in \rvValidationGateCount\ gates the validation framework reports
+\code{\rvValidationStatus}, with \rvValidationMetricFailures\ metric-level
+failures, all in non-critical gates. Every generated artifact
+(\rvReplayReplicatesPassed/\rvReplayReplicatesChecked) reproduces bit-for-bit
+from its recorded seeds and configuration.
+
+The separate five-level readiness assessment is the operative statement of what
+the benchmark may be used for, and it is deliberately conservative:
+preliminary synthetic-only work is supported with limitations, while controlled
+algorithm comparison, final algorithm ranking, and release as a validated
+benchmark all currently fail. The binding reasons are seed-to-seed instability
+of the difficulty metrics and unstable probe rankings, not defects in the
+generator's internal consistency. Nothing in this report estimates real BOAMP
+recurrence prevalence or real-world linkage accuracy, and the benchmark is not
+a substitute for the real ground truth that does not exist.
 \end{abstract}
 
-\section{Current Decision}
+\tableofcontents
+\newpage
 
-\begin{table}[h!]
-\centering
-\caption{Five-level readiness assessment from the current run.}
-\begin{tabular}{lp{0.45\textwidth}}
-\toprule
-Decision & Status \\
-\midrule
-\texttt{PIPELINE\_TECHNICALLY\_VALID} & \texttt{PASS\_WITH\_LIMITATIONS} \\
-\texttt{READY\_FOR\_PRELIMINARY\_MODELING} & \texttt{PASS\_WITH\_LIMITATIONS} \\
-\texttt{READY\_FOR\_CONTROLLED\_ALGORITHM\_COMPARISON} & \texttt{FAIL} \\
-\texttt{READY\_FOR\_FINAL\_ALGORITHM\_RANKING} & \texttt{FAIL} \\
-\texttt{READY\_FOR\_VALIDATED\_SYNTHETIC\_BENCHMARK\_RELEASE} & \texttt{FAIL} \\
-\bottomrule
-\end{tabular}
-\end{table}
+% ==========================================================================
+\section{Executive summary}
 
-The benchmark may be used for preliminary synthetic-only linker debugging and
-pipeline integration. It must not be cited as ready for controlled algorithm
-comparison, final ranking, or validated release.
+\paragraph{What this is.} A controlled, fully reproducible synthetic corpus of
+French public-procurement notices in which the answer to ``does notice $j$
+continue the contract that notice $i$ announced?'' is known by construction, and
+in which the observable record --- missing identifiers, drifting buyer names,
+absent CPV codes, boilerplate text --- has been made to resemble the real BOAMP
+corpus of \rvCorpusNotices\ notices published between \rvCorpusFirstPublication\
+and \rvCorpusLastPublication.
 
-\section{Selected v0.3 Candidate Parameters}
+\paragraph{Why it exists.} The production pipeline links a source contract to a
+later notice when a weighted similarity score clears a frozen threshold. On real
+BOAMP that produces \rvLayerOneLinks\ accepted links from \rvLayerOneSources\
+eligible sources (\rvLayerOneLinkRate) --- but there is no way to say how many of
+those are correct, because no legal-renewal field exists. Every quality number
+the production pipeline can report is either model-based or conditional on its
+own accepted links. The benchmark supplies the missing denominator, in a world
+whose realism is a documented, measured claim rather than an assumption.
 
-The selected central-provisional candidate setting is saved in
-\texttt{candidate\_revision\_selected\_parameters.csv},
-\texttt{generation\_metadata.json}, and
-\texttt{config/synthetic/scenarios/central\_provisional.yaml}. The key selected
-values are:
+\paragraph{What the current run establishes.}
 \begin{itemize}
-    \item recurrence propensity multiplier: 0.88;
-    \item near-window share: 1.00;
-    \item hard-negative alignment rate: 0.34;
-    \item scoped buyer affinity share: 0.102;
-    \item high scoped-need probability: 0.74.
+  \item \textbf{Internal correctness.} All \rvGatesCritical\ critical gates that
+  concern internal consistency, specification recovery, candidate environment,
+  privacy, and algorithm utility pass. No truth column, alias, normalised truth
+  value, or hash of a truth identifier reaches the observed table.
+  \item \textbf{Observable realism, conditionally.} The candidate environment
+  --- the property that decides whether a linker can find the successor at all
+  --- now matches the real corpus closely: zero-candidate rate
+  \rvCandNowZeroRate\ synthetic against \rvCandRealZeroRate\ real, a gap of
+  \rvCandZeroAbsDiffPp\ percentage points.
+  \item \textbf{Difficulty is non-trivial and measured.} Of
+  \rvTruthPairsInScope\ true successor pairs inside the algorithm's own scope,
+  the production \rvTemporalWindowMonths-month blocking window reaches
+  \rvBlockingRecallProduction; widening to \rvWidenedProbeWindowMonths\ months reaches
+  \rvBlockingRecallWidened. The best frozen probe linker attains pair
+  $F_1 = \rvProbeBestFOne$ --- far from both 0 and 1, which is what makes the
+  benchmark discriminative.
+  \item \textbf{Reproducibility.} \rvReplayReplicatesPassed\ of
+  \rvReplayReplicatesChecked\ generated artifacts replay to identical canonical
+  content hashes.
 \end{itemize}
 
-\section{Candidate Environment}
+\paragraph{What it does not establish.} Seed-to-seed spread is material:
+production blocking completeness over \rvRobBlockingSeeds\ central seeds has
+mean \rvRobBlockingMean\ and standard deviation \rvRobBlockingStd\
+(coefficient of variation \rvRobBlockingCv), and probe rankings flip between
+seeds. Consequently
+\code{READY\_FOR\_CONTROLLED\_ALGORITHM\_COMPARISON},
+\code{READY\_FOR\_FINAL\_ALGORITHM\_RANKING} and
+\code{READY\_FOR\_VALIDATED\_SYNTHETIC\_BENCHMARK\_RELEASE} all read
+\code{FAIL}. The benchmark is currently an instrument for debugging and
+integrating linkage code, not for ranking linkage algorithms.
 
-\begin{table}[h!]
-\centering
-\caption{Layer-1 algorithm source-scope candidate environment.}
-\begin{tabular}{lrrrrrr}
+% ==========================================================================
+\section{Research objective and benchmark purpose}
+\label{sec:objective}
+
+The parent study models time to renewal of French public digital/ICT
+procurement contracts. Its event is not observed: BOAMP publishes notices, not
+contract lineages. The study therefore \emph{constructs} the event by record
+linkage --- for each eligible source contract, later notices from the same buyer
+near the estimated contract end are scored, and the best-scoring candidate is
+accepted if it clears a threshold. Every survival conclusion inherits whatever
+error that construction makes.
+
+That error is unmeasurable on real data. The purpose of this benchmark is to
+make it measurable in a controlled setting, and to state precisely how far a
+measurement made there transfers. Formally, write $\mathcal{L}$ for a linkage
+procedure, $\mathcal{R}$ for the real BOAMP corpus, $\mathcal{S}$ for a
+synthetic corpus, and $T$ for the true successor relation. On $\mathcal{R}$,
+$T$ is unobserved and no estimate of $\Pr(\hat{T} = T)$ exists. On
+$\mathcal{S}$, $T$ is known by construction, so precision, recall, and
+cluster-level accuracy are computable exactly. The transfer claim is
+conditional and is the only one this report makes:
+
+\begin{quote}\itshape
+If $\mathcal{S}$ reproduces the observable properties of $\mathcal{R}$ that
+materially affect $\mathcal{L}$, then the behaviour of $\mathcal{L}$ on
+$\mathcal{S}$, evaluated across a documented envelope of scenario assumptions,
+is useful calibration and comparison evidence about its behaviour on
+$\mathcal{R}$.
+\end{quote}
+
+The design follows the gold-standard-and-corruption framework of
+\citet{lam2024synthetic}, adapted from personal identifiers to procurement
+recurrence: generate a clean population with known links, then corrupt the
+observable layer with mechanisms whose rates are calibrated to the target
+corpus, and evaluate against the retained truth. The linkage vocabulary
+--- match, potential match, non-match, blocking, pairs completeness, reduction
+ratio --- follows \citet{fellegi1969theory} and \citet{christen2012data}, and
+the design of evaluating linkage software on constructed data follows
+\citet{ferrante2012transparent}.
+
+% ==========================================================================
+\section{Scope and limitations}
+
+\paragraph{In scope.} A single geographic and sectoral slice: Pays de la Loire
+buyers, digital/ICT contracts, publication dates \rvObservationStart\ to
+\rvObservationEnd. One central scenario plus bracketing scenarios. Notice
+types are reduced to calls (\code{APPEL\_OFFRE}) and awards
+(\code{ATTRIBUTION}); the residual \code{OTHER} category of the real corpus
+(\rvCorpusOtherShare\ of notices) is not generated.
+
+\paragraph{Out of scope, and never claimed.}
+\begin{enumerate}
+  \item \textbf{Real recurrence prevalence.} The generator's recurrence
+  propensity is an assumption, not an estimate. See
+  Section~\ref{sec:provenance}.
+  \item \textbf{Real linkage accuracy.} Every precision and recall number in
+  this report is measured against generated truth.
+  \item \textbf{Threshold optimality.} The production threshold is an output of
+  a particular pipeline; it is reported for comparison and never used to define
+  truth.
+  \item \textbf{National generalisation.} The calibration corpus is one region.
+  \item \textbf{Held-out validation.} No real-BOAMP partition was withheld from
+  generator design, so observable-fidelity results are in-sample with respect
+  to calibration.
+\end{enumerate}
+
+% ==========================================================================
+\section{The original BOAMP data}
+
+\paragraph{Source and extraction.} Monthly JSON extracts from the
+\emph{Bulletin officiel des annonces des march\'es publics} were retrieved via
+the Opendatasoft Explore API, filtered server-side to Pays de la Loire, for
+publication months \rvObservationStart\ through \rvObservationEnd. After
+flattening and de-duplication on the BOAMP notice identifier, the prepared
+corpus contains \rvCorpusNotices\ unique notices with publication dates from
+\rvCorpusFirstPublication\ to \rvCorpusLastPublication.
+
+\paragraph{Schemas.} Two incompatible record schemas coexist. The legacy BOAMP
+format accounts for \rvCorpusLegacyShare\ of notices; the EU eForms format,
+mandated from late 2023 and adopted gradually from 2024, accounts for
+\rvCorpusEformsShare. The two differ in which fields exist at all, which is why
+every missingness rate in this report is reported conditionally on schema and
+never only marginally.
+
+\paragraph{Notice types.} Normalised notice type splits
+\rvCorpusCallShare\ calls, \rvCorpusAwardShare\ awards, and
+\rvCorpusOtherShare\ other (modifications, cancellations, corrections).
+
+\paragraph{Analysis population.} Applying the digital/ICT scope --- CPV
+divisions \rvDigitalCpvDivisions, or a French-language keyword match on the cleaned
+contract object --- to call notices yields \rvLayerOneSources\ eligible source
+contracts, the population every production and benchmark comparison uses.
+
+% ==========================================================================
+\section{Analysis population and preprocessing}
+
+Preprocessing is layer-neutral and runs once
+(\file{notebooks/01_data_engineering_pipeline.ipynb}, Part~C). It performs,
+in order: de-duplication on the notice identifier; notice-type normalisation;
+schema-family detection; CPV extraction across both schemas, including the
+UBL commodity-classification paths eForms uses; buyer-identifier extraction and
+validation; buyer-name normalisation; text cleaning; and duration extraction
+with a plausibility filter of \rvDurationMinMonths--\rvDurationMaxMonths\ months.
+
+Two derived quantities carry disproportionate weight and are flagged here
+rather than buried.
+
+\paragraph{Buyer key.} Buyer identity is resolved by a strict priority ladder:
+a checksum-valid SIRET, else a checksum-valid SIREN, else the normalised buyer
+name. Only \rvCalibSiretPresentRate\ of notices carry a checksum-valid SIRET, so
+the large majority of buyer identities rest on a normalised string. This is the
+single largest source of both false splits and false merges, and the benchmark
+models both explicitly.
+
+\paragraph{Estimated contract end.} Only \rvCalibDurationPresentRate\ of notices
+declare a duration at all. Missing durations on eligible sources are imputed by
+the median observed duration of the same CPV division. The imputed duration then
+determines the estimated end date, which determines the temporal blocking
+window, the temporal score component, and the survival covariate --- a
+dependency chain documented as the pipeline's highest-leverage assumption.
+
+% ==========================================================================
+\section{Calibration methodology}
+\label{sec:calibration}
+
+\paragraph{Principle.} A quantity may be used to \emph{set} a generator
+parameter only if it is measurable from raw or layer-neutral prepared fields,
+without reference to any accepted link, score, or threshold. Quantities visible
+only through accepted links are silver-standard: they may be reported and used
+as validation targets, never as generator inputs. Quantities not measurable at
+all become scenario assumptions and must be varied.
+
+\paragraph{Estimator conventions.} Throughout, $\widehat{p}$ denotes an
+empirical proportion computed on a stated population, and $p$ a model
+probability the generator draws from. For a binary outcome $Y$ observed on cells
+$c$ defined by conditioning variables, the generator consumes a
+beta-binomially smoothed rate rather than the raw cell proportion:
+\begin{equation}
+\widehat{p}_c \;=\; \frac{\sum_{i \in c} Y_i \;+\; \kappa\, \widehat{p}_{\bullet}}
+                        {n_c \;+\; \kappa},
+\qquad
+\widehat{p}_{\bullet} = \frac{1}{n}\sum_{i=1}^{n} Y_i ,
+\label{eq:smoothing}
+\end{equation}
+with prior strength $\kappa = \rvSmoothingPriorStrength$ notices and
+$\widehat{p}_{\bullet}$ the global rate. Shrinkage matters because the conditioning grid
+(schema $\times$ year $\times$ notice type) contains cells with a handful of
+notices, whose raw proportions are 0 or 1 and would otherwise be copied into the
+generator as certainties.
+
+\paragraph{Distances, not tests.} Agreement between a real and a synthetic
+distribution is judged by effect size, never by a $p$-value. On
+\rvCorpusNotices\ real notices any non-zero difference is statistically
+significant, so significance carries no information about whether the benchmark
+is fit for purpose. For a categorical variable with real distribution $P$ and
+synthetic distribution $Q$ over categories $\mathcal{K}$ the report uses total
+variation and Jensen--Shannon distance \citep{lin1991divergence}:
+\begin{equation}
+\mathrm{TV}(P,Q) = \tfrac{1}{2}\sum_{k \in \mathcal{K}} |P_k - Q_k|,
+\qquad
+\mathrm{JS}(P,Q) = \tfrac{1}{2}\mathrm{KL}\!\left(P \,\|\, M\right)
+                 + \tfrac{1}{2}\mathrm{KL}\!\left(Q \,\|\, M\right),
+\quad M = \tfrac{1}{2}(P+Q).
+\label{eq:tvjs}
+\end{equation}
+Both are bounded in $[0,1]$, require no distributional assumption, and are
+interpretable as ``the largest probability mass the two distributions disagree
+about'' and ``an information-theoretic divergence, symmetrised and bounded''
+respectively. For continuous variables the report uses a scale-free first
+Wasserstein distance, $W_1$ divided by the real interquartile range, so a
+duration discrepancy and a text-length discrepancy are comparable. For a
+conditional rate the report uses the count-weighted mean absolute error over
+cells,
+\begin{equation}
+\mathrm{WMAE} \;=\; \frac{\sum_c n_c \,\bigl|\widehat{p}^{\,\mathrm{syn}}_c - \widehat{p}^{\,\mathrm{real}}_c\bigr|}
+                          {\sum_c n_c},
+\label{eq:wmae}
+\end{equation}
+expressed in percentage points, which prevents a near-empty cell from dominating
+the verdict.
+
+\paragraph{Equivalence, not non-rejection.} Where a cluster bootstrap is
+available (\rvValidationBootstrapReps\ replicates, resampling buyers rather than
+notices so within-buyer dependence is respected), a metric is declared
+equivalent only if the whole bootstrap interval lies inside the tolerance band,
+following the two-one-sided-tests logic of
+\citet{lakens2017equivalence,lakens2018equivalence}. Metrics without an interval
+can reach at most ``not obviously discrepant''. This distinction is preserved in
+the metric table and is why a gate can read \code{INCONCLUSIVE} rather than
+\code{PASS}.
+
+% ==========================================================================
+\section{Parameter-provenance framework}
+\label{sec:provenance}
+
+Every generator parameter and every validation rule belongs to exactly one
+provenance class, recorded machine-readably in
+\file{registries/parameter_registry.csv} with \rvRegistryRows\ rows. The
+registry records, per row: the mathematical definition, the value or
+distribution, the scenario-file value, the effective value actually used, the
+estimation population, the estimating code, the uncertainty, whether the row may
+be used for calibration, whether it must remain held out, and its known
+limitations.
+
+\input{\tabledir/provenance_classes}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.86\textwidth]{fig_provenance_composition}
+  \caption{Provenance of every registered parameter and validation rule. The
+  point of the figure is the ratio: a substantial part of the generator is
+  \emph{assumed}, not estimated, and those rows are exactly the ones that must
+  be varied across scenarios rather than quoted as findings.
+  Source: \file{scripts/build_report_figures.py}.}
+  \label{fig:provenance}
+\end{figure}
+
+\paragraph{The distinction that matters most.} A parameter swept until the
+synthetic candidate environment resembled the real one is \emph{not} an
+empirical estimate of the real renewal process. The v0.3 scoped-candidate block
+(Section~\ref{sec:scoped}) is of this kind: its five values were selected by a
+bounded sweep against candidate-count fidelity gates. They are recorded as
+tuned-for-fidelity parameters, they change linkage difficulty, and they are
+reported nowhere in this document as measurements of BOAMP behaviour.
+
+% ==========================================================================
+\section{Statistical description of the original data}
+
+Table~\ref{tab:calibsummary} lists the headline calibration quantities the
+generator consumes directly. Each is an empirical proportion on the full
+prepared corpus unless stated otherwise; each carries its own limitations entry
+in \file{config/synthetic/calibration_parameters_v0_1.yaml}.
+
+\begin{table}[H]
+\centering\small
+\caption{Directly consumed empirical calibration quantities. Population: all
+\rvCorpusNotices\ prepared notices unless noted. ``Observed'' means what a
+reader of BOAMP sees --- not a property of any latent entity.}
+\label{tab:calibsummary}
+\begin{tabularx}{\textwidth}{lrX}
 \toprule
-Scope & Sources & Zero-cand. & Mean & Median & p75 & p90/p95 \\
+Quantity & Value & Definition and unit \\
 \midrule
-Real Layer 1 & 3{,}380 & 40.7\% & 3.21 & 1 & 4 & 9.1 / 14 \\
-v0.2 synthetic & 354 & 90.4\% & 0.15 & 0 & 0 & 0 / 1 \\
-v0.3 synthetic & 422 & 38.6\% & 3.45 & 1 & 6 & 11 / 13 \\
+Checksum-valid SIRET present & \rvCalibSiretPresentRate & share of notices whose buyer SIRET passes format and Luhn validation \\
+CPV missing & \rvCalibCpvMissingRate & share of notices with no extractable CPV code \\
+Duration present & \rvCalibDurationPresentRate & share of notices declaring any raw duration field \\
+Exact text duplication & \rvCalibExactDuplicateRate & share of cleaned contract objects appearing verbatim more than once \\
+Buyer-name variation & \rvCalibNameVariationRate & share of validated SIRETs appearing under more than one normalised name (false-split risk) \\
+Buyer-name ambiguity & \rvCalibNameAmbiguityRate & share of normalised names mapping to more than one legal buyer (false-merge risk) \\
+Generic buyer name & \rvCalibGenericNameShare & share of notices whose normalised buyer name is on the generic stoplist \\
+eForms share & \rvCalibEformsShare & share of notices in the eForms schema family \\
+Award probability & \rvCalibAwardProbability & awards per call, used as the per-cycle award-emission probability \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Why marginals are not enough.} Three of these quantities are
+strongly conditional, and a generator matching only the marginal would model the
+wrong mechanism.
+
+\begin{itemize}
+  \item \textbf{Identifier availability} shows a regime shift centred on 2022
+  that is independent of the schema cutover: 2022 and 2023 are both entirely
+  legacy-schema in this corpus, yet SIRET presence jumps from roughly one notice
+  in ten before 2022 to more than half in 2022--2023, then partially recedes.
+  Figure~\ref{fig:idfidelity} shows the real curve and the generator's fit.
+  \item \textbf{CPV missingness} is essentially a schema property: eForms
+  mandates the field, legacy does not, and within legacy, calls omit CPV about
+  three times as often as awards.
+  \item \textbf{Duration presence} is near-deterministic in schema: essentially
+  zero for every year through 2023, then substantial once eForms is adopted.
+\end{itemize}
+
+\paragraph{Buyer activity.} Notices per buyer are extremely concentrated --- a
+heavy tail in which a small number of buyers account for most publications.
+Figure~\ref{fig:buyeractivity} gives the rank-frequency and Lorenz views. This
+matters for linkage because candidate density is a function of buyer activity: a
+linker's hardest cases are concentrated in the tail.
+
+\paragraph{Candidate environment.} Applying the production blocker to the real
+corpus produces a median of \rvCandRealMedian\ candidate per source and a mean
+of \rvCandRealMean, with \rvCandRealZeroRate\ of eligible sources receiving no
+candidate at all. That zero-candidate rate is structural censoring: those
+sources cannot be linked by any scoring rule, and reproducing it is a
+prerequisite for the benchmark to be informative about blocking.
+
+% ==========================================================================
+\section{Synthetic benchmark design}
+
+\subsection{Two layers, and why the separation is load-bearing}
+
+The generator emits two disjoint sets of tables
+(Table~\ref{tab:units}). The \emph{observed layer} is a single BOAMP-like notice
+table with \rvObservedColumns\ columns, containing only fields a linkage method
+could read. The \emph{truth layer} carries the latent entities, the cycle
+chains, the successor relation, per-notice pre-corruption values, and a complete
+corruption log --- \rvTruthOnlyColumns\ truth-only columns across
+\rvBenchmarkTables\ tables in total.
+
+The separation is what makes exact blocking recall, recovery by corruption type,
+and cluster-level accuracy computable. It is also why leakage is treated as a
+release-blocking failure: a single truth column reaching the observed table
+would turn every accuracy number downstream into an artifact. The leakage check
+is not a column-name blocklist alone; it also rejects unsuffixed hidden-truth
+aliases, exact and normalised truth-identifier \emph{values}, and MD5, SHA-1 and
+SHA-256 hashes of truth identifiers.
+
+\input{\tabledir/unit_of_analysis}
+
+\subsection{The scoped-candidate block}
+\label{sec:scoped}
+
+Version 0.2 of the generator produced a technically valid world that was
+useless as a linkage benchmark: \rvCandPrevZeroRate\ of its digital-scope
+sources had no candidate at all, against \rvCandRealZeroRate\ in the real
+corpus. The cause was not corruption but timing --- true successor gaps drawn
+from a distribution centred well outside the production window, combined with
+too few same-buyer distinct needs to create distractors.
+
+Version 0.3 adds a \emph{scoped-candidate block} that acts only on needs whose
+CPV division falls in the digital scope. It has five tuned parameters, all
+recorded as fidelity-tuned rather than empirical: a recurrence-propensity
+multiplier of \rvScopedMultiplier, a near-window share of
+\rvScopedNearWindowShare, a hard-negative chain-alignment rate of
+\rvScopedHardNegativeRate, a scoped-buyer affinity share of
+\rvScopedAffinityShare, and a high scoped-need probability of
+\rvScopedNeedProbabilityHigh. Section~\ref{sec:cand} reports what they achieved.
+
+Two properties of this block are worth stating explicitly, because they bound
+what it can be accused of. It never assigns per-source candidate counts, scores,
+accepted links, or thresholds --- it acts on latent recurrence timing and on how
+needs cluster within a buyer, and candidate counts remain a \emph{post-hoc}
+fidelity target. And chain alignment translates an entire distinct-need chain by
+one constant offset, so $\text{target start} - \text{source expected end}$ is
+unchanged by construction: the step cannot move the true-gap distribution at
+all.
+
+% ==========================================================================
+\section{Mathematical specification of the data-generating process}
+\label{sec:dgp}
+
+\subsection{Notation}
+
+\begin{table}[H]
+\centering\small
+\caption{Notation. A $\ast$ superscript marks a latent quantity that also has an
+observed counterpart; in the emitted tables the same distinction is carried by
+the \code{\_true} column suffix.}
+\label{tab:notation}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+Symbol & Type & Meaning \\
+\midrule
+$b = 1,\dots,B$        & index & latent buyer; $B = \rvTargetNBuyers$ \\
+$e$                    & index & latent establishment, nested in a buyer \\
+$d$                    & index & latent procurement need, nested in a buyer \\
+$k$                    & index & contract cycle within a need, $k = 1,\dots,K_d$ \\
+$\nu$                  & index & published notice \\
+$a_b$                  & latent & buyer activity weight, $\sum_b a_b = 1$ \\
+$\lambda_b$            & latent & expected number of needs for buyer $b$ \\
+$\rho_d$               & latent & recurrence propensity of need $d$ \\
+$\mu_d$                & latent & duration profile of need $d$ (months) \\
+$S^{\ast}_{dk}$        & latent & start date of cycle $k$ of need $d$ \\
+$D^{\ast}_{dk}$        & latent & true duration of cycle $k$ (months) \\
+$E^{\ast}_{dk}$        & latent & expected end, $S^{\ast}_{dk} + D^{\ast}_{dk}$ \\
+$G_{dk}$               & latent & gap from $E^{\ast}_{dk}$ to $S^{\ast}_{d,k+1}$ (months) \\
+$T$                    & latent & successor relation; $(dk) \to (d,k{+}1)$ when realised \\
+$Q_\nu$                & latent & record-quality class of notice $\nu$ \\
+$m(Q_\nu)$             & latent & severity multiplier for class $Q_\nu$ \\
+$\pi_b$                & latent & identifier-quality propensity of buyer $b$ \\
+$X_\nu$                & observed & the emitted notice record \\
+$\widehat{p}_c$        & estimate & smoothed empirical rate in conditioning cell $c$ \\
+$\tau$                 & algorithm & production acceptance threshold, $\tau = \rvThresholdBalanced$ \\
+$W$                    & algorithm & blocking half-window, $W = \rvTemporalWindowMonths$ months \\
+$S_{ij}$               & algorithm & composite candidate score for source $i$, candidate $j$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two independent pseudo-random streams are used throughout:
+$\omega \sim \mathrm{PCG64}(\text{world seed})$ for everything latent, and
+$\varepsilon \sim \mathrm{PCG64}(\text{corruption seed})$ for everything
+observational. Holding $\omega$ fixed while varying $\varepsilon$ therefore
+re-observes the same latent world, which is what makes ``the same truth under a
+different observation process'' a well-defined experiment.
+
+\subsection{Generation order}
+
+Each step conditions only on steps above it, which is what makes the chain
+replayable from its seeds.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=6mm and 8mm,
+  every node/.style={font=\footnotesize},
+  stage/.style={draw=rulegray, rounded corners=2pt, align=center,
+                minimum width=25mm, minimum height=9mm, fill=white},
+  latent/.style={stage, draw=slotone, thick},
+  obs/.style={stage, draw=slottwo, thick},
+  layerout/.style={stage, draw=inkmuted, thick},
+  arr/.style={-{Stealth[length=2mm]}, draw=inkmuted}
+]
+\node[latent] (b) {1. Buyers};
+\node[latent, right=of b] (e) {2. Establishments};
+\node[latent, right=of e] (n) {3. Needs};
+\node[latent, right=of n] (c) {4. Cycles};
+
+\node[latent, below=9mm of b] (r) {5. Relations};
+\node[latent, right=of r] (no) {6. Notices};
+\node[latent, right=of no] (t) {7. Clean values};
+\node[obs, right=of t] (co) {8. Corruption};
+
+\node[layerout, below=9mm of r] (truth) {Truth layer\\{\tiny sealed}};
+\node[layerout, below=9mm of co] (obs) {Observed layer\\{\tiny \rvObservedColumns\ columns}};
+
+\draw[arr] (b) -- (e);
+\draw[arr] (e) -- (n);
+\draw[arr] (n) -- (c);
+\draw[arr] (c.south) -- ++(0,-4mm) -| (r.north);
+\draw[arr] (r) -- (no);
+\draw[arr] (no) -- (t);
+\draw[arr] (t) -- (co);
+\draw[arr] (r) -- (truth);
+\draw[arr] (co) -- (obs);
+\draw[arr, dashed] (truth.east) -- node[above,font=\tiny]{no key, value or hash crosses} (obs.west);
+\end{tikzpicture}
+\caption{Generation order and layer separation. Blue stages draw from the world
+stream $\omega$; the orange stage draws from the corruption stream
+$\varepsilon$. The dashed edge is the invariant the privacy and leakage gates
+enforce.}
+\label{fig:flow}
+\end{figure}
+
+\subsection{Step 1 --- buyers}
+
+Activity weights are drawn from a Pareto variate and normalised, so
+concentration is emergent rather than assigned:
+\begin{equation}
+r_b \sim \mathrm{Pareto}(\alpha) + \delta,
+\qquad
+a_b = \frac{r_b}{\sum_{b'} r_{b'}},
+\qquad \alpha = \rvParetoShape,\ \delta = \rvParetoOffset .
+\end{equation}
+Here $\mathrm{Pareto}(\alpha)$ is NumPy's parameterisation, whose support is
+$[0,\infty)$ with density $\alpha(1+x)^{-(\alpha+1)}$ --- the Lomax form, not
+the Pareto Type~I form assumed by the textbook identity
+$\mathrm{Gini} = 1/(2\alpha-1)$. That identity is asymptotic and requires
+$\alpha > 1$; at $B = \rvTargetNBuyers$ it is a poor guide, so $\alpha$ was set
+by simulating the emergent Gini rather than by inverting the formula. The offset
+$\delta$ keeps every weight strictly positive before normalisation and is an
+implementation constant.
+
+Departments are assigned by a deficit-filling pass over buyers in descending
+activity, which makes the \emph{notice-weighted} department distribution track
+the empirical one --- a per-buyer i.i.d.\ draw would let one high-activity buyer
+distort it. Buyer type, name, alias propensity $\sim \mathrm{Beta}(2,5)$, and
+identifier-quality propensity $\pi_b \sim \mathrm{Beta}(5,2)$ complete the
+record. Names are syllable-generated; no real organisation name is ever copied.
+
+\subsection{Step 2 --- establishments}
+
+Each buyer receives one to three establishments, more likely several for
+high-activity buyers. SIRENs are rejection-sampled until they pass the same Luhn
+validation the production pipeline applies to real identifiers; each SIRET is
+its buyer's SIREN concatenated with a zero-padded establishment sequence and the
+unique valid check digit. ``Valid'' therefore means the same thing on both sides
+of the comparison, and same-SIREN/different-SIRET ambiguity exists structurally
+for the corruption step to exploit.
+
+\subsection{Step 3 --- needs}
+
+The number of needs per buyer is Poisson with a mean allocated continuously by
+activity weight rather than by activity tier:
+\begin{equation}
+N_b \sim \mathrm{Poisson}(\lambda_b),
+\qquad
+\lambda_b = f + a_b\bigl(\Lambda - fB\bigr),
+\qquad
+\Lambda = \sum_{b} \lambda^{\mathrm{tier}}_{b},
+\end{equation}
+where $f$ is a small floor keeping low-activity buyers viable and $\Lambda$ is
+the total scale implied by the tier means. Collapsing this to three tier means
+--- the earlier design --- cut the needs-per-buyer Gini from roughly $0.8$ to
+$0.34$ and destroyed the dense candidate neighbourhoods that make linkage hard.
+
+Each need draws a CPV division (from the empirical division distribution, or
+from the scoped mixture below), a synthetic eight-digit CPV code, a
+division-conditioned concept and vocabulary set, a duration profile
+\begin{equation}
+\mu_d \sim \mathrm{LogNormal}\bigl(\log 12,\ 0.7^2\bigr)
+\ \text{ clipped to } [\rvDurationMinMonths,\rvDurationMaxMonths] \text{ months},
+\end{equation}
+and a recurrence propensity jittered multiplicatively around the scenario
+central value $\rho_0 = \rvBaseRecurrencePropensity$:
+\begin{equation}
+\rho_d = \min\bigl(\rvRecurrencePropensityCap,\ \rho_0 \cdot J_d\bigr),
+\qquad
+J_d = 0.6\,\mathrm{Beta}(4,4) + 0.7 \in [0.7, 1.3].
+\end{equation}
+No need is ever given the scenario value exactly; heterogeneity in recurrence is
+part of the design rather than noise added afterwards.
+
+When the scoped block is active, the division draw becomes a two-component
+mixture. A share \rvScopedAffinityShare\ of buyers are marked as
+digital-affinity buyers; their needs fall in the scoped divisions with
+probability \rvScopedNeedProbabilityHigh, and every other buyer's needs do so
+with the residual probability that preserves the overall scoped mass. This
+clusters digital needs within buyers --- which is what generates same-buyer
+distinct-need distractors --- without changing the aggregate CPV composition.
+
+\subsection{Step 4 --- cycles, and the censoring that shapes the truth}
+
+For each need, cycle 1 starts uniformly inside its buyer's active window. Each
+cycle draws a true duration around the need's profile,
+\begin{equation}
+D^{\ast}_{dk} \sim \mathcal{N}\bigl(\mu_d,\ (0.25\mu_d)^2\bigr)
+\ \text{ clipped to } [\rvDurationMinMonths,\rvDurationMaxMonths],
+\qquad
+E^{\ast}_{dk} = S^{\ast}_{dk} + \rvMonthDays \cdot D^{\ast}_{dk} \text{ days}.
+\end{equation}
+A successor is realised only if a Bernoulli draw succeeds \emph{and} the
+resulting start falls inside the observation window:
+\begin{equation}
+\Pr(\text{successor at } k{+}1) = \min\!\bigl(\rvRecurrencePropensityCap,\ \rho_d \cdot \gamma_d\bigr),
+\qquad
+\gamma_d = \begin{cases}\rvScopedMultiplier & d \text{ scoped},\\ 1 & \text{otherwise},\end{cases}
+\end{equation}
+\begin{equation}
+S^{\ast}_{d,k+1} = E^{\ast}_{dk} + \rvMonthDays\, G_{dk},
+\qquad
+\text{realised only if } S^{\ast}_{d,k+1} \le \text{\rvObservationEnd},
+\qquad K_d \le \rvMaxCyclesPerNeed .
+\end{equation}
+The gap is a two-component mixture: with probability \rvScopedNearWindowShare\
+for a scoped need it is drawn from a near-window component, otherwise from the
+scenario base component:
+\begin{equation}
+G_{dk} \sim
+\begin{cases}
+\mathcal{N}(\rvNearGapMeanMonths,\ \rvNearGapSdMonths^2)
+  \text{ clipped to } [\rvNearGapMinMonths, \rvNearGapMaxMonths], & \text{scoped, w.p. } \rvScopedNearWindowShare,\\[3pt]
+\mathcal{N}(\rvGapMeanMonths,\ \rvGapSdMonths^2)
+  \text{ clipped below at } \rvGapMinMonths, & \text{otherwise.}
+\end{cases}
+\label{eq:gap}
+\end{equation}
+Note the implemented form: these are \emph{clipped} normals, not renormalised
+truncated normals. Mass falling outside the bounds is placed on the bounds
+rather than redistributed, so the realised law has atoms at
+$\rvGapMinMonths$ and at $\rvNearGapMinMonths$ and $\rvNearGapMaxMonths$.
+Writing $\mathcal{N}$ ``truncated'' in the textbook sense would misdescribe the
+code.
+
+\paragraph{The censoring is not a detail.} Because a chain stops when
+$E^{\ast}_{dk} + G_{dk}$ leaves the window, the gaps that \emph{reach} the truth
+table are systematically shorter than the declared law of
+Equation~\eqref{eq:gap}. Any recovery check that simulates the unconditional
+draw will therefore fail for reasons that have nothing to do with the generator.
+The specification-recovery gate censors each simulated gap by the headroom
+remaining to its own source cycle, measured from $E^{\ast}_{dk}$ --- not from
+$S^{\ast}_{dk}$, which was an earlier error that overstated headroom by one
+cycle duration and biased the reference interval upward. The realised mean true
+gap is \rvMeanTrueGapMonths\ months and lies inside the corrected 99\% Monte
+Carlo interval.
+
+\subsection{Step 5 --- the successor relation}
+
+The truth table is a pure function of the realised cycle chains: cycle $k$ of
+need $d$ emits \code{NEXT\_CYCLE} to cycle $k{+}1$ if that row exists, and
+\code{NO\_SUCCESSOR} otherwise, with
+$G_{dk} = (S^{\ast}_{d,k+1} - E^{\ast}_{dk})/\rvMonthDays$ recorded in months.
+Nothing is hidden in this step: the three distinct reasons a chain can stop ---
+failed Bernoulli draw, cycle cap, window boundary --- are all recorded as the
+same \code{NO\_SUCCESSOR}, exactly as an analyst of real data would see them.
+
+\subsection{Steps 6--7 --- notices and clean values}
+
+Each cycle emits a call notice at $S^{\ast}_{dk}$, and with probability
+\rvCalibAwardProbability\ an award notice after a delay
+$\sim \mathcal{N}(\mathrm{\rvAwardDelayMeanDays}, \mathrm{\rvAwardDelaySdDays}^2)$ days clipped to
+$[\mathrm{\rvAwardDelayMinDays}, \mathrm{\rvAwardDelayMaxDays}]$. The award delay is an
+acknowledged design assumption: no observable call-to-award distribution was
+carried into the calibration file.
+
+Schema family is drawn probabilistically, not by a date cutoff: every notice
+before \rvEformsAdoptionFirstYear\ is legacy, and from that year a notice is eForms
+with the empirically observed adoption share for its year. An earlier hard cutoff at the mandate date
+gave every post-mandate notice a 100\% eForms label when the real share never
+exceeds \rvEformsAdoptionMaxShare, which then propagated into the schema-conditional duration
+and CPV mechanisms.
+
+Contract text is rendered from templates over the need's concepts and
+vocabulary, with three length regimes so the length distribution has a tail. A
+call and its award share the same underlying text, subject to light
+publication-level variation at severity \rvTextSameCycleVariation --- the real
+corpus's within-family similarity is essentially $1$, so this is deliberately
+small. Successor-cycle lexical drift is a separate mechanism at severity
+\rvTextNextCycleDrift, and is a scenario parameter because no empirical anchor
+for true recurrence drift exists anywhere in the corpus.
+
+\subsection{Step 8 --- observation and corruption}
+
+Every field's corruption severity is scaled by one latent per-notice
+record-quality class, so defects co-occur on the same notices rather than being
+sampled independently per field --- the core corruption-design principle of
+\citet{lam2024synthetic}. The class is drawn per notice from the scenario mix
+(\rvQualityShareHigh\ high, \rvQualityShareMedium\ medium,
+\rvQualityShareLow\ low, before tilting), tilted by the buyer's
+identifier-quality propensity $\pi_b$:
+\begin{equation}
+\Pr(Q_\nu = \textsc{high}) \propto \phi_{\textsc{high}}\,(0.5 + \pi_b),
+\qquad
+\Pr(Q_\nu = \textsc{low}) \propto \phi_{\textsc{low}}\,(1.5 - \pi_b).
+\end{equation}
+
+The severity multiplier over (high, medium, low) is
+$m(Q) = (\rvSeverityMultipliers)$ for identifiers, CPV, text and linked-notice
+visibility. Duration has its own, much flatter spread
+$(\rvDurationSeverityMultipliers)$. That is not a tuning convenience: with the shared
+multiplier it is structurally impossible to reach the real corpus's duration
+presence rate, because the high-quality class alone contributes more
+duration-present notices than the entire real target allows. The data are saying
+that duration is omitted near-uniformly across BOAMP regardless of overall
+record quality --- an editorial convention --- while identifiers, CPV and text
+do vary with record quality.
+
+Field mechanisms, in the order applied:
+
+\begin{itemize}
+  \item \textbf{Identifiers.} SIRET presence is drawn from the smoothed
+  conditional rate $\widehat{p}_c$ of Equation~\eqref{eq:smoothing} on cells
+  (schema, year, notice type). When present, a small share is replaced by a
+  sibling establishment's SIRET under the same SIREN --- a valid identifier
+  pointing at the wrong establishment, which no checksum can detect. When
+  absent, the mass splits into SIREN-only, invalid-checksum, and both-missing
+  outcomes.
+  \item \textbf{Buyer name.} Either a generic-collision replacement drawn from a
+  type-conditioned pool, or a name variant produced by one of six
+  transformations (abbreviation, suffix removal, punctuation and accent
+  flattening, service qualifier, geographic qualifier, token reorder). Rates are
+  the empirical false-split and false-merge rates, scaled by the notice's
+  severity and the buyer's alias propensity. Name-comparison behaviour of this
+  kind is the classic string-similarity setting of
+  \citet{jaro1989advances,cohen2003comparison}.
+  \item \textbf{CPV.} A schema-and-type conditional missing rate, plus
+  parent-code replacement, division-only truncation, generic-code substitution,
+  and wrong-related-code substitution.
+  \item \textbf{Duration.} Presence from the smoothed conditional rate; when
+  present, the visible value is drawn from the empirical distribution of valid
+  raw BOAMP durations by a deterministic low-discrepancy inverse-CDF map keyed
+  on the notice identifier. The latent cycle length is \emph{not} rounded into
+  the observed field --- observed duration and true duration are separate
+  quantities, which is the point.
+  \item \textbf{Text.} Exact cross-buyer template substitution, near-boilerplate
+  with row-specific tokens, or generic weak procurement wording, at a rate
+  conditional on notice type and buyer activity tier.
+  \item \textbf{Linked-notice visibility.} An award's reference back to its call
+  is dropped at the empirical unresolved-award rate.
+\end{itemize}
+
+\paragraph{Missingness terminology.} In the taxonomy of
+\citet{rubin1976inference} and \citet{carpenter2021missing}, none of these
+mechanisms is missing completely at random. Identifier, CPV and duration
+presence are missing at random conditional on observed schema, year and notice
+type; text degradation is additionally conditional on buyer activity tier. The
+shared quality class $Q_\nu$ induces dependence \emph{between} fields, so the
+joint missingness pattern is not the product of its marginals --- which is
+exactly the property a linkage benchmark must have and an independent-Bernoulli
+design would lose.
+
+\paragraph{Identity persistence.} Observed buyer identity is drawn once per
+notice family and reused across its members, and --- under the scoped block ---
+across the cycles of one hidden need. This is a labelled assumption, not an
+oversight: without it, sibling notices of one procurement episode drift apart in
+buyer key and the benchmark becomes unreachable under production-style
+buyer-key blocking. It is recorded in the mechanism trade-off log as an explicit
+reachability-versus-conditional-fidelity trade.
+
+% ==========================================================================
+\section{Detailed generation algorithm}
+
+\begin{table}[H]
+\centering\small
+\caption{Executable order, with the module and the conditioning set for each
+step. Every stochastic step consumes only $\omega$ or only $\varepsilon$, never
+both.}
+\label{tab:algorithm}
+\begin{tabularx}{\textwidth}{clllX}
+\toprule
+\# & Step & Module & Stream & Conditions on \\
+\midrule
+1 & Buyers            & \file{buyers.py}            & $\omega$ & observation window, scenario Pareto parameters \\
+2 & Establishments    & \file{establishments.py}    & $\omega$ & buyer SIREN, activity tier \\
+3 & Needs             & \file{needs.py}             & $\omega$ & buyer activity weight, empirical CPV division distribution, scoped block \\
+4 & Cycles            & \file{cycles.py}            & $\omega$ & need recurrence propensity and duration profile, gap mixture, window \\
+5 & Relations         & \file{relations.py}         & ---      & realised cycle chains only (deterministic) \\
+6 & Notices           & \file{notices.py}           & $\omega$ & cycle dates, empirical by-year eForms adoption share \\
+7 & Clean values      & \file{text_generation.py}  & $\omega$ & buyer, establishment, need vocabulary \\
+8 & Corruption        & \file{corruption.py}, \file{missingness.py} & $\varepsilon$ & clean values, schema, year, notice type, activity tier, quality class \\
+9 & Export            & \file{pipeline.py}          & ---      & all of the above \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Structural validation runs between steps 7 and 8 and raises rather than warns: a
+world that fails it never reaches corruption. Column-schema validation and the
+truth-leakage assertion run on the observed table before it is written.
+
+% ==========================================================================
+\section{Scenario definitions}
+
+\rvScenariosConfigured\ scenarios are configured and \rvScenariosGenerated\ have
+generated artifacts; \rvConfigOnlyScenarios\ remains configuration-only and is
+recorded as such in \file{registries/scenario_manifest.csv} so a loadable
+scenario cannot be mistaken for multi-seed evidence. \code{clean\_sanity} is a
+single-seed smoke test; each of the four bracketing scenarios and the central
+scenario carries \rvSeedsPerBenchmarkScenario\ world seeds, for
+\rvArtifactsGenerated\ artifacts in total.
+
+Scenarios exist because the recurrence process is unidentified. They are not
+sensitivity analyses around a believed value; they are a declared envelope of
+assumptions, and any statement that depends on which scenario is used must say
+so.
+
+% ==========================================================================
+\section{Reproducibility and random-seed management}
+\label{sec:seeds}
+
+The central world is generated from world seed \code{\rvWorldSeed} and
+corruption seed \code{\rvCorruptionSeed}, with $B = \rvTargetNBuyers$ buyers.
+Replicates vary only the world seed; the corruption seed follows it
+deterministically. Every artifact directory carries a
+\file{generation_metadata.json} recording both seeds, the resolved scenario and
+defaults, SHA-256 hashes of every configuration file and of the calibration
+corpus, row counts, the Git commit, and --- new in this revision --- the exact
+numeric-library versions.
+
+\paragraph{Why the environment is recorded.} Replay compares canonical table
+\emph{content}, not Parquet bytes, so writer-version differences are already
+tolerated. It does not tolerate a different NumPy: the generator and reduction
+kernels are bit-stable per build, not across builds, so a different NumPy
+reproduces every count and identity while differing in the last unit in the last
+place of float columns --- enough to change a SHA-256. This was observed in
+practice during the audit that produced this revision. The fix is twofold:
+\file{requirements-lock.txt} pins the exact environment, and the replay
+comparison now reports environment drift explicitly so the next such mismatch is
+diagnosable instead of looking like generator drift. The current artifacts were
+generated under Python \rvEnvPython, NumPy \rvEnvNumpy, pandas \rvEnvPandas,
+PyArrow \rvEnvPyarrow.
+
+\paragraph{Current replay status.} Canonical replay of the central world:
+\code{\rvReplayStatus} across \rvReplayTables\ tables, environment drift
+\rvReplayEnvironmentDrift. All-artifact replay:
+\code{\rvReplayReplicatesStatus},
+\rvReplayReplicatesPassed/\rvReplayReplicatesChecked.
+
+% ==========================================================================
+\section{Generated datasets and schemas}
+
+\begin{table}[H]
+\centering\small
+\caption{Row counts of the current central world. Sample: scenario
+\code{\rvCentralScenario}, world \code{001}, corruption \code{001}.}
+\label{tab:rowcounts}
+\begin{tabular}{lr@{\hspace{2.4em}}lr}
+\toprule
+Table & Rows & Table & Rows \\
+\midrule
+\file{latent_buyers}         & \rvRowsBuyers         & \file{clean_notices}    & \rvRowsCleanNotices \\
+\file{latent_establishments} & \rvRowsEstablishments & \file{observed_notices} & \rvRowsObservedNotices \\
+\file{latent_needs}          & \rvRowsNeeds          & \file{corruption_log}   & \rvRowsCorruptionLog \\
+\file{latent_cycles}         & \rvRowsCycles         & \file{notice_family_membership} & \rvRowsNoticeFamilyMembership \\
+\file{true_relations}        & \rvRowsTrueRelations  & & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The current v0.3 candidate environment passes the predefined gates:
-source-count ratio 1.196, zero-candidate absolute difference 2.05 percentage
-points, p75 absolute difference 2, p90 absolute difference 1.9, p95 absolute
-difference 1, cap-reached rate 0, and buyer-key zero-candidate rates within
+The full column-level dictionary --- \rvDictionaryColumns\ columns with dtype,
+null share, distinct count, and visibility flags --- is in
+\file{registries/data_dictionary.csv}.
+
+% ==========================================================================
+\section{Hidden ground-truth structure}
+
+\file{true_relations.parquet} holds one row per cycle: \code{NEXT\_CYCLE} with
+a target and a true gap, or \code{NO\_SUCCESSOR}. A cycle is observed through
+its call notice, so a cycle-level successor relation becomes a notice-level true
+match between two call notices. Of the resulting true matches,
+\rvTruthPairsInScope\ have both notices inside the algorithm's own
+candidate-generation scope.
+
+That scoping is deliberate and is reported separately rather than folded into
+recall. A successor whose two notices are not both in scope cannot be found by
+any method operating on those candidates; charging every probe for the same
+fixed scoping loss would hide the differences between them, which is the only
+thing the benchmark exists to reveal.
+
+% ==========================================================================
+\section{Validation methodology}
+
+The framework evaluates \rvValidationMetricCount\ metrics grouped into
+\rvValidationGateCount\ gates, of which \rvGatesCritical\ are critical. A
+critical gate fails the release on its own; a non-critical gate can only
+downgrade the run to \code{PASS\_WITH\_WARNINGS}. This asymmetry is intentional:
+the benchmark is allowed to simplify the real corpus provided the simplification
+is documented in the fidelity budget, but anything that would silently change a
+linkage conclusion, leak truth, or copy a real record is critical.
+
+\paragraph{Consequence, and why the headline is not the whole story.} A
+non-critical gate reports \code{WARNING} even when individual metrics inside it
+failed. The run therefore reports the metric-level failure count explicitly:
+\rvValidationMetricFailures\ failures, \rvValidationNoncriticalFailures\ of them
+inside non-critical gates. Reading only \code{\rvValidationStatus} would
+understate what the benchmark is carrying.
+
+\paragraph{Diagnostics and what each is for.}
+\begin{itemize}
+  \item \textbf{TV and JS} (Eq.~\ref{eq:tvjs}) for categorical composition:
+  bounded, assumption-free, and interpretable as disagreement mass. Limitation:
+  insensitive to \emph{which} categories disagree, so they are always read
+  alongside the per-cell table.
+  \item \textbf{Scaled $W_1$} for continuous fields: sensitive to location and
+  spread, expressed in interquartile-range units so different fields are
+  comparable. Limitation: one number cannot distinguish a shifted distribution
+  from a differently-shaped one, which is why the duration comparison is also
+  shown as a quantile plot (Figure~\ref{fig:qq}).
+  \item \textbf{Weighted MAE over cells} (Eq.~\ref{eq:wmae}) for conditional
+  rates: the correct object when the mechanism, not the average, is what must
+  match. Limitation: it averages, so a large error in one important cell can be
+  masked; the cell-level tables are retained.
+  \item \textbf{Pairs completeness, pairs quality, reduction ratio} for
+  blocking: the standard triple \citep{christen2012data}. Pairs completeness is
+  recall of true matches into the candidate set; pairs quality is the share of
+  candidates that are true matches; reduction ratio is how much of the quadratic
+  comparison space was avoided.
+  \item \textbf{Overlap coefficient} between the score distributions of true
+  matches and hard negatives: the benchmark must be neither trivially separable
+  nor hopeless, so this metric is gated on \emph{both} sides.
+  \item \textbf{Cluster bootstrap} resampling buyers for interval estimates,
+  because notices within a buyer are not independent.
+  \item \textbf{Nearest-neighbour text overlap} against a real baseline for
+  privacy: the synthetic corpus must not be closer to real text than real text
+  is to itself.
+\end{itemize}
+
+\paragraph{Four things that are not the same.} \emph{Statistical significance}
+is uninformative at this sample size and is not used. \emph{Practical
+discrepancy} is the effect size against a pre-declared tolerance.
+\emph{Observable fidelity} is agreement on what a linker can see.
+\emph{Structural plausibility} is whether the latent mechanism is defensible ---
+which fidelity cannot establish, since many recurrence processes yield similar
+observed tables. \emph{Suitability for linkage evaluation} is a further step
+again, and is what the readiness assessment, not the validation status, decides.
+
+% ==========================================================================
+\section{Synthetic-data results}
+
+\input{\tabledir/validation_gates}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{fig_gate_scorecard}
+  \caption{Metric outcomes per gate. Reading this alongside
+  Table~\ref{tab:gates} is the intended use: the bar shows how much evidence
+  each gate rests on, the label shows the verdict, and a warning on a wide bar
+  is a different situation from a warning on a narrow one.}
+  \label{fig:gates}
+\end{figure}
+
+Of \rvValidationMetricCount\ metrics, \rvMetricsPass\ pass, \rvMetricsWarning\
+warn, \rvMetricsFail\ fail, and \rvMetricsInconclusive\ are inconclusive.
+Table~\ref{tab:discrepancies} lists every non-passing metric with its real and
+synthetic estimate and the tolerance it was judged against.
+
+\input{\tabledir/discrepancies}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig_marginal_fidelity}
+  \caption{Agreement of each observable categorical marginal. Both distances are
+  bounded in $[0,1]$; values near zero mean the two corpora would be hard to
+  tell apart on that variable alone.}
+  \label{fig:marginals}
+\end{figure}
+
+% ==========================================================================
+\section{Comparison with the original BOAMP data}
+\label{sec:cand}
+
+All comparisons below apply the \emph{same} definitions, filters, grouping
+rules, and units to both corpora. Where a quantity is computable only inside the
+synthetic truth, it is labelled as such and no real counterpart is shown.
+
+\subsection{Candidate environment (directly comparable)}
+
+\input{\tabledir/candidate_environment}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig_candidate_environment}
+  \caption{Candidate-set size and structural censoring. Panel (a) is the
+  empirical CDF of candidates per source; panel (b) is the share of sources the
+  blocker leaves with nothing to score. Panel (b) is the more important of the
+  two: a source with no candidate is censored by construction, and no scoring
+  improvement can recover it.}
+  \label{fig:candenv}
+\end{figure}
+
+The v0.3 environment clears every predefined gate
+(\rvCandGatePassing/\rvCandGateDimensions\ dimensions): source-count ratio
+\rvCandSourceCountRatio\ against the scaled real target, zero-candidate absolute
+difference \rvCandZeroAbsDiffPp\ percentage points, and upper-quantile absolute
+differences of \rvCandPSeventyfiveAbsDiff, \rvCandPNinetyAbsDiff\ and
+\rvCandPNinetyfiveAbsDiff\ candidates at the 75th, 90th and 95th percentiles.
+Neither corpus reaches the per-source candidate cap of
+\rvMaxCandidatesPerSource\ at a material rate. The contrast with v0.2 ---
+\rvCandPrevZeroRate\ zero-candidate --- is the single largest improvement in
+this version.
+
+\subsection{Buyer-level structure (directly comparable)}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig_buyer_activity}
+  \caption{Notice concentration across buyers. Note the deliberately different
+  identity definitions: the real curve uses the production buyer key, the
+  synthetic curve uses the observed buyer name --- the identity a linker
+  actually has. Using latent buyer identity for the synthetic side would compare
+  quantities with different denominators and flatter the generator.}
+  \label{fig:buyeractivity}
+\end{figure}
+
+\subsection{Conditional observation mechanisms (directly comparable)}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig_conditional_identifier_fidelity}
+  \caption{Checksum-valid SIRET presence by publication year. Panel (b) is the
+  signed discrepancy in percentage points; the sign matters, because a generator
+  that is uniformly optimistic about identifier availability makes linkage
+  systematically easier than reality.}
+  \label{fig:idfidelity}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.56\textwidth]{fig_duration_qq}
+  \caption{Declared-duration quantiles, real against synthetic. This compares
+  the \emph{observed} declared duration only. The latent contract length is
+  generated by a separate mechanism and has no real counterpart --- conflating
+  the two would be a category error.}
+  \label{fig:qq}
+\end{figure}
+
+\subsection{Quantities available only inside the synthetic truth}
+
+Blocking recall, recovery by corruption type, cluster-level accuracy, and every
+probe-linker score in Section~\ref{sec:difficulty} exist only because truth was
+generated. There is no real-BOAMP number to place beside them, and any table
+that appeared to do so would be comparing a measurement with an assumption.
+
+% ==========================================================================
+\section{Linkage-difficulty analysis}
+\label{sec:difficulty}
+
+\paragraph{Blocking dominates.} Of \rvTruthPairsInScope\ in-scope true successor
+pairs, the production window recovers \rvBlockingRecallProduction\ and the
+widened \rvWidenedProbeWindowMonths-month window recovers \rvBlockingRecallWidened. The gap is a property
+of that window against these gaps, not a generator defect: the gap distribution
+is deliberately centred outside the production window
+(Equation~\ref{eq:gap}), because a benchmark whose true successors all fell
+inside the window would report a blocking recall that says nothing about renewal
+timing.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig_true_gap_vs_window}
+  \caption{True renewal gaps against the production blocking window. Everything
+  outside the shaded band is unreachable by the production blocker regardless of
+  how good the comparison model is.}
+  \label{fig:gapwindow}
+\end{figure}
+
+\paragraph{Recall decomposes exactly.} End-to-end recall factorises as
+\begin{equation}
+R_{\mathrm{end\text{-}to\text{-}end}}
+ = R_{\mathrm{blocking}} \times R_{\mathrm{scoring}\mid\mathrm{reachable}},
+\end{equation}
+and the framework asserts this identity numerically rather than assuming it, so
+a probe's weakness is attributable to the stage that caused it. Pairs quality in
+the production window is \rvPairsQualityProduction\ and the reduction ratio is
+\rvReductionRatioProduction: the blocker discards almost all of the quadratic
+comparison space, at the cost of also discarding most true matches.
+
+\paragraph{The task is discriminative.} The overlap coefficient between the
+score distributions of true matches and hard negatives is
+\rvMatchNonmatchOverlap\ --- inside the gated band on both sides, so the task is
+neither trivially separable nor hopeless. Mean reciprocal rank of the true match
+among a source's candidates is \rvTrueMatchMrr, and the median top-1-to-top-2
+margin is \rvMedianTopMargin: when the true match is present it usually ranks
+first, but by a margin small enough that the threshold choice matters.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{fig_score_separability}
+  \caption{Composite production score for blocked pairs, split by sealed truth.
+  The overlap of the two densities is what a comparison model must resolve; the
+  vertical line marks the production acceptance threshold, shown for reference
+  and not used to define truth.}
+  \label{fig:separability}
+\end{figure}
+
+\input{\tabledir/probe_linkers}
+
+Three frozen probe linkers are run --- a deterministic top-1 rule, a
+score-threshold rule over all ranks, and a Fellegi--Sunter weight model
+\citep{fellegi1969theory}. Their parameters were chosen once and never tuned
+against these results, and none of them is the production threshold. Best pair
+$F_1$ is \rvProbeBestFOne\ (\code{\rvProbeBestName}), comfortably inside the
+gated band: a benchmark on which every probe scored near $1$ or near $0$ would
+not discriminate between methods.
+
+Note the divergence between pair-level and cluster-level scores: the
+score-threshold probe attains pair $F_1 = \rvProbeThresholdFOne$ but B-cubed
+$F_1 = \rvProbeThresholdBcubed$. Most notices are singletons, so cluster-level
+metrics are dominated by correctly leaving them alone. Both are reported because
+they answer different questions, and quoting only the flattering one would
+mislead.
+
+% ==========================================================================
+\section{Sensitivity and robustness analysis}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig_seed_robustness}
+  \caption{Seed-to-seed variability. Panel (a): best probe pair-$F_1$ per
+  generated world, one point per seed, bar at the scenario mean. Panel (b): mean
+  and standard deviation of the difficulty metrics over the \rvRobBlockingSeeds\
+  central seeds. This figure is the reason the readiness assessment blocks
+  controlled comparison.}
+  \label{fig:robustness}
+\end{figure}
+
+Over \rvRobBlockingSeeds\ central world seeds, production blocking completeness
+has mean \rvRobBlockingMean, standard deviation \rvRobBlockingStd, worst case
+\rvRobBlockingWorst, and coefficient of variation \rvRobBlockingCv. Probe
+headroom has mean \rvRobHeadroomMean, standard deviation \rvRobHeadroomStd, and
+coefficient of variation \rvRobHeadroomCv. Both coefficients exceed the declared
 tolerance.
 
-\section{Validation Framework}
+\rvProbeReplicateRows\ replicate-level probe results across
+\rvReplicateInventory\ artifacts feed the ranking-stability summary. Probe rank
+order is not stable within a scenario, let alone across scenarios. That is the
+decisive finding of this section: a benchmark whose ranking flips with the seed
+cannot rank algorithms, however internally correct it is.
 
-\begin{table}[h!]
-\centering
-\caption{Current gate summary.}
-\begin{tabular}{lcl}
-\toprule
-Gate & Critical & Status \\
-\midrule
-Internal integrity & yes & PASS \\
-Specification recovery & yes & PASS \\
-Marginals & no & WARNING \\
-Conditionals & yes & WARNING \\
-Temporal & yes & WARNING \\
-Candidate environment & yes & PASS \\
-Missingness/text/identifier & no & WARNING, 2 metric failures \\
-Buyer activity & no & WARNING \\
-Missingness structure & no & PASS \\
-Names and identifiers & no & WARNING \\
-Text & no & WARNING \\
-Privacy & yes & PASS \\
-Hidden-truth difficulty & yes & WARNING \\
-Algorithm utility & yes & PASS \\
-Robustness & no & WARNING \\
-\bottomrule
-\end{tabular}
-\end{table}
+% ==========================================================================
+\section{Known limitations}
 
-The two metric-level failures are noncritical SIRET missing/present rate gaps:
-the synthetic SIRET present rate is 31.6\% versus 27.2\% real, an absolute
-difference of 4.37 percentage points against a 2 percentage point tolerance.
-The validation manifest therefore remains \texttt{PASS\_WITH\_WARNINGS}, not
-\texttt{FAIL}, but readiness still blocks controlled comparison because the
-failures and robustness warnings are not acceptable for that use.
+\begin{enumerate}
+  \item \textbf{Recurrence is unidentified.} Prevalence, gap distribution, text
+  drift, and the specific CPV corruption mode are assumptions. Several distinct
+  latent processes produce similar observed tables, so these parameters are
+  partially identified at best.
+  \item \textbf{Seed instability.} Difficulty metrics and probe rankings vary
+  materially across seeds; see the previous section.
+  \item \textbf{In-sample fidelity.} No real-BOAMP partition was held out from
+  generator design, so the fidelity results are not out-of-sample
+  \citep{snoke2018general}.
+  \item \textbf{Residual metric failures.} \rvValidationMetricFailures\
+  metric-level failures remain, all in non-critical gates; see
+  Table~\ref{tab:discrepancies}.
+  \item \textbf{Scope.} One region, one sector, two notice types. The residual
+  \code{OTHER} notice type and the modification/cancellation lifecycle are not
+  modelled.
+  \item \textbf{Identity persistence.} Observed buyer identity is held constant
+  within a notice family and, under the scoped block, across a need's cycles.
+  This is an explicit reachability-versus-fidelity trade, not a neutral choice.
+  \item \textbf{Placeholder taxonomy.} No manually validated technological
+  taxonomy exists in the project, so needs use broad CPV-division segments.
+  \item \textbf{Untested attack surfaces.} Membership-inference attacks
+  \citep{vanbreugel2023membership}, neural-embedding semantic distance, and
+  variance-based global sensitivity analysis are out of scope and are nowhere
+  reported as passed.
+\end{enumerate}
 
-\section{Hidden Truth and Algorithm Utility}
+% ==========================================================================
+\section{Appropriate and inappropriate uses}
 
-The benchmark keeps latent truth separate from observed notices. The observed
-layer passes checks for explicit truth columns, hidden-truth alias column names,
-exact or normalized truth-ID values, and direct MD5/SHA1/SHA256 hashes of hidden
-truth identifiers.
+\input{\tabledir/readiness}
 
-\begin{table}[h!]
-\centering
-\caption{Current hidden-truth difficulty and probe utility.}
+\paragraph{Supported now.} Debugging a linkage implementation end to end;
+integration testing against a realistic schema; measuring how a method's
+blocking recall responds to a known change in identifier availability;
+demonstrating that a method degrades in the expected direction between the
+\code{easier} and \code{stress} scenarios.
+
+\paragraph{Not supported now.} Ranking two linkage methods; selecting an
+acceptance threshold; quoting any precision or recall number as an estimate of
+real-BOAMP performance; describing the benchmark as validated or released;
+citing synthetic recurrence prevalence as evidence about real renewal behaviour.
+
+\paragraph{Never supported.} Substituting for the real BOAMP ground truth. The
+truth in this benchmark is generated. It is a correct answer to a constructed
+question, and its usefulness rests entirely on the conditional claim in
+Section~\ref{sec:objective} --- which the readiness assessment currently rates
+as not yet established for comparison purposes.
+
+% ==========================================================================
+\section{Reproducibility instructions}
+\label{sec:repro}
+
+\begin{enumerate}
+  \item \textbf{Environment.} \code{python -m venv .venv \&\& .venv/bin/pip
+  install -r requirements-lock.txt}. The lock, not \file{requirements.txt}, is
+  what makes replay bit-exact.
+  \item \textbf{Retrieval} (only if \file{data/raw} is empty):
+  \file{scripts/download_boamp.py}, \file{scripts/download_enrichment.py}.
+  \item \textbf{Real pipeline and calibration:} execute
+  \file{notebooks/01_data_engineering_pipeline.ipynb}, then
+  \file{notebooks/04_synthetic_benchmark_calibration.ipynb}. The second
+  writes every table in \file{reports/tables/synthetic_calibration/} that the
+  generator consumes, so it must precede generation.
+  \item \textbf{Generation:}
+  \file{scripts/generate_synthetic_benchmark_replicates.py} for the
+  bracketing scenarios and the central seeds, then
+  \file{scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py},
+  which selects the scoped parameters and writes the central world with its
+  selection provenance.
+  \item \textbf{Validation and readiness:}
+  \file{validate_synthetic_benchmark.py},
+  \file{replay_synthetic_benchmark.py},
+  \file{replay_synthetic_benchmark_replicates.py},
+  \file{build_benchmark_registries.py},
+  \file{build_mechanism_tradeoff_log.py},
+  \file{assess_synthetic_benchmark_readiness.py}.
+  \item \textbf{This report:} \file{build_report_values.py}, then
+  \file{build_report_figures.py}, then \code{latexmk -pdf} on
+  \file{reports/synthetic_benchmark_technical_report.tex}.
+  \item \textbf{Consistency gate:} \file{check_report_consistency.py}
+  re-derives every reported value from the artifacts, verifies that no macro is
+  undefined and no figure missing, and fails if the document is stale.
+  \item \textbf{Tests:} \code{pytest -q} and \code{pytest -q -m slow}.
+\end{enumerate}
+
+The ordering constraint that is easy to get wrong: the replicate generator must
+run \emph{before} the central sweep script, because both write world 001 of the
+central scenario and only the sweep script records the parameter-selection
+provenance in its metadata.
+
+% ==========================================================================
+\section{Conclusion}
+
+The benchmark is internally correct and reproducible. Its latent world is
+generated in a declared order from two independent seeds; its truth is a
+deterministic function of realised cycle chains; no truth value, alias, or hash
+reaches the observed table; and every one of the \rvReplayReplicatesChecked\
+generated artifacts replays to identical canonical hashes under the pinned
+environment.
+
+Its observable realism is a measured, bounded claim rather than an assumption.
+The candidate environment --- the property that decides whether linkage is
+possible at all --- now matches the real corpus within the declared tolerances,
+and the conditional observation mechanisms for identifiers, CPV, duration and
+text reproduce the real corpus's structure rather than only its averages. Where
+they do not, the residual is listed in Table~\ref{tab:discrepancies} rather than
+smoothed away.
+
+What remains unresolved is not fidelity but stability. Difficulty metrics and
+probe rankings move materially between world seeds, and until they do not, the
+benchmark cannot support controlled algorithm comparison or algorithm ranking.
+That is the honest current position, and it is what the five-level readiness
+assessment records.
+
+Finally, the framing that should survive every use of this artifact: the
+recurrence relation here is \emph{generated}, not discovered. It is not a
+reconstruction of what French public buyers actually do, and it is not a
+replacement for the BOAMP ground truth that does not exist. It is a controlled
+instrument for measuring how a linkage method behaves when the answer is known,
+under a set of assumptions this report has tried to make impossible to overlook.
+
+% ==========================================================================
+\appendix
+\section{Technical appendices}
+
+\subsection{Frozen production algorithm parameters}
+
+These describe the linkage pipeline the benchmark is measured against. They are
+\emph{algorithm} parameters: they may be reported for operational comparison and
+never define synthetic truth.
+
+\begin{table}[H]
+\centering\small
+\caption{Production linkage settings. Source: \file{config/pipeline.yaml}.}
+\label{tab:algoparams}
 \begin{tabular}{lr}
 \toprule
-Quantity & Value \\
+Parameter & Value \\
 \midrule
-In-scope true successor pairs & 120 \\
-Production-window blocking recall & 0.467 \\
-36-month blocking recall & 0.942 \\
-Production-window pairs quality & 0.038 \\
-Best current probe pair-F1 & 0.352 \\
-Deterministic top-1 pair-F1 & 0.308 \\
-Score-threshold all-ranks pair-F1 & 0.352 \\
-Fellegi--Sunter pair-F1 & 0.192 \\
+Score weights $w_{\mathrm{text}}, w_{\mathrm{cpv}}, w_{\mathrm{time}}, w_{\mathrm{buyer}}$
+  & \rvWeightText, \rvWeightCpv, \rvWeightTime, \rvWeightBuyer \\
+Acceptance threshold $\tau$ (balanced) & \rvThresholdBalanced \\
+Sensitivity thresholds (broad / strict) & \rvThresholdBroad\ / \rvThresholdStrict \\
+Temporal half-window $W$ & \rvTemporalWindowMonths\ months \\
+Candidate cap per source & \rvMaxCandidatesPerSource \\
+Days per month & \rvMonthDays \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Robustness and Replay}
+The composite score is
+$S_{ij} = w_{\mathrm{text}}s_{\mathrm{text}} + w_{\mathrm{cpv}}s_{\mathrm{cpv}}
++ w_{\mathrm{time}}s_{\mathrm{time}} + w_{\mathrm{buyer}}s_{\mathrm{buyer}}$.
+Weights are fixed a priori, not fitted. The thresholds are percentiles of the
+Layer-1 rank-1 score distribution, frozen so that layer comparisons are not
+confounded by threshold re-derivation. Neither is an independently validated
+cutoff.
 
-The current artifact set includes 10 generated seeds each for
-\texttt{central\_provisional}, \texttt{easier}, \texttt{moderate},
-\texttt{difficult}, and \texttt{stress}; \texttt{clean\_sanity} remains a
-single-seed smoke test. Canonical replay passes for the central artifact and
-all-artifact replay passes for 51 generated artifacts.
+\subsection{Where each artifact comes from}
 
-Robustness remains warning-level. Central production blocking completeness has
-mean 0.399, standard deviation 0.128, and one non-pass seed. Central
-probe-headroom pair-F1 has mean 0.281, standard deviation 0.110, and one
-non-pass seed. Probe rankings are unstable: the top probe is rank 1 in 50\% of
-central/moderate seeds and 58\% of all benchmark-scenario artifacts.
+\begin{table}[H]
+\centering\small
+\caption{Dependency map for this report. Every row is regenerated by the command
+in the last column.}
+\label{tab:deps}
+\begin{tabularx}{\textwidth}{XXl}
+\toprule
+Artifact & Depends on & Produced by \\
+\midrule
+\file{data/interim/boamp_common_prepared.csv} & raw monthly JSON & notebook 01 \\
+\file{data/processed/boamp_only/*} & prepared corpus, \file{pipeline.yaml} & notebook 01 \\
+\file{reports/tables/synthetic_calibration/*} & prepared corpus, Layer-1 outputs & notebook 04 \\
+\file{config/synthetic/calibration_parameters_v0_1.yaml} & calibration tables (manually frozen) & --- \\
+\file{data/processed/synthetic_benchmark/*} & calibration tables, scenario files, seeds & generator scripts \\
+\file{validation_framework/*} & generated artifacts, prepared corpus & \file{validate_synthetic_benchmark.py} \\
+\file{registries/*} & generated artifacts, scenario files & \file{build_benchmark_registries.py} \\
+\file{readiness/*} & validation manifest, replicate inventory & \file{assess_synthetic_benchmark_readiness.py} \\
+\file{generated/synthetic_benchmark/report_values.tex} & all of the above & \file{build_report_values.py} \\
+\file{figures/synthetic_benchmark/report/*} & generated artifacts, validation metrics & \file{build_report_figures.py} \\
+this PDF & the two rows above & \code{latexmk} \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-\section{Source State and Reproducibility}
+\subsection{Provenance of this document's numbers}
 
-The source-state manifest records Git HEAD
-\texttt{40dfad87881560ebd8b6dae91fa6397d545bc9cd} and hashes the current dirty
-source/artifact overlay. \texttt{dirty\_state\_overlay.tar.gz} packages that
-overlay, and \texttt{dirty\_state\_overlay\_verification.json} verifies that it
-applies to a clean Git HEAD snapshot with no missing files or hash mismatches.
-This is auditability, not release approval.
+No statistic in this report was typed by hand. Each is a macro defined in
+\file{reports/generated/synthetic_benchmark/report_values.tex}, generated by
+\file{scripts/build_report_values.py} from the artifacts above, with the same
+values also written to \file{report_values.json}.
+\file{scripts/check_report_consistency.py} re-derives them and fails if the
+document and the artifacts have diverged --- the mechanism that keeps this
+report from going stale the way its predecessors did.
 
-The current machine-readable evidence is:
-\begin{itemize}
-    \item \texttt{reports/tables/synthetic\_benchmark/v0\_3\_temporal\_candidate\_revision/generation\_manifest.json};
-    \item \texttt{reports/tables/synthetic\_benchmark/v0\_3\_temporal\_candidate\_revision/candidate\_environment\_summary\_metrics.csv};
-    \item \texttt{reports/tables/synthetic\_benchmark/v0\_3\_temporal\_candidate\_revision/validation\_framework/validation\_gate\_summary.csv};
-    \item \texttt{reports/tables/synthetic\_benchmark/v0\_3\_temporal\_candidate\_revision/readiness/readiness\_decisions.json};
-    \item \texttt{reports/tables/synthetic\_benchmark/v0\_3\_temporal\_candidate\_revision/validation\_framework/replay\_replicates.json}.
-\end{itemize}
-
-\section{Next Step}
-
-The valid next step is to improve the remaining observable-fidelity and
-robustness gaps before using the benchmark for controlled algorithm comparison.
-Any algorithm work performed before that point should be described as
-preliminary synthetic-only debugging or pipeline integration.
+\bibliographystyle{plainnat}
+\bibliography{synthetic_benchmark_references}
 
 \end{document}

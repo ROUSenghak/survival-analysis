@@ -1,20 +1,20 @@
 {
-  "generated_at_utc": "2026-07-27T21:01:56.777644+00:00",
+  "generated_at_utc": "2026-07-28T09:10:58.938991+00:00",
   "benchmark_version": "v0_3_temporal_candidate_revision",
   "scenario": "central_provisional",
   "world": "001",
   "corruption": "001",
   "validation_manifest_status": "PASS_WITH_WARNINGS",
-  "current_git_head": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
+  "current_git_head": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
   "worktree_dirty": true,
-  "generated_data_git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
+  "generated_data_git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
   "replicate_counts": {
     "difficult": 10,
     "clean_sanity": 1,
     "moderate": 10,
+    "stress": 10,
     "central_provisional": 10,
-    "easier": 10,
-    "stress": 10
+    "easier": 10
   },
   "current_problem_inventory": [
     {
@@ -154,8 +154,8 @@
       "metric": "q99_abs_diff",
       "real_estimate": 16.20559138768418,
       "synthetic_estimate": "14.365859843767739",
-      "difference": -1.8397315439164412,
-      "effect_size": 1.8397315439164412,
+      "difference": -1.8397315439164408,
+      "effect_size": 1.8397315439164408,
       "tolerance": "1.0",
       "status": "WARNING",
       "notes": "activity divided by that corpus's own mean activity (scale-free)"
@@ -180,8 +180,8 @@
       "metric": "JS",
       "real_estimate": NaN,
       "synthetic_estimate": NaN,
-      "difference": 0.776259241085664,
-      "effect_size": 0.776259241085664,
+      "difference": 0.7762592410856641,
+      "effect_size": 0.7762592410856641,
       "tolerance": "0.4",
       "status": "WARNING",
       "notes": "sampled 4000 real / 4000 synthetic texts"
@@ -244,9 +244,9 @@
       "property": "match_vs_hard_negative_score",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.3232700104040579",
+      "synthetic_estimate": "0.3233261218161955",
       "difference": NaN,
-      "effect_size": 0.3232700104040579,
+      "effect_size": 0.3233261218161955,
       "tolerance": "0.25",
       "status": "WARNING",
       "notes": "within-scenario seed stability; high values mean one seed is not representative"
@@ -257,9 +257,9 @@
       "property": "probe_headroom",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.3904025982709695",
+      "synthetic_estimate": "0.3904237462955547",
       "difference": NaN,
-      "effect_size": 0.3904025982709695,
+      "effect_size": 0.3904237462955547,
       "tolerance": "0.25",
       "status": "WARNING",
       "notes": "within-scenario seed stability; high values mean one seed is not representative"
@@ -283,9 +283,9 @@
       "property": "blocking_pairs_completeness",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.36674663847145395",
+      "synthetic_estimate": "0.3667980981318291",
       "difference": NaN,
-      "effect_size": 0.3667466384714539,
+      "effect_size": 0.3667980981318291,
       "tolerance": "0.25",
       "status": "WARNING",
       "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.399,range=0.145-0.622,n=10; difficult:mean=0.274,range=0.216-0.373,n=10; easier:mean=0.375,range=0.085-0.460,n=10; moderate:mean=0.399,range=0.145-0.622,n=10; stress:mean=0.215,range=0.158-0.261,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
@@ -296,9 +296,9 @@
       "property": "match_vs_hard_negative_score",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.28378895702782286",
+      "synthetic_estimate": "0.28394597820813844",
       "difference": NaN,
-      "effect_size": 0.2837889570278228,
+      "effect_size": 0.2839459782081384,
       "tolerance": "0.25",
       "status": "WARNING",
       "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.307,range=0.154-0.463,n=10; difficult:mean=0.355,range=0.253-0.515,n=10; easier:mean=0.292,range=0.214-0.364,n=10; moderate:mean=0.307,range=0.154-0.463,n=10; stress:mean=0.263,range=0.176-0.404,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
@@ -309,9 +309,9 @@
       "property": "probe_headroom",
       "metric": "coefficient_of_variation",
       "real_estimate": NaN,
-      "synthetic_estimate": "0.5871439400907855",
+      "synthetic_estimate": "0.5872445933320519",
       "difference": NaN,
-      "effect_size": 0.5871439400907855,
+      "effect_size": 0.5872445933320519,
       "tolerance": "0.25",
       "status": "WARNING",
       "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.281,range=0.036-0.431,n=10; difficult:mean=0.143,range=0.065-0.308,n=10; easier:mean=0.322,range=0.057-0.455,n=10; moderate:mean=0.281,range=0.036-0.431,n=10; stress:mean=0.076,range=0.051-0.155,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
@@ -419,7 +419,7 @@
         "canonical replay checked: True",
         "all generated artifacts replay: PASS",
         "replayed artifacts: 51",
-        "source state manifest hashed paths: 619",
+        "source state manifest hashed paths: 627",
         "worktree dirty: True"
       ],
       "failed_hard_gates": [],
@@ -466,7 +466,7 @@
       "status": "FAIL",
       "supporting_evidence": [
         "scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']",
-        "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'central_provisional': 10, 'easier': 10, 'stress': 10}",
+        "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'stress': 10, 'central_provisional': 10, 'easier': 10}",
         "metric failures: 2",
         "three evaluation settings reported: True",
         "required executable scenario configs present: True"
@@ -530,7 +530,7 @@
         "validation status: PASS_WITH_WARNINGS",
         "calendar-month metric present in saved outputs: True",
         "generated_from_current_head: True",
-        "source state manifest hashed paths: 619",
+        "source state manifest hashed paths: 627",
         "worktree dirty: True"
       ],
       "failed_hard_gates": [

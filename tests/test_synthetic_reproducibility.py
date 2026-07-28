@@ -6,6 +6,7 @@ from boamp.synthetic.pipeline import generate_clean_world, generate_observed_wor
 from boamp.synthetic.reproducibility import (
     benchmark_tables_from_world,
     compare_table_sets,
+    environment_drift,
     regenerate_tables_from_metadata,
     table_hashes,
 )
@@ -112,4 +113,8 @@ def test_released_benchmark_replays_from_recorded_configuration():
     }
     regenerated = regenerate_tables_from_metadata(REPO, data.metadata, scenario)
     failed = [item.table for item in compare_table_sets(released, regenerated) if not item.passed]
-    assert not failed, f"released tables no longer replay: {failed}"
+    drift = environment_drift(data.metadata)
+    assert not failed, (
+        f"released tables no longer replay: {failed}; "
+        f"numeric-environment drift since generation: {drift or 'none recorded'}"
+    )

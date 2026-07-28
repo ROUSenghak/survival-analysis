@@ -10,8 +10,8 @@
     "calibration_parameters_v0_1.yaml": "7c76cbb0dd763cae",
     "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
-    "scenarios/central_provisional.yaml": "cbb7841da1b500af",
-    "boamp_common_prepared.csv": "e0df5cb916ac96c1"
+    "scenarios/central_provisional.yaml": "82616b2925b9eefc",
+    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
   },
   "row_counts": {
     "buyers": 2000,
@@ -24,8 +24,14 @@
     "observed_notices": 8833,
     "corruption_log": 24483
   },
-  "execution_timestamp_utc": "2026-07-27T20:53:32.917879+00:00",
-  "git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
+  "execution_timestamp_utc": "2026-07-28T08:53:50.056971+00:00",
+  "git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "runtime_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.0"
+  },
   "resolved_scenario": {
     "scenario_id": "central_provisional",
     "display_name": "Central provisional",
@@ -73,7 +79,7 @@
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,
-        "note": "v0.3 temporal/candidate revision block. These are bounded scenario parameters that originally lived only in v0.3 metadata; they now live in the scenario file so the released benchmark can be replayed from configuration. The scoped buyer-affinity/share values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario: the older 0.07/0.70 and 0.07/0.50 settings became too dense once the observed high-activity tail was restored. The current 0.02/0.25 setting with near-window share 0.80 preserves the digital source scale and zero-candidate rate in the central world, while keeping production blocking completeness above its warning floor across the documented 10 central seeds and leaving the buyer-activity tail to be checked separately by the validation framework. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
+        "note": "v0.3 temporal/candidate revision block. These are FIDELITY_TUNED scenario parameters, not empirical estimates: they were selected by the bounded sweep in scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py against candidate-environment gates, and the selected set is recorded in candidate_revision_selected_parameters.csv and in generation_metadata.json#candidate_revision. They live in this file rather than only in metadata so the released benchmark replays from configuration. Selection history: the values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario. Earlier scoped_buyer_affinity_share/scoped_need_probability_high settings of 0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once the observed high-activity tail was restored. The current selected setting is the one written above: affinity share 0.102, high scoped-need probability 0.74, near-window share 1.00, recurrence multiplier 0.88, and hard-negative alignment rate 0.34. It preserves the digital source scale and reproduces the real zero-candidate rate to within about 2 percentage points, while keeping production blocking completeness above its warning floor for most of the documented 10 central seeds; seed spread itself remains a warning-level robustness finding, not a solved problem. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
       }
     },
     "identifiers": {
@@ -242,5 +248,69 @@
   },
   "validation_status": "PASS",
   "validation_failures": {},
-  "warnings": []
+  "warnings": [],
+  "candidate_revision": {
+    "benchmark_version": "v0_3_temporal_candidate_revision",
+    "selection_rule": "first fixed sweep candidate satisfying all candidate-readiness gates",
+    "parameters": {
+      "recurrence_propensity_multiplier": 0.88,
+      "near_window_share": 1.0,
+      "hard_negative_alignment_rate": 0.34,
+      "cluster_scoped_needs_by_buyer": true,
+      "scoped_buyer_affinity_share": 0.102,
+      "scoped_need_probability_high": 0.74,
+      "stabilize_scoped_establishment": true,
+      "stabilize_scoped_name_fallback": true,
+      "stabilize_scoped_identity_by_need": true,
+      "cpv_divisions": [
+        "32",
+        "35",
+        "48",
+        "72"
+      ],
+      "near_window_distribution": {
+        "type": "normal",
+        "mean_months": 2.0,
+        "sd_months": 2.0,
+        "min_months": 0.1,
+        "max_months": 6.0
+      }
+    },
+    "gates": {
+      "source_count_ratio_min": 0.8,
+      "source_count_ratio_max": 1.2,
+      "zero_candidate_abs_pp_max": 5.0,
+      "p75_abs_count_max": 3.0,
+      "p90_abs_count_max": 5.0,
+      "p95_abs_count_max": 8.0,
+      "cap_rate_max": 0.01,
+      "by_key_zero_abs_pp_max": 10.0,
+      "broad_gap_tail_min": 0.45
+    },
+    "selected_metrics": {
+      "recurrence_propensity_multiplier": 0.88,
+      "near_window_share": 1.0,
+      "hard_negative_alignment_rate": 0.34,
+      "n_sources": 422,
+      "zero_candidate_rate": 0.3862559241706161,
+      "mean_candidate_count": 3.4526066350710902,
+      "median_candidate_count": 1.0,
+      "p75_candidate_count": 6.0,
+      "p90_candidate_count": 11.0,
+      "p95_candidate_count": 13.0,
+      "p99_candidate_count": 15.79000000000002,
+      "max_candidate_count": 16,
+      "cap_reached_rate": 0.0,
+      "expected_scaled_sources": 352.80644741973225,
+      "source_count_ratio": 1.1961232655647829,
+      "zero_abs_diff_pp": 2.054880955719457,
+      "p75_abs_diff": 2.0,
+      "p90_abs_diff": 1.900000000000091,
+      "p95_abs_diff": 1.0,
+      "truth_gap_gt6_share": 0.8233404710920771,
+      "by_key_zero_gate_pass": true,
+      "passes_candidate_readiness": "True",
+      "window_months": 6
+    }
+  }
 }

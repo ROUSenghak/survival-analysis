@@ -153,6 +153,14 @@ and temporal validation (train ≤ 2021, test > 2021).
 
 ## 8b. Synthetic benchmark (v0.3, controlled calibration benchmark)
 
+> The full specification — calibration, the data-generating process with its
+> implemented distributions, the validation methodology, the comparison with
+> real BOAMP, and the current readiness decision — is
+> `reports/synthetic_benchmark_technical_report.tex` and its compiled PDF.
+> Every statistic there is generated from the artifacts, so it does not go
+> stale the way a hand-written summary does. This section is the short version.
+
+
 We adapt the gold-standard-and-corruption framework of Lam et al. (2024,
 *Generating synthetic identifiers to support development and evaluation of
 data linkage methods*, IJPDS 9:1:18) to public-procurement recurrence
@@ -198,11 +206,14 @@ several are `ready_to_freeze=True` for *replicating the linker's own
 scoring* — 9 parameters). Precision and recall are never generator inputs
 under any action.
 
-**Scenario assumptions.** Three scenarios
-(`config/synthetic/scenarios/{clean_sanity,central_provisional,adverse_identity}.yaml`)
+**Scenario assumptions.** Seven scenarios are configured
+(`config/synthetic/scenarios/`: `clean_sanity`, `central_provisional`,
+`adverse_identity`, `easier`, `moderate`, `difficult`, `stress`), which
 operationalize the pre-existing, more detailed WP13 scenario family
 (`01_clean_sanity.yaml` .. `06_adverse_combined.yaml`) into concrete numeric
-knobs. `central_provisional` uses calibrated BOAMP observation mechanisms
+knobs. All but `adverse_identity` have generated artifacts;
+`registries/scenario_manifest.csv` records which are `CONFIG_ONLY` so a
+loadable scenario is never mistaken for multi-seed evidence. `central_provisional` uses calibrated BOAMP observation mechanisms
 wherever an empirical anchor exists (identifier/CPV/duration/name
 missingness rates) and explicit, labeled scenario assumptions everywhere
 else (recurrence prevalence, cycle-gap distribution, text drift severity) —

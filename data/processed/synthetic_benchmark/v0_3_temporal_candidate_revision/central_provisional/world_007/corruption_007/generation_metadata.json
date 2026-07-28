@@ -10,8 +10,8 @@
     "calibration_parameters_v0_1.yaml": "7c76cbb0dd763cae",
     "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
-    "scenarios/central_provisional.yaml": "cbb7841da1b500af",
-    "boamp_common_prepared.csv": "e0df5cb916ac96c1"
+    "scenarios/central_provisional.yaml": "82616b2925b9eefc",
+    "boamp_common_prepared.csv": "b8bb2eb0089165c2"
   },
   "row_counts": {
     "buyers": 2000,
@@ -24,8 +24,14 @@
     "observed_notices": 9370,
     "corruption_log": 26729
   },
-  "execution_timestamp_utc": "2026-07-27T20:54:19.541780+00:00",
-  "git_commit": "40dfad87881560ebd8b6dae91fa6397d545bc9cd",
+  "execution_timestamp_utc": "2026-07-28T08:53:04.554322+00:00",
+  "git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "runtime_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.0"
+  },
   "resolved_scenario": {
     "scenario_id": "central_provisional",
     "display_name": "Central provisional",
@@ -73,7 +79,7 @@
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,
-        "note": "v0.3 temporal/candidate revision block. These are bounded scenario parameters that originally lived only in v0.3 metadata; they now live in the scenario file so the released benchmark can be replayed from configuration. The scoped buyer-affinity/share values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario: the older 0.07/0.70 and 0.07/0.50 settings became too dense once the observed high-activity tail was restored. The current 0.02/0.25 setting with near-window share 0.80 preserves the digital source scale and zero-candidate rate in the central world, while keeping production blocking completeness above its warning floor across the documented 10 central seeds and leaving the buyer-activity tail to be checked separately by the validation framework. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
+        "note": "v0.3 temporal/candidate revision block. These are FIDELITY_TUNED scenario parameters, not empirical estimates: they were selected by the bounded sweep in scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py against candidate-environment gates, and the selected set is recorded in candidate_revision_selected_parameters.csv and in generation_metadata.json#candidate_revision. They live in this file rather than only in metadata so the released benchmark replays from configuration. Selection history: the values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario. Earlier scoped_buyer_affinity_share/scoped_need_probability_high settings of 0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once the observed high-activity tail was restored. The current selected setting is the one written above: affinity share 0.102, high scoped-need probability 0.74, near-window share 1.00, recurrence multiplier 0.88, and hard-negative alignment rate 0.34. It preserves the digital source scale and reproduces the real zero-candidate rate to within about 2 percentage points, while keeping production blocking completeness above its warning floor for most of the documented 10 central seeds; seed spread itself remains a warning-level robustness finding, not a solved problem. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
       }
     },
     "identifiers": {

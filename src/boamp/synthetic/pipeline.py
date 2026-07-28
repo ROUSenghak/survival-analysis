@@ -1,4 +1,10 @@
-"""Top-level orchestration for the synthetic benchmark v0.1 (Phase 4-7).
+"""Top-level orchestration for the synthetic benchmark generator (Phase 4-7).
+
+The current released version is v0.3 (`v0_3_temporal_candidate_revision`);
+`GENERATOR_VERSION` below records the generator revision that writes it.
+`benchmark_version` is a required keyword on both writers: it used to default
+to the now-archived `v0_1_provisional`, so an unqualified call silently wrote
+into a superseded directory.
 
 Two independent, explicit random-number generators are used throughout:
 `world_rng` for the clean latent world (buyers -> establishments -> needs ->
@@ -125,6 +131,29 @@ def _config_hash(project_root: Path, scenario_id: str) -> dict[str, str]:
     }
 
 
+def _runtime_environment() -> dict[str, str]:
+    """Numeric-library versions that the drawn values actually depend on.
+
+    Bit-level results of `numpy.random.Generator` and of reductions such as
+    `ndarray.sum` are stable for a fixed library build, not across builds. A
+    replay run under a different NumPy can therefore differ in the last unit in
+    the last place while every count and identity is unchanged. Recording the
+    environment makes that diagnosable instead of looking like generator drift.
+    """
+    import platform
+
+    import numpy as _np
+    import pandas as _pd
+    import pyarrow as _pa
+
+    return {
+        "python": platform.python_version(),
+        "numpy": _np.__version__,
+        "pandas": _pd.__version__,
+        "pyarrow": _pa.__version__,
+    }
+
+
 def _git_commit(project_root: Path) -> str | None:
     try:
         out = subprocess.run(["git", "rev-parse", "HEAD"], cwd=project_root,
@@ -136,8 +165,8 @@ def _git_commit(project_root: Path) -> str | None:
 
 def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, corruption_log: pd.DataFrame,
                          scenario_id: str, project_root: Path, world_seed: int, corruption_seed: int,
+                         *, benchmark_version: str,
                          world_rep: int = 1, corruption_rep: int = 1,
-                         benchmark_version: str = "v0_1_provisional",
                          resolved_scenario=None) -> Path:
     """Phase 7: write the full traceability output tree for one
     scenario/world/corruption replication."""
@@ -172,6 +201,7 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
         },
         execution_timestamp_utc=datetime.now(timezone.utc).isoformat(),
         git_commit=_git_commit(project_root),
+        runtime_environment=_runtime_environment(),
         resolved_scenario=to_plain_dict(resolved_scenario),
         resolved_benchmark_defaults=to_plain_dict(load_benchmark_defaults(project_root)),
         validation_status="PASS" if (validation is None or validation.passed) else "FAIL",
@@ -186,7 +216,7 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
 
 def generate_pilot(scenario_id: str, project_root: Path, n_buyers: int | None = None,
                     world_seed: int | None = None, corruption_seed: int | None = None,
-                    benchmark_version: str = "v0_1_provisional",
+                    *, benchmark_version: str,
                     world_rep: int = 1, corruption_rep: int = 1,
                     scenario_override=None) -> Path:
     """Full Phase 4-7 pipeline for one scenario, using benchmark_defaults_v0_1.yaml

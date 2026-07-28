@@ -1,5 +1,12 @@
 # Synthetic benchmark v0.3 temporal/candidate revision report
 
+> **Authoritative document:** `reports/synthetic_benchmark_technical_report.tex`
+> and its compiled PDF. Every statistic there is generated from the artifacts by
+> `scripts/build_report_values.py` and gated by
+> `scripts/check_report_consistency.py`. This markdown note is a hand-maintained
+> summary of the v0.3 revision decisions; where the two differ, the generated
+> report is current.
+
 ## Result
 
 **Validation-framework status: PASS_WITH_WARNINGS across 210 metrics.**
@@ -109,7 +116,7 @@ follow-up runway is still weak.
   `dirty_state_overlay_verification.json` verifies replay onto a clean Git HEAD
   snapshot with no missing files or hash mismatches. A release still requires a
   clean commit or standalone release package.
-- Historical reports and notebooks outside the current readiness assessment are retained only as labelled development evidence; the five-level readiness assessment is authoritative for current permitted uses and prohibited claims.
+- Superseded v0.1 artifacts and the notebooks that read them (05-08) were moved to `archive/` on 2026-07-28 and are recorded in `archive/ARCHIVE_MANIFEST.csv`; no active notebook or script reads them. The five-level readiness assessment remains authoritative for current permitted uses and prohibited claims.
 
 ## Artifacts
 

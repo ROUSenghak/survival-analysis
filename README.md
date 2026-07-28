@@ -53,14 +53,21 @@ notebooks/
   01_data_engineering_pipeline.ipynb   Parts A–H: config → common prep → L1 → enrichment → L2 → comparison → integrity
   02_eda.ipynb                         descriptive EDA over 01's exports
   03_analysis.ipynb                    linkage-quality evaluation + survival, both layers
-src/boamp/         the pipeline package (config / data / linkage / survival / validation / reporting)
+  04_synthetic_benchmark_calibration.ipynb   real-corpus calibration; writes every table the generator consumes
+  09..12_*.ipynb                       v0.3 temporal/candidate validation, real-vs-synthetic comparison, framework summary
+src/boamp/         the pipeline package (config / data / linkage / survival / validation / reporting / synthetic)
 src/utils/         BOAMP schema extraction, identifier validation, text cleaning
-scripts/           retrieval only: download_boamp.py, download_enrichment.py
-tests/             pytest suite incl. slow parity tests vs frozen fingerprints
-reports/           figures, tables, generated reports, LaTeX sources
-docs/              methodology.md, data dictionaries
+scripts/           retrieval, synthetic generation, validation, readiness, report build
+tests/             pytest suite incl. slow parity + replay tests vs frozen fingerprints
+reports/           figures, tables, generated reports, LaTeX sources, compiled PDFs
+docs/              methodology.md, synthetic_benchmark_dgp_specification.md
 archive/           superseded legacy code/outputs + ARCHIVE_MANIFEST.csv
 ```
+
+Notebooks 05–08 and the v0.1/v0.2 artifacts they read were moved to
+`archive/` on 2026-07-28: they document superseded generator versions and no
+active notebook or script reads them. `archive/ARCHIVE_MANIFEST.csv` records
+what moved, why, and what supersedes it.
 
 ## Reproduce from scratch
 
@@ -161,10 +168,18 @@ comparison evidence.
   in noncritical SIRET missing/present rates, plus warning-level buyer-activity,
   text, identifier, temporal, hidden-truth-difficulty, and robustness gaps.
   Main-scenario seed robustness is warning-level or inconclusive, so controlled
-  algorithm comparison, final ranking, and release are blocked. The current
-  worktree is not committed; `source_state_manifest.json` hashes the current
-  dirty state and `dirty_state_overlay.tar.gz` packages it for auditability. See
+  algorithm comparison, final ranking, and release are blocked. See
   `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`.
+- Technical report: `reports/synthetic_benchmark_technical_report.tex` and its
+  compiled PDF document the calibration, the data-generating process, the
+  validation methodology, and the current readiness. Every statistic in it is a
+  generated macro (`scripts/build_report_values.py`), never hand-typed, and
+  `scripts/check_report_consistency.py` fails if the document and the artifacts
+  disagree.
+- Working state: `source_state_manifest.json` hashes the uncommitted worktree
+  and `dirty_state_overlay.tar.gz` packages it for auditability. Neither is a
+  release approval, and the overlay tarball is a large regenerable binary — it
+  is worth gitignoring before the next commit.
 - Scenario provenance: `registries/scenario_manifest.csv` distinguishes
   `CONFIG_ONLY` scenarios from `GENERATED_REPLICATE` artifacts, so a loadable
   scenario cannot be mistaken for multi-seed validation evidence. Current
@@ -188,10 +203,29 @@ comparison evidence.
   a clean Git HEAD snapshot with no hash mismatches. These are not final release
   approvals.
 
-Reproduce the current benchmark and validation:
+Reproduce the current benchmark, validation and report:
+
+**Order matters in two places.** Notebook 04 must run first — it writes the
+calibration tables the generator reads. And the replicate generator must run
+*before* the central sweep script: both write `central_provisional/world_001`,
+and only the sweep script records the parameter-selection provenance under
+`generation_metadata.json#candidate_revision`. Running them the other way round
+leaves world 001 without that provenance.
+
+Bit-exact replay additionally requires the pinned environment
+(`requirements-lock.txt`). Canonical hashing tolerates Parquet writer
+differences but not a different NumPy build: NumPy's generator and reduction
+kernels are stable per build, not across builds, so a different NumPy replays
+every count and identity while differing in the last unit in the last place of
+float columns. Each artifact records what it was generated under in
+`generation_metadata.json#runtime_environment`, and `replay_comparison.json`
+reports `environment_drift_since_generation`.
 
 ```bash
-PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+# 0. calibration inputs (also step 3 of the main pipeline above)
+jupyter nbconvert --to notebook --execute --inplace notebooks/04_synthetic_benchmark_calibration.ipynb
+
+# 1. generate: bracketing scenarios, then central seeds, then the central sweep
 PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
   --scenarios easier,moderate,difficult,stress \
   --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
@@ -202,19 +236,40 @@ PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_replicates.py \
   --world-seeds 20260721,20260731,20260741,20260751,20260761,20260771,20260781,20260791,20260801,20260811 \
   --force \
   --manifest reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/central_10_seed_generation_manifest.json
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py
+
+# 2. validate, replay, register, assess
 PYTHONPATH=src python3 scripts/validate_synthetic_benchmark.py
 PYTHONPATH=src python3 scripts/replay_synthetic_benchmark.py \
   --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_comparison.json
 PYTHONPATH=src python3 scripts/replay_synthetic_benchmark_replicates.py \
   --output reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/validation_framework/replay_replicates.json
-PYTHONPATH=src python3 scripts/build_source_state_manifest.py
 PYTHONPATH=src python3 scripts/build_benchmark_registries.py
 PYTHONPATH=src python3 scripts/build_mechanism_tradeoff_log.py
 PYTHONPATH=src python3 scripts/assess_synthetic_benchmark_readiness.py
+
+# 3. validation notebooks (figures + comparison tables)
+for nb in 09 10 11 12; do
+  jupyter nbconvert --to notebook --execute --inplace notebooks/${nb}_*.ipynb
+done
+
+# 4. technical report: values, figures, PDF, and the consistency gate
+PYTHONPATH=src python3 scripts/build_report_values.py
+PYTHONPATH=src python3 scripts/build_report_figures.py
+(cd reports && latexmk -pdf synthetic_benchmark_technical_report.tex)
+PYTHONPATH=src python3 scripts/check_report_consistency.py
+
+# 5. state manifest and tests
+PYTHONPATH=src python3 scripts/build_source_state_manifest.py
 PYTHONPATH=scripts python3 scripts/build_dirty_state_overlay_archive.py
 PYTHONPATH=scripts python3 scripts/verify_dirty_state_overlay_archive.py
-PYTHONPATH=src python3 -m pytest -q tests/test_synthetic_*.py
+PYTHONPATH=src python3 -m pytest -q && PYTHONPATH=src python3 -m pytest -q -m slow
 ```
+
+`scripts/check_report_consistency.py` is the gate that keeps the report honest:
+it re-derives every reported number from the artifacts, fails on an undefined
+macro, a missing figure, a hand-typed statistic in the LaTeX body, a PDF older
+than its inputs, or a LaTeX log carrying an undefined reference or citation.
 
 ## Name mapping vs earlier reports
 

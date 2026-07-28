@@ -63,7 +63,7 @@ These describe accepted-link populations only; they are NOT unconditional error 
 - **name_fallback + large_candidate_pool joint-pattern rate**: `see table` -> `missingness_joint_patterns.csv`. Sourced from the pre-threshold candidate pool (not accepted links), restricted to sources that reached candidate generation; a structural comparison only, never used to set synthetic ground truth (see §15).
 
 ## 6. Unidentified parameters / required scenario knobs (generator-use: SCENARIO_KNOB)
-- **true recurrence prevalence**: No verified legal-renewal field exists in BOAMP; the pipeline's own event rate (29.7%/35.1%) is itself the output of an unvalidated scoring+threshold procedure, not a measurement of real renewal behaviour. Proposed scenario range: `e.g. sweep true recurrence prevalence in {10%, 25%, 40%, 60%}`.
+- **true recurrence prevalence**: No verified legal-renewal field exists in BOAMP; the pipeline's own event rate (19.6%/26.8%) is itself the output of an unvalidated scoring+threshold procedure, not a measurement of real renewal behaviour. Proposed scenario range: `e.g. sweep true recurrence prevalence in {10%, 25%, 40%, 60%}`.
 - **true linkage precision recall**: Zero completed manual-validation labels exist; Fellegi-Sunter EM estimates in 03_analysis are explicitly model-based, not ground-truth-validated. Proposed scenario range: `sweep precision/recall of the *injected* synthetic linker across a grid, e.g. precision in {0.6,0.75,0.9}, recall in {0.5,0.7,0.9}`.
 - **true buyer entity resolution rate**: No registry cross-validation of BOAMP-native buyer identity exists in this repo; the Layer 2 external SIREN join covers only 2024-2026 and the alias bridge is an unvalidated heuristic. Proposed scenario range: `sweep the fraction of buyer-name variants correctly resolved to one entity, e.g. {50%, 70%, 90%}`.
 - **true candidate ambiguity resolution**: Which candidate among several plausible same-buyer notices is the *correct* renewal is never verified; §15's rank-1 selection is a modelling choice, not ground truth. Proposed scenario range: `vary the number of plausible-but-wrong candidates per true link, e.g. {0, 1-2, 3-5, 6+}, informed by §13's future-only candidate-density numbers`.
@@ -72,9 +72,9 @@ These describe accepted-link populations only; they are NOT unconditional error 
 ## 7. Do NOT use for synthetic ground truth
 - `data/processed/{boamp_only,enriched}/*_candidate_pairs.csv` composite_score / confidence_tier
 - `data/processed/{boamp_only,enriched}/*_links_{broad,balanced,strict,window_*}.csv`
-- The frozen thresholds 0.278387 / 0.343167 / 0.442070 (`config/pipeline.yaml`, `thresholds:`)
+- The frozen thresholds 0.2642 / 0.3230 / 0.3931 (`config/pipeline.yaml`, `thresholds:`)
 - The six-month (and 9/12/18-month variant) temporal window (`config/pipeline.yaml`, `temporal_window:`)
-- Event/censoring rates in `*_survival*.csv` (29.7% Layer 1 / 35.1% Layer 2) as true recurrence prevalence
+- Event/censoring rates in `*_survival*.csv` (19.6% Layer 1 / 26.8% Layer 2) as true recurrence prevalence
 - The pipeline's own precision/recall (never measured; see §6 `true_linkage_precision_recall` — SCENARIO_KNOB only, swept for the *injected* synthetic linker, never read off the real pipeline)
 
 ## 8. Calibration checklist

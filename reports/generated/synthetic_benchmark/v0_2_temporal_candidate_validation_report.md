@@ -2,17 +2,16 @@
 
 ## Result
 
-**Historical status: SUPERSEDED_BY_V0_3_READINESS_ASSESSMENT.**
+**Legacy freeze-gate status: SUPERSEDED_BY_V0_3_READINESS_ASSESSMENT.**
 
-This v0.2 report is retained as historical diagnostic evidence only. It does
-not define current benchmark readiness; use
-`reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`
-for permitted uses and prohibited claims.
+This v0.2 notebook is retained as historical diagnostic evidence. It does not
+define current benchmark readiness; use the v0.3 five-level readiness
+assessment for permitted uses and prohibited claims.
 
 Temporal validation status: **PASS**.
 Candidate-environment validation status: **NEEDS_REVISION**.
 
-At the time this report was generated, the v0.2 benchmark should **not yet be used as the main benchmark
+This means the v0.2 benchmark should **not yet be used as the main benchmark
 for linkage-algorithm evaluation**. The candidate code runs, but the
 algorithm-scope candidate environment does not yet resemble the real Layer 1
 source universe closely enough.
@@ -33,13 +32,13 @@ source universe closely enough.
 
 ## Candidate-environment findings
 
-- Real Layer 1 source count: 3,159.
+- Real Layer 1 source count: 3,380.
 - Synthetic Layer 1 source-scope count: 354
-  versus 358.6 expected after scaling real source
-  count to synthetic total volume; ratio = 0.99.
-- Zero-candidate rate: real 60.9%,
+  versus 383.7 expected after scaling real source
+  count to synthetic total volume; ratio = 0.92.
+- Zero-candidate rate: real 40.7%,
   synthetic 90.4%.
-- P90 candidates per source: real 6,
+- P90 candidates per source: real 9,
   synthetic 0.
 - Cap-reached rate: real 0.1%,
   synthetic 0.0%.
