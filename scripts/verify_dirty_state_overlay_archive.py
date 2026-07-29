@@ -1,4 +1,4 @@
-"""Verify that a dirty-state overlay archive replays onto its recorded HEAD."""
+"""Verify that a release-state overlay archive replays onto its recorded HEAD."""
 
 from __future__ import annotations
 

@@ -19,6 +19,7 @@ import pandas as pd
 
 from boamp.synthetic.missingness import assign_quality_class, duration_severity_multiplier, severity_multiplier
 from boamp.synthetic.text_generation import apply_next_cycle_drift, generate_hard_negative_text
+from utils.identifiers import normalize_buyer_name, validate_siren, validate_siret
 
 # Small shared cross-buyer boilerplate pool (v0.1 fidelity follow-up,
 # exact_duplicate_template_rate) -- real BOAMP's high literal-duplication
@@ -104,6 +105,17 @@ def _apply_name_transformation(name: str, department: str, rng: np.random.Genera
     return name
 
 
+def _observed_buyer_key(siret: str | None, siren: str | None, name: str | None) -> str | None:
+    if pd.notna(siret) and all(validate_siret(str(siret))):
+        return f"SIRET:{siret}"
+    if pd.notna(siren) and all(validate_siren(str(siren))):
+        return f"SIREN:{siren}"
+    normalized = normalize_buyer_name(name)
+    if pd.notna(normalized):
+        return f"NAME:{normalized}"
+    return None
+
+
 def _identifier_year_regime_scale(year: int, scen_ids) -> float:
     """v0.2 conditional-fidelity follow-up: real SIRET presence shows a
     regime shift centered on 2022 that is INDEPENDENT of the EFORMS schema
@@ -131,9 +143,10 @@ def _conditional_identifier_outcome(row, siblings_by_siren: dict[str, list[str]]
     the old corruption vocabulary is preserved by splitting the absent mass
     into SIREN-only, invalid-SIRET, and fully missing official identifiers.
     """
-    present_rate = observation_model.siret_present_rate(row)
-    siret_true, siren_true = row["siret_true"], row["siren_true"]
     cfg = getattr(scen_ids, "conditional_siret_presence", None)
+    presence_scale = float(getattr(cfg, "presence_scale", 1.0))
+    present_rate = min(1.0, max(0.0, observation_model.siret_present_rate(row) * presence_scale))
+    siret_true, siren_true = row["siret_true"], row["siren_true"]
     wrong_rate = getattr(scen_ids, "wrong_establishment_siret_rate", 0.0)
     siren_only_rate = getattr(cfg, "siren_only_among_absent_rate", 0.03)
     invalid_rate = getattr(cfg, "invalid_among_absent_rate", 0.01)
@@ -300,7 +313,9 @@ def _generic_weak_text(row, rng: np.random.Generator) -> str:
 
 
 def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.random.Generator,
-                  logger, observation_model=None, buyer_activity_tier: str | None = None) -> str:
+                  logger, observation_model=None, buyer_activity_tier: str | None = None,
+                  same_family_key_mismatch: bool = False,
+                  observed_buyer_key: str | None = None) -> str:
     text = row["objet_true"]
     if row["role"] == "AWARD" and text and rng.random() < min(0.98, scen_text.next_cycle_drift_severity * mult * 0.3):
         # Even within a cycle, a poorly-recorded award can drift lexically
@@ -332,8 +347,22 @@ def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.ra
             logger.log(row["notice_id_synthetic"], "objet_clean", text, weak,
                        "GENERIC_WEAK_PROCUREMENT_TEXT", severity=1.0)
             return weak
+        same_buyer_template_rate = getattr(conditional_cfg, "same_buyer_admin_template_rate", 0.0)
+        if (
+            buyer_activity_tier in {"6-20", "21+"}
+            and rng.random() < same_buyer_template_rate
+        ):
+            key = observed_buyer_key or "MISSING"
+            admin = f"Marché public - acheteur {key}."
+            logger.log(row["notice_id_synthetic"], "objet_clean", text, admin,
+                       "SAME_BUYER_ADMIN_TEMPLATE", severity=1.0)
+            return admin
         same_family_near_rate = getattr(conditional_cfg, "same_family_near_duplicate_rate", 0.0)
-        if row["role"] == "AWARD" and rng.random() < same_family_near_rate:
+        if (
+            row["role"] == "AWARD"
+            and text == row["objet_true"]
+            and (same_family_key_mismatch or rng.random() < same_family_near_rate)
+        ):
             near_family = f"{text.rstrip('.')} - attribution du marché."
             logger.log(row["notice_id_synthetic"], "objet_clean", text, near_family,
                        "SAME_FAMILY_NEAR_DUPLICATE", severity=1.0)
@@ -370,6 +399,12 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
     scoped_divisions = {str(v) for v in getattr(scoped_candidate_cfg, "cpv_divisions", [])}
     stable_scoped_name_by_buyer: dict[str, str] = {}
     family_identity_cache: dict[str, tuple[str | None, str | None, str]] = {}
+    scoped_call_identifier_cache: dict[str, tuple[str | None, str | None]] = {}
+    family_buyer_key_cache: dict[str, str | None] = {}
+    conditional_identifier_presence = bool(
+        observation_model is not None
+        and getattr(getattr(scenario.identifiers, "conditional_siret_presence", None), "enabled", False)
+    )
     buyer_notice_tier = pd.cut(
         clean_notices.groupby("buyer_id_true")["notice_id_synthetic"].transform("size"),
         bins=[0, 1, 5, 20, np.inf],
@@ -391,19 +426,18 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
         if identity_cache_key in family_identity_cache:
             siret_obs, siren_obs, name_obs = family_identity_cache[identity_cache_key]
         else:
-            # Buyer identity is an observation of the notice family, not an
-            # independent latent buyer per CALL/AWARD sibling. Keeping the
-            # observed identifier/name draw stable within a cycle prevents
-            # exact same-family text from being misclassified as cross-buyer
-            # generic boilerplate solely because sibling buyer keys drifted.
-            # For the scoped candidate-environment scenario, the same logic
-            # can extend across cycles of a hidden need: this is a labelled
-            # identifier-persistence assumption used to keep the moderate
-            # benchmark reachable under production-style buyer-key blocking.
-            siret_obs, siren_obs = _corrupt_identifier(
-                row, siblings_by_siren, m, scenario.identifiers, rng, logger,
-                observation_model=observation_model,
-            )
+            # The observed buyer name is a family-level observation, not an
+            # independent latent buyer per CALL/AWARD sibling. Legacy
+            # identifier corruption shares that family-level draw too, but
+            # empirical conditional SIRET calibration is notice-level because
+            # it is keyed by schema family and notice type.
+            if conditional_identifier_presence:
+                siret_obs, siren_obs = None, None
+            else:
+                siret_obs, siren_obs = _corrupt_identifier(
+                    row, siblings_by_siren, m, scenario.identifiers, rng, logger,
+                    observation_model=observation_model,
+                )
 
             name_true = row["buyer_name_true"]
             use_stable_scoped_name = (
@@ -425,6 +459,33 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                     stable_scoped_name_by_buyer[row["buyer_id_true"]] = name_obs
             family_identity_cache[identity_cache_key] = (siret_obs, siren_obs, name_obs)
 
+        if conditional_identifier_presence:
+            # Conditional SIRET calibration is defined at the observable
+            # schema/type cell level. Draw identifiers per notice so an AWARD
+            # does not inherit a CALL-level visibility probability.
+            if scoped_identity_by_need and is_scoped_notice and row["role"] == "CALL":
+                cached = scoped_call_identifier_cache.get(identity_cache_key)
+                if cached is None:
+                    cached = _corrupt_identifier(
+                        row, siblings_by_siren, m, scenario.identifiers, rng, logger,
+                        observation_model=observation_model,
+                    )
+                    scoped_call_identifier_cache[identity_cache_key] = cached
+                siret_obs, siren_obs = cached
+            else:
+                siret_obs, siren_obs = _corrupt_identifier(
+                    row, siblings_by_siren, m, scenario.identifiers, rng, logger,
+                    observation_model=observation_model,
+                )
+        observed_buyer_key = _observed_buyer_key(siret_obs, siren_obs, name_obs)
+        family_key = str(row["cycle_id_true"])
+        first_observed_buyer_key = family_buyer_key_cache.setdefault(family_key, observed_buyer_key)
+        same_family_key_mismatch = (
+            row["role"] == "AWARD"
+            and first_observed_buyer_key is not None
+            and observed_buyer_key != first_observed_buyer_key
+        )
+
         cpv_obs = _corrupt_cpv(row, m, scenario.cpv, rng, logger)
         duration_obs = _corrupt_duration(
             row, float(duration_mult.iloc[i]), scenario.duration, rng, logger,
@@ -436,6 +497,8 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
             row, m, scenario.text, need_vocab if isinstance(need_vocab, list) else [], rng, logger,
             observation_model=observation_model,
             buyer_activity_tier=str(buyer_notice_tier.iloc[i]),
+            same_family_key_mismatch=same_family_key_mismatch,
+            observed_buyer_key=observed_buyer_key,
         )
 
         linked_obs = row["linked_call_notice_id_true"]

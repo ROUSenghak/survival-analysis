@@ -294,7 +294,7 @@ def make_links_from_pairs(pairs: pd.DataFrame, name: str, score_col: str) -> tup
 def forward_pairs(eligible: pd.DataFrame, tfidf, cfg, months: int = 24) -> pd.DataFrame:
     """Forward-window candidate generation with NO duration/expected-end input.
 
-    Leakage check: if the duration variable (88% imputed) were driving the
+    Leakage check: if the duration variable (82.7% imputed) were driving the
     linkage, links built without it should tell a different survival story.
     """
     p = cfg.pipeline

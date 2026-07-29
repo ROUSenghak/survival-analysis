@@ -5,12 +5,12 @@ This is a validated synthetic benchmark only to the readiness level supported ab
 Benchmark version: `v0_3_temporal_candidate_revision`
 Scenario: `central_provisional`
 Validation status read from manifest: `PASS_WITH_WARNINGS`
-Generated data commit: `30da6f5532a05a91faebf6e48aa2aba9b1ff74d5`
-Current HEAD: `30da6f5532a05a91faebf6e48aa2aba9b1ff74d5`
+Generated data commit: `e3aeb6353740f1c09674302847ee80faa2dc54ef`
+Current HEAD: `e3aeb6353740f1c09674302847ee80faa2dc54ef`
 
 ## Decisions
 
-### PIPELINE_TECHNICALLY_VALID: PASS_WITH_LIMITATIONS
+### PIPELINE_TECHNICALLY_VALID: PASS
 
 Supporting evidence:
 - internal gate: PASS
@@ -19,8 +19,10 @@ Supporting evidence:
 - canonical replay checked: True
 - all generated artifacts replay: PASS
 - replayed artifacts: 51
-- source state manifest hashed paths: 627
+- source state manifest hashed paths: 697
 - worktree dirty: True
+- verified dirty-state release package: True
+- release package verification status: PASS
 
 Failed hard gates:
 - none
@@ -39,7 +41,7 @@ Prohibited claims:
 
 Supporting evidence:
 - validation framework overall_status: PASS_WITH_WARNINGS
-- probe linker best pair-F1: 0.35220125786163525
+- probe linker best pair-F1: 0.22950819672131148
 
 Failed hard gates:
 - none
@@ -60,12 +62,11 @@ Prohibited claims:
 Supporting evidence:
 - scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']
 - replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'stress': 10, 'central_provisional': 10, 'easier': 10}
-- metric failures: 2
+- metric failures: 0
 - three evaluation settings reported: True
 - required executable scenario configs present: True
 
 Failed hard gates:
-- observable hard-fidelity failures remain in non-critical current gates
 - main-scenario seed robustness is warning or inconclusive
 
 Permitted uses:
@@ -83,14 +84,13 @@ Prohibited claims:
 Supporting evidence:
 - multi-seed ready: True
 - required scenario artifacts ready: True
-- observable hard failures: True
+- observable hard failures: False
 - probe ranking summary rows: 21
-- main-scenario top-probe rank-1 frequency: 0.5
-- all-benchmark top-probe rank-1 frequency: 0.58
+- main-scenario top-probe rank-1 frequency: 0.8
+- all-benchmark top-probe rank-1 frequency: 0.9
 - cross-scenario-mean top-probe rank-1 frequency: 1.0
 
 Failed hard gates:
-- observable hard-fidelity failures remain in non-critical current gates
 - main-scenario seed robustness is warning or inconclusive
 - headline difficulty varies materially across scenarios and must be scenario-labelled
 - main-scenario probe-linker ranking stability is warning or inconclusive
@@ -111,16 +111,16 @@ Supporting evidence:
 - validation status: PASS_WITH_WARNINGS
 - calendar-month metric present in saved outputs: True
 - generated_from_current_head: True
-- source state manifest hashed paths: 627
+- source state manifest hashed paths: 697
 - worktree dirty: True
+- verified dirty-state release package: True
+- release package archive sha256: cd41659736a76fe68d2100289b53de1277c7dbfe5eef3a2bb81f98b7983d3e76
 
 Failed hard gates:
-- observable hard-fidelity failures remain in non-critical current gates
 - main-scenario seed robustness is warning or inconclusive
 - headline difficulty varies materially across scenarios and must be scenario-labelled
 - main-scenario probe-linker ranking stability is warning or inconclusive
 - cross-scenario probe-linker ranking stability is warning or inconclusive
-- worktree has uncommitted or untracked changes; source_state_manifest.json records the dirty state, but final release still requires a clean commit or standalone release package
 
 Permitted uses:
 - not release-ready
@@ -133,33 +133,30 @@ Prohibited claims:
 
 ## Current Problem Inventory
 
-- `marginals` / `text_length` / `W1_scaled`: WARNING (real=nan, synthetic=nan, effect=0.16073112073112, tolerance=0.1)
-- `temporal` / `followup_runway` / `abs_diff_pp`: WARNING (real=0.5501577585290052, synthetic=0.4307709724895279, effect=11.938678603947729, tolerance=5.0)
-- `missingness_text_identifier` / `siret_missing` / `rate_abs_diff_pp`: FAIL (real=0.7277572291221063, synthetic=0.6840258122948035, effect=4.3731416827302745, tolerance=2.0)
-- `missingness_text_identifier` / `siren_missing` / `rate_abs_diff_pp`: WARNING (real=0.7277572291221063, synthetic=0.69398845239443, effect=3.376877672767631, tolerance=2.0)
-- `missingness_text_identifier` / `siret_present` / `presence_rate_abs_diff_pp`: FAIL (real=0.2722427708778937, synthetic=0.3159741877051964, effect=4.373141682730269, tolerance=2.0)
-- `missingness_text_identifier` / `siren_present` / `presence_rate_abs_diff_pp`: WARNING (real=0.2722427708778937, synthetic=0.30601154760557003, effect=3.376877672767631, tolerance=2.0)
-- `buyer_activity` / `activity_gini` / `abs_diff`: WARNING (real=0.8316141557268819, synthetic=0.7138582998635006, effect=0.1177558558633813, tolerance=0.1)
-- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.3827800952459733, synthetic=0.3064643948828258, effect=7.631570036314756, tolerance=10.0)
-- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.6612859388109615, synthetic=0.5419449790558134, effect=11.934095975514811, tolerance=10.0)
-- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.7798234522529336, synthetic=0.6559492811049473, effect=12.387417114798629, tolerance=10.0)
-- `buyer_activity` / `relative_notices_per_buyer` / `q99_abs_diff`: WARNING (real=16.20559138768418, synthetic=14.365859843767739, effect=1.8397315439164408, tolerance=1.0)
-- `text` / `unigram_distribution` / `JS`: WARNING (real=nan, synthetic=nan, effect=0.4255640695754855, tolerance=0.3)
-- `text` / `bigram_distribution` / `JS`: WARNING (real=nan, synthetic=nan, effect=0.7762592410856641, tolerance=0.4)
-- `hidden_truth_difficulty` / `pairs_quality` / `PQ`: WARNING (real=nan, synthetic=0.038435140700068635, effect=0.0384351407000686, tolerance=0.05)
-- `hidden_truth_difficulty` / `pairs_quality` / `PQ`: WARNING (real=nan, synthetic=0.030213903743315507, effect=0.0302139037433155, tolerance=0.05)
-- `robustness` / `blocking_pairs_completeness` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.32152326847656354, effect=0.3215232684765635, tolerance=0.25)
+- `marginals` / `text_length` / `W1_scaled`: WARNING (real=nan, synthetic=nan, effect=0.173961840628508, tolerance=0.1)
+- `marginals` / `text_length` / `q75_relative_error`: WARNING (real=133.0, synthetic=117.0, effect=0.1203007518796992, tolerance=0.1)
+- `temporal` / `followup_runway` / `abs_diff_pp`: WARNING (real=0.5501577585290052, synthetic=0.4310053029448268, effect=11.915245558417835, tolerance=5.0)
+- `missingness_text_identifier` / `siret_missing` / `rate_abs_diff_pp`: WARNING (real=0.7277572291221063, synthetic=0.7069840911655195, effect=2.077313795658675, tolerance=2.0)
+- `missingness_text_identifier` / `siret_present` / `presence_rate_abs_diff_pp`: WARNING (real=0.2722427708778937, synthetic=0.2930159088344804, effect=2.07731379565867, tolerance=2.0)
+- `buyer_activity` / `activity_gini` / `abs_diff`: WARNING (real=0.8316141557268819, synthetic=0.7316588899848229, effect=0.099955265742059, tolerance=0.1)
+- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.3827800952459733, synthetic=0.31400203091504003, effect=6.877806433093331, tolerance=10.0)
+- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.6612859388109615, synthetic=0.5599684079882659, effect=10.131753082269569, tolerance=10.0)
+- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.7798234522529336, synthetic=0.673473993004626, effect=10.634945924830763, tolerance=10.0)
+- `text` / `token_count` / `q50_relative_error`: WARNING (real=17.0, synthetic=13.0, effect=0.2352941176470588, tolerance=0.2)
+- `text` / `unigram_distribution` / `JS`: WARNING (real=nan, synthetic=nan, effect=0.4421110581068999, tolerance=0.3)
+- `text` / `bigram_distribution` / `JS`: WARNING (real=nan, synthetic=nan, effect=0.7835691386850636, tolerance=0.4)
+- `hidden_truth_difficulty` / `pairs_quality` / `PQ`: WARNING (real=nan, synthetic=0.03518518518518519, effect=0.0351851851851851, tolerance=0.05)
+- `hidden_truth_difficulty` / `pairs_quality` / `PQ`: WARNING (real=nan, synthetic=0.03188028627195836, effect=0.0318802862719583, tolerance=0.05)
+- `robustness` / `blocking_pairs_completeness` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.26105641030101995, effect=0.2610564103010199, tolerance=0.25)
 - `robustness` / `blocking_pairs_completeness` / `nonpass_frequency`: WARNING (real=nan, synthetic=0.1, effect=0.1, tolerance=0)
-- `robustness` / `match_vs_hard_negative_score` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.3233261218161955, effect=0.3233261218161955, tolerance=0.25)
-- `robustness` / `probe_headroom` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.3904237462955547, effect=0.3904237462955547, tolerance=0.25)
+- `robustness` / `match_vs_hard_negative_score` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.2524004615376075, effect=0.2524004615376075, tolerance=0.25)
+- `robustness` / `probe_headroom` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.4984839783230138, effect=0.4984839783230138, tolerance=0.25)
 - `robustness` / `probe_headroom` / `nonpass_frequency`: WARNING (real=nan, synthetic=0.1, effect=0.1, tolerance=0)
-- `robustness` / `blocking_pairs_completeness` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.3667980981318291, effect=0.3667980981318291, tolerance=0.25)
-- `robustness` / `match_vs_hard_negative_score` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.28394597820813844, effect=0.2839459782081384, tolerance=0.25)
-- `robustness` / `probe_headroom` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.5872445933320519, effect=0.5872445933320519, tolerance=0.25)
+- `robustness` / `blocking_pairs_completeness` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.31108823999025986, effect=0.3110882399902598, tolerance=0.25)
+- `robustness` / `probe_headroom` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.6611260254405965, effect=0.6611260254405965, tolerance=0.25)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
-- `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-1.0, effect=-1.0, tolerance=0.8)
+- `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-0.3333333333333333, effect=-0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
-- `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-1.0, effect=-1.0, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-1.0, effect=-1.0, tolerance=0.8)

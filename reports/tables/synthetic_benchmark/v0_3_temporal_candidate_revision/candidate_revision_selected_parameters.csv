@@ -1,10 +1,10 @@
 parameter,value
 recurrence_propensity_multiplier,0.88
-near_window_share,1.0
+near_window_share,0.8
 hard_negative_alignment_rate,0.34
 cluster_scoped_needs_by_buyer,True
 scoped_buyer_affinity_share,0.102
-scoped_need_probability_high,0.74
+scoped_need_probability_high,0.7
 stabilize_scoped_establishment,True
 stabilize_scoped_name_fallback,True
 stabilize_scoped_identity_by_need,True

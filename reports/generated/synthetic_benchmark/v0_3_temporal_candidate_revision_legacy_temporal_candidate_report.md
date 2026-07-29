@@ -10,16 +10,16 @@ readiness assessment in
 `reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/`
 for permitted uses and prohibited claims.
 
-- Conditional fidelity: **NEEDS_REVISION**
+- Conditional fidelity: **PASS**
 - Temporal validation: **PASS**
 - Candidate environment: **PASS**
 - Structural truth: **PASS**
 
 ## Candidate improvement
 
-- Zero-candidate rate: v0.2 90.4% -> v0.3 38.6%; real 40.7%.
-- P75/P90/P95 candidates: v0.3 6/11/13; real 4/9/14.
-- Source-count ratio vs scaled real target: 1.20.
+- Zero-candidate rate: v0.2 90.4% -> v0.3 43.8%; real 40.7%.
+- P75/P90/P95 candidates: v0.3 4/8/11; real 4/9/14.
+- Source-count ratio vs scaled real target: 1.14.
 - Cap-reached rate: 0.0%.
 
 ## Remaining caveats

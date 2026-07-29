@@ -1,7 +1,11 @@
 from pathlib import Path
+from types import SimpleNamespace
 
+import numpy as np
+import pandas as pd
 import pytest
 
+from boamp.synthetic.corruption import corrupt_notices
 from boamp.synthetic.pipeline import generate_clean_world, generate_observed_world
 from boamp.synthetic.reproducibility import (
     benchmark_tables_from_world,
@@ -48,9 +52,96 @@ def test_observed_buyer_identity_is_stable_within_notice_family():
     sibling_cycles = with_cycle.groupby("cycle_id_true").filter(lambda g: len(g) > 1)
 
     assert not sibling_cycles.empty
-    for field in ["buyer_siret_raw", "buyer_siren_raw", "buyer_name_raw"]:
-        max_distinct = sibling_cycles.groupby("cycle_id_true")[field].nunique(dropna=False).max()
-        assert max_distinct == 1
+    max_distinct = sibling_cycles.groupby("cycle_id_true")["buyer_name_raw"].nunique(dropna=False).max()
+    assert max_distinct == 1
+
+
+def test_conditional_identifier_visibility_is_notice_level_with_stable_family_name():
+    from boamp.synthetic.scenarios import load_scenario
+
+    scenario = load_scenario(REPO, "central_provisional")
+    scenario.identifiers.conditional_siret_presence.enabled = True
+    scenario.identifiers.conditional_siret_presence.siren_only_among_absent_rate = 0.0
+    scenario.identifiers.conditional_siret_presence.invalid_among_absent_rate = 0.0
+    scenario.identifiers.wrong_establishment_siret_rate = 0.0
+    scenario.buyer_names.generic_collision_rate = 0.0
+    scenario.buyer_names.false_split_rate = 0.0
+
+    buyers = pd.DataFrame(
+        [{
+            "buyer_id_true": "B1",
+            "identifier_quality_propensity": 0.5,
+            "alias_propensity": 0.0,
+            "buyer_type_true": "COMMUNE",
+        }]
+    )
+    establishments = pd.DataFrame([{"siren_true": "356000000", "siret_true": "35600000000048"}])
+    clean = pd.DataFrame(
+        [
+            {
+                "notice_id_synthetic": "N_CALL",
+                "buyer_id_true": "B1",
+                "need_id_true": "NEED1",
+                "cycle_id_true": "CYCLE1",
+                "cpv_true": "32000000",
+                "siret_true": "35600000000048",
+                "siren_true": "356000000",
+                "buyer_name_true": "Commune de Test",
+                "department_true": "75",
+                "publication_date_true": pd.Timestamp("2026-01-01"),
+                "notice_type_true": "APPEL_OFFRE",
+                "schema_family_true": "EFORMS",
+                "duration_true_months": 12.0,
+                "objet_true": "Maintenance informatique",
+                "role": "CALL",
+                "linked_call_notice_id_true": None,
+            },
+            {
+                "notice_id_synthetic": "N_AWARD",
+                "buyer_id_true": "B1",
+                "need_id_true": "NEED1",
+                "cycle_id_true": "CYCLE1",
+                "cpv_true": "32000000",
+                "siret_true": "35600000000048",
+                "siren_true": "356000000",
+                "buyer_name_true": "Commune de Test",
+                "department_true": "75",
+                "publication_date_true": pd.Timestamp("2026-01-15"),
+                "notice_type_true": "ATTRIBUTION",
+                "schema_family_true": "EFORMS",
+                "duration_true_months": 12.0,
+                "objet_true": "Maintenance informatique",
+                "role": "AWARD",
+                "linked_call_notice_id_true": "N_CALL",
+            },
+        ]
+    )
+
+    class ObservationModel:
+        def siret_present_rate(self, row):
+            return 0.0 if row["notice_type_true"] == "APPEL_OFFRE" else 1.0
+
+        def duration_present_rate(self, row):
+            return 1.0
+
+        def declared_duration_value(self, notice_id):
+            return 12.0
+
+        def generic_text_rate(self, notice_type, buyer_activity_tier):
+            return 0.0
+
+    logger = SimpleNamespace(log=lambda *args, **kwargs: None)
+    observed = corrupt_notices(
+        clean, buyers, establishments, scenario, np.random.default_rng(1), logger,
+        observation_model=ObservationModel(),
+    )
+
+    by_id = observed.set_index("notice_id_synthetic")
+    assert by_id.loc["N_CALL", "buyer_siret_raw"] is None
+    assert by_id.loc["N_AWARD", "buyer_siret_raw"] == "35600000000048"
+    assert observed["buyer_name_raw"].nunique() == 1
+    assert by_id.loc["N_CALL", "objet_clean"] == "Maintenance informatique"
+    assert by_id.loc["N_AWARD", "objet_clean"] == "Maintenance informatique - attribution du marché."
 
 
 def test_different_world_seed_changes_the_generated_population():

@@ -1,6 +1,6 @@
 metric,value,status
-cycles,6334,PASS
-successor_relation_rate,0.2949163245974108,DIAGNOSTIC
-share_true_gaps_over_6m,0.8233404710920771,PASS
+cycles,6368,PASS
+successor_relation_rate,0.2985238693467337,DIAGNOSTIC
+share_true_gaps_over_6m,0.8416622830089426,PASS
 observed_truth_columns,0,PASS
 metadata_validation_status,PASS,PASS

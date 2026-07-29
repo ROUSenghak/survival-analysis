@@ -79,6 +79,42 @@ def _load_metadata(project_root: Path, version: str, scenario: str, world: str, 
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _load_json_if_exists(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def _verified_dirty_package(project_root: Path, version: str, head: str | None) -> dict:
+    base = project_root / "reports" / "tables" / "synthetic_benchmark" / version
+    manifest_path = base / "dirty_state_overlay_manifest.json"
+    verification_path = base / "dirty_state_overlay_verification.json"
+    manifest = _load_json_if_exists(manifest_path)
+    verification = _load_json_if_exists(verification_path)
+    ok = (
+        bool(head)
+        and manifest.get("status") == "PASS"
+        and verification.get("status") in {"PASS", "PASS_WITH_LIMITATIONS"}
+        and manifest.get("git_head") == head
+        and verification.get("git_head") == head
+        and bool(verification.get("archive_sha_matches_manifest"))
+        and bool(verification.get("source_state_manifest_sha_matches_manifest"))
+        and bool(verification.get("member_list_matches_manifest"))
+        and int(verification.get("n_missing", -1)) == 0
+        and int(verification.get("n_mismatches", -1)) == 0
+    )
+    return {
+        "ok": ok,
+        "manifest_path": manifest_path.relative_to(project_root).as_posix(),
+        "verification_path": verification_path.relative_to(project_root).as_posix(),
+        "status": verification.get("status", "MISSING"),
+        "archive_path": verification.get("archive_path") or manifest.get("archive_path", "MISSING"),
+        "archive_sha256": verification.get("archive_sha256") or manifest.get("archive_sha256", "MISSING"),
+        "n_hashed_paths_checked": verification.get("n_hashed_paths_checked", 0),
+        "n_missing": verification.get("n_missing", 0),
+        "n_mismatches": verification.get("n_mismatches", 0),
+        "n_deletions_not_representable": verification.get("n_deletions_not_representable", 0),
+    }
+
+
 def _metric(metrics: pd.DataFrame, scope: str, prop: str, metric: str) -> pd.DataFrame:
     return metrics.loc[
         metrics["scope"].eq(scope)
@@ -164,6 +200,8 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
     metadata = _load_metadata(project_root, version, scenario, world, corruption)
     head = _git_head(project_root)
     worktree_dirty = _git_dirty(project_root)
+    dirty_package = _verified_dirty_package(project_root, version, head)
+    release_state_packaged = bool(dirty_package["ok"])
     replicate_counts = _replicate_counts(project_root, version)
     scenarios_present = sorted(replicate_counts)
     required_scenarios = {"easier", "moderate", "difficult", "stress"}
@@ -265,7 +303,9 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
             f"generated data metadata commit {metadata.get('git_commit')} differs from current HEAD {head}"
         )
     if worktree_dirty:
-        if source_state:
+        if release_state_packaged:
+            pass
+        elif source_state:
             technical_limitations.append(
                 "worktree has uncommitted or untracked changes; source_state_manifest.json records the dirty state, but final release still requires a clean commit or standalone release package"
             )
@@ -294,6 +334,8 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
                 f"replayed artifacts: {replay_replicates.get('n_replicates', 0)}",
                 f"source state manifest hashed paths: {source_state.get('n_hashed_paths', 0)}",
                 f"worktree dirty: {worktree_dirty}",
+                f"verified dirty-state release package: {release_state_packaged}",
+                f"release package verification status: {dirty_package['status']}",
             ],
             "failed_hard_gates": [] if technical_status != "FAIL" else ["internal/specification/privacy/replay"],
             "remaining_warnings": technical_limitations,
@@ -394,6 +436,8 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
                 f"generated_from_current_head: {generated_from_head}",
                 f"source state manifest hashed paths: {source_state.get('n_hashed_paths', 0)}",
                 f"worktree dirty: {worktree_dirty}",
+                f"verified dirty-state release package: {release_state_packaged}",
+                f"release package archive sha256: {dirty_package['archive_sha256']}",
             ],
             "failed_hard_gates": release_blockers,
             "remaining_warnings": ["release docs must use validated synthetic benchmark language only"],
@@ -411,6 +455,8 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
         "validation_manifest_status": manifest.get("overall_status"),
         "current_git_head": head,
         "worktree_dirty": worktree_dirty,
+        "release_state_packaged": release_state_packaged,
+        "release_package": dirty_package,
         "generated_data_git_commit": metadata.get("git_commit"),
         "replicate_counts": replicate_counts,
         "current_problem_inventory": _problem_table(metrics),

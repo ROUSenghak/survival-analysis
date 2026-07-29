@@ -1,5 +1,5 @@
 dimension,status,notes
-conditional_fidelity,NEEDS_REVISION,v0.3 WMAE remains under threshold with <=1pp regression vs v0.2.
+conditional_fidelity,PASS,v0.3 WMAE remains under threshold with <=1pp regression vs v0.2.
 temporal_validation,PASS,Calendar and 12m/24m follow-up gates.
 candidate_environment_validation,PASS,Production Layer 1 candidate generation on algorithm source scope.
 structural_truth_validation,PASS,"Metadata, truth leakage, and broad true-gap tail."

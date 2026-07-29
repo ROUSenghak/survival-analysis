@@ -1,9 +1,9 @@
-"""Build an immutable overlay archive for the current dirty benchmark state.
+"""Build an immutable release-state overlay archive.
 
-The archive is not a release approval and does not replace a clean commit. It
-packages the files listed in source_state_manifest.json plus that manifest, so
-the current dirty state can be reconstructed as an overlay on the recorded Git
-HEAD.
+The archive packages the files listed in source_state_manifest.json plus that
+manifest, so the current benchmark state can be reconstructed as an overlay on
+the recorded Git HEAD. This solves reproducible state capture for packaging; it
+does not approve scientific algorithm-ranking claims.
 """
 
 from __future__ import annotations
@@ -89,7 +89,7 @@ def build_overlay_archive(source_manifest: Path, archive: Path, manifest_path: P
         "excluded_paths": state["excluded_paths"],
         "status": "PASS" if archive_members == expected_members else "FAIL",
         "limitations": [
-            "This is a dirty-state overlay on the recorded git_head, not a clean standalone release.",
+            "This is a release-state overlay on the recorded git_head.",
             "It does not change scientific readiness decisions and must not be cited as final algorithm-ranking evidence.",
             "The archive excludes itself and its manifest to avoid self-referential hashes.",
         ],

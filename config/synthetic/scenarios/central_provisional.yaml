@@ -48,12 +48,12 @@ recurrence:
     enabled: true
     cpv_divisions: ["32", "35", "48", "72"]
     recurrence_propensity_multiplier: 0.88
-    near_window_share: 1.00
+    near_window_share: 0.80
     near_window_distribution: {type: normal, mean_months: 2.0, sd_months: 2.0, min_months: 0.1, max_months: 6.0}
     hard_negative_alignment_rate: 0.34
     cluster_scoped_needs_by_buyer: true
     scoped_buyer_affinity_share: 0.102
-    scoped_need_probability_high: 0.74
+    scoped_need_probability_high: 0.70
     stabilize_scoped_establishment: true
     stabilize_scoped_name_fallback: true
     stabilize_scoped_identity_by_need: true
@@ -74,9 +74,9 @@ recurrence:
       0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once
       the observed high-activity tail was restored. The current selected setting
       is the one written above: affinity share 0.102, high scoped-need
-      probability 0.74, near-window share 1.00, recurrence multiplier 0.88, and
+      probability 0.70, near-window share 0.80, recurrence multiplier 0.88, and
       hard-negative alignment rate 0.34. It preserves the digital source scale
-      and reproduces the real zero-candidate rate to within about 2 percentage
+      and reproduces the real zero-candidate rate to within about 4 percentage
       points, while keeping production blocking completeness above its warning
       floor for most of the documented 10 central seeds; seed spread itself
       remains a warning-level robustness finding, not a solved problem.
@@ -138,6 +138,7 @@ identifiers:
     source: data/interim/boamp_common_prepared.csv
     conditioning: [schema_family, publication_year, notice_type_normalized]
     smoothing: {method: beta_binomial_global_prior, prior_strength: 25}
+    presence_scale: 0.92
     siren_only_among_absent_rate: 0.0
     invalid_among_absent_rate: 0.01
     note: >
@@ -145,7 +146,9 @@ identifiers:
       v0.2 conditional revision. The target is checksum-clean SIRET presence;
       the absent mass is still split into SIREN-only, invalid, and missing
       official-identifier outcomes so the corruption vocabulary remains
-      compatible with the current linkage pipeline.
+      compatible with the current linkage pipeline. The global presence_scale
+      preserves the conditional shape while aligning the release-candidate
+      marginal SIRET presence rate after the v0.3 source-density revision.
 
 buyer_names:
   false_split_rate: 0.279       # EMPIRICAL: buyer_name_variation_rate
@@ -280,6 +283,7 @@ text:
     exact_template_share: 0.82
     near_boilerplate_extra_rate: 0.08
     generic_weak_extra_rate: 0.04
+    same_buyer_admin_template_rate: 0.35
     same_family_near_duplicate_rate: 0.0
     note: >
       Replaces the high global boilerplate_rate in central_provisional v0.2.
@@ -287,9 +291,13 @@ text:
       text with row-specific tokens and generic weak procurement wording.
       This reduces unrealistic cross-buyer exact duplicates while preserving
       repeated administrative language. Same-family CALL/AWARD wording remains
-      exact unless lexical drift is separately drawn; converting almost every
-      award into a row-specific "near duplicate" erased the real corpus's high
-      normalized duplicate share after corruption.
+      exact when the observed buyer key is stable. The corruption layer adds a
+      stable attribution suffix only when notice-level SIRET/name-key
+      differences would otherwise make a family duplicate look like
+      cross-buyer generic boilerplate. High-activity buyers also reuse an
+      observable-buyer-key administrative title at a calibrated rate,
+      increasing within-corpus duplicate share without pooling text across
+      unrelated buyer keys.
     # RECALIBRATED (v0.1 fidelity follow-up, exact_duplicate_template_rate):
     # real corpus's literal-duplication rate (51.4%) is far higher than
     # same-family CALL/AWARD reuse alone can produce -- the real driver is

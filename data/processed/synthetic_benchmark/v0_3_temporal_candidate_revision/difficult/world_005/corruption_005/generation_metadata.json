@@ -22,15 +22,15 @@
     "notice_family_membership": 8068,
     "clean_notices": 8068,
     "observed_notices": 8068,
-    "corruption_log": 25662
+    "corruption_log": 31487
   },
-  "execution_timestamp_utc": "2026-07-28T08:06:08.166789+00:00",
-  "git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "execution_timestamp_utc": "2026-07-29T12:03:13.139871+00:00",
+  "git_commit": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
   "runtime_environment": {
     "python": "3.12.3",
-    "numpy": "2.5.1",
+    "numpy": "2.4.6",
     "pandas": "2.3.3",
-    "pyarrow": "25.0.0"
+    "pyarrow": "24.0.0"
   },
   "resolved_scenario": {
     "scenario_id": "difficult",
@@ -81,7 +81,7 @@
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,
-        "note": "v0.3 temporal/candidate revision block. These are bounded scenario parameters that originally lived only in v0.3 metadata; they now live in the scenario file so the released benchmark can be replayed from configuration. The scoped buyer-affinity/share values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario: the older 0.07/0.70 and 0.07/0.50 settings became too dense once the observed high-activity tail was restored. The current 0.02/0.25 setting with near-window share 0.80 preserves the digital source scale and zero-candidate rate in the central world, while keeping production blocking completeness above its warning floor across the documented 10 central seeds and leaving the buyer-activity tail to be checked separately by the validation framework. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
+        "note": "v0.3 temporal/candidate revision block. These are FIDELITY_TUNED scenario parameters, not empirical estimates: they were selected by the bounded sweep in scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py against candidate-environment gates, and the selected set is recorded in candidate_revision_selected_parameters.csv and in generation_metadata.json#candidate_revision. They live in this file rather than only in metadata so the released benchmark replays from configuration. Selection history: the values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario. Earlier scoped_buyer_affinity_share/scoped_need_probability_high settings of 0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once the observed high-activity tail was restored. The current selected setting is the one written above: affinity share 0.102, high scoped-need probability 0.70, near-window share 0.80, recurrence multiplier 0.88, and hard-negative alignment rate 0.34. It preserves the digital source scale and reproduces the real zero-candidate rate to within about 4 percentage points, while keeping production blocking completeness above its warning floor for most of the documented 10 central seeds; seed spread itself remains a warning-level robustness finding, not a solved problem. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
       }
     },
     "identifiers": {
@@ -116,9 +116,10 @@
           "method": "beta_binomial_global_prior",
           "prior_strength": 25
         },
+        "presence_scale": 0.92,
         "siren_only_among_absent_rate": 0.0,
         "invalid_among_absent_rate": 0.01,
-        "note": "Overrides the older year-regime scale for central_provisional in the v0.2 conditional revision. The target is checksum-clean SIRET presence; the absent mass is still split into SIREN-only, invalid, and missing official-identifier outcomes so the corruption vocabulary remains compatible with the current linkage pipeline.\n"
+        "note": "Overrides the older year-regime scale for central_provisional in the v0.2 conditional revision. The target is checksum-clean SIRET presence; the absent mass is still split into SIREN-only, invalid, and missing official-identifier outcomes so the corruption vocabulary remains compatible with the current linkage pipeline. The global presence_scale preserves the conditional shape while aligning the release-candidate marginal SIRET presence rate after the v0.3 source-density revision.\n"
       }
     },
     "buyer_names": {
@@ -193,8 +194,9 @@
         "exact_template_share": 0.88,
         "near_boilerplate_extra_rate": 0.12,
         "generic_weak_extra_rate": 0.07,
+        "same_buyer_admin_template_rate": 0.35,
         "same_family_near_duplicate_rate": 0.0,
-        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact unless lexical drift is separately drawn; converting almost every award into a row-specific \"near duplicate\" erased the real corpus's high normalized duplicate share after corruption.\n"
+        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact when the observed buyer key is stable. The corruption layer adds a stable attribution suffix only when notice-level SIRET/name-key differences would otherwise make a family duplicate look like cross-buyer generic boilerplate. High-activity buyers also reuse an observable-buyer-key administrative title at a calibrated rate, increasing within-corpus duplicate share without pooling text across unrelated buyer keys.\n"
       }
     },
     "linked_notice_visibility": {

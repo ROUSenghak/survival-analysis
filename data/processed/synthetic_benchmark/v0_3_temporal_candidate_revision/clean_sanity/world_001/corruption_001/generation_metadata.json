@@ -24,13 +24,13 @@
     "observed_notices": 2619,
     "corruption_log": 513
   },
-  "execution_timestamp_utc": "2026-07-28T08:53:38.417465+00:00",
-  "git_commit": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "execution_timestamp_utc": "2026-07-29T11:57:06.479191+00:00",
+  "git_commit": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
   "runtime_environment": {
     "python": "3.12.3",
-    "numpy": "2.5.1",
+    "numpy": "2.4.6",
     "pandas": "2.3.3",
-    "pyarrow": "25.0.0"
+    "pyarrow": "24.0.0"
   },
   "resolved_scenario": {
     "scenario_id": "clean_sanity",

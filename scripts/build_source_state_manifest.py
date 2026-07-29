@@ -1,8 +1,9 @@
-"""Record the exact dirty source/artifact state for auditability.
+"""Record the exact dirty source/artifact state for release packaging.
 
-This does not make a dirty worktree release-clean. It gives reviewers a
-machine-readable inventory of the uncommitted/untracked files that define the
-current benchmark state when a commit or archive has not yet been made.
+The manifest gives reviewers a machine-readable inventory of the
+uncommitted/untracked files that define the current benchmark state. When paired
+with a verified overlay archive, it can support a reproducible release-state
+package without pretending that scientific ranking gates have passed.
 """
 
 from __future__ import annotations
@@ -16,6 +17,13 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+GIT = [
+    "git",
+    "-c", "filter.lfs.process=",
+    "-c", "filter.lfs.required=false",
+    "-c", "filter.lfs.clean=cat",
+    "-c", "filter.lfs.smudge=cat",
+]
 DEFAULT_OUTPUT = (
     ROOT
     / "reports"
@@ -28,12 +36,14 @@ DEFAULT_EXCLUDED_PATHS = {
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json",
 }
 
 
 def _git(args: list[str]) -> str:
     return subprocess.run(
-        ["git", *args],
+        [*GIT, *args],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -43,7 +53,7 @@ def _git(args: list[str]) -> str:
 
 def _git_z(args: list[str]) -> list[str]:
     out = subprocess.run(
-        ["git", *args],
+        [*GIT, *args],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -102,9 +112,10 @@ def build_manifest(output: Path, extra_excluded_paths: set[str] | None = None) -
         "n_hashed_paths": len(file_rows),
         "files": file_rows,
         "limitations": [
-            "The manifest hashes the dirty worktree for auditability but does not replace a clean commit.",
+            "The manifest hashes the dirty worktree for auditability and release-state packaging.",
             "Dirty-state overlay archive paths are excluded to avoid self-referential hashes.",
             "The manifest cannot include its own final hash without becoming self-referential; excluded_self records that path.",
+            "This state-capture manifest does not change scientific ranking or robustness readiness.",
         ],
     }
 

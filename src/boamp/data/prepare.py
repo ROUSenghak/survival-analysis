@@ -172,7 +172,7 @@ def prepare_common(df: pd.DataFrame, cfg, verbose: bool = True) -> tuple[pd.Data
 
     # Median-by-CPV-division imputation, computed on the in-scope
     # APPEL_OFFRE population only (the source scope), documented limitation:
-    # ~88% of sources end up imputed.
+    # 82.7% of current sources end up imputed.
     ao_mask = (df["notice_type_normalized"] == "APPEL_OFFRE") & df["is_digital_scope"]
     global_median = df.loc[ao_mask & df["duration_valid"], "declared_duration_months"].median()
     div_medians = (

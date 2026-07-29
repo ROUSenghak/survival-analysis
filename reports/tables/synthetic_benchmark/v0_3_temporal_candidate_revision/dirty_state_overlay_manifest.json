@@ -1,24 +1,26 @@
 {
-  "generated_at_utc": "2026-07-28T09:16:31.037716+00:00",
-  "git_head": "30da6f5532a05a91faebf6e48aa2aba9b1ff74d5",
+  "generated_at_utc": "2026-07-29T12:44:21.418389+00:00",
+  "git_head": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
   "archive_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
-  "archive_sha256": "c6f0264d94de0bef85feddd7ebe1639927fcebf34c1b568595e6676e10667ee8",
-  "archive_size_bytes": 120958274,
+  "archive_sha256": "cd41659736a76fe68d2100289b53de1277c7dbfe5eef3a2bb81f98b7983d3e76",
+  "archive_size_bytes": 133640223,
   "source_state_manifest_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/source_state_manifest.json",
-  "source_state_manifest_sha256": "b089fcc0957bd6a39e57f34e704eafe20b9e1d9ffefcfe977d845b63119db72f",
-  "overlay_file_count": 654,
-  "overlay_payload_file_count": 653,
-  "overlay_payload_size_bytes": 513085412,
+  "source_state_manifest_sha256": "de632a237f294c3d2876151b8dd426efb744b7daad44a5d4e9979409f78b1227",
+  "overlay_file_count": 698,
+  "overlay_payload_file_count": 697,
+  "overlay_payload_size_bytes": 514853242,
   "member_list_matches_manifest": true,
   "excluded_paths": [
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/source_state_manifest.json"
   ],
   "status": "PASS",
   "limitations": [
-    "This is a dirty-state overlay on the recorded git_head, not a clean standalone release.",
+    "This is a release-state overlay on the recorded git_head.",
     "It does not change scientific readiness decisions and must not be cited as final algorithm-ranking evidence.",
     "The archive excludes itself and its manifest to avoid self-referential hashes."
   ]
