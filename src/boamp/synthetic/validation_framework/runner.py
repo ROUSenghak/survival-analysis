@@ -13,9 +13,11 @@ from boamp.synthetic.validation_framework.fidelity import run_fidelity_validatio
 from boamp.synthetic.validation_framework.internal import checksum_file, run_internal_validation
 from boamp.synthetic.validation_framework.loaders import BenchmarkData, load_benchmark_data
 from boamp.synthetic.validation_framework.robustness import (
+    PROBE_PAIRWISE_COMPARISON_COLUMNS,
     PROBE_RANKING_SUMMARY_COLUMNS,
     PROBE_REPLICATE_COLUMNS,
     run_robustness_validation,
+    summarize_probe_pairwise_comparisons,
     summarize_probe_ranking_stability,
 )
 from boamp.synthetic.validation_framework.structure import run_structure_validation
@@ -135,6 +137,7 @@ def run_validation(
     robustness_metrics, replicate_probes = run_robustness_validation(data, enabled=robustness)
     metrics.extend(robustness_metrics)
     probe_ranking_summary = summarize_probe_ranking_stability(replicate_probes)
+    probe_pairwise_comparisons = summarize_probe_pairwise_comparisons(replicate_probes)
     metric_df = metric_frame(metrics)
     gate_df = gate_frame(summarize_gates(metrics))
     discrepancy_df = discrepancy_register(metrics)
@@ -159,8 +162,12 @@ def run_validation(
         "probe_ranking_stability": (
             probe_ranking_summary.to_dict("records") if len(probe_ranking_summary) else []
         ),
+        "probe_pairwise_comparisons": (
+            probe_pairwise_comparisons.to_dict("records") if len(probe_pairwise_comparisons) else []
+        ),
         "probe_replicate_result_count": int(len(replicate_probes)),
         "probe_ranking_summary_count": int(len(probe_ranking_summary)),
+        "probe_pairwise_comparison_count": int(len(probe_pairwise_comparisons)),
         "metric_count": int(len(metric_df)),
         "gate_count": int(len(gate_df)),
         "overall_status": "FAIL"
@@ -230,6 +237,10 @@ def write_validation_outputs(
     if ranking_summary.empty:
         ranking_summary = pd.DataFrame(columns=PROBE_RANKING_SUMMARY_COLUMNS)
     ranking_summary.to_csv(out_dir / "probe_ranking_stability.csv", index=False)
+    pairwise_comparisons = pd.DataFrame(manifest.get("probe_pairwise_comparisons", []))
+    if pairwise_comparisons.empty:
+        pairwise_comparisons = pd.DataFrame(columns=PROBE_PAIRWISE_COMPARISON_COLUMNS)
+    pairwise_comparisons.to_csv(out_dir / "probe_pairwise_comparisons.csv", index=False)
     (out_dir / "validation_manifest.json").write_text(json.dumps(manifest, indent=2, default=str), encoding="utf-8")
     return {
         "output_dir": out_dir,

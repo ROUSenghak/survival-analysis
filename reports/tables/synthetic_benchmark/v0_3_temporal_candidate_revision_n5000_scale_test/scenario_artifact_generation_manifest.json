@@ -1,0 +1,108 @@
+{
+  "generated_at_utc": "2026-07-29T13:16:27.023120+00:00",
+  "benchmark_version": "v0_3_temporal_candidate_revision_n5000_scale_test",
+  "dry_run": false,
+  "force": false,
+  "rows": [
+    {
+      "scenario": "central_provisional",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20260731,
+      "corruption_seed": 20260732,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20260741,
+      "corruption_seed": 20260742,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20260751,
+      "corruption_seed": 20260752,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20260761,
+      "corruption_seed": 20260762,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_005/corruption_005",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "006",
+      "corruption": "006",
+      "world_seed": 20260771,
+      "corruption_seed": 20260772,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_006/corruption_006",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "007",
+      "corruption": "007",
+      "world_seed": 20260781,
+      "corruption_seed": 20260782,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_007/corruption_007",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "008",
+      "corruption": "008",
+      "world_seed": 20260791,
+      "corruption_seed": 20260792,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_008/corruption_008",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "009",
+      "corruption": "009",
+      "world_seed": 20260801,
+      "corruption_seed": 20260802,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_009/corruption_009",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "010",
+      "corruption": "010",
+      "world_seed": 20260811,
+      "corruption_seed": 20260812,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_3_temporal_candidate_revision_n5000_scale_test/central_provisional/world_010/corruption_010",
+      "status": "GENERATED"
+    }
+  ]
+}

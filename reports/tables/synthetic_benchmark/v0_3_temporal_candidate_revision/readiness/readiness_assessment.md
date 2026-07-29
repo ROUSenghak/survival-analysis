@@ -6,7 +6,7 @@ Benchmark version: `v0_3_temporal_candidate_revision`
 Scenario: `central_provisional`
 Validation status read from manifest: `PASS_WITH_WARNINGS`
 Generated data commit: `e3aeb6353740f1c09674302847ee80faa2dc54ef`
-Current HEAD: `e3aeb6353740f1c09674302847ee80faa2dc54ef`
+Current HEAD: `ea06beb49f966c15f8b427f9c493867ea9a56a24`
 
 ## Decisions
 
@@ -19,7 +19,7 @@ Supporting evidence:
 - canonical replay checked: True
 - all generated artifacts replay: PASS
 - replayed artifacts: 51
-- source state manifest hashed paths: 697
+- source state manifest hashed paths: 228
 - worktree dirty: True
 - verified dirty-state release package: True
 - release package verification status: PASS
@@ -57,7 +57,7 @@ Prohibited claims:
 - Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.
 - A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels.
 
-### READY_FOR_CONTROLLED_ALGORITHM_COMPARISON: FAIL
+### READY_FOR_CONTROLLED_ALGORITHM_COMPARISON: PASS_WITH_LIMITATIONS
 
 Supporting evidence:
 - scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']
@@ -65,9 +65,11 @@ Supporting evidence:
 - metric failures: 0
 - three evaluation settings reported: True
 - required executable scenario configs present: True
+- main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}
+- overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.6666666666666666}
 
 Failed hard gates:
-- main-scenario seed robustness is warning or inconclusive
+- none
 
 Permitted uses:
 - controlled synthetic algorithm comparisons within documented scenarios
@@ -86,12 +88,15 @@ Supporting evidence:
 - required scenario artifacts ready: True
 - observable hard failures: False
 - probe ranking summary rows: 21
+- probe pairwise comparison rows: 21
 - main-scenario top-probe rank-1 frequency: 0.8
 - all-benchmark top-probe rank-1 frequency: 0.9
 - cross-scenario-mean top-probe rank-1 frequency: 1.0
+- main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}
+- overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.6666666666666666}
+- cross-scenario pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}
 
 Failed hard gates:
-- main-scenario seed robustness is warning or inconclusive
 - headline difficulty varies materially across scenarios and must be scenario-labelled
 - main-scenario probe-linker ranking stability is warning or inconclusive
 - cross-scenario probe-linker ranking stability is warning or inconclusive
@@ -110,14 +115,13 @@ Prohibited claims:
 Supporting evidence:
 - validation status: PASS_WITH_WARNINGS
 - calendar-month metric present in saved outputs: True
-- generated_from_current_head: True
-- source state manifest hashed paths: 697
+- generated_from_current_head: False
+- source state manifest hashed paths: 228
 - worktree dirty: True
 - verified dirty-state release package: True
-- release package archive sha256: cd41659736a76fe68d2100289b53de1277c7dbfe5eef3a2bb81f98b7983d3e76
+- release package archive sha256: b8c1014d2e94754f3487f067bd2b94374cb727b0910c66e39fe572fb00ea626e
 
 Failed hard gates:
-- main-scenario seed robustness is warning or inconclusive
 - headline difficulty varies materially across scenarios and must be scenario-labelled
 - main-scenario probe-linker ranking stability is warning or inconclusive
 - cross-scenario probe-linker ranking stability is warning or inconclusive
@@ -138,8 +142,6 @@ Prohibited claims:
 - `temporal` / `followup_runway` / `abs_diff_pp`: WARNING (real=0.5501577585290052, synthetic=0.4310053029448268, effect=11.915245558417835, tolerance=5.0)
 - `missingness_text_identifier` / `siret_missing` / `rate_abs_diff_pp`: WARNING (real=0.7277572291221063, synthetic=0.7069840911655195, effect=2.077313795658675, tolerance=2.0)
 - `missingness_text_identifier` / `siret_present` / `presence_rate_abs_diff_pp`: WARNING (real=0.2722427708778937, synthetic=0.2930159088344804, effect=2.07731379565867, tolerance=2.0)
-- `buyer_activity` / `activity_gini` / `abs_diff`: WARNING (real=0.8316141557268819, synthetic=0.7316588899848229, effect=0.099955265742059, tolerance=0.1)
-- `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.3827800952459733, synthetic=0.31400203091504003, effect=6.877806433093331, tolerance=10.0)
 - `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.6612859388109615, synthetic=0.5599684079882659, effect=10.131753082269569, tolerance=10.0)
 - `buyer_activity` / `activity_share` / `abs_diff_pp`: WARNING (real=0.7798234522529336, synthetic=0.673473993004626, effect=10.634945924830763, tolerance=10.0)
 - `text` / `token_count` / `q50_relative_error`: WARNING (real=17.0, synthetic=13.0, effect=0.2352941176470588, tolerance=0.2)
@@ -156,7 +158,11 @@ Prohibited claims:
 - `robustness` / `probe_headroom` / `coefficient_of_variation`: WARNING (real=nan, synthetic=0.6611260254405965, effect=0.6611260254405965, tolerance=0.25)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-0.3333333333333333, effect=-0.3333333333333333, tolerance=0.8)
+- `robustness` / `ranking_pairwise_support` / `supported_pair_fraction`: WARNING (real=nan, synthetic=0.6666666666666666, effect=0.6666666666666666, tolerance=0.8)
+- `robustness` / `ranking_pairwise_support` / `ambiguous_pair_fraction`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.25)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
+- `robustness` / `ranking_pairwise_support` / `supported_pair_fraction`: WARNING (real=nan, synthetic=0.6666666666666666, effect=0.6666666666666666, tolerance=0.8)
+- `robustness` / `ranking_pairwise_support` / `ambiguous_pair_fraction`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.25)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=0.3333333333333333, effect=0.3333333333333333, tolerance=0.8)
 - `robustness` / `probe_ranking` / `min_kendall_tau`: WARNING (real=nan, synthetic=-1.0, effect=-1.0, tolerance=0.8)

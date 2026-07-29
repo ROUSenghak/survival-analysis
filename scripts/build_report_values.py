@@ -370,6 +370,8 @@ def collect() -> Values:
     v.add_int("probe_replicate_rows", len(replicate_probes))
     ranking = pd.read_csv(VF / "probe_ranking_stability.csv")
     v.add_int("probe_ranking_rows", len(ranking))
+    pairwise = pd.read_csv(VF / "probe_pairwise_comparisons.csv")
+    v.add_int("probe_pairwise_rows", len(pairwise))
 
     rob = metrics.loc[metrics["scope"].eq("robustness")]
     v.add_int("replicate_inventory", int(float(

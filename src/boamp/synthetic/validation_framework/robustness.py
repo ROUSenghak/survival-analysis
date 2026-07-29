@@ -32,6 +32,10 @@ from boamp.synthetic.validation_framework.models import MetricResult, Status
 TOLERANCES = {
     "headline_cv_max": 0.25,
     "ranking_kendall_tau_min": 0.80,
+    "pairwise_supported_fraction_min": 0.80,
+    "pairwise_ambiguous_fraction_max": 0.25,
+    "pairwise_win_rate_strong_min": 0.95,
+    "pairwise_win_rate_directional_min": 0.80,
 }
 
 SCENARIOS_EXCLUDED_FROM_STABILITY = ("clean_sanity",)
@@ -63,6 +67,27 @@ PROBE_RANKING_SUMMARY_COLUMNS = [
     "min_rank",
     "max_rank",
     "prob_rank1",
+    "notes",
+]
+
+PROBE_PAIRWISE_COMPARISON_COLUMNS = [
+    "scope",
+    "scenario",
+    "algorithm_a",
+    "algorithm_b",
+    "n_units",
+    "mean_a",
+    "mean_b",
+    "mean_difference",
+    "sd_difference",
+    "ci_low",
+    "ci_high",
+    "win_rate_a",
+    "win_rate_b",
+    "tie_rate",
+    "support_status",
+    "winner",
+    "claim",
     "notes",
 ]
 
@@ -174,6 +199,120 @@ def _probe_ranking_metric(
     )
 
 
+def _paired_difference_summary(
+    values_a: pd.Series,
+    values_b: pd.Series,
+    algorithm_a: str,
+    algorithm_b: str,
+    scope: str,
+    scenario: str,
+    notes: str,
+) -> dict | None:
+    joint = pd.concat(
+        [
+            pd.to_numeric(values_a, errors="coerce").rename("a"),
+            pd.to_numeric(values_b, errors="coerce").rename("b"),
+        ],
+        axis=1,
+    ).dropna()
+    if joint.empty:
+        return None
+    diff = joint["a"] - joint["b"]
+    n = int(len(diff))
+    mean_diff = float(diff.mean())
+    sd_diff = float(diff.std(ddof=1)) if n > 1 else 0.0
+    if n > 1:
+        se = sd_diff / float(np.sqrt(n))
+        ci_low = float(mean_diff - 1.96 * se)
+        ci_high = float(mean_diff + 1.96 * se)
+    else:
+        ci_low = float("nan")
+        ci_high = float("nan")
+
+    win_rate_a = float(diff.gt(0).mean())
+    win_rate_b = float(diff.lt(0).mean())
+    tie_rate = float(diff.eq(0).mean())
+    if n < 2 or not np.isfinite(ci_low) or not np.isfinite(ci_high):
+        support_status = str(Status.INCONCLUSIVE)
+        winner = "INCONCLUSIVE"
+        claim = "too few paired units for uncertainty-supported comparison"
+    elif ci_low > 0:
+        winner = algorithm_a
+        support_status = (
+            str(Status.PASS)
+            if win_rate_a >= TOLERANCES["pairwise_win_rate_strong_min"]
+            else str(Status.WARNING)
+            if win_rate_a >= TOLERANCES["pairwise_win_rate_directional_min"]
+            else str(Status.WARNING)
+        )
+        claim = (
+            "supported winner"
+            if support_status == str(Status.PASS)
+            else "directional winner; report with uncertainty"
+        )
+    elif ci_high < 0:
+        winner = algorithm_b
+        support_status = (
+            str(Status.PASS)
+            if win_rate_b >= TOLERANCES["pairwise_win_rate_strong_min"]
+            else str(Status.WARNING)
+            if win_rate_b >= TOLERANCES["pairwise_win_rate_directional_min"]
+            else str(Status.WARNING)
+        )
+        claim = (
+            "supported winner"
+            if support_status == str(Status.PASS)
+            else "directional winner; report with uncertainty"
+        )
+    else:
+        support_status = str(Status.WARNING)
+        winner = "TIE_OR_NO_CLAIM"
+        claim = "confidence interval crosses zero; do not rank this pair"
+
+    return {
+        "scope": scope,
+        "scenario": scenario,
+        "algorithm_a": algorithm_a,
+        "algorithm_b": algorithm_b,
+        "n_units": n,
+        "mean_a": float(joint["a"].mean()),
+        "mean_b": float(joint["b"].mean()),
+        "mean_difference": mean_diff,
+        "sd_difference": sd_diff,
+        "ci_low": ci_low,
+        "ci_high": ci_high,
+        "win_rate_a": win_rate_a,
+        "win_rate_b": win_rate_b,
+        "tie_rate": tie_rate,
+        "support_status": support_status,
+        "winner": winner,
+        "claim": claim,
+        "notes": notes,
+    }
+
+
+def _summarize_pairwise_units(frame: pd.DataFrame, scope: str, scenario: str, notes: str) -> list[dict]:
+    if frame.empty:
+        return []
+    pivot = frame.pivot_table(index="unit", columns="probe", values="pair_f1")
+    algorithms = sorted(pivot.columns.astype(str))
+    rows: list[dict] = []
+    for i, algorithm_a in enumerate(algorithms):
+        for algorithm_b in algorithms[i + 1:]:
+            row = _paired_difference_summary(
+                pivot[algorithm_a],
+                pivot[algorithm_b],
+                algorithm_a,
+                algorithm_b,
+                scope,
+                scenario,
+                notes,
+            )
+            if row is not None:
+                rows.append(row)
+    return rows
+
+
 def _summarize_rank_units(frame: pd.DataFrame, scope: str, scenario: str, notes: str) -> list[dict]:
     if frame.empty:
         return []
@@ -247,6 +386,120 @@ def summarize_probe_ranking_stability(probes: pd.DataFrame) -> pd.DataFrame:
         )
     )
     return pd.DataFrame(rows, columns=PROBE_RANKING_SUMMARY_COLUMNS)
+
+
+def summarize_probe_pairwise_comparisons(probes: pd.DataFrame) -> pd.DataFrame:
+    """Paired probe-linker comparisons with uncertainty and tie/no-claim labels."""
+    if probes.empty:
+        return pd.DataFrame(columns=PROBE_PAIRWISE_COMPARISON_COLUMNS)
+    usable = probes.loc[~probes["scenario"].isin(SCENARIOS_EXCLUDED_FROM_STABILITY)].copy()
+    if usable.empty:
+        return pd.DataFrame(columns=PROBE_PAIRWISE_COMPARISON_COLUMNS)
+    usable["unit"] = (
+        usable["scenario"].astype(str)
+        + "/"
+        + usable["world"].astype(str)
+        + "-"
+        + usable["corruption"].astype(str)
+    )
+    rows: list[dict] = []
+    for scenario, group in usable.groupby("scenario"):
+        scenario_units = group.copy()
+        scenario_units["unit"] = scenario_units["world"].astype(str) + "-" + scenario_units["corruption"].astype(str)
+        rows.extend(
+            _summarize_pairwise_units(
+                scenario_units,
+                "within_scenario",
+                str(scenario),
+                "paired pair-F1 differences across generated seeds for one scenario",
+            )
+        )
+    scenario_means = (
+        usable.groupby(["scenario", "probe"], as_index=False)["pair_f1"]
+        .mean()
+        .rename(columns={"scenario": "unit"})
+    )
+    rows.extend(
+        _summarize_pairwise_units(
+            scenario_means,
+            "cross_scenario_means",
+            "BENCHMARK_SCENARIOS",
+            "paired differences across scenario mean pair-F1 values",
+        )
+    )
+    rows.extend(
+        _summarize_pairwise_units(
+            usable,
+            "all_benchmark_replicates",
+            "ALL",
+            "paired pair-F1 differences across all generated scenario/seed artifacts",
+        )
+    )
+    return pd.DataFrame(rows, columns=PROBE_PAIRWISE_COMPARISON_COLUMNS)
+
+
+def _pairwise_support_metric(
+    data: BenchmarkData,
+    subgroup: str,
+    comparisons: pd.DataFrame,
+    notes_prefix: str,
+) -> list[MetricResult]:
+    if comparisons.empty:
+        return [
+            _metric(
+                data, subgroup, "ranking_pairwise_support", "comparison_count", 0, None,
+                ">=1", Status.INCONCLUSIVE,
+                notes=f"{notes_prefix}; no pairwise comparison rows available",
+            )
+        ]
+    statuses = comparisons["support_status"].astype(str)
+    supported = comparisons.loc[
+        comparisons["winner"].astype(str).ne("TIE_OR_NO_CLAIM")
+        & statuses.isin({str(Status.PASS), str(Status.WARNING)})
+    ]
+    ambiguous = comparisons.loc[comparisons["winner"].astype(str).eq("TIE_OR_NO_CLAIM")]
+    inconclusive = statuses.eq(str(Status.INCONCLUSIVE))
+    n = int(len(comparisons))
+    supported_fraction = float(len(supported) / n) if n else float("nan")
+    ambiguous_fraction = float(len(ambiguous) / n) if n else float("nan")
+    rows = [
+        _metric(
+            data, subgroup, "ranking_pairwise_support", "comparison_count", n, None,
+            ">=1", Status.PASS if n >= 1 else Status.INCONCLUSIVE,
+            notes=f"{notes_prefix}; number of algorithm pairs with paired evidence",
+        ),
+        _metric(
+            data, subgroup, "ranking_pairwise_support", "supported_pair_fraction",
+            supported_fraction, supported_fraction, TOLERANCES["pairwise_supported_fraction_min"],
+            Status.PASS
+            if np.isfinite(supported_fraction)
+            and supported_fraction >= TOLERANCES["pairwise_supported_fraction_min"]
+            and not inconclusive.any()
+            else Status.WARNING
+            if np.isfinite(supported_fraction)
+            else Status.INCONCLUSIVE,
+            notes=(
+                f"{notes_prefix}; fraction of pairs whose paired 95% CI excludes zero. "
+                "Supported pairs can be compared; unsupported pairs must be reported as ties/no-claim"
+            ),
+        ),
+        _metric(
+            data, subgroup, "ranking_pairwise_support", "ambiguous_pair_fraction",
+            ambiguous_fraction, ambiguous_fraction, TOLERANCES["pairwise_ambiguous_fraction_max"],
+            Status.PASS
+            if np.isfinite(ambiguous_fraction)
+            and ambiguous_fraction <= TOLERANCES["pairwise_ambiguous_fraction_max"]
+            and not inconclusive.any()
+            else Status.WARNING
+            if np.isfinite(ambiguous_fraction)
+            else Status.INCONCLUSIVE,
+            notes=(
+                f"{notes_prefix}; fraction of pairs whose paired 95% CI crosses zero. "
+                "Ambiguous pairs are allowed only as explicit tie/no-claim results"
+            ),
+        ),
+    ]
+    return rows
 
 
 def collect_replicates(project_root, version: str, exclude_scenarios: tuple[str, ...] = ()) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -478,6 +731,7 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
     # scenarios are intentionally different and should not be silently averaged
     # into a single ranking claim.
     if not probes.empty:
+        pairwise = summarize_probe_pairwise_comparisons(probes)
         for scenario, group in probes.groupby("scenario"):
             seed_pivot = group.pivot_table(
                 index="probe", columns=["world", "corruption"], values="pair_f1"
@@ -491,6 +745,18 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
                     "within-scenario probe-ranking stability across generated seeds",
                 )
             )
+            pairwise_group = pairwise.loc[
+                pairwise["scope"].eq("within_scenario")
+                & pairwise["scenario"].astype(str).eq(str(scenario))
+            ]
+            metrics.extend(
+                _pairwise_support_metric(
+                    data,
+                    f"pairwise_comparison:{scenario}",
+                    pairwise_group,
+                    "within-scenario paired probe-linker comparison support",
+                )
+            )
 
         scenario_pivot = probes.pivot_table(index="probe", columns="scenario", values="pair_f1", aggfunc="mean")
         metrics.append(
@@ -500,6 +766,14 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
                 scenario_pivot,
                 "scenario mean",
                 "cross-scenario probe-ranking stability using mean pair-F1 by scenario",
+            )
+        )
+        metrics.extend(
+            _pairwise_support_metric(
+                data,
+                "pairwise_comparison:cross_scenario",
+                pairwise.loc[pairwise["scope"].eq("cross_scenario_means")],
+                "cross-scenario paired probe-linker comparison support",
             )
         )
 
@@ -516,6 +790,14 @@ def run_robustness_validation(data: BenchmarkData, enabled: bool = True) -> tupl
                     "overall probe-ranking stability across all generated scenario/seed artifacts; "
                     "a low value means a single global algorithm ranking is not supported"
                 ),
+            )
+        )
+        metrics.extend(
+            _pairwise_support_metric(
+                data,
+                "pairwise_comparison",
+                pairwise.loc[pairwise["scope"].eq("all_benchmark_replicates")],
+                "overall paired probe-linker comparison support",
             )
         )
     return metrics, probes

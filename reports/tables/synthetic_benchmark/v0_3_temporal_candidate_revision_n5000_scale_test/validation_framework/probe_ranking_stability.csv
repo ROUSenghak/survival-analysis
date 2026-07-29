@@ -1,0 +1,10 @@
+scope,scenario,probe,n_units,mean_pair_f1,sd_pair_f1,min_pair_f1,max_pair_f1,mean_rank,min_rank,max_rank,prob_rank1,notes
+within_scenario,central_provisional,deterministic_top1,10,0.2597862546428887,0.12464389335362466,0.09833694866232827,0.46913580246913583,1.0,1,1,1.0,rank distribution across generated seeds for one scenario
+within_scenario,central_provisional,fellegi_sunter,10,0.15912115605897326,0.1174107202834154,0.02387914230019493,0.38636363636363635,2.9,2,3,0.0,rank distribution across generated seeds for one scenario
+within_scenario,central_provisional,score_threshold_all_ranks,10,0.18293896732807785,0.1118772878828108,0.03962390866353257,0.36529680365296796,2.1,2,3,0.0,rank distribution across generated seeds for one scenario
+cross_scenario_means,BENCHMARK_SCENARIOS,deterministic_top1,1,0.2597862546428887,0.0,0.2597862546428887,0.2597862546428887,1.0,1,1,1.0,rank distribution across mean pair-F1 by benchmark scenario
+cross_scenario_means,BENCHMARK_SCENARIOS,fellegi_sunter,1,0.15912115605897326,0.0,0.15912115605897326,0.15912115605897326,3.0,3,3,0.0,rank distribution across mean pair-F1 by benchmark scenario
+cross_scenario_means,BENCHMARK_SCENARIOS,score_threshold_all_ranks,1,0.18293896732807785,0.0,0.18293896732807785,0.18293896732807785,2.0,2,2,0.0,rank distribution across mean pair-F1 by benchmark scenario
+all_benchmark_replicates,ALL,deterministic_top1,10,0.2597862546428887,0.12464389335362466,0.09833694866232827,0.46913580246913583,1.0,1,1,1.0,rank distribution across all benchmark scenario/seed artifacts
+all_benchmark_replicates,ALL,fellegi_sunter,10,0.15912115605897326,0.1174107202834154,0.02387914230019493,0.38636363636363635,2.9,2,3,0.0,rank distribution across all benchmark scenario/seed artifacts
+all_benchmark_replicates,ALL,score_threshold_all_ranks,10,0.18293896732807785,0.1118772878828108,0.03962390866353257,0.36529680365296796,2.1,2,3,0.0,rank distribution across all benchmark scenario/seed artifacts

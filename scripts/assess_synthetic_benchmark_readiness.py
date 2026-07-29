@@ -167,6 +167,49 @@ def _problem_table(metrics: pd.DataFrame) -> list[dict]:
     return rows[keep].to_dict("records")
 
 
+def _pairwise_readiness(pairwise: pd.DataFrame, scope: str, scenario: str | None = None) -> dict:
+    if pairwise.empty:
+        return {
+            "ready": False,
+            "n_pairs": 0,
+            "supported_fraction": 0.0,
+            "ambiguous_fraction": 1.0,
+            "warning_fraction": 1.0,
+        }
+    rows = pairwise.loc[pairwise["scope"].astype(str).eq(scope)].copy()
+    if scenario is not None:
+        rows = rows.loc[rows["scenario"].astype(str).eq(str(scenario))]
+    if rows.empty:
+        return {
+            "ready": False,
+            "n_pairs": 0,
+            "supported_fraction": 0.0,
+            "ambiguous_fraction": 1.0,
+            "warning_fraction": 1.0,
+        }
+    statuses = rows["support_status"].astype(str)
+    supported = rows["winner"].astype(str).ne("TIE_OR_NO_CLAIM") & statuses.isin({"PASS", "WARNING"})
+    ambiguous = rows["winner"].astype(str).eq("TIE_OR_NO_CLAIM")
+    warning = statuses.isin({"WARNING", "INCONCLUSIVE"})
+    n_pairs = int(len(rows))
+    supported_fraction = float(supported.mean())
+    ambiguous_fraction = float(ambiguous.mean())
+    warning_fraction = float(warning.mean())
+    ready = (
+        n_pairs > 0
+        and supported_fraction >= 0.80
+        and ambiguous_fraction <= 0.25
+        and not statuses.eq("INCONCLUSIVE").any()
+    )
+    return {
+        "ready": ready,
+        "n_pairs": n_pairs,
+        "supported_fraction": supported_fraction,
+        "ambiguous_fraction": ambiguous_fraction,
+        "warning_fraction": warning_fraction,
+    }
+
+
 def assess(project_root: Path, version: str, scenario: str, world: str, corruption: str) -> dict:
     validation_dir = project_root / "reports" / "tables" / "synthetic_benchmark" / version / "validation_framework"
     metrics = pd.read_csv(validation_dir / "validation_metrics_long.csv")
@@ -195,6 +238,12 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
     ranking_summary = (
         pd.read_csv(ranking_summary_path)
         if ranking_summary_path.exists()
+        else pd.DataFrame()
+    )
+    pairwise_path = validation_dir / "probe_pairwise_comparisons.csv"
+    pairwise_comparisons = (
+        pd.read_csv(pairwise_path)
+        if pairwise_path.exists()
         else pd.DataFrame()
     )
     metadata = _load_metadata(project_root, version, scenario, world, corruption)
@@ -296,9 +345,22 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
         if len(cross_rows):
             cross_top_rank1_frequency = float(cross_rows["prob_rank1"].astype(float).max())
 
+    main_pairwise = _pairwise_readiness(pairwise_comparisons, "within_scenario", scenario)
+    overall_pairwise = _pairwise_readiness(pairwise_comparisons, "all_benchmark_replicates")
+    cross_pairwise = _pairwise_readiness(pairwise_comparisons, "cross_scenario_means")
+    controlled_pairwise_ready = bool(main_pairwise["ready"] and overall_pairwise["ready"])
+    if not controlled_pairwise_ready:
+        comparison_warnings.append(
+            "paired comparison evidence is missing or too ambiguous for uncertainty-labelled controlled comparison"
+        )
+    elif main_seed_robustness_blocked:
+        comparison_warnings.append(
+            "main-scenario seed robustness remains a warning, but paired comparisons support uncertainty-labelled comparison rather than forced ranking"
+        )
+
     decisions = []
     technical_limitations = []
-    if not generated_from_head:
+    if not generated_from_head and not release_state_packaged:
         technical_limitations.append(
             f"generated data metadata commit {metadata.get('git_commit')} differs from current HEAD {head}"
         )
@@ -365,8 +427,10 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
     comparison_blockers = []
     if observable_hard_failures:
         comparison_blockers.append("observable hard-fidelity failures remain in non-critical current gates")
-    if main_seed_robustness_blocked:
+    if main_seed_robustness_blocked and not controlled_pairwise_ready:
         comparison_blockers.append("main-scenario seed robustness is warning or inconclusive")
+    if not controlled_pairwise_ready:
+        comparison_blockers.append("paired comparison evidence is not ready for controlled comparison with uncertainty")
     if not executable_required_scenarios:
         comparison_blockers.append("required easier/moderate/difficult/stress scenarios are not executable configs")
     if not required_scenario_artifacts_ready:
@@ -381,6 +445,8 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
                 f"metric failures: {manifest.get('n_metric_failures')}",
                 f"three evaluation settings reported: {three_settings_reported}",
                 f"required executable scenario configs present: {executable_required_scenarios}",
+                f"main pairwise comparison support: {main_pairwise}",
+                f"overall pairwise comparison support: {overall_pairwise}",
             ],
             "failed_hard_gates": comparison_blockers,
             "remaining_warnings": comparison_warnings,
@@ -412,9 +478,13 @@ def assess(project_root: Path, version: str, scenario: str, world: str, corrupti
                 f"required scenario artifacts ready: {required_scenario_artifacts_ready}",
                 f"observable hard failures: {observable_hard_failures}",
                 f"probe ranking summary rows: {len(ranking_summary)}",
+                f"probe pairwise comparison rows: {len(pairwise_comparisons)}",
                 f"main-scenario top-probe rank-1 frequency: {main_top_rank1_frequency}",
                 f"all-benchmark top-probe rank-1 frequency: {overall_top_rank1_frequency}",
                 f"cross-scenario-mean top-probe rank-1 frequency: {cross_top_rank1_frequency}",
+                f"main pairwise comparison support: {main_pairwise}",
+                f"overall pairwise comparison support: {overall_pairwise}",
+                f"cross-scenario pairwise comparison support: {cross_pairwise}",
             ],
             "failed_hard_gates": final_blockers,
             "remaining_warnings": ["algorithm rankings have not been shown stable across seeds and scenarios"],

@@ -18,7 +18,10 @@ from boamp.synthetic.validation_framework.internal import (
 )
 from boamp.synthetic.validation_framework.loaders import load_benchmark_data
 from boamp.synthetic.validation_framework.models import Status, classify_abs, classify_range, classify_upper
-from boamp.synthetic.validation_framework.robustness import run_robustness_validation
+from boamp.synthetic.validation_framework.robustness import (
+    run_robustness_validation,
+    summarize_probe_pairwise_comparisons,
+)
 from boamp.synthetic.validation_framework.runner import run_validation, write_validation_outputs
 from boamp.synthetic.validation_framework.text import run_text_memorisation_audit
 
@@ -189,8 +192,10 @@ def test_probe_ranking_stability_artifact_is_written(tmp_path):
     )
     replicate_path = tmp_path / "probe_replicate_results.csv"
     ranking_path = tmp_path / "probe_ranking_stability.csv"
+    pairwise_path = tmp_path / "probe_pairwise_comparisons.csv"
     assert replicate_path.exists()
     assert ranking_path.exists()
+    assert pairwise_path.exists()
     ranking = pd.read_csv(ranking_path)
     assert {
         "scope",
@@ -203,6 +208,41 @@ def test_probe_ranking_stability_artifact_is_written(tmp_path):
     }.issubset(ranking.columns)
     assert result["manifest"]["probe_replicate_result_count"] >= 3
     assert result["manifest"]["probe_ranking_summary_count"] == len(ranking)
+    pairwise = pd.read_csv(pairwise_path)
+    assert {
+        "scope",
+        "scenario",
+        "algorithm_a",
+        "algorithm_b",
+        "mean_difference",
+        "ci_low",
+        "ci_high",
+        "support_status",
+        "winner",
+        "claim",
+    }.issubset(pairwise.columns)
+    assert result["manifest"]["probe_pairwise_comparison_count"] == len(pairwise)
+
+
+def test_pairwise_probe_comparisons_report_ties_without_forced_ranking():
+    probes = pd.DataFrame(
+        [
+            {"scenario": "central_provisional", "world": "001", "corruption": "001", "probe": "a", "pair_f1": 0.10},
+            {"scenario": "central_provisional", "world": "001", "corruption": "001", "probe": "b", "pair_f1": 0.11},
+            {"scenario": "central_provisional", "world": "002", "corruption": "002", "probe": "a", "pair_f1": 0.12},
+            {"scenario": "central_provisional", "world": "002", "corruption": "002", "probe": "b", "pair_f1": 0.11},
+            {"scenario": "central_provisional", "world": "003", "corruption": "003", "probe": "a", "pair_f1": 0.10},
+            {"scenario": "central_provisional", "world": "003", "corruption": "003", "probe": "b", "pair_f1": 0.10},
+        ]
+    )
+    pairwise = summarize_probe_pairwise_comparisons(probes)
+    central = pairwise.loc[
+        pairwise["scope"].eq("within_scenario")
+        & pairwise["scenario"].eq("central_provisional")
+    ].iloc[0]
+    assert central["winner"] == "TIE_OR_NO_CLAIM"
+    assert central["support_status"] == "WARNING"
+    assert central["ci_low"] <= 0 <= central["ci_high"]
 
 
 def test_no_record_specific_text_copied_from_real_corpus():

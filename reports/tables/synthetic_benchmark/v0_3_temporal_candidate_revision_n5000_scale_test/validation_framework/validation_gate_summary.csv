@@ -1,0 +1,16 @@
+gate,status,critical,n_pass,n_warning,n_fail,n_inconclusive,headline,blocking_reason,warning_reason
+internal,WARNING,True,34,0,0,1,internal validation WARNING,,
+specification_recovery,PASS,True,6,0,0,0,specification_recovery validation PASS,,
+marginals,WARNING,False,16,2,0,0,marginals validation WARNING,,text_length:W1_scaled; text_length:q75_relative_error
+conditionals,WARNING,True,2,2,0,0,conditionals validation WARNING,,siret_present:WMAE_pp; generic_repeated_text:WMAE_pp
+temporal,WARNING,True,6,3,0,0,temporal validation WARNING,,publication_year:TVD; publication_month_period:TVD; followup_runway:abs_diff_pp
+candidate_environment,FAIL,True,4,3,3,0,candidate_environment validation FAIL,source_count_ratio:ratio; cap_reached_rate:synthetic_rate; p90_candidate_count:abs_count_diff,
+missingness_text_identifier,WARNING,False,9,0,1,0,missingness_text_identifier validation WARNING,,duration_missing:rate_abs_diff_pp
+buyer_activity,WARNING,False,10,0,2,0,buyer_activity validation WARNING,,activity_share:abs_diff_pp; relative_notices_per_buyer:q99_abs_diff
+missingness_structure,PASS,False,4,0,0,0,missingness_structure validation PASS,,
+names_identifiers,WARNING,False,8,0,0,1,names_identifiers validation WARNING,,
+text,WARNING,False,8,3,0,0,text validation WARNING,,token_count:q50_relative_error; unigram_distribution:JS; bigram_distribution:JS
+privacy,PASS,True,4,0,0,0,privacy validation PASS,,
+hidden_truth_difficulty,WARNING,True,10,2,0,0,hidden_truth_difficulty validation WARNING,,pairs_quality:PQ; pairs_quality:PQ
+algorithm_utility,PASS,True,34,0,0,0,algorithm_utility validation PASS,,
+robustness,WARNING,False,29,7,0,1,robustness validation WARNING,,blocking_pairs_completeness:nonpass_frequency; probe_headroom:coefficient_of_variation; probe_headroom:coefficient_of_variation; probe_ranking:min_kendall_tau; ranking_pairwise_support:supported_pair_fraction; ranking_pairwise_support:ambiguous_pair_fraction; probe_ranking:min_kendall_tau

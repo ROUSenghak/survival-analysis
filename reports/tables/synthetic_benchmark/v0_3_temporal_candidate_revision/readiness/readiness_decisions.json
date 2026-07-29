@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-07-29T12:45:14.607324+00:00",
+  "generated_at_utc": "2026-07-29T13:26:00.306673+00:00",
   "benchmark_version": "v0_3_temporal_candidate_revision",
   "scenario": "central_provisional",
   "world": "001",
   "corruption": "001",
   "validation_manifest_status": "PASS_WITH_WARNINGS",
-  "current_git_head": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
+  "current_git_head": "ea06beb49f966c15f8b427f9c493867ea9a56a24",
   "worktree_dirty": true,
   "release_state_packaged": true,
   "release_package": {
@@ -14,8 +14,8 @@
     "verification_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
     "status": "PASS",
     "archive_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
-    "archive_sha256": "cd41659736a76fe68d2100289b53de1277c7dbfe5eef3a2bb81f98b7983d3e76",
-    "n_hashed_paths_checked": 697,
+    "archive_sha256": "b8c1014d2e94754f3487f067bd2b94374cb727b0910c66e39fe572fb00ea626e",
+    "n_hashed_paths_checked": 228,
     "n_missing": 0,
     "n_mismatches": 0,
     "n_deletions_not_representable": 0
@@ -94,32 +94,6 @@
       "tolerance": "2.0",
       "status": "WARNING",
       "notes": NaN
-    },
-    {
-      "scope": "buyer_activity",
-      "subgroup": "overall",
-      "property": "activity_gini",
-      "metric": "abs_diff",
-      "real_estimate": 0.8316141557268819,
-      "synthetic_estimate": "0.7316588899848229",
-      "difference": -0.099955265742059,
-      "effect_size": 0.099955265742059,
-      "tolerance": "0.1",
-      "status": "WARNING",
-      "notes": "bootstrap_reps=200; n_real_buyers=5268; n_syn_buyers=1240"
-    },
-    {
-      "scope": "buyer_activity",
-      "subgroup": "top1pct",
-      "property": "activity_share",
-      "metric": "abs_diff_pp",
-      "real_estimate": 0.3827800952459733,
-      "synthetic_estimate": "0.31400203091504003",
-      "difference": -6.877806433093331,
-      "effect_size": 6.877806433093331,
-      "tolerance": "10.0",
-      "status": "WARNING",
-      "notes": "share of all notices held by the top1pct most active buyers"
     },
     {
       "scope": "buyer_activity",
@@ -331,6 +305,32 @@
     },
     {
       "scope": "robustness",
+      "subgroup": "pairwise_comparison:difficult",
+      "property": "ranking_pairwise_support",
+      "metric": "supported_pair_fraction",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.6666666666666666",
+      "difference": NaN,
+      "effect_size": 0.6666666666666666,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "within-scenario paired probe-linker comparison support; fraction of pairs whose paired 95% CI excludes zero. Supported pairs can be compared; unsupported pairs must be reported as ties/no-claim"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "pairwise_comparison:difficult",
+      "property": "ranking_pairwise_support",
+      "metric": "ambiguous_pair_fraction",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "within-scenario paired probe-linker comparison support; fraction of pairs whose paired 95% CI crosses zero. Ambiguous pairs are allowed only as explicit tie/no-claim results"
+    },
+    {
+      "scope": "robustness",
       "subgroup": "ranking_stability:moderate",
       "property": "probe_ranking",
       "metric": "min_kendall_tau",
@@ -354,6 +354,32 @@
       "tolerance": "0.8",
       "status": "WARNING",
       "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=36; worst examples=('001', '001') vs ('004', '004'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('001', '001') vs ('006', '006'): tau=0.33; ('001', '001') vs ('007', '007'): tau=0.33; ('002', '002') vs ('004', '004'): tau=0.33; ('002', '002') vs ('005', '005'): tau=0.33; ('002', '002') vs ('006', '006'): tau=0.33; ('002', '002') vs ('007', '007'): tau=0.33"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "pairwise_comparison:stress",
+      "property": "ranking_pairwise_support",
+      "metric": "supported_pair_fraction",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.6666666666666666",
+      "difference": NaN,
+      "effect_size": 0.6666666666666666,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "within-scenario paired probe-linker comparison support; fraction of pairs whose paired 95% CI excludes zero. Supported pairs can be compared; unsupported pairs must be reported as ties/no-claim"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "pairwise_comparison:stress",
+      "property": "ranking_pairwise_support",
+      "metric": "ambiguous_pair_fraction",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "within-scenario paired probe-linker comparison support; fraction of pairs whose paired 95% CI crosses zero. Ambiguous pairs are allowed only as explicit tie/no-claim results"
     },
     {
       "scope": "robustness",
@@ -393,7 +419,7 @@
         "canonical replay checked: True",
         "all generated artifacts replay: PASS",
         "replayed artifacts: 51",
-        "source state manifest hashed paths: 697",
+        "source state manifest hashed paths: 228",
         "worktree dirty: True",
         "verified dirty-state release package: True",
         "release package verification status: PASS"
@@ -437,21 +463,22 @@
     },
     {
       "level": "READY_FOR_CONTROLLED_ALGORITHM_COMPARISON",
-      "status": "FAIL",
+      "status": "PASS_WITH_LIMITATIONS",
       "supporting_evidence": [
         "scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']",
         "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'stress': 10, 'central_provisional': 10, 'easier': 10}",
         "metric failures: 0",
         "three evaluation settings reported: True",
-        "required executable scenario configs present: True"
+        "required executable scenario configs present: True",
+        "main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}",
+        "overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.6666666666666666}"
       ],
-      "failed_hard_gates": [
-        "main-scenario seed robustness is warning or inconclusive"
-      ],
+      "failed_hard_gates": [],
       "remaining_warnings": [
         "headline difficulty varies materially across scenarios; comparisons must be scenario-labelled",
         "main-scenario probe-linker ranking stability remains a warning; do not claim final ranking",
-        "probe-linker ranking stability is scenario-dependent; do not claim one global ranking"
+        "probe-linker ranking stability is scenario-dependent; do not claim one global ranking",
+        "main-scenario seed robustness remains a warning, but paired comparisons support uncertainty-labelled comparison rather than forced ranking"
       ],
       "permitted_uses": [
         "controlled synthetic algorithm comparisons within documented scenarios",
@@ -472,12 +499,15 @@
         "required scenario artifacts ready: True",
         "observable hard failures: False",
         "probe ranking summary rows: 21",
+        "probe pairwise comparison rows: 21",
         "main-scenario top-probe rank-1 frequency: 0.8",
         "all-benchmark top-probe rank-1 frequency: 0.9",
-        "cross-scenario-mean top-probe rank-1 frequency: 1.0"
+        "cross-scenario-mean top-probe rank-1 frequency: 1.0",
+        "main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}",
+        "overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.6666666666666666}",
+        "cross-scenario pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}"
       ],
       "failed_hard_gates": [
-        "main-scenario seed robustness is warning or inconclusive",
         "headline difficulty varies materially across scenarios and must be scenario-labelled",
         "main-scenario probe-linker ranking stability is warning or inconclusive",
         "cross-scenario probe-linker ranking stability is warning or inconclusive"
@@ -501,14 +531,13 @@
       "supporting_evidence": [
         "validation status: PASS_WITH_WARNINGS",
         "calendar-month metric present in saved outputs: True",
-        "generated_from_current_head: True",
-        "source state manifest hashed paths: 697",
+        "generated_from_current_head: False",
+        "source state manifest hashed paths: 228",
         "worktree dirty: True",
         "verified dirty-state release package: True",
-        "release package archive sha256: cd41659736a76fe68d2100289b53de1277c7dbfe5eef3a2bb81f98b7983d3e76"
+        "release package archive sha256: b8c1014d2e94754f3487f067bd2b94374cb727b0910c66e39fe572fb00ea626e"
       ],
       "failed_hard_gates": [
-        "main-scenario seed robustness is warning or inconclusive",
         "headline difficulty varies materially across scenarios and must be scenario-labelled",
         "main-scenario probe-linker ranking stability is warning or inconclusive",
         "cross-scenario probe-linker ranking stability is warning or inconclusive"
