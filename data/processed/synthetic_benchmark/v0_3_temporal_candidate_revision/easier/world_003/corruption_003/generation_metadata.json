@@ -2,30 +2,30 @@
   "generator_version": "0.3.0-temporal-candidate-revision",
   "benchmark_id": "synthetic_benchmark_v0_3_temporal_candidate_revision",
   "scenario": "easier",
-  "world_seed": 20260741,
-  "corruption_seed": 20260742,
+  "world_seed": 20260810,
+  "corruption_seed": 20260811,
   "world_replication": 3,
   "corruption_replication": 3,
   "config_hashes": {
-    "calibration_parameters_v0_1.yaml": "7c76cbb0dd763cae",
-    "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
+    "calibration_parameters_v0_1.yaml": "f5dfa65689ebfb28",
+    "benchmark_defaults_v0_1.yaml": "18491958283859b6",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
     "scenarios/easier.yaml": "7a8ae1cf0710da5c",
     "boamp_common_prepared.csv": "b8bb2eb0089165c2"
   },
   "row_counts": {
-    "buyers": 2000,
-    "establishments": 2173,
-    "needs": 4475,
-    "cycles": 7753,
-    "true_relations": 7753,
-    "notice_family_membership": 10785,
-    "clean_notices": 10785,
-    "observed_notices": 10785,
-    "corruption_log": 34372
+    "buyers": 19200,
+    "establishments": 20814,
+    "needs": 43724,
+    "cycles": 73033,
+    "true_relations": 73033,
+    "notice_family_membership": 100364,
+    "clean_notices": 100364,
+    "observed_notices": 100364,
+    "corruption_log": 313993
   },
-  "execution_timestamp_utc": "2026-07-29T11:59:32.357979+00:00",
-  "git_commit": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
+  "execution_timestamp_utc": "2026-07-30T09:38:25.389378+00:00",
+  "git_commit": "436c9bdec8446043cab317531ad6f9bd34901cef",
   "runtime_environment": {
     "python": "3.12.3",
     "numpy": "2.4.6",
@@ -44,7 +44,7 @@
     ],
     "baseline_reference": "moderate.yaml",
     "buyers": {
-      "activity_pareto_shape": 0.9,
+      "activity_pareto_shape": 1.22,
       "activity_pareto_offset": 0.15
     },
     "recurrence": {
@@ -76,11 +76,11 @@
         "hard_negative_alignment_rate": 0.04,
         "cluster_scoped_needs_by_buyer": true,
         "scoped_buyer_affinity_share": 0.102,
-        "scoped_need_probability_high": 0.7,
+        "scoped_need_probability_high": 0.54,
         "stabilize_scoped_establishment": true,
         "stabilize_scoped_name_fallback": true,
         "stabilize_scoped_identity_by_need": true,
-        "note": "v0.3 temporal/candidate revision block. These are FIDELITY_TUNED scenario parameters, not empirical estimates: they were selected by the bounded sweep in scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py against candidate-environment gates, and the selected set is recorded in candidate_revision_selected_parameters.csv and in generation_metadata.json#candidate_revision. They live in this file rather than only in metadata so the released benchmark replays from configuration. Selection history: the values were re-swept after repairing buyer-activity allocation and primary-department sampling, and again after making the buyer activity Pareto shape explicit in this scenario. Earlier scoped_buyer_affinity_share/scoped_need_probability_high settings of 0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once the observed high-activity tail was restored. The current selected setting is the one written above: affinity share 0.102, high scoped-need probability 0.70, near-window share 0.80, recurrence multiplier 0.88, and hard-negative alignment rate 0.34. It preserves the digital source scale and reproduces the real zero-candidate rate to within about 4 percentage points, while keeping production blocking completeness above its warning floor for most of the documented 10 central seeds; seed spread itself remains a warning-level robustness finding, not a solved problem. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
+        "note": "v0.3 temporal/candidate revision block. These are FIDELITY_TUNED scenario parameters, not empirical estimates: they were selected by the bounded sweep in scripts/generate_synthetic_benchmark_v0_3_temporal_candidate_revision.py against candidate-environment gates, and the selected set is recorded in candidate_revision_selected_parameters.csv and in generation_metadata.json#candidate_revision. They live in this file rather than only in metadata so the released benchmark replays from configuration. Selection history: these values were re-swept again after aligning the synthetic benchmark defaults to the real BOAMP prepared corpus (19,200 buyers, 84,623 target notices, 2015-03-02 through 2026-07-13). The earlier pilot-scale setting (activity Pareto shape 0.90, high scoped-need probability 0.70, near-window share 0.80, recurrence multiplier 0.88, and hard-negative alignment rate 0.34) over-produced dense candidate neighborhoods once generated at real population scale. The current setting is the one written above: affinity share 0.102, high scoped-need probability 0.54, near-window share 0.90, recurrence multiplier 1.60, and hard-negative alignment rate 0.00. In the central seed it preserves BOAMP-scale digital source count, overall zero-candidate rate, NAME_FALLBACK and RAW_SIRET zero-candidate rates, p75/p90/p95 candidate counts, and cap-hit rate within the documented gates. Candidate counts remain post-hoc fidelity targets: this block controls plausible scoped recurrence timing and same-buyer distinct-need clustering, while preserving overall digital source scale. It never sets per-source candidate counts, linkage scores, accepted links, or thresholds.\n"
       }
     },
     "identifiers": {
@@ -115,7 +115,7 @@
           "method": "beta_binomial_global_prior",
           "prior_strength": 25
         },
-        "presence_scale": 0.92,
+        "presence_scale": 1.0,
         "siren_only_among_absent_rate": 0.0,
         "invalid_among_absent_rate": 0.01,
         "note": "Overrides the older year-regime scale for central_provisional in the v0.2 conditional revision. The target is checksum-clean SIRET presence; the absent mass is still split into SIREN-only, invalid, and missing official-identifier outcomes so the corruption vocabulary remains compatible with the current linkage pipeline. The global presence_scale preserves the conditional shape while aligning the release-candidate marginal SIRET presence rate after the v0.3 source-density revision.\n"
@@ -218,8 +218,8 @@
   "resolved_benchmark_defaults": {
     "version": "0.1",
     "benchmark_id": "synthetic_benchmark_v0.1_provisional",
-    "target_n_buyers": 2000,
-    "target_n_notices": 10000,
+    "target_n_buyers": 19200,
+    "target_n_notices": 84623,
     "n_latent_world_replications": 1,
     "n_corruption_replications": 1,
     "seed": {
@@ -232,8 +232,8 @@
       "config": "yaml"
     },
     "observation_window": {
-      "start_date": "2015-01-01",
-      "end_date": "2026-07-31"
+      "start_date": "2015-03-02",
+      "end_date": "2026-07-13"
     },
     "validation_tolerances": {
       "siret_siren_hierarchy_violations_max": 0,

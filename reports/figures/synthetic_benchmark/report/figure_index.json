@@ -5,7 +5,7 @@
   "figures": [
     {
       "figure": "fig_candidate_environment",
-      "caption": "Per-source candidate-set size under the production Layer-1 blocker. Sample: eligible digital-scope APPEL_OFFRE sources with a non-missing buyer key (real n=3,380; synthetic n=402). Unit: candidates per source.",
+      "caption": "Per-source candidate-set size under the production Layer-1 blocker. Sample: eligible digital-scope APPEL_OFFRE sources with a non-missing buyer key (real n=3,380; synthetic n=3,920). Unit: candidates per source.",
       "source": "scripts/build_report_figures.py::fig_candidate_environment"
     },
     {
@@ -15,7 +15,7 @@
     },
     {
       "figure": "fig_true_gap_vs_window",
-      "caption": "Distribution of true successor gaps in the central synthetic world (n=1,901 NEXT_CYCLE relations). The shaded band is the production 6-month blocking window. The gap distribution is a scenario assumption, deliberately not centred on that window.",
+      "caption": "Distribution of true successor gaps in the central synthetic world (n=19,228 NEXT_CYCLE relations). The shaded band is the production 6-month blocking window. The gap distribution is a scenario assumption, deliberately not centred on that window.",
       "source": "scripts/build_report_figures.py::fig_true_gap_vs_window"
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "figure": "fig_duration_qq",
-      "caption": "Quantile-quantile plot of the observed declared duration, percentiles 1 to 99. Sample: in-range (1-120 month) declared durations, real n=11,425, synthetic n=1,384. The dotted line is equality. Points on the line mean the visible duration distribution matches; the latent contract length is a separate, unobserved quantity.",
+      "caption": "Quantile-quantile plot of the observed declared duration, percentiles 1 to 99. Sample: in-range (1-120 month) declared durations, real n=11,425, synthetic n=13,016. The dotted line is equality. Points on the line mean the visible duration distribution matches; the latent contract length is a separate, unobserved quantity.",
       "source": "scripts/build_report_figures.py::fig_duration_qq"
     },
     {

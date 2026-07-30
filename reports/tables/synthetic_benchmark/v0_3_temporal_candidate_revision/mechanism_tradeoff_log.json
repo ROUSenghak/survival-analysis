@@ -1,10 +1,10 @@
 {
-  "generated_at_utc": "2026-07-28T09:10:58.029350+00:00",
+  "generated_at_utc": "2026-07-30T10:35:31.068756+00:00",
   "row_count": 3,
   "rows": [
     {
       "baseline_blocking_gates": "[]",
-      "baseline_metric_failures": "2",
+      "baseline_metric_failures": "5",
       "baseline_replay_status": "PASS",
       "baseline_validation_status": "PASS_WITH_WARNINGS",
       "component": "observed_buyer_identity_persistence",
@@ -16,7 +16,7 @@
       "mechanism_id": "identity_persistence_retained_2026_07_27",
       "observed_effect_summary": "Current regenerated central benchmark has no metric failures, passes all-artifact replay, and remains PASS_WITH_WARNINGS.",
       "provenance_category": "SCENARIO_UNIDENTIFIED",
-      "quantitative_effect": "validation_status=PASS_WITH_WARNINGS; n_metric_failures=2; replay_replicates=PASS",
+      "quantitative_effect": "validation_status=PASS_WITH_WARNINGS; n_metric_failures=5; replay_replicates=PASS",
       "readiness_consequence": "Supports controlled synthetic comparison only with limitations; does not resolve final-ranking or release blockers.",
       "retained_mechanism": "Cache observed buyer SIRET/SIREN/name at latent cycle level, and at latent need level for scoped digital CPV divisions when stabilize_scoped_identity_by_need is enabled.",
       "source_reference": "src/boamp/synthetic/corruption.py; docs/methodology.md; reports/generated/synthetic_benchmark/v0_3_temporal_candidate_revision_report.md; reports/synthetic_benchmark_technical_report.tex",
@@ -26,7 +26,7 @@
     },
     {
       "baseline_blocking_gates": "[]",
-      "baseline_metric_failures": "2",
+      "baseline_metric_failures": "5",
       "baseline_replay_status": "PASS",
       "baseline_validation_status": "PASS_WITH_WARNINGS",
       "component": "observed_buyer_identity_persistence",
@@ -48,7 +48,7 @@
     },
     {
       "baseline_blocking_gates": "[]",
-      "baseline_metric_failures": "2",
+      "baseline_metric_failures": "5",
       "baseline_replay_status": "PASS",
       "baseline_validation_status": "PASS_WITH_WARNINGS",
       "component": "observed_buyer_identity_persistence",

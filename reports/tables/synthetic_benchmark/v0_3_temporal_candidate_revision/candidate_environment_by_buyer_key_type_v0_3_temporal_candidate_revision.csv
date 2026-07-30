@@ -1,3 +1,3 @@
 version,buyer_key_type,n_real,n_synthetic,real_zero_candidate_rate,synthetic_zero_candidate_rate,abs_diff_pp,eligible_for_gate
-v0_3_temporal_candidate_revision,NAME_FALLBACK,2506,273,0.39305666400638467,0.3956043956043956,0.2547731598010916,True
-v0_3_temporal_candidate_revision,RAW_SIRET,874,129,0.4462242562929062,0.5271317829457365,8.09075266528303,True
+v0_3_temporal_candidate_revision,NAME_FALLBACK,2506,2874,0.39305666400638467,0.3823938761308281,1.0662787875556579,True
+v0_3_temporal_candidate_revision,RAW_SIRET,874,1046,0.4462242562929062,0.5372848948374761,9.106063854456991,True

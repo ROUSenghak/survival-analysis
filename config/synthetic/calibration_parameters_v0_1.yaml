@@ -35,19 +35,19 @@ population:
 
 calendar:
   observation_start:
-    value: "2015-01-01"
+    value: "2015-03-02"
     provenance: EMPIRICAL
     source_table: reports/tables/synthetic_calibration/calib_year_completeness_status.csv
     status: OBSERVABLE
-    conditioning_variables: n/a
-    limitations: "2015 is a PARTIAL extraction-window year in the real corpus."
+    conditioning_variables: publication_date
+    limitations: "Actual retained real-corpus minimum publication_date; the original data request started earlier but retained no January/February 2015 records."
   observation_end:
-    value: "2026-07-31"
+    value: "2026-07-13"
     provenance: EMPIRICAL
     source_table: reports/tables/synthetic_calibration/calib_year_completeness_status.csv
     status: OBSERVABLE
-    conditioning_variables: n/a
-    limitations: "2026 is a PARTIAL extraction-window year in the real corpus."
+    conditioning_variables: publication_date
+    limitations: "Actual retained real-corpus maximum publication_date; 2026 remains a partial extraction-window year."
   partial_years: [2015, 2026]
 
 schemas:

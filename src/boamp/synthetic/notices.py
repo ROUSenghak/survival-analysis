@@ -52,6 +52,7 @@ def generate_notice_families_and_clean_notices(
     establishments: pd.DataFrame, rng: np.random.Generator,
     award_probability: float = 0.387,
     same_cycle_variation_severity: float = 0.15,
+    observation_end: pd.Timestamp | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     needs_idx = needs.set_index("need_id_true")
     buyers_idx = buyers.set_index("buyer_id_true")
@@ -89,6 +90,8 @@ def generate_notice_families_and_clean_notices(
         if rng.random() < award_probability:
             delay_days = int(np.clip(rng.normal(90, 45), 10, 400))
             award_date = call_date + pd.to_timedelta(delay_days, unit="D")
+            if observation_end is not None and award_date > pd.Timestamp(observation_end):
+                continue
             award_id = f"NOTICE-{notice_seq:08d}"
             notice_seq += 1
             award_text = apply_same_cycle_variation(call_text, same_cycle_variation_severity, rng)

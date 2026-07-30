@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 
 from boamp.synthetic.pipeline import generate_clean_world, generate_observed_world
+from boamp.synthetic.scenarios import load_benchmark_defaults
 from boamp.synthetic.text_generation import render_text
 from boamp.synthetic.validation import run_full_structural_validation
 from boamp.synthetic.validation_framework.bootstrap import gini, top_share
@@ -103,6 +104,16 @@ def test_award_notices_reference_a_call_notice_in_the_same_cycle(tiny_world):
         linked = award["linked_call_notice_id_true"]
         assert linked in calls.index
         assert calls.loc[linked, "cycle_id_true"] == award["cycle_id_true"]
+
+
+def test_clean_notice_publication_dates_respect_observation_window(tiny_world):
+    defaults = load_benchmark_defaults(REPO)
+    start = pd.Timestamp(defaults.observation_window.start_date)
+    end = pd.Timestamp(defaults.observation_window.end_date)
+    dates = pd.to_datetime(tiny_world["clean_notices"]["publication_date_true"])
+
+    assert dates.min() >= start
+    assert dates.max() <= end
 
 
 def test_no_real_identifier_or_text_is_copied_structurally(tiny_world):

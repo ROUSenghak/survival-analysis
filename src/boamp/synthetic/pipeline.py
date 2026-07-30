@@ -74,6 +74,7 @@ def generate_clean_world(scenario_id: str, project_root: Path, n_buyers: int,
         cycles, needs, buyers, establishments, rng,
         award_probability=mix.ATTRIBUTION / mix.APPEL_OFFRE,
         same_cycle_variation_severity=scenario.text.same_cycle_variation_severity,
+        observation_end=observation_end,
     )
 
     for df, schema, name in (

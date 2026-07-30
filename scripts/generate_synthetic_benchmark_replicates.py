@@ -67,6 +67,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Override benchmark_defaults.target_n_buyers.",
     )
+    parser.add_argument(
+        "--world-start-index",
+        type=int,
+        default=1,
+        help="World/corruption index assigned to the first supplied seed. Use to resume a partial grid.",
+    )
     parser.add_argument("--force", action="store_true", help="Overwrite existing output directories.")
     parser.add_argument("--dry-run", action="store_true", help="Print planned actions without writing artifacts.")
     parser.add_argument(
@@ -90,7 +96,9 @@ def _resolve_seed_grid(args: argparse.Namespace, defaults) -> list[tuple[int, in
         corruption_seeds = [seed + 1 for seed in world_seeds]
     return [
         (idx, idx, world_seed, corruption_seed)
-        for idx, (world_seed, corruption_seed) in enumerate(zip(world_seeds, corruption_seeds), start=1)
+        for idx, (world_seed, corruption_seed) in enumerate(
+            zip(world_seeds, corruption_seeds), start=args.world_start_index
+        )
     ]
 
 

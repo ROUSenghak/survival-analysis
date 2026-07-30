@@ -27,7 +27,10 @@ def test_calibration_parameter_source_tables_resolve():
 
 def test_benchmark_defaults_load():
     defaults = load_benchmark_defaults(REPO)
-    assert defaults.target_n_buyers == 2000
+    assert defaults.target_n_buyers == 19200
+    assert defaults.target_n_notices == 84623
+    assert defaults.observation_window.start_date == "2015-03-02"
+    assert defaults.observation_window.end_date == "2026-07-13"
     assert defaults.seed.latent_world_seed != defaults.seed.corruption_seed
 
 

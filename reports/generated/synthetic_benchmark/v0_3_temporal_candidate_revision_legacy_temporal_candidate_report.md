@@ -17,9 +17,9 @@ for permitted uses and prohibited claims.
 
 ## Candidate improvement
 
-- Zero-candidate rate: v0.2 90.4% -> v0.3 43.8%; real 40.7%.
-- P75/P90/P95 candidates: v0.3 4/8/11; real 4/9/14.
-- Source-count ratio vs scaled real target: 1.14.
+- Zero-candidate rate: v0.2 90.4% -> v0.3 42.4%; real 40.7%.
+- P75/P90/P95 candidates: v0.3 3/7/10; real 4/9/14.
+- Source-count ratio vs scaled real target: 1.12.
 - Cap-reached rate: 0.0%.
 
 ## Remaining caveats

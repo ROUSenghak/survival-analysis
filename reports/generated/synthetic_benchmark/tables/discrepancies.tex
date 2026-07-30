@@ -7,34 +7,26 @@
 \toprule
 Gate & Property & Metric & Real & Synth. & Tol. & Status \\
 \midrule
+buyer activity & relative notices per buyer & q99 abs diff & 16.206 & 13.864 & 1.0 & Fail \\
+missingness text iden… & siret missing & rate abs diff pp & 0.728 & 0.687 & 2.0 & Fail \\
+missingness text iden… & siret present & presence rate abs dif… & 0.272 & 0.313 & 2.0 & Fail \\
+names identifiers & name token jaccard (silver siren … & q10 abs diff & 0.000 & 0.333 & 0.15 & Fail \\
+names identifiers & name token jaccard (silver siren … & q50 abs diff & 0.250 & 0.667 & 0.15 & Fail \\
 names identifiers & siren invalid among present & abs diff pp &  & 0.000 & 2.0 & Inconclusive \\
-buyer activity & activity share (top5pct) & abs diff pp & 0.661 & 0.560 & 10.0 & Warning \\
-buyer activity & activity share (top10pct) & abs diff pp & 0.780 & 0.673 & 10.0 & Warning \\
-hidden truth difficul… & pairs quality (production window) & PQ &  & 0.035 & 0.05 & Warning \\
-hidden truth difficul… & pairs quality (36m window) & PQ &  & 0.032 & 0.05 & Warning \\
+buyer activity & activity share (top1pct) & abs diff pp & 0.383 & 0.331 & 10.0 & Warning \\
 marginals & text length & W1 scaled &  &  & 0.1 & Warning \\
-marginals & text length & q75 relative error & 133.000 & 117.000 & 0.1 & Warning \\
-missingness text iden… & siret missing & rate abs diff pp & 0.728 & 0.707 & 2.0 & Warning \\
-missingness text iden… & siret present & presence rate abs dif… & 0.272 & 0.293 & 2.0 & Warning \\
-robustness & blocking pairs completeness (seed… & coefficient of variat… &  & 0.261 & 0.25 & Warning \\
-robustness & blocking pairs completeness (seed… & nonpass frequency &  & 0.100 & 0.0 & Warning \\
-robustness & match vs hard negative score (see… & coefficient of variat… &  & 0.252 & 0.25 & Warning \\
-robustness & probe headroom (seed replicates:c… & coefficient of variat… &  & 0.498 & 0.25 & Warning \\
-robustness & probe headroom (seed replicates:c… & nonpass frequency &  & 0.100 & 0.0 & Warning \\
-robustness & blocking pairs completeness (cros… & coefficient of variat… &  & 0.311 & 0.25 & Warning \\
-robustness & probe headroom (cross scenario) & coefficient of variat… &  & 0.661 & 0.25 & Warning \\
-robustness & probe ranking (ranking stability:… & min kendall tau &  & 0.333 & 0.8 & Warning \\
-robustness & probe ranking (ranking stability:… & min kendall tau &  & -0.333 & 0.8 & Warning \\
-robustness & ranking pairwise support (pairwis… & supported pair fracti… &  & 0.667 & 0.8 & Warning \\
-robustness & ranking pairwise support (pairwis… & ambiguous pair fracti… &  & 0.333 & 0.25 & Warning \\
+marginals & text length & q75 relative error & 133.000 & 118.000 & 0.1 & Warning \\
+missingness text iden… & siren missing & rate abs diff pp & 0.728 & 0.694 & 2.0 & Warning \\
+missingness text iden… & cpv missing & rate abs diff pp & 0.171 & 0.150 & 2.0 & Warning \\
+missingness text iden… & siren present & presence rate abs dif… & 0.272 & 0.306 & 2.0 & Warning \\
+names identifiers & name jaro winkler (silver siren g… & q50 abs diff & 0.695 & 0.885 & 0.15 & Warning \\
+robustness & blocking pairs completeness (cros… & coefficient of variat… &  & 0.301 & 0.25 & Warning \\
+robustness & probe headroom (cross scenario) & coefficient of variat… &  & 0.570 & 0.25 & Warning \\
 robustness & probe ranking (ranking stability:… & min kendall tau &  & 0.333 & 0.8 & Warning \\
 robustness & probe ranking (ranking stability:… & min kendall tau &  & 0.333 & 0.8 & Warning \\
-robustness & ranking pairwise support (pairwis… & supported pair fracti… &  & 0.667 & 0.8 & Warning \\
-robustness & ranking pairwise support (pairwis… & ambiguous pair fracti… &  & 0.333 & 0.25 & Warning \\
 robustness & probe ranking (ranking stability:… & min kendall tau &  & 0.333 & 0.8 & Warning \\
-robustness & probe ranking (ranking stability) & min kendall tau &  & -1.000 & 0.8 & Warning \\
-temporal & followup runway (60m) & abs diff pp & 0.550 & 0.431 & 5.0 & Warning \\
-text & token count & q50 relative error & 17.000 & 13.000 & 0.2 & Warning \\
+robustness & probe ranking (ranking stability) & min kendall tau &  & 0.333 & 0.8 & Warning \\
+temporal & followup runway (60m) & abs diff pp & 0.550 & 0.440 & 5.0 & Warning \\
 text & unigram distribution & JS &  &  & 0.3 & Warning \\
 text & bigram distribution & JS &  &  & 0.4 & Warning \\
 \bottomrule

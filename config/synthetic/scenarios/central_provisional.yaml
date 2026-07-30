@@ -23,12 +23,12 @@ references: [config/synthetic/scenarios/02_central_boamp_like.yaml]
 baseline_reference: central_provisional.yaml   # this file IS the baseline others diff against
 
 buyers:
-  activity_pareto_shape: 0.90
-    # FIDELITY_TARGET mechanism parameter. Lowering the Pareto shape from the
-    # original code default (1.0) restores the observable high-activity buyer
-    # tail without using accepted links, scores, thresholds, or synthetic truth
-    # as calibration data. It is evaluated by buyer-activity Lorenz/Gini/top
-    # share/relative-quantile gates and remains a generator mechanism, not an
+  activity_pareto_shape: 1.22
+    # FIDELITY_TARGET mechanism parameter. Re-tuned after moving the benchmark
+    # from pilot scale to the real BOAMP population/window so the observable
+    # buyer-key activity tail no longer creates an unrealistically dense
+    # candidate environment. It is evaluated by buyer-activity and
+    # candidate-environment gates and remains a generator mechanism, not an
     # empirical estimate of a hidden BOAMP process.
   activity_pareto_offset: 0.15
     # IMPLEMENTATION_CONSTANT: keeps every buyer's latent activity weight
@@ -47,13 +47,13 @@ recurrence:
   scoped_candidate_environment:
     enabled: true
     cpv_divisions: ["32", "35", "48", "72"]
-    recurrence_propensity_multiplier: 0.88
-    near_window_share: 0.80
+    recurrence_propensity_multiplier: 1.60
+    near_window_share: 0.90
     near_window_distribution: {type: normal, mean_months: 2.0, sd_months: 2.0, min_months: 0.1, max_months: 6.0}
-    hard_negative_alignment_rate: 0.34
+    hard_negative_alignment_rate: 0.00
     cluster_scoped_needs_by_buyer: true
     scoped_buyer_affinity_share: 0.102
-    scoped_need_probability_high: 0.70
+    scoped_need_probability_high: 0.54
     stabilize_scoped_establishment: true
     stabilize_scoped_name_fallback: true
     stabilize_scoped_identity_by_need: true
@@ -67,19 +67,20 @@ recurrence:
       generation_metadata.json#candidate_revision. They live in this file rather
       than only in metadata so the released benchmark replays from
       configuration.
-      Selection history: the values were re-swept after repairing buyer-activity
-      allocation and primary-department sampling, and again after making the
-      buyer activity Pareto shape explicit in this scenario. Earlier
-      scoped_buyer_affinity_share/scoped_need_probability_high settings of
-      0.07/0.70, 0.07/0.50 and 0.02/0.25 were each too sparse or too dense once
-      the observed high-activity tail was restored. The current selected setting
-      is the one written above: affinity share 0.102, high scoped-need
-      probability 0.70, near-window share 0.80, recurrence multiplier 0.88, and
-      hard-negative alignment rate 0.34. It preserves the digital source scale
-      and reproduces the real zero-candidate rate to within about 4 percentage
-      points, while keeping production blocking completeness above its warning
-      floor for most of the documented 10 central seeds; seed spread itself
-      remains a warning-level robustness finding, not a solved problem.
+      Selection history: these values were re-swept again after aligning the
+      synthetic benchmark defaults to the real BOAMP prepared corpus
+      (19,200 buyers, 84,623 target notices, 2015-03-02 through 2026-07-13).
+      The earlier pilot-scale setting (activity Pareto shape 0.90, high
+      scoped-need probability 0.70, near-window share 0.80, recurrence
+      multiplier 0.88, and hard-negative alignment rate 0.34) over-produced
+      dense candidate neighborhoods once generated at real population scale.
+      The current setting is the one written above: affinity share 0.102,
+      high scoped-need probability 0.54, near-window share 0.90, recurrence
+      multiplier 1.60, and hard-negative alignment rate 0.00. In the central
+      seed it preserves BOAMP-scale digital source count, overall
+      zero-candidate rate, NAME_FALLBACK and RAW_SIRET zero-candidate rates,
+      p75/p90/p95 candidate counts, and cap-hit rate within the documented
+      gates.
       Candidate counts remain post-hoc fidelity targets: this block controls
       plausible scoped recurrence timing and same-buyer distinct-need
       clustering, while preserving overall digital source scale. It never sets
@@ -138,7 +139,7 @@ identifiers:
     source: data/interim/boamp_common_prepared.csv
     conditioning: [schema_family, publication_year, notice_type_normalized]
     smoothing: {method: beta_binomial_global_prior, prior_strength: 25}
-    presence_scale: 0.92
+    presence_scale: 1.00
     siren_only_among_absent_rate: 0.0
     invalid_among_absent_rate: 0.01
     note: >
@@ -153,7 +154,15 @@ identifiers:
 buyer_names:
   false_split_rate: 0.279       # EMPIRICAL: buyer_name_variation_rate
   false_merge_rate: 0.076       # EMPIRICAL: buyer_name_ambiguity_rate
-  generic_collision_rate: 0.368 # EMPIRICAL: generic_buyer_name_share
+  generic_collision_rate: 0.000
+    # FIDELITY_TARGET mechanism parameter. The raw empirical generic-name share
+    # is retained in calibration_parameters_v0_1.yaml, but applying it as an
+    # additional synthetic name-collision process at BOAMP scale made NAME
+    # fallback candidate neighborhoods far denser than the production BOAMP
+    # Layer-1 candidate environment. The v0.3 real-scale retune therefore
+    # disables this extra collision knob in the central scenario; observed
+    # buyer-name variation still comes from false_split_rate/false_merge_rate
+    # and the synthetic buyer-name templates.
 
 cpv:
   missing_rate: 0.1706          # EMPIRICAL: cpv.missing_rate; kept as fallback -- see missing_rate_by_condition below for the values actually used

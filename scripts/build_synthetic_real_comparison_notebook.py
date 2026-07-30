@@ -778,42 +778,85 @@ buyer_activity.groupby("dataset")["notice_count_per_buyer_key"].describe(percent
             """freeze_gate = pd.read_csv(SOURCE_TABLE_DIR / "temporal_candidate_freeze_gate.csv")
 truth_checks = pd.read_csv(SOURCE_TABLE_DIR / "temporal_truth_sanity_checks.csv")
 
+conditional_status = "PASS" if conditional_v3["status"].eq("PASS").all() else "NEEDS_REVISION"
+temporal_gate_status = freeze_gate.loc[
+    freeze_gate["dimension"].eq("temporal_validation"), "status"
+].iloc[0]
+candidate_gate_status = (
+    "PASS"
+    if candidate_gate.loc[candidate_gate["version"].eq(VERSION), "status"].eq("PASS").all()
+    else "NEEDS_REVISION"
+)
+truth_status = (
+    "PASS"
+    if truth_checks.loc[truth_checks["status"].ne("DIAGNOSTIC"), "status"].eq("PASS").all()
+    else "NEEDS_REVISION"
+)
+
+candidate_by_scope = candidate_summary.set_index("scope")
+real_candidate = candidate_by_scope.loc["real_layer1_algorithm_scope"]
+synthetic_candidate = candidate_by_scope.loc[f"{VERSION}_layer1_algorithm_scope"]
+candidate_evidence = (
+    f"zero-candidate rate: real {real_candidate.zero_candidate_rate:.1%}, "
+    f"synthetic v0.3 {synthetic_candidate.zero_candidate_rate:.1%}; "
+    f"p75/p90/p95: real "
+    f"{real_candidate.p75_candidate_count:.0f}/"
+    f"{real_candidate.p90_candidate_count:.0f}/"
+    f"{real_candidate.p95_candidate_count:.0f}, synthetic "
+    f"{synthetic_candidate.p75_candidate_count:.0f}/"
+    f"{synthetic_candidate.p90_candidate_count:.0f}/"
+    f"{synthetic_candidate.p95_candidate_count:.0f}; "
+    f"cap rate {synthetic_candidate.cap_reached_rate:.2%}"
+)
+
+truth_tail = pd.to_numeric(
+    truth_checks.loc[truth_checks["metric"].eq("share_true_gaps_over_6m"), "value"],
+    errors="coerce",
+).dropna()
+truth_tail_text = f"; true gaps >6m = {truth_tail.iloc[0]:.1%}" if len(truth_tail) else ""
+followup_60 = followup.loc[followup["horizon_months"].eq(60), "abs_diff_pp"]
+caveat_evidence = (
+    f"60m follow-up absolute error = {followup_60.iloc[0]:.2f} pp"
+    if len(followup_60)
+    else "60m follow-up not available"
+)
+
 final_evidence = pd.DataFrame(
     [
         {
             "dimension": "conditional_fidelity",
-            "headline": "All v0.3 conditional targets pass",
+            "headline": "Conditional fidelity gate passes" if conditional_status == "PASS" else "Conditional fidelity gate needs revision",
             "evidence": "; ".join(
                 f"{row.target}: WMAE {row.weighted_mean_abs_error_pp:.2f} pp"
                 for row in conditional_v3.itertuples()
             ),
-            "status": "PASS" if conditional_v3["status"].eq("PASS").all() else "NEEDS_REVISION",
+            "status": conditional_status,
         },
         {
             "dimension": "temporal_similarity",
-            "headline": "Calendar and 12/24-month runway pass",
+            "headline": "Temporal validation gate passes" if temporal_gate_status == "PASS" else "Temporal validation gate needs revision",
             "evidence": "; ".join(
                 f"{row.dimension} {row.metric}={row.value:.3f}"
                 for row in temporal_summary.itertuples()
             ),
-            "status": "PASS" if temporal_summary["status"].eq("PASS").all() else "NEEDS_REVISION",
+            "status": temporal_gate_status,
         },
         {
             "dimension": "candidate_environment",
-            "headline": "Layer-1 candidate environment passes",
-            "evidence": "zero-candidate rate: real 60.9%, synthetic v0.3 63.0%; p75/p90/p95: real 2/6/10, synthetic 1/2/3",
-            "status": "PASS",
+            "headline": "Layer-1 candidate environment passes" if candidate_gate_status == "PASS" else "Layer-1 candidate environment needs revision",
+            "evidence": candidate_evidence,
+            "status": candidate_gate_status,
         },
         {
             "dimension": "structural_truth",
-            "headline": "Hidden truth is coherent and not leaked",
-            "evidence": "observed truth columns = 0; metadata validation PASS; true gaps >6m = 81.2%",
-            "status": "PASS",
+            "headline": "Hidden truth is coherent and not leaked" if truth_status == "PASS" else "Structural truth needs revision",
+            "evidence": f"observed truth columns = 0; metadata/truth validation {truth_status}{truth_tail_text}",
+            "status": truth_status,
         },
         {
             "dimension": "caveat",
             "headline": "60-month follow-up remains weaker",
-            "evidence": "60m follow-up absolute error = 10.52 pp; documented non-blocking caveat",
+            "evidence": f"{caveat_evidence}; documented non-blocking caveat",
             "status": "CAVEAT",
         },
     ]

@@ -1,4 +1,4 @@
 scope,n_sources,zero_candidate_rate,mean_candidate_count,median_candidate_count,p75_candidate_count,p90_candidate_count,p95_candidate_count,p99_candidate_count,max_candidate_count,cap_reached_rate
 real_layer1_algorithm_scope,3380,0.4068047337278107,3.2136094674556213,1.0,4.0,9.099999999999909,14.0,23.0,30,0.0008875739644970414
 v0_2_conditional_revision_layer1_algorithm_scope,354,0.903954802259887,0.15254237288135594,0.0,0.0,0.0,1.0,2.0,3,0.0
-v0_3_temporal_candidate_revision_layer1_algorithm_scope,402,0.43781094527363185,2.6865671641791047,1.0,4.0,8.0,11.0,14.0,16,0.0
+v0_3_temporal_candidate_revision_layer1_algorithm_scope,3920,0.42372448979591837,2.2755102040816326,1.0,3.0,7.0,10.0,20.0,29,0.0

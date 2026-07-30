@@ -1,7 +1,7 @@
 # Synthetic benchmark v0.1 — pilot run defaults.
 #
-# Deliberately small: this is a smoke-test scale to validate the generator
-# architecture end-to-end, not the full ~84,623-notice real-corpus scale.
+# Released v0.3 runs are generated near the prepared real-corpus scale so
+# real-vs-synthetic comparisons are not dominated by pilot-size artifacts.
 # Every value here is a benchmark-run *setting*, not a calibrated real-world
 # parameter (those live in calibration_parameters_v0_1.yaml and
 # scenarios/*.yaml).
@@ -9,8 +9,8 @@
 version: "0.1"
 benchmark_id: synthetic_benchmark_v0.1_provisional
 
-target_n_buyers: 2000
-target_n_notices: 10000          # approximate; actual count is emergent from buyers x needs x cycles x notice-family size, not forced exactly
+target_n_buyers: 19200
+target_n_notices: 84623          # approximate; actual count is emergent from buyers x needs x cycles x notice-family size, not forced exactly
 n_latent_world_replications: 1   # world_001 only for the v0.1 pilot
 n_corruption_replications: 1     # corruption_001 only for the v0.1 pilot
 
@@ -27,13 +27,11 @@ output_format:
   config: yaml
 
 observation_window:
-  start_date: "2015-01-01"
-  end_date: "2026-07-31"
-  # Matches calibration_parameters_v0_1.yaml's calendar block for external
-  # validity of by-year fidelity comparisons; the v0.1 pilot's smaller
-  # n_notices is spread across this same window, not a shorter one, so
-  # per-year density is intentionally thinner than the real corpus (a known
-  # v0.1 limitation, not a fidelity target).
+  start_date: "2015-03-02"
+  end_date: "2026-07-13"
+  # Matches the actual min/max publication_date in
+  # data/interim/boamp_common_prepared.csv. The source request was broader,
+  # but benchmark fidelity comparisons use the observed record window.
 
 validation_tolerances:
   siret_siren_hierarchy_violations_max: 0            # hard structural gate, zero tolerance

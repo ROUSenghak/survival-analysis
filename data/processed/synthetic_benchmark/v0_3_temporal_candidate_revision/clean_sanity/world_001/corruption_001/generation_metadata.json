@@ -7,8 +7,8 @@
   "world_replication": 1,
   "corruption_replication": 1,
   "config_hashes": {
-    "calibration_parameters_v0_1.yaml": "7c76cbb0dd763cae",
-    "benchmark_defaults_v0_1.yaml": "bda9bf98a6150732",
+    "calibration_parameters_v0_1.yaml": "f5dfa65689ebfb28",
+    "benchmark_defaults_v0_1.yaml": "18491958283859b6",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
     "scenarios/clean_sanity.yaml": "edd7d824b796e357",
     "boamp_common_prepared.csv": "b8bb2eb0089165c2"
@@ -17,15 +17,15 @@
     "buyers": 300,
     "establishments": 322,
     "needs": 712,
-    "cycles": 1883,
-    "true_relations": 1883,
-    "notice_family_membership": 2619,
-    "clean_notices": 2619,
-    "observed_notices": 2619,
-    "corruption_log": 513
+    "cycles": 1934,
+    "true_relations": 1934,
+    "notice_family_membership": 2657,
+    "clean_notices": 2657,
+    "observed_notices": 2657,
+    "corruption_log": 521
   },
-  "execution_timestamp_utc": "2026-07-29T11:57:06.479191+00:00",
-  "git_commit": "e3aeb6353740f1c09674302847ee80faa2dc54ef",
+  "execution_timestamp_utc": "2026-07-30T10:18:51.631979+00:00",
+  "git_commit": "436c9bdec8446043cab317531ad6f9bd34901cef",
   "runtime_environment": {
     "python": "3.12.3",
     "numpy": "2.4.6",
@@ -97,8 +97,8 @@
   "resolved_benchmark_defaults": {
     "version": "0.1",
     "benchmark_id": "synthetic_benchmark_v0.1_provisional",
-    "target_n_buyers": 2000,
-    "target_n_notices": 10000,
+    "target_n_buyers": 19200,
+    "target_n_notices": 84623,
     "n_latent_world_replications": 1,
     "n_corruption_replications": 1,
     "seed": {
@@ -111,8 +111,8 @@
       "config": "yaml"
     },
     "observation_window": {
-      "start_date": "2015-01-01",
-      "end_date": "2026-07-31"
+      "start_date": "2015-03-02",
+      "end_date": "2026-07-13"
     },
     "validation_tolerances": {
       "siret_siren_hierarchy_violations_max": 0,

@@ -1,13 +1,13 @@
 column,dtype,missing_pct,example_value
 notice_id_synthetic,object,0.0,NOTICE-00000000
-publication_date,object,0.0,2015-01-15
+publication_date,object,0.0,2021-06-21
 notice_type_normalized,object,0.0,APPEL_OFFRE
 schema_family,object,0.0,LEGACY
-buyer_siret_raw,float64,68.4,35143086300032.0
-buyer_siren_raw,float64,69.4,351430863.0
-buyer_name_raw,object,0.0,Commune de Belchamp
-code_departement,int64,0.0,72
-cpv_clean,float64,15.65,90391373.0
-declared_duration_months,float64,84.42,48.0
-objet_clean,object,0.0,"Fourniture et prestations de collecte des déchets pour les besoins de Commune de Belchamp, mise en service."
-linked_call_notice_id,object,88.34,NOTICE-00000001
+buyer_siret_raw,float64,68.67,99769089600011.0
+buyer_siren_raw,float64,69.37,997690896.0
+buyer_name_raw,object,0.0,Mairie de Belsac
+code_departement,int64,0.0,49
+cpv_clean,float64,15.05,45094647.0
+declared_duration_months,float64,85.1,48.0
+objet_clean,object,0.0,Marché public de rénovation énergétique pour Mairie de Belsac : bâtiment et voirie et suivi.
+linked_call_notice_id,object,88.35,NOTICE-00000018

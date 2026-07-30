@@ -1,6 +1,6 @@
 dimension,headline,evidence,status
-conditional_fidelity,All v0.3 conditional targets pass,cpv_missing: WMAE 1.69 pp; duration_present: WMAE 0.56 pp; generic_repeated_text: WMAE 1.88 pp; siret_present: WMAE 5.06 pp,NEEDS_REVISION
-temporal_similarity,Calendar and 12/24-month runway pass,year_share TVD=0.142; schema_by_year WMAE_pp=0.502; notice_type_by_year WMAE_pp=3.439; month_share TVD=0.160,PASS
-candidate_environment,Layer-1 candidate environment passes,"zero-candidate rate: real 60.9%, synthetic v0.3 63.0%; p75/p90/p95: real 2/6/10, synthetic 1/2/3",PASS
-structural_truth,Hidden truth is coherent and not leaked,observed truth columns = 0; metadata validation PASS; true gaps >6m = 81.2%,PASS
-caveat,60-month follow-up remains weaker,60m follow-up absolute error = 10.52 pp; documented non-blocking caveat,CAVEAT
+conditional_fidelity,Conditional fidelity gate passes,cpv_missing: WMAE 2.44 pp; duration_present: WMAE 0.40 pp; generic_repeated_text: WMAE 1.09 pp; siret_present: WMAE 0.88 pp,PASS
+temporal_similarity,Temporal validation gate passes,year_share TVD=0.151; schema_by_year WMAE_pp=0.190; notice_type_by_year WMAE_pp=3.663; month_share TVD=0.164,PASS
+candidate_environment,Layer-1 candidate environment passes,"zero-candidate rate: real 40.7%, synthetic v0.3 42.4%; p75/p90/p95: real 4/9/14, synthetic 3/7/10; cap rate 0.00%",PASS
+structural_truth,Hidden truth is coherent and not leaked,observed truth columns = 0; metadata/truth validation PASS; true gaps >6m = 80.4%,PASS
+caveat,60-month follow-up remains weaker,60m follow-up absolute error = 11.02 pp; documented non-blocking caveat,CAVEAT

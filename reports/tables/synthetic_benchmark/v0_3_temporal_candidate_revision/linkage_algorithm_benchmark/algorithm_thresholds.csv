@@ -1,0 +1,5 @@
+algorithm,score_col,threshold,threshold_source
+current_weighted_composite,composite_score,0.3431669423310381,production primary threshold
+fellegi_sunter_style,fs_log_odds,0.0,frozen zero log-odds threshold
+logistic_regression,logistic_score,0.8243082851435325,calibration F1 maximum
+gradient_boosting,gradient_boosting_score,0.2651034253123665,calibration F1 maximum
