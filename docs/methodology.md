@@ -309,12 +309,13 @@ PYTHONPATH=src python3 -m pytest -q tests/test_synthetic_*.py
 ```
 The current all-artifact replay result is `PASS` for 51 generated artifacts
 across central, sanity, easier, moderate, difficult, and stress scenarios. The
-current source-state manifest hashes the dirty worktree, and
-`dirty_state_overlay.tar.gz` packages that dirty overlay against the recorded
-Git HEAD for auditability. `dirty_state_overlay_verification.json` verifies
-that the overlay replays onto a clean Git HEAD snapshot with no missing files or
-hash mismatches. This does not replace the release requirement for a clean
-commit or standalone release package.
+current readiness assessment is the source of truth for whether generated
+artifacts, source-state hashes, and release packaging identify the current
+repository state. In the latest checked state, generated artifact metadata
+records commit `436c9bdec8446043cab317531ad6f9bd34901cef`, while the clean
+repository HEAD is `8f1ea054a3f36ac385990b62819d33da57669d6a`; this does not
+replace the release requirement for a refreshed clean commit or standalone
+release package.
 
 **Current limitations.** No manually-validated CPV/technological taxonomy
 exists in this repo, so needs use broad CPV-division-derived segments as a

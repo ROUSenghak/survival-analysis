@@ -1,15 +1,15 @@
 {
-  "generated_at_utc": "2026-07-30T10:40:01.550330+00:00",
+  "generated_at_utc": "2026-08-03T07:21:58.448602+00:00",
   "benchmark_version": "v0_3_temporal_candidate_revision",
   "scenario": "central_provisional",
   "world": "001",
   "corruption": "001",
   "validation_manifest_status": "PASS_WITH_WARNINGS",
-  "current_git_head": "436c9bdec8446043cab317531ad6f9bd34901cef",
-  "worktree_dirty": true,
-  "release_state_packaged": true,
+  "current_git_head": "8f1ea054a3f36ac385990b62819d33da57669d6a",
+  "worktree_dirty": false,
+  "release_state_packaged": false,
   "release_package": {
-    "ok": true,
+    "ok": false,
     "manifest_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
     "verification_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
     "status": "PASS",
@@ -268,7 +268,7 @@
   "decisions": [
     {
       "level": "PIPELINE_TECHNICALLY_VALID",
-      "status": "PASS",
+      "status": "PASS_WITH_LIMITATIONS",
       "supporting_evidence": [
         "internal gate: PASS",
         "specification_recovery gate: PASS",
@@ -277,12 +277,14 @@
         "all generated artifacts replay: PASS",
         "replayed artifacts: 51",
         "source state manifest hashed paths: 629",
-        "worktree dirty: True",
-        "verified dirty-state release package: True",
+        "worktree dirty: False",
+        "verified dirty-state release package: False",
         "release package verification status: PASS"
       ],
       "failed_hard_gates": [],
-      "remaining_warnings": [],
+      "remaining_warnings": [
+        "generated data metadata commit 436c9bdec8446043cab317531ad6f9bd34901cef differs from current HEAD 8f1ea054a3f36ac385990b62819d33da57669d6a"
+      ],
       "permitted_uses": [
         "local reproducibility checks",
         "debugging generator and validation mechanisms"
@@ -388,16 +390,17 @@
       "supporting_evidence": [
         "validation status: PASS_WITH_WARNINGS",
         "calendar-month metric present in saved outputs: True",
-        "generated_from_current_head: True",
+        "generated_from_current_head: False",
         "source state manifest hashed paths: 629",
-        "worktree dirty: True",
-        "verified dirty-state release package: True",
+        "worktree dirty: False",
+        "verified dirty-state release package: False",
         "release package archive sha256: a61c2f8c742d8464efc5012d15fb1c726997bac4f72ddb898e281f6e200ac967"
       ],
       "failed_hard_gates": [
         "observable hard-fidelity failures remain in non-critical current gates",
         "headline difficulty varies materially across scenarios and must be scenario-labelled",
-        "cross-scenario probe-linker ranking stability is warning or inconclusive"
+        "cross-scenario probe-linker ranking stability is warning or inconclusive",
+        "generated data metadata commit 436c9bdec8446043cab317531ad6f9bd34901cef differs from current HEAD 8f1ea054a3f36ac385990b62819d33da57669d6a"
       ],
       "remaining_warnings": [
         "release docs must use validated synthetic benchmark language only"

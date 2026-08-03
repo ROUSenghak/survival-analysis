@@ -9,7 +9,7 @@
 
 ## Result
 
-**Validation-framework status: PASS_WITH_WARNINGS across 210 metrics.**
+**Validation-framework status: PASS_WITH_WARNINGS across 231 metrics.**
 
 This is not a final readiness label. The current five-level readiness
 assessment is:
@@ -28,14 +28,14 @@ Critical gates:
 
 - algorithm_utility: **PASS**
 - candidate_environment: **PASS**
-- conditionals: **WARNING**
+- conditionals: **PASS**
 - internal: **PASS**
 - privacy: **PASS**
 - specification_recovery: **PASS**
-- hidden_truth_difficulty: **WARNING**
+- hidden_truth_difficulty: **PASS**
 - temporal: **WARNING**
 
-Canonical replay from the recorded seeds and the live scenario file was evaluated inside the validation run (internal gate: **PASS**). The all-artifact replay audit also passes for 51 generated artifacts. `source_state_manifest.json` hashes the current dirty source/artifact state for auditability.
+Canonical replay from the recorded seeds and the live scenario file was evaluated inside the validation run (internal gate: **PASS**). The all-artifact replay audit also passes for 51 generated artifacts. The five-level readiness assessment is the current source-of-truth for whether generated artifacts, source state, and release packaging identify the current repository state.
 
 Leakage prevention is a hard internal invariant. The observed layer passes
 checks for explicit truth columns, unsuffixed hidden-truth alias columns, exact
@@ -110,12 +110,12 @@ follow-up runway is still weak.
   spread remains material and probe rankings are unstable even within scenarios;
   this blocks controlled synthetic comparison, final algorithm ranking, and
   release.
-- Central metadata now records the current Git HEAD, and `source_state_manifest.json`
-  hashes the current dirty source/artifact state. `dirty_state_overlay.tar.gz`
-  packages that overlay against the recorded Git HEAD for auditability, and
-  `dirty_state_overlay_verification.json` verifies replay onto a clean Git HEAD
-  snapshot with no missing files or hash mismatches. A release still requires a
-  clean commit or standalone release package.
+- Central metadata records the generation-time Git HEAD
+  (`436c9bdec8446043cab317531ad6f9bd34901cef`), while the clean repository
+  now sits at commit `8f1ea054a3f36ac385990b62819d33da57669d6a`. The current
+  readiness assessment therefore treats release packaging as not current and
+  still requires a refreshed clean commit or standalone release package before
+  release.
 - Superseded v0.1 artifacts and the notebooks that read them (05-08) were moved to `archive/` on 2026-07-28 and are recorded in `archive/ARCHIVE_MANIFEST.csv`; no active notebook or script reads them. The five-level readiness assessment remains authoritative for current permitted uses and prohibited claims.
 
 ## Artifacts

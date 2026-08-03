@@ -6,11 +6,11 @@ Benchmark version: `v0_3_temporal_candidate_revision`
 Scenario: `central_provisional`
 Validation status read from manifest: `PASS_WITH_WARNINGS`
 Generated data commit: `436c9bdec8446043cab317531ad6f9bd34901cef`
-Current HEAD: `436c9bdec8446043cab317531ad6f9bd34901cef`
+Current HEAD: `8f1ea054a3f36ac385990b62819d33da57669d6a`
 
 ## Decisions
 
-### PIPELINE_TECHNICALLY_VALID: PASS
+### PIPELINE_TECHNICALLY_VALID: PASS_WITH_LIMITATIONS
 
 Supporting evidence:
 - internal gate: PASS
@@ -20,8 +20,8 @@ Supporting evidence:
 - all generated artifacts replay: PASS
 - replayed artifacts: 51
 - source state manifest hashed paths: 629
-- worktree dirty: True
-- verified dirty-state release package: True
+- worktree dirty: False
+- verified dirty-state release package: False
 - release package verification status: PASS
 
 Failed hard gates:
@@ -115,16 +115,17 @@ Prohibited claims:
 Supporting evidence:
 - validation status: PASS_WITH_WARNINGS
 - calendar-month metric present in saved outputs: True
-- generated_from_current_head: True
+- generated_from_current_head: False
 - source state manifest hashed paths: 629
-- worktree dirty: True
-- verified dirty-state release package: True
+- worktree dirty: False
+- verified dirty-state release package: False
 - release package archive sha256: a61c2f8c742d8464efc5012d15fb1c726997bac4f72ddb898e281f6e200ac967
 
 Failed hard gates:
 - observable hard-fidelity failures remain in non-critical current gates
 - headline difficulty varies materially across scenarios and must be scenario-labelled
 - cross-scenario probe-linker ranking stability is warning or inconclusive
+- generated data metadata commit 436c9bdec8446043cab317531ad6f9bd34901cef differs from current HEAD 8f1ea054a3f36ac385990b62819d33da57669d6a
 
 Permitted uses:
 - not release-ready
