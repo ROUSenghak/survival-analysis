@@ -1,0 +1,8 @@
+comparison,metric,value
+real_vs_synthetic,publication_year_tv,0.04898103434152494
+real_vs_synthetic,schema_family_tv,0.01448759598797153
+real_vs_synthetic,notice_type_tv,0.04456235302459138
+real_vs_synthetic,cpv_division_tv,0.03607273578861281
+real_vs_synthetic,buyer_key_type_tv,0.016753072482421305
+real_vs_synthetic,text_length_quantile_distance_scaled,0.07497405135809122
+real_vs_synthetic,token_count_quantile_distance_scaled,0.09489780982326716
