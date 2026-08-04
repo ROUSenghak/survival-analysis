@@ -1,0 +1,424 @@
+{
+  "generator_version": "0.4.0-population-alias-revision",
+  "benchmark_id": "synthetic_benchmark_v0_4_population_alias_revision",
+  "scenario": "central_provisional",
+  "config_family": "v0_4",
+  "world_seed": 20260721,
+  "corruption_seed": 20260722,
+  "world_replication": 1,
+  "corruption_replication": 1,
+  "config_hashes": {
+    "calibration_parameters_v0_1.yaml": "f5dfa65689ebfb28",
+    "benchmark_defaults_v0_4.yaml": "fa0fa485452fb262",
+    "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
+    "scenarios/central_provisional.yaml": "1069331136affbc9",
+    "boamp_common_prepared.csv": "b8bb2eb0089165c2",
+    "real_holdout_buyer_keys.csv": "c495c94a563c5792",
+    "_scenario_source_path": "config/synthetic/scenarios/v0_4/central_provisional.yaml"
+  },
+  "row_counts": {
+    "buyers": 5000,
+    "establishments": 5391,
+    "needs": 41861,
+    "cycles": 59900,
+    "true_relations": 59900,
+    "notice_family_membership": 82278,
+    "clean_notices": 82278,
+    "observed_notices": 82278,
+    "corruption_log": 279890
+  },
+  "execution_timestamp_utc": "2026-08-03T13:09:57.703802+00:00",
+  "git_commit": "3fa502b7bce38f110e0066afd4e9e1afcd11ad34",
+  "runtime_environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.0"
+  },
+  "resolved_scenario": {
+    "scenario_id": "central_provisional",
+    "display_name": "Central provisional (v0.4)",
+    "version": "0.4",
+    "purpose": "Principal v0.4 benchmark scenario. Identical to the v0.3 central scenario except for three observable mechanisms that v0.3 got wrong: buyer publication timing, buyer population scale with buyer-persistent identifier visibility, and buyer-name alias structure. Recurrence prevalence, cycle-gap distribution and text drift remain explicit scenario assumptions and are unchanged from v0.3.",
+    "provenance": "EMPIRICAL_OBSERVABLE, MECHANISM_PARAMETER, SCENARIO_ASSUMPTION",
+    "references": [
+      "config/synthetic/scenarios/02_central_boamp_like.yaml"
+    ],
+    "baseline_reference": "config/synthetic/scenarios/central_provisional.yaml",
+    "buyers": {
+      "activity_pareto_shape": 1.22,
+      "activity_pareto_offset": 0.15,
+      "activity_model": {
+        "enabled": true,
+        "provenance": "EMPIRICAL_OBSERVABLE",
+        "source": "data/interim/boamp_common_prepared.csv",
+        "calibration_split": "calibration",
+        "family": "discrete_power_law",
+        "selection_rule": "lowest KS at the shared x_min; the 1-parameter family wins ties within 10% KS",
+        "tail_alpha": 2.036373,
+        "tail_xmin_relative": 2.151701,
+        "tail_xmax_relative": 190.365812,
+        "tail_key_share": 0.078912,
+        "body_quantile_grid": [
+          0.0,
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7,
+          0.75,
+          0.8,
+          0.85,
+          0.9,
+          0.94,
+          0.97,
+          0.99,
+          1.0
+        ],
+        "body_quantile_values": [
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.059769,
+          0.119539,
+          0.119539,
+          0.119539,
+          0.179308,
+          0.179308,
+          0.239078,
+          0.298847,
+          0.358617,
+          0.537925,
+          0.717234,
+          1.016081,
+          1.460169,
+          1.793085,
+          2.091932
+        ],
+        "span_fraction_by_activity_rank": [
+          0.0,
+          0.0,
+          0.0,
+          0.015658,
+          0.0803,
+          0.110443,
+          0.182901,
+          0.312183,
+          0.375739,
+          0.417908,
+          0.515589,
+          0.595736,
+          0.644277,
+          0.776883,
+          0.784846
+        ],
+        "span_knot_positions": [
+          0.05,
+          0.15,
+          0.25,
+          0.35,
+          0.45,
+          0.55,
+          0.65,
+          0.75,
+          0.825,
+          0.875,
+          0.92,
+          0.955,
+          0.98,
+          0.9925,
+          0.9975
+        ],
+        "span_extension_factor": 1.35,
+        "span_jitter_concentration": 4.0,
+        "min_active_days": 30,
+        "dispersion_tempering": 1.08,
+        "entry_year_weights": {
+          "2015": 0.14046618,
+          "2016": 0.10952364,
+          "2017": 0.11014642,
+          "2018": 0.08857126,
+          "2019": 0.10303556,
+          "2020": 0.07468204,
+          "2021": 0.06975463,
+          "2022": 0.07834402,
+          "2023": 0.0798896,
+          "2024": 0.05853058,
+          "2025": 0.06204455,
+          "2026": 0.02501151
+        },
+        "note": "Two-component relative-activity distribution: a smoothed empirical body below the fitted x_min plus a discrete power law above it, with entry time and active-window length as separate mechanisms. tail_alpha, tail_xmin_relative, tail_key_share, the body grid, the span curve and the initial entry weights are EMPIRICAL_OBSERVABLE. dispersion_tempering and span_jitter_concentration are MECHANISM_PARAMETERs selected by the bounded sweep; entry_year_weights are refined by fixed-point deconvolution against the observable by-year notice shares, because the emergent year distribution is the convolution of entry time with the successor cascade, not the entry distribution itself."
+      }
+    },
+    "recurrence": {
+      "base_recurrence_propensity": 0.4,
+      "cycle_gap_distribution": {
+        "type": "normal",
+        "mean_months": 18.0,
+        "sd_months": 9.0,
+        "min_months": 1.0
+      },
+      "max_cycles_per_need": 4,
+      "scoped_candidate_environment": {
+        "enabled": true,
+        "cpv_divisions": [
+          "32",
+          "35",
+          "48",
+          "72"
+        ],
+        "recurrence_propensity_multiplier": 1.45,
+        "near_window_share": 0.75,
+        "near_window_distribution": {
+          "type": "normal",
+          "mean_months": 2.0,
+          "sd_months": 2.0,
+          "min_months": 0.1,
+          "max_months": 6.0
+        },
+        "hard_negative_alignment_rate": 0.0,
+        "cluster_scoped_needs_by_buyer": true,
+        "scoped_buyer_affinity_share": 0.08,
+        "scoped_need_probability_high": 0.22,
+        "stabilize_scoped_establishment": true,
+        "stabilize_scoped_name_fallback": true,
+        "stabilize_scoped_identity_by_need": true,
+        "note": "Carried from v0.3 and re-swept at the v0.4 buyer population, because changing the buyer scale changes candidate density. MECHANISM_PARAMETERs selected against the candidate-environment gates; they never set per-source candidate counts, linkage scores, accepted links or thresholds."
+      }
+    },
+    "identifiers": {
+      "siret_missing_rate": 0.728,
+      "siren_only_rate": 0.1285,
+      "both_missing_rate": 0.807,
+      "invalid_identifier_rate": 0.0129,
+      "wrong_establishment_siret_rate": 0.02,
+      "year_regime_scale": {
+        "early": {
+          "end_year": 2021,
+          "scale": 2.5
+        },
+        "mid": {
+          "end_year": 2023,
+          "scale": 0.52
+        },
+        "late": {
+          "end_year": 9999,
+          "scale": 0.69
+        }
+      },
+      "conditional_siret_presence": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "schema_family",
+          "publication_year",
+          "notice_type_normalized"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "presence_scale": 1.0,
+        "siren_only_among_absent_rate": 0.0,
+        "invalid_among_absent_rate": 0.01,
+        "note": "Overrides the older year-regime scale for central_provisional in the v0.2 conditional revision. The target is checksum-clean SIRET presence; the absent mass is still split into SIREN-only, invalid, and missing official-identifier outcomes so the corruption vocabulary remains compatible with the current linkage pipeline. The global presence_scale preserves the conditional shape while aligning the release-candidate marginal SIRET presence rate after the v0.3 source-density revision.\n",
+        "buyer_effect_logit_sd": 2.1,
+        "buyer_effect_provenance": "EMPIRICAL_OBSERVABLE",
+        "buyer_effect_note": "Logit-scale between-buyer standard deviation of checksum-valid SIRET presence, fitted by logit-normal-binomial marginal likelihood on calibration buyers with at least five notices, over and above the schema x year x notice-type rates already in this block. v0.2 made SIRET visibility independent across a buyer's notices; the real corpus is strongly buyer-persistent, and that independence was fragmenting the synthetic SIRET-keyed buyer population into roughly four times as many keys as the real corpus has."
+      }
+    },
+    "buyer_names": {
+      "false_split_rate": 0.279,
+      "false_merge_rate": 0.076,
+      "generic_collision_rate": 0.0,
+      "persistent_aliases": {
+        "enabled": true,
+        "provenance": "EMPIRICAL_OBSERVABLE, MECHANISM_PARAMETER",
+        "source": "data/interim/boamp_common_prepared.csv",
+        "calibration_split": "calibration",
+        "alias_set_size_weights": {
+          "1": 0.69636364,
+          "10": 0.00181818,
+          "12": 0.00181818,
+          "14": 0.00181818,
+          "17": 0.00090909,
+          "2": 0.18545455,
+          "26": 0.00090909,
+          "3": 0.06545455,
+          "4": 0.02363636,
+          "5": 0.00818182,
+          "6": 0.00181818,
+          "7": 0.00363636,
+          "71": 0.00090909,
+          "75": 0.00090909,
+          "8": 0.00272727,
+          "9": 0.00363636
+        },
+        "zero_overlap_family_share": 0.240143,
+        "full_overlap_family_share": 0.000896,
+        "dominant_alias_share": 0.55,
+        "max_alias_attempts": 6,
+        "note": "Persistent per-buyer alias set, drawn once per world. alias_set_size_weights is the observable distinct-normalised-names-per-SIREN distribution; zero_overlap_family_share and full_overlap_family_share are the observable shares of same-SIREN name pairs with no shared token and with an identical token set. dominant_alias_share is a MECHANISM_PARAMETER carrying the per-scenario difficulty gradient that v0.3 expressed through false_split_rate."
+      }
+    },
+    "cpv": {
+      "missing_rate": 0.1706,
+      "parent_replace_rate": 0.05,
+      "division_only_rate": 0.02,
+      "generic_rate": 0.0714,
+      "wrong_related_rate": 0.02,
+      "old_parser_failure_mode": false,
+      "missing_rate_by_condition": {
+        "eforms": 0.01,
+        "legacy": {
+          "APPEL_OFFRE": 0.213,
+          "ATTRIBUTION": 0.072
+        }
+      }
+    },
+    "duration": {
+      "missing_rate": 0.885,
+      "rounding_severity": 0.4,
+      "common_admin_value_rate": 0.2,
+      "unit_conversion_failure_rate": 0.005,
+      "missing_rate_by_schema": {
+        "LEGACY": 0.995,
+        "EFORMS": 0.06
+      },
+      "conditional_presence": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "schema_family",
+          "publication_year",
+          "notice_type_normalized"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "value_sampler": {
+          "method": "low_discrepancy_empirical_inverted_cdf",
+          "source_field": "duration_raw",
+          "valid_month_range": [
+            1,
+            120
+          ],
+          "offset": 0.0
+        },
+        "note": "Overrides missing_rate_by_schema for central_provisional in the v0.2 conditional revision. Presence is estimated by observable schema/year/type rates. When present, the visible declared duration is sampled from valid raw BOAMP duration values instead of being rounded from hidden cycle length; latent true contract-cycle timing remains generated by the clean-world mechanism and is not inferred from BOAMP.\n"
+      }
+    },
+    "text": {
+      "same_cycle_variation_severity": 0.03,
+      "next_cycle_drift_severity": 0.5,
+      "hard_negative_overlap_rate": 0.15,
+      "boilerplate_rate": 0.44,
+      "conditional_reuse": {
+        "enabled": true,
+        "source": "data/interim/boamp_common_prepared.csv",
+        "conditioning": [
+          "notice_type_normalized",
+          "buyer_activity_tier"
+        ],
+        "smoothing": {
+          "method": "beta_binomial_global_prior",
+          "prior_strength": 25
+        },
+        "exact_template_share": 0.82,
+        "near_boilerplate_extra_rate": 0.08,
+        "generic_weak_extra_rate": 0.04,
+        "same_buyer_admin_template_rate": 0.35,
+        "same_family_near_duplicate_rate": 0.0,
+        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact when the observed buyer key is stable. The corruption layer adds a stable attribution suffix only when notice-level SIRET/name-key differences would otherwise make a family duplicate look like cross-buyer generic boilerplate. High-activity buyers also reuse an observable-buyer-key administrative title at a calibrated rate, increasing within-corpus duplicate share without pooling text across unrelated buyer keys.\n"
+      }
+    },
+    "linked_notice_visibility": {
+      "missing_rate": 0.6788
+    },
+    "conditional_observation": {
+      "enabled": true,
+      "version": "v0_4_population_alias_revision",
+      "source": "data/interim/boamp_common_prepared.csv",
+      "provenance": "EMPIRICAL_OBSERVABLE",
+      "note": "Conditional rate tables: full corpus (their marginal is the gate target and a buyer-level split shifts it by 1.94 pp through buyer selection alone). Shape parameters: calibration buyers only, evaluated out of sample on the held-out 30%. See holdout/holdout_marginal_rate_limitation.json.",
+      "calibration_split": null,
+      "shape_parameter_calibration_split": "calibration",
+      "holdout": "config/synthetic/real_holdout_buyer_keys.csv",
+      "holdout_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec"
+    },
+    "quality_class_mix": {
+      "HIGH": 0.3,
+      "MEDIUM": 0.45,
+      "LOW": 0.25
+    },
+    "config_family": "v0_4",
+    "generated_by": "scripts/write_v0_4_scenario_config.py",
+    "generated_from": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/observable_targets.json",
+    "generated_at_utc": "2026-08-03T13:08:36.970726+00:00",
+    "needs": {
+      "needs_per_buyer_mean": 8.382,
+      "note": "MECHANISM_PARAMETER. Benchmark size used to be a side effect of the buyer count through needs.py's activity-tier means; making it explicit lets the buyer population be recalibrated without rescaling the corpus."
+    }
+  },
+  "resolved_benchmark_defaults": {
+    "version": "0.4",
+    "benchmark_id": "synthetic_benchmark_v0_4_population_alias_revision",
+    "target_n_buyers": 5000,
+    "target_n_notices": 84623,
+    "n_latent_world_replications": 1,
+    "n_corruption_replications": 1,
+    "seed": {
+      "latent_world_seed": 20260721,
+      "corruption_seed": 20260722
+    },
+    "output_format": {
+      "large_tables": "parquet",
+      "small_summaries": "csv",
+      "config": "yaml"
+    },
+    "observation_window": {
+      "start_date": "2015-03-02",
+      "end_date": "2026-07-13"
+    },
+    "validation_tolerances": {
+      "siret_siren_hierarchy_violations_max": 0,
+      "real_identifier_leakage_max": 0,
+      "reproducibility_row_count_tolerance": 0,
+      "buyer_activity_gini_target": 0.832,
+      "buyer_activity_gini_tolerance": 0.15,
+      "candidate_zero_rate_fidelity_band": [
+        0.4,
+        0.8
+      ]
+    },
+    "paths": {
+      "root": "data/processed/synthetic_benchmark"
+    },
+    "config_family": "v0_4",
+    "generated_by": "scripts/write_v0_4_scenario_config.py",
+    "target_n_buyers_note": "MECHANISM_PARAMETER selected by the bounded sweep against the observable distinct-observed-buyer-keys-per-notice target of 0.05977. The v0.1-v0.3 value of 19,200 was documented as the real prepared corpus's buyer count, but that corpus has 5,148 distinct raw buyer names, 4,492 normalised names, 1,506 checksum-valid SIRENs and 5,268 production buyer keys; 19,200 is not traceable to any observable quantity in this repository.",
+    "real_holdout": {
+      "path": "config/synthetic/real_holdout_buyer_keys.csv",
+      "sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+      "calibration_split": "calibration"
+    }
+  },
+  "validation_status": "PASS",
+  "validation_failures": {},
+  "warnings": []
+}
