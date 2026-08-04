@@ -41,6 +41,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", default=DEFAULT_VERSION)
     parser.add_argument(
+        "--config-family",
+        default=None,
+        help=(
+            "Versioned scenario/defaults family (e.g. v0_4). Omit for the flat v0.1-v0.3 "
+            "configuration, which released versions replay from."
+        ),
+    )
+    parser.add_argument(
         "--scenarios",
         default=",".join(DEFAULT_REQUIRED_SCENARIOS),
         help="Comma-separated scenario IDs. Defaults to the required benchmark scenarios.",
@@ -104,7 +112,7 @@ def _resolve_seed_grid(args: argparse.Namespace, defaults) -> list[tuple[int, in
 
 def main() -> None:
     args = parse_args()
-    defaults = load_benchmark_defaults(ROOT)
+    defaults = load_benchmark_defaults(ROOT, family=args.config_family)
     scenarios = _csv_list(args.scenarios)
     unknown = [scenario for scenario in scenarios if scenario not in VALID_SCENARIOS]
     if unknown:
@@ -115,7 +123,7 @@ def main() -> None:
     rows = []
     for scenario in scenarios:
         # Load now so missing/inherited configs fail before any write occurs.
-        load_scenario(ROOT, scenario)
+        load_scenario(ROOT, scenario, family=args.config_family)
         for world_rep, corruption_rep, world_seed, corruption_seed in seed_grid:
             out_dir = benchmark_output_dir(
                 ROOT, args.version, scenario, f"{world_rep:03d}", f"{corruption_rep:03d}"
@@ -148,6 +156,7 @@ def main() -> None:
                 benchmark_version=args.version,
                 world_rep=world_rep,
                 corruption_rep=corruption_rep,
+                config_family=args.config_family,
             )
             row["status"] = "OVERWRITTEN" if exists else "GENERATED"
             rows.append(row)
@@ -155,6 +164,7 @@ def main() -> None:
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "benchmark_version": args.version,
+        "config_family": args.config_family,
         "dry_run": args.dry_run,
         "force": args.force,
         "rows": rows,

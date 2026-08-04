@@ -2,17 +2,62 @@
 
 The notebook is intentionally generated from a Python builder so the JSON stays
 stable and the experiment can be refreshed after benchmark regeneration.
+
+`--version` selects the benchmark version the generated notebook reads. The cell
+sources below are written for the default version and re-pointed afterwards by
+`retarget_version`, rather than being templated: the code cells are raw strings
+full of dict and f-string braces, so a formatting pass over them would be far
+more fragile than a targeted substitution over three known literals. An
+unqualified run performs no substitution at all and reproduces the existing
+notebook byte-for-byte; a later benchmark version is written to its own notebook
+file so the executed record of the previous one survives.
 """
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 from textwrap import dedent
 
 import nbformat as nbf
 
 
-NOTEBOOK_PATH = Path("notebooks/14_linkage_algorithm_benchmark.ipynb")
+DEFAULT_VERSION = "v0_3_temporal_candidate_revision"
+DEFAULT_NOTEBOOK_PATH = Path("notebooks/14_linkage_algorithm_benchmark.ipynb")
+NOTEBOOK_PATH = DEFAULT_NOTEBOOK_PATH
+
+# Short label used in the notebook's own prose and title.
+VERSION_LABELS = {
+    "v0_3_temporal_candidate_revision": "v0.3",
+    "v0_4_population_alias_revision": "v0.4",
+}
+
+
+def version_label(version: str) -> str:
+    return VERSION_LABELS.get(version, version)
+
+
+def retarget_version(nb: nbf.NotebookNode, version: str) -> nbf.NotebookNode:
+    """Re-point a notebook built for the default version at another one.
+
+    Substitutes the three places the version appears: the constant the data
+    loader reads, the title, and the prose sentence naming the corpus. Output
+    table and figure directories are already derived from `BENCHMARK_VERSION`
+    inside the notebook, so they follow automatically.
+    """
+    if version == DEFAULT_VERSION:
+        return nb
+    replacements = {
+        f'BENCHMARK_VERSION = "{DEFAULT_VERSION}"': f'BENCHMARK_VERSION = "{version}"',
+        f"`{DEFAULT_VERSION}`": f"`{version}`",
+        f"Synthetic BOAMP {version_label(DEFAULT_VERSION)}": f"Synthetic BOAMP {version_label(version)}",
+    }
+    for cell in nb["cells"]:
+        source = cell["source"]
+        for old, new in replacements.items():
+            source = source.replace(old, new)
+        cell["source"] = source
+    return nb
 
 
 def md(source: str) -> nbf.NotebookNode:
@@ -1090,10 +1135,22 @@ def build_notebook() -> nbf.NotebookNode:
 
 
 def main() -> None:
-    NOTEBOOK_PATH.parent.mkdir(parents=True, exist_ok=True)
-    nb = build_notebook()
-    nbf.write(nb, NOTEBOOK_PATH)
-    print(f"Wrote {NOTEBOOK_PATH}")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", default=DEFAULT_VERSION)
+    parser.add_argument("--notebook-path", type=Path, default=None)
+    args = parser.parse_args()
+
+    notebook_path = args.notebook_path or (
+        DEFAULT_NOTEBOOK_PATH
+        if args.version == DEFAULT_VERSION
+        else DEFAULT_NOTEBOOK_PATH.with_name(
+            f"{DEFAULT_NOTEBOOK_PATH.stem}_{version_label(args.version).replace('.', '_')}.ipynb"
+        )
+    )
+    notebook_path.parent.mkdir(parents=True, exist_ok=True)
+    nb = retarget_version(build_notebook(), args.version)
+    nbf.write(nb, notebook_path)
+    print(f"Wrote {notebook_path} (benchmark version {args.version})")
 
 
 if __name__ == "__main__":

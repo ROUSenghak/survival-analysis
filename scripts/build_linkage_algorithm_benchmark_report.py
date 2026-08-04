@@ -1,14 +1,23 @@
-"""Build a standalone written report for the linkage algorithm benchmark."""
+"""Build a standalone written report for the linkage algorithm benchmark.
+
+`--version` selects which benchmark version's tables are rendered. It defaults to
+v0.3, whose report keeps its original unversioned filename so existing links and
+the compiled PDF stay valid; any other version is written to a version-prefixed
+stem so it cannot overwrite an earlier release's report.
+"""
 
 from __future__ import annotations
 
+import argparse
+import datetime as _dt
 from pathlib import Path
 
 import pandas as pd
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-VERSION = "v0_3_temporal_candidate_revision"
+DEFAULT_VERSION = "v0_3_temporal_candidate_revision"
+VERSION = DEFAULT_VERSION
 TABLE_DIR = (
     PROJECT_ROOT
     / "reports"
@@ -28,6 +37,39 @@ FIGURE_DIR = (
 OUTPUT_DIR = PROJECT_ROOT / "reports" / "generated" / "synthetic_benchmark"
 REPORT_STEM = "linkage_algorithm_benchmark_report"
 GENERATED_DATE = "2026-07-30"
+NOTEBOOK_NAME = "14_linkage_algorithm_benchmark.ipynb"
+
+
+def configure(version: str) -> None:
+    """Point the module's paths and labels at one benchmark version.
+
+    The rendering functions read these as module globals, so rebinding them here
+    keeps every builder function untouched. The v0.3 report retains its original
+    stem and hardcoded date so re-running it reproduces the released file exactly;
+    other versions take a version-prefixed stem and a date read from the tables
+    they actually describe, which is what a reader needs to know.
+    """
+    global VERSION, TABLE_DIR, FIGURE_DIR, REPORT_STEM, GENERATED_DATE, NOTEBOOK_NAME
+    VERSION = version
+    TABLE_DIR = (
+        PROJECT_ROOT / "reports" / "tables" / "synthetic_benchmark" / version
+        / "linkage_algorithm_benchmark"
+    )
+    FIGURE_DIR = (
+        PROJECT_ROOT / "reports" / "figures" / "synthetic_benchmark" / version
+        / "linkage_algorithm_benchmark"
+    )
+    if version == DEFAULT_VERSION:
+        return
+    label = version.split("_")[1] if "_" in version else version
+    REPORT_STEM = f"v0_{label}_linkage_algorithm_benchmark_report"
+    NOTEBOOK_NAME = f"14_linkage_algorithm_benchmark_v0_{label}.ipynb"
+    source = TABLE_DIR / "summary_metrics.csv"
+    GENERATED_DATE = (
+        _dt.date.fromtimestamp(source.stat().st_mtime).isoformat()
+        if source.exists()
+        else _dt.date.today().isoformat()
+    )
 
 
 ALGORITHM_LABELS = {
@@ -262,7 +304,7 @@ def build_markdown(outputs: dict[str, pd.DataFrame], tables: dict[str, pd.DataFr
 
 Generated: {GENERATED_DATE}  
 Benchmark version: `{VERSION}`  
-Primary source notebook: `{rel(PROJECT_ROOT / 'notebooks' / '14_linkage_algorithm_benchmark.ipynb')}`
+Primary source notebook: `{rel(PROJECT_ROOT / 'notebooks' / NOTEBOOK_NAME)}`
 
 ## Technical Summary
 
@@ -404,7 +446,7 @@ be widened or redesigned.
 
 ## Source Artifacts
 
-- Executed notebook: `{rel(PROJECT_ROOT / 'notebooks' / '14_linkage_algorithm_benchmark.ipynb')}`
+- Executed notebook: `{rel(PROJECT_ROOT / 'notebooks' / NOTEBOOK_NAME)}`
 - Summary table: `{rel(TABLE_DIR / 'summary_metrics.csv')}`
 - Scenario table: `{rel(TABLE_DIR / 'scenario_summary_metrics.csv')}`
 - Bias diagnostics: `{rel(TABLE_DIR / 'recall_slices.csv')}`
@@ -603,7 +645,7 @@ broader threshold supports recall sensitivity?
 
 \begin{{itemize}}
 \item Benchmark version: \texttt{{{tex_escape(VERSION)}}}
-\item Executed notebook: \path{{{rel(PROJECT_ROOT / 'notebooks' / '14_linkage_algorithm_benchmark.ipynb')}}}
+\item Executed notebook: \path{{{rel(PROJECT_ROOT / 'notebooks' / NOTEBOOK_NAME)}}}
 \item Summary table: \path{{{rel(TABLE_DIR / 'summary_metrics.csv')}}}
 \item Scenario table: \path{{{rel(TABLE_DIR / 'scenario_summary_metrics.csv')}}}
 \item Bias diagnostics: \path{{{rel(TABLE_DIR / 'recall_slices.csv')}}}
@@ -614,6 +656,11 @@ broader threshold supports recall sensitivity?
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", default=DEFAULT_VERSION)
+    args = parser.parse_args()
+    configure(args.version)
+
     outputs = load_outputs()
     tables = prepare_tables(outputs)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
