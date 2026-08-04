@@ -1,0 +1,44 @@
+# GENERATED FILE -- do not hand-edit.
+# Written by scripts/write_v0_4_scenario_config.py from
+# reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/observable_targets.json (EMPIRICAL_OBSERVABLE, calibration buyers only)
+# and reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/mechanism_parameters.json (MECHANISM_PARAMETER, sweep-selected).
+# The flat config/synthetic/scenarios/*.yaml files are the v0.1-v0.3 family and are
+# left untouched so already-released benchmark versions keep replaying from them.
+
+version: '0.4'
+benchmark_id: synthetic_benchmark_v0_4_population_alias_revision
+target_n_buyers: 5000
+target_n_notices: 84623
+n_latent_world_replications: 1
+n_corruption_replications: 1
+seed:
+  latent_world_seed: 20260721
+  corruption_seed: 20260722
+output_format:
+  large_tables: parquet
+  small_summaries: csv
+  config: yaml
+observation_window:
+  start_date: '2015-03-02'
+  end_date: '2026-07-13'
+validation_tolerances:
+  siret_siren_hierarchy_violations_max: 0
+  real_identifier_leakage_max: 0
+  reproducibility_row_count_tolerance: 0
+  buyer_activity_gini_target: 0.832
+  buyer_activity_gini_tolerance: 0.15
+  candidate_zero_rate_fidelity_band:
+  - 0.4
+  - 0.8
+paths:
+  root: data/processed/synthetic_benchmark
+config_family: v0_4
+generated_by: scripts/write_v0_4_scenario_config.py
+target_n_buyers_note: MECHANISM_PARAMETER selected by the bounded sweep against the observable distinct-observed-buyer-keys-per-notice
+  target of 0.05977. The v0.1-v0.3 value of 19,200 was documented as the real prepared corpus's buyer
+  count, but that corpus has 5,148 distinct raw buyer names, 4,492 normalised names, 1,506 checksum-valid
+  SIRENs and 5,268 production buyer keys; 19,200 is not traceable to any observable quantity in this repository.
+real_holdout:
+  path: config/synthetic/real_holdout_buyer_keys.csv
+  sha256: c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec
+  calibration_split: calibration

@@ -25,6 +25,7 @@ import numpy as np
 import pandas as pd
 
 from boamp.synthetic import schemas
+from boamp.synthetic.activity import build_activity_model
 from boamp.synthetic.buyers import generate_latent_buyers
 from boamp.synthetic.conditional_observation import build_conditional_observation_model
 from boamp.synthetic.corruption import corrupt_notices
@@ -35,22 +36,32 @@ from boamp.synthetic.needs import generate_latent_needs
 from boamp.synthetic.notices import generate_notice_families_and_clean_notices
 from boamp.synthetic.parameters import load_calibration_parameters
 from boamp.synthetic.relations import build_true_relations
-from boamp.synthetic.scenarios import load_benchmark_defaults, load_scenario, to_plain_dict
+from boamp.synthetic.scenarios import (
+    benchmark_defaults_path,
+    load_benchmark_defaults,
+    load_scenario,
+    scenario_config_path,
+    to_plain_dict,
+)
 from boamp.synthetic.validation import run_full_structural_validation
 
-GENERATOR_VERSION = "0.3.0-temporal-candidate-revision"
+GENERATOR_VERSION = "0.4.0-population-alias-revision"
 
 
 def generate_clean_world(scenario_id: str, project_root: Path, n_buyers: int,
-                          world_seed: int, scenario_override=None) -> dict[str, pd.DataFrame]:
+                          world_seed: int, scenario_override=None,
+                          config_family: str | None = None) -> dict[str, pd.DataFrame]:
     """Phases 4.1-4.7: buyers -> establishments -> needs -> cycles ->
     relations -> notice families -> clean notices. Raises ValueError if
     structural validation (Phase 5) fails; caller must not proceed to
-    corruption on a failed world."""
+    corruption on a failed world.
+
+    `config_family` selects a versioned configuration family (v0.4). None keeps
+    the flat v0.1-v0.3 configuration so released versions replay unchanged."""
     rng = np.random.default_rng(world_seed)
     calib = load_calibration_parameters(project_root)
-    scenario = scenario_override or load_scenario(project_root, scenario_id)
-    benchmark_defaults = load_benchmark_defaults(project_root)
+    scenario = scenario_override or load_scenario(project_root, scenario_id, family=config_family)
+    benchmark_defaults = load_benchmark_defaults(project_root, family=config_family)
 
     buyer_cfg = getattr(scenario, "buyers", None)
     buyers = generate_latent_buyers(
@@ -59,12 +70,16 @@ def generate_clean_world(scenario_id: str, project_root: Path, n_buyers: int,
         rng,
         pareto_shape=float(getattr(buyer_cfg, "activity_pareto_shape", 1.0)),
         pareto_offset=float(getattr(buyer_cfg, "activity_pareto_offset", 0.15)),
+        activity_model=build_activity_model(getattr(buyer_cfg, "activity_model", None)),
     )
     establishments = generate_latent_establishments(buyers, rng)
+    needs_cfg = getattr(scenario, "needs", None)
+    needs_per_buyer_mean = getattr(needs_cfg, "needs_per_buyer_mean", None)
     needs = generate_latent_needs(
         buyers, establishments, calib, rng,
         base_recurrence_propensity=scenario.recurrence.base_recurrence_propensity,
         scenario=scenario,
+        needs_per_buyer_mean=float(needs_per_buyer_mean) if needs_per_buyer_mean is not None else None,
     )
     observation_end = pd.Timestamp(benchmark_defaults.observation_window.end_date)
     cycles = generate_latent_cycles(needs, buyers, scenario, observation_end, rng)
@@ -101,13 +116,17 @@ def generate_clean_world(scenario_id: str, project_root: Path, n_buyers: int,
 
 
 def generate_observed_world(world: dict[str, pd.DataFrame], scenario_id: str, project_root: Path,
-                             corruption_seed: int, scenario_override=None) -> tuple[pd.DataFrame, pd.DataFrame]:
+                             corruption_seed: int, scenario_override=None,
+                             config_family: str | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Phase 6: clean_notices -> (observed_notices, corruption_log)."""
     rng = np.random.default_rng(corruption_seed)
-    scenario = scenario_override or load_scenario(project_root, scenario_id)
+    scenario = scenario_override or load_scenario(project_root, scenario_id, family=config_family)
     conditional_cfg = getattr(scenario, "conditional_observation", None)
     observation_model = (
-        build_conditional_observation_model(project_root)
+        build_conditional_observation_model(
+            project_root,
+            calibration_split=getattr(conditional_cfg, "calibration_split", None),
+        )
         if getattr(conditional_cfg, "enabled", False) else None
     )
     logger = CorruptionLogger(scenario_id=scenario_id, seed=corruption_seed)
@@ -118,18 +137,27 @@ def generate_observed_world(world: dict[str, pd.DataFrame], scenario_id: str, pr
     return observed, logger.to_frame()
 
 
-def _config_hash(project_root: Path, scenario_id: str) -> dict[str, str]:
+def _config_hash(project_root: Path, scenario_id: str, config_family: str | None = None) -> dict[str, str]:
     def _hash(rel_path: str) -> str:
         p = Path(project_root) / rel_path
         return hashlib.sha256(p.read_bytes()).hexdigest()[:16] if p.exists() else "MISSING"
 
-    return {
+    project_root = Path(project_root)
+    scenario_rel = scenario_config_path(project_root, scenario_id, config_family).relative_to(project_root)
+    defaults_rel = benchmark_defaults_path(project_root, config_family).relative_to(project_root)
+    hashes = {
         "calibration_parameters_v0_1.yaml": _hash("config/synthetic/calibration_parameters_v0_1.yaml"),
-        "benchmark_defaults_v0_1.yaml": _hash("config/synthetic/benchmark_defaults_v0_1.yaml"),
+        str(defaults_rel.name): _hash(str(defaults_rel)),
         "recurrence_ontology_v0_1.yaml": _hash("config/synthetic/recurrence_ontology_v0_1.yaml"),
-        f"scenarios/{scenario_id}.yaml": _hash(f"config/synthetic/scenarios/{scenario_id}.yaml"),
+        f"scenarios/{scenario_id}.yaml": _hash(str(scenario_rel)),
         "boamp_common_prepared.csv": _hash("data/interim/boamp_common_prepared.csv"),
     }
+    if config_family is not None:
+        # The frozen real holdout decides which real notices every observable
+        # parameter was estimated from, so it belongs in the replay fingerprint.
+        hashes["real_holdout_buyer_keys.csv"] = _hash("config/synthetic/real_holdout_buyer_keys.csv")
+        hashes["_scenario_source_path"] = str(scenario_rel)
+    return hashes
 
 
 def _runtime_environment() -> dict[str, str]:
@@ -168,7 +196,7 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
                          scenario_id: str, project_root: Path, world_seed: int, corruption_seed: int,
                          *, benchmark_version: str,
                          world_rep: int = 1, corruption_rep: int = 1,
-                         resolved_scenario=None) -> Path:
+                         resolved_scenario=None, config_family: str | None = None) -> Path:
     """Phase 7: write the full traceability output tree for one
     scenario/world/corruption replication."""
     project_root = Path(project_root)
@@ -187,16 +215,17 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
         df.to_parquet(out_dir / f"{name}.parquet", index=False)
 
     validation = world.get("_validation")
-    resolved_scenario = resolved_scenario or load_scenario(project_root, scenario_id)
+    resolved_scenario = resolved_scenario or load_scenario(project_root, scenario_id, family=config_family)
     metadata = dict(
         generator_version=GENERATOR_VERSION,
         benchmark_id=f"synthetic_benchmark_{benchmark_version}",
         scenario=scenario_id,
+        config_family=config_family,
         world_seed=world_seed,
         corruption_seed=corruption_seed,
         world_replication=world_rep,
         corruption_replication=corruption_rep,
-        config_hashes=_config_hash(project_root, scenario_id),
+        config_hashes=_config_hash(project_root, scenario_id, config_family),
         row_counts={k: len(v) for k, v in world.items() if k != "_validation"} | {
             "observed_notices": len(observed), "corruption_log": len(corruption_log),
         },
@@ -204,7 +233,7 @@ def write_pilot_outputs(world: dict[str, pd.DataFrame], observed: pd.DataFrame, 
         git_commit=_git_commit(project_root),
         runtime_environment=_runtime_environment(),
         resolved_scenario=to_plain_dict(resolved_scenario),
-        resolved_benchmark_defaults=to_plain_dict(load_benchmark_defaults(project_root)),
+        resolved_benchmark_defaults=to_plain_dict(load_benchmark_defaults(project_root, family=config_family)),
         validation_status="PASS" if (validation is None or validation.passed) else "FAIL",
         validation_failures=validation.failures() if validation is not None else {},
         warnings=[],
@@ -219,22 +248,26 @@ def generate_pilot(scenario_id: str, project_root: Path, n_buyers: int | None = 
                     world_seed: int | None = None, corruption_seed: int | None = None,
                     *, benchmark_version: str,
                     world_rep: int = 1, corruption_rep: int = 1,
-                    scenario_override=None) -> Path:
-    """Full Phase 4-7 pipeline for one scenario, using benchmark_defaults_v0_1.yaml
-    unless overridden. Returns the output directory."""
+                    scenario_override=None, config_family: str | None = None) -> Path:
+    """Full Phase 4-7 pipeline for one scenario, using the configuration family's
+    benchmark defaults unless overridden. Returns the output directory."""
     project_root = Path(project_root)
-    defaults = load_benchmark_defaults(project_root)
+    defaults = load_benchmark_defaults(project_root, family=config_family)
     n_buyers = n_buyers or defaults.target_n_buyers
     world_seed = world_seed or defaults.seed.latent_world_seed
     corruption_seed = corruption_seed or defaults.seed.corruption_seed
 
-    resolved_scenario = scenario_override or load_scenario(project_root, scenario_id)
-    world = generate_clean_world(scenario_id, project_root, n_buyers, world_seed, scenario_override=resolved_scenario)
+    resolved_scenario = scenario_override or load_scenario(project_root, scenario_id, family=config_family)
+    world = generate_clean_world(
+        scenario_id, project_root, n_buyers, world_seed,
+        scenario_override=resolved_scenario, config_family=config_family,
+    )
     observed, log = generate_observed_world(
-        world, scenario_id, project_root, corruption_seed, scenario_override=resolved_scenario
+        world, scenario_id, project_root, corruption_seed,
+        scenario_override=resolved_scenario, config_family=config_family,
     )
     return write_pilot_outputs(
         world, observed, log, scenario_id, project_root, world_seed, corruption_seed,
         world_rep=world_rep, corruption_rep=corruption_rep, benchmark_version=benchmark_version,
-        resolved_scenario=resolved_scenario,
+        resolved_scenario=resolved_scenario, config_family=config_family,
     )

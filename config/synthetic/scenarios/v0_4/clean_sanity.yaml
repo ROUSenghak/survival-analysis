@@ -1,0 +1,65 @@
+# v0.1 pilot scenario: clean_sanity.
+# Operationalizes config/synthetic/scenarios/01_clean_sanity.yaml's WP13
+# rationale into concrete numeric knobs consumed by
+# src/boamp/synthetic/pipeline.py. Read that file for the full scientific
+# justification; this file only adds the numbers.
+
+scenario_id: clean_sanity
+display_name: "Clean sanity"
+version: "0.1"
+purpose: >
+  Positive control. Verify the generator/pipeline implementation, not the
+  real corpus. Near-noiseless world: if a linker cannot achieve near-perfect
+  recovery here, the defect is in code, not in a modeling assumption.
+provenance: SCENARIO_ASSUMPTION
+references: [config/synthetic/scenarios/01_clean_sanity.yaml]
+baseline_reference: central_provisional.yaml
+
+recurrence:
+  base_recurrence_propensity: 0.95     # SCENARIO_PARAMETER (true_recurrence_prevalence has no empirical anchor; deliberately high+low-noise here, not a claim about real BOAMP)
+  cycle_gap_distribution: {type: normal, mean_months: 12.0, sd_months: 1.0, min_months: 1.0}
+  max_cycles_per_need: 4
+  no_successor_at_window_end_only: true   # cycles near the observation-window boundary are the only source of NO_SUCCESSOR censoring in this scenario
+
+identifiers:
+  siret_missing_rate: 0.02
+  siren_only_rate: 0.01
+  both_missing_rate: 0.01
+  invalid_identifier_rate: 0.0
+  wrong_establishment_siret_rate: 0.0
+
+buyer_names:
+  false_split_rate: 0.02
+  false_merge_rate: 0.0
+  generic_collision_rate: 0.02
+
+cpv:
+  missing_rate: 0.02
+  parent_replace_rate: 0.02
+  division_only_rate: 0.0
+  generic_rate: 0.02
+  wrong_related_rate: 0.0
+  old_parser_failure_mode: false   # never enabled centrally; see cpv.py note in central_provisional.yaml
+
+duration:
+  missing_rate: 0.02
+  rounding_severity: 0.1
+  common_admin_value_rate: 0.05
+  unit_conversion_failure_rate: 0.0
+
+text:
+  same_cycle_variation_severity: 0.05
+  next_cycle_drift_severity: 0.05     # SCENARIO_PARAMETER (true_text_corruption_process, no empirical anchor)
+  hard_negative_overlap_rate: 0.05
+  boilerplate_rate: 0.02
+
+linked_notice_visibility:
+  missing_rate: 0.02
+
+quality_class_mix:
+  # Latent per-notice record-quality class, drives dependent/co-occurring
+  # corruption severity across identifier/CPV/duration/text fields at once
+  # (Phase 6.7). HIGH quality dominates in this scenario by design.
+  HIGH: 0.90
+  MEDIUM: 0.08
+  LOW: 0.02

@@ -91,7 +91,8 @@ def _draw_division(divisions, division_probs, sampler, buyer_has_scoped_affinity
 def generate_latent_needs(buyers: pd.DataFrame, establishments: pd.DataFrame,
                            calib, rng: np.random.Generator,
                            base_recurrence_propensity: float,
-                           scenario=None) -> pd.DataFrame:
+                           scenario=None,
+                           needs_per_buyer_mean: float | None = None) -> pd.DataFrame:
     divisions, division_probs, sampler = _division_sampler(calib, scenario)
     estab_by_buyer = {k: v["establishment_id_true"].tolist() for k, v in establishments.groupby("buyer_id_true")}
 
@@ -103,8 +104,15 @@ def generate_latent_needs(buyers: pd.DataFrame, establishments: pd.DataFrame,
     # scale, then allocate that expected total continuously according to the
     # buyer activity weights. The small floor preserves low-activity buyers and
     # allows genuinely inactive buyers, matching the benchmark design brief.
-    tier_lam = buyers["activity_tier"].map(_TIER_LAMBDA).fillna(_TIER_LAMBDA["2-5"]).astype(float)
-    target_total_needs = float(tier_lam.sum())
+    # v0.4: the tier-mean total below scales with `len(buyers)`, so recalibrating
+    # the buyer population would silently rescale the whole corpus. When the
+    # scenario sets `needs.needs_per_buyer_mean`, benchmark size becomes an
+    # explicit design choice instead of a side effect of the buyer count.
+    if needs_per_buyer_mean is not None:
+        target_total_needs = float(needs_per_buyer_mean) * len(buyers)
+    else:
+        tier_lam = buyers["activity_tier"].map(_TIER_LAMBDA).fillna(_TIER_LAMBDA["2-5"]).astype(float)
+        target_total_needs = float(tier_lam.sum())
     floor = min(LOW_ACTIVITY_NEED_FLOOR, target_total_needs / max(len(buyers), 1))
     activity = buyers["activity_rate"].astype(float).clip(lower=0.0)
     activity = activity / activity.sum() if activity.sum() > 0 else pd.Series(1.0 / len(buyers), index=buyers.index)

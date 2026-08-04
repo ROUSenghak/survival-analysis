@@ -18,6 +18,12 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from boamp.synthetic.activity import (
+    ActivityModel,
+    draw_active_window_offsets,
+    draw_relative_activity,
+    draw_span_fractions,
+)
 from boamp.synthetic.establishments import generate_valid_siren
 
 # Primary department shares from data/interim/boamp_common_prepared.csv
@@ -113,8 +119,14 @@ def _assign_departments_by_activity(activity_rate: np.ndarray, rng: np.random.Ge
 def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Generator,
                             pareto_shape: float = 1.0, pareto_offset: float = 0.15,
                             active_start_fraction: float = 0.6, min_active_days: int = 180,
-                            span_days_max_fraction: float = 1.0) -> pd.DataFrame:
-    """`pareto_shape`/`pareto_offset` control emergent activity concentration
+                            span_days_max_fraction: float = 1.0,
+                            activity_model: ActivityModel | None = None) -> pd.DataFrame:
+    """`activity_model` (v0.4) replaces the single-Pareto path below when the
+    scenario supplies a `buyers.activity_model` block; passing None keeps the
+    v0.1-v0.3 behaviour exactly, so released versions replay unchanged. See
+    `boamp.synthetic.activity` for what the two-component model fixes and why.
+
+    `pareto_shape`/`pareto_offset` control emergent activity concentration
     (Phase 10 adaptive calibration): the textbook asymptotic formula
     Gini = 1/(2*shape-1) for a Pareto Type I variate assumes shape > 1 and
     n -> infinity; it is a poor guide at v0.1 pilot scale (~2,000 buyers)
@@ -147,11 +159,14 @@ def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Gen
     not the buyer active-window heuristic, and is left as v0.2 scope rather
     than forced here.
     """
-    if pareto_shape <= 0.5:
+    if activity_model is None and pareto_shape <= 0.5:
         raise ValueError("pareto_shape must exceed 0.5 for a finite Gini coefficient")
 
-    raw = rng.pareto(pareto_shape, size=n_buyers) + pareto_offset
-    activity_rate = raw / raw.sum()
+    if activity_model is None:
+        raw = rng.pareto(pareto_shape, size=n_buyers) + pareto_offset
+        activity_rate = raw / raw.sum()
+    else:
+        activity_rate = draw_relative_activity(n_buyers, activity_model, rng)
 
     department = _assign_departments_by_activity(activity_rate, rng)
     buyer_type = rng.choice(list(BUYER_TYPE_PROBS), size=n_buyers, p=list(BUYER_TYPE_PROBS.values()))
@@ -166,12 +181,31 @@ def generate_latent_buyers(n_buyers: int, benchmark_defaults, rng: np.random.Gen
     start = pd.Timestamp(benchmark_defaults.observation_window.start_date)
     end = pd.Timestamp(benchmark_defaults.observation_window.end_date)
     total_days = max(1, (end - start).days)
-    active_start = start + pd.to_timedelta(
-        rng.integers(0, max(1, int(total_days * active_start_fraction)), size=n_buyers), unit="D"
-    )
-    span_max_days = max(min_active_days + 1, int(total_days * span_days_max_fraction))
-    span_days = rng.integers(min_active_days, span_max_days, size=n_buyers)
+    if activity_model is None:
+        active_start = start + pd.to_timedelta(
+            rng.integers(0, max(1, int(total_days * active_start_fraction)), size=n_buyers), unit="D"
+        )
+        span_max_days = max(min_active_days + 1, int(total_days * span_days_max_fraction))
+        span_days = rng.integers(min_active_days, span_max_days, size=n_buyers)
+    else:
+        # Entry time and window length are separate mechanisms in v0.4. Length is
+        # drawn first from the observable activity-versus-span relationship, then
+        # the window is placed around a reference day drawn from the calibrated
+        # year weights. Windows may start before the corpus opens; the recorded
+        # window is the intersection, which is what the real corpus shows too.
+        span_days = np.maximum(
+            activity_model.min_active_days,
+            np.round(draw_span_fractions(activity_rate, activity_model, rng) * total_days).astype(int),
+        )
+        offsets = draw_active_window_offsets(span_days, activity_model, start, end, rng)
+        active_start = start + pd.to_timedelta(np.round(offsets).astype(int), unit="D")
+
     active_end = pd.to_datetime(pd.Series(active_start) + pd.to_timedelta(span_days, unit="D")).clip(upper=end)
+    if activity_model is not None:
+        # Left truncation: a buyer whose window opened before the corpus did is
+        # only observed from the corpus start onwards.
+        active_start = pd.Series(active_start).clip(lower=start).to_numpy()
+        active_end = active_end.clip(lower=pd.Series(active_start) + pd.Timedelta(days=1))
 
     buyer_id = [f"BUYER-{i:06d}" for i in range(n_buyers)]
     siren_true = [generate_valid_siren(rng) for _ in range(n_buyers)]

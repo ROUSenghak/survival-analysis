@@ -62,7 +62,52 @@ GENERIC_NAME_POOL: dict[str, list[str]] = {
 _ABBREVIATIONS = {
     "Communauté de communes": "CC", "Communauté d'agglomération": "CA",
     "Conseil départemental": "CD", "Centre hospitalier": "CH",
+    "Conseil régional": "CR", "Office public de l'habitat": "OPH",
+    "Syndicat mixte": "SM", "Établissement public": "EP",
+    "Commune": "CNE", "Mairie": "MAIRIE", "Département": "DEPT",
+    "Université": "UNIV", "Lycée": "LYC",
 }
+
+# v0.4 buyer-name alias families. The v0.3 mechanism drew one of six edits
+# uniformly, two of which could not produce an observable variant at all:
+# `punctuation_variation` (accent strip + uppercase) is erased by
+# `normalize_buyer_name`, and `token_reorder` leaves the token set untouched so
+# its token Jaccard is exactly 1.0 -- 18.6% of synthetic same-SIREN pairs sat at
+# Jaccard 1.0 against 0.2% in the real corpus. Meanwhile 25.4% of *real*
+# same-SIREN name pairs share NO token at all, because French public buyers
+# publish under acronyms, directorate names and service names as well as their
+# legal name; synthetic produced 0.5%.
+#
+# The families below are grouped by how much token overlap they destroy, so the
+# scenario can set the share of each band directly against the observable real
+# similarity distribution rather than hoping a uniform edit mix lands there.
+_ALIAS_DIRECTORATES: list[str] = [
+    "Direction des achats", "Direction de la commande publique",
+    "Service des marchés publics", "Direction des services techniques",
+    "Pôle achats et marchés", "Direction générale des services",
+]
+_ALIAS_INSTITUTIONAL_SYNONYMS: dict[str, str] = {
+    "Commune": "Ville", "Mairie": "Ville", "Communauté de communes": "Intercommunalité",
+    "Communauté d'agglomération": "Agglomération", "Conseil départemental": "Département",
+    "Centre hospitalier": "Hôpital", "Office public de l'habitat": "Bailleur social",
+    "Syndicat mixte": "Syndicat",
+}
+_ALIAS_GEO_PREFIXES: list[str] = ["Grand", "Pays de", "Val de", "Terres de"]
+
+ALIAS_FAMILIES_ZERO_OVERLAP: tuple[str, ...] = (
+    "acronym_only",
+    "directorate_only",
+)
+ALIAS_FAMILIES_PARTIAL_OVERLAP: tuple[str, ...] = (
+    "legal_form_swap",
+    "institutional_type_deletion",
+    "geographic_qualifier_insertion",
+    "token_deletion",
+    "multi_token_abbreviation",
+    "administrative_synonym",
+    "service_suffix",
+)
+ALIAS_FAMILIES_FULL_OVERLAP: tuple[str, ...] = ("token_reorder",)
 
 
 def _weighted_outcome(base_rates: dict[str, float], mult: float, rng: np.random.Generator) -> str:
@@ -105,6 +150,175 @@ def _apply_name_transformation(name: str, department: str, rng: np.random.Genera
     return name
 
 
+def _leading_type_phrase(name: str) -> str | None:
+    """The institutional-type phrase a synthetic buyer name starts with, if any."""
+    for phrase in sorted(_ALIAS_ABBREVIABLE_PHRASES, key=len, reverse=True):
+        if name.startswith(phrase):
+            return phrase
+    return None
+
+
+_ALIAS_ABBREVIABLE_PHRASES = tuple(_ABBREVIATIONS)
+
+
+def _place_tokens(name: str) -> list[str]:
+    """Tokens of the name after its institutional-type phrase and any 'de/du/d''."""
+    phrase = _leading_type_phrase(name)
+    rest = name[len(phrase):].strip() if phrase else name
+    tokens = [t for t in rest.split(" ") if t]
+    while tokens and tokens[0].lower().rstrip("'") in {"de", "du", "des", "d", "la", "le", "les"}:
+        tokens = tokens[1:]
+    return tokens
+
+
+def _alias_variant(name: str, family: str, department: str, rng: np.random.Generator) -> str:
+    """One alias of `name` in the requested family.
+
+    Families are allowed to fall through to a milder edit when the base name has
+    no structure to work on (a two-token name cannot lose a token and stay a
+    name); the caller re-checks that the produced alias is actually distinct, so
+    a fall-through costs an alias slot rather than silently inflating the
+    zero-overlap share.
+    """
+    tokens = name.split(" ")
+    place = " ".join(_place_tokens(name)) or (tokens[-1] if tokens else name)
+    phrase = _leading_type_phrase(name)
+
+    if family == "acronym_only":
+        # "Communauté de communes Verbourg" -> "CC Verbourg" is still a partial
+        # overlap; a pure acronym drops the place word too, which is what the
+        # real zero-overlap pairs look like.
+        abbr = _ABBREVIATIONS.get(phrase) if phrase else None
+        initials = "".join(word[0] for word in place.split(" ") if word).upper()
+        if abbr and initials:
+            return f"{abbr}{initials}"
+        if initials and len(initials) >= 2:
+            return initials
+        return "".join(word[0] for word in tokens if word).upper() or name
+
+    if family == "directorate_only":
+        return str(rng.choice(_ALIAS_DIRECTORATES))
+
+    if family == "legal_form_swap":
+        if phrase and phrase in _ALIAS_INSTITUTIONAL_SYNONYMS:
+            return f"{_ALIAS_INSTITUTIONAL_SYNONYMS[phrase]} de {place}"
+        return f"Etablissement {place}"
+
+    if family == "institutional_type_deletion":
+        return place or name
+
+    if family == "geographic_qualifier_insertion":
+        if rng.random() < 0.5:
+            return f"{str(rng.choice(_ALIAS_GEO_PREFIXES))} {place}"
+        return f"{name} ({department})"
+
+    if family == "token_deletion":
+        if len(tokens) > 2:
+            drop = int(rng.integers(0, len(tokens)))
+            return " ".join(tokens[:drop] + tokens[drop + 1:])
+        return place or name
+
+    if family == "multi_token_abbreviation":
+        if phrase:
+            abbr = _ABBREVIATIONS.get(phrase, "".join(w[0] for w in phrase.split(" ")).upper())
+            return f"{abbr} {place}".strip()
+        return " ".join([tokens[0][:3].upper(), *tokens[1:]]) if tokens else name
+
+    if family == "administrative_synonym":
+        if phrase and phrase in _ALIAS_INSTITUTIONAL_SYNONYMS:
+            return name.replace(phrase, _ALIAS_INSTITUTIONAL_SYNONYMS[phrase], 1)
+        return f"{name} - {str(rng.choice(_ALIAS_DIRECTORATES))}"
+
+    if family == "service_suffix":
+        return f"{name} - {str(rng.choice(_ALIAS_DIRECTORATES))}"
+
+    if family == "token_reorder":
+        if len(tokens) > 2:
+            shuffled = list(tokens)
+            rng.shuffle(shuffled)
+            return " ".join(shuffled)
+        return name
+
+    return name
+
+
+def build_buyer_alias_sets(
+    buyers: pd.DataFrame, scen_names, rng: np.random.Generator
+) -> dict[str, list[str]]:
+    """Persistent alias set per buyer, drawn once for the whole world.
+
+    v0.3 re-drew an independent edit per notice family, so a buyer's observed
+    names were a cloud of one-off mutations of the true name rather than a small
+    stable set of administrative forms. Real buyers reuse a handful of forms:
+    69.7% of real SIRENs publish under exactly one normalized name, 18.5% under
+    two, 6.4% under three. Drawing the set once reproduces that, and makes alias
+    persistence over time a property of the generator rather than an accident.
+
+    Returns buyer_id -> [primary_name, alias, ...]; the primary is always first.
+    """
+    cfg = getattr(scen_names, "persistent_aliases", None)
+    if not getattr(cfg, "enabled", False):
+        return {}
+
+    size_weights = getattr(cfg, "alias_set_size_weights", None)
+    raw_sizes = (
+        {int(k): float(v) for k, v in vars(size_weights).items()}
+        if size_weights is not None and not isinstance(size_weights, dict)
+        else {int(k): float(v) for k, v in (size_weights or {1: 1.0}).items()}
+    )
+    sizes = np.array(sorted(raw_sizes), dtype=int)
+    size_probs = np.array([raw_sizes[int(s)] for s in sizes], dtype=float)
+    size_probs = size_probs / size_probs.sum()
+
+    zero_share = float(getattr(cfg, "zero_overlap_family_share", 0.30))
+    full_share = float(getattr(cfg, "full_overlap_family_share", 0.01))
+    partial_share = max(0.0, 1.0 - zero_share - full_share)
+    band_probs = np.array([zero_share, partial_share, full_share], dtype=float)
+    band_probs = band_probs / band_probs.sum()
+    bands = (
+        ALIAS_FAMILIES_ZERO_OVERLAP,
+        ALIAS_FAMILIES_PARTIAL_OVERLAP,
+        ALIAS_FAMILIES_FULL_OVERLAP,
+    )
+    max_attempts = int(getattr(cfg, "max_alias_attempts", 6))
+
+    # Alias-set sizes are assigned by quota against the calibrated weights rather
+    # than drawn independently, so the marginal size distribution matches the
+    # observable real one exactly at any buyer count. Buyers are ordered by their
+    # own `alias_propensity`, which keeps the buyer-level gradient (some
+    # organisations really do publish under many forms) without letting an
+    # independent draw distort the calibrated marginal.
+    n_buyers = len(buyers)
+    counts = np.floor(size_probs * n_buyers).astype(int)
+    # Flooring loses up to one buyer per distinct size. Give the remainder to the
+    # *most common* size rather than to the last one: the size list runs up to 14
+    # aliases, and dumping the rounding remainder there would hand a dozen buyers
+    # the largest alias set in the calibrated distribution.
+    counts[int(np.argmax(size_probs))] += n_buyers - counts.sum()
+    targets_sorted = np.repeat(sizes, counts)
+    order = np.argsort(buyers["alias_propensity"].to_numpy(dtype=float), kind="stable")
+    targets = np.empty(n_buyers, dtype=int)
+    targets[order] = targets_sorted
+
+    alias_sets: dict[str, list[str]] = {}
+    for position, (_, buyer) in enumerate(buyers.iterrows()):
+        base = str(buyer["buyer_name_true"])
+        names = [base]
+        seen = {normalize_buyer_name(base)}
+        for _ in range(int(targets[position]) - 1):
+            for _attempt in range(max_attempts):
+                band = bands[int(rng.choice(len(bands), p=band_probs))]
+                family = str(rng.choice(band))
+                candidate = _alias_variant(base, family, str(buyer["department_true"]), rng)
+                normalized = normalize_buyer_name(candidate)
+                if normalized and normalized not in seen:
+                    names.append(candidate)
+                    seen.add(normalized)
+                    break
+        alias_sets[str(buyer["buyer_id_true"])] = names
+    return alias_sets
+
+
 def _observed_buyer_key(siret: str | None, siren: str | None, name: str | None) -> str | None:
     if pd.notna(siret) and all(validate_siret(str(siret))):
         return f"SIRET:{siret}"
@@ -135,8 +349,105 @@ def _identifier_year_regime_scale(year: int, scen_ids) -> float:
     return regimes.late.scale
 
 
+def _logit(p: float) -> float:
+    p = min(1.0 - 1e-9, max(1e-9, p))
+    return float(np.log(p / (1.0 - p)))
+
+
+def _expit(x: float) -> float:
+    return float(1.0 / (1.0 + np.exp(-x)))
+
+
+_GAUSS_HERMITE_NODES, _GAUSS_HERMITE_WEIGHTS = np.polynomial.hermite_e.hermegauss(41)
+_GAUSS_HERMITE_WEIGHTS = _GAUSS_HERMITE_WEIGHTS / _GAUSS_HERMITE_WEIGHTS.sum()
+
+
+class MarginalPreservingLogitIntercept:
+    """Cell intercepts that keep a random-effect model's marginal rate on target.
+
+    Adding a symmetric logit-scale buyer effect to a cell rate does **not** leave
+    that rate alone: `E_Z[expit(logit(p) + sigma Z)]` is pulled toward 0.5, so a
+    corpus whose cells mostly sit near 0.1-0.5 gains several percentage points of
+    SIRET presence purely from Jensen's inequality. Measured on a v0.4 pilot, an
+    uncorrected sigma = 2.1 pushed the marginal from 0.272 to 0.390.
+
+    Rather than absorb that into a fudge factor, each distinct cell rate `p` gets
+    an intercept `eta*` solved so that `E_Z[expit(eta* + sigma Z)] = p` exactly
+    (Gauss-Hermite quadrature plus Brent root-finding, both cheap because the
+    generator only ever sees a few hundred distinct cell rates). The result is a
+    mechanism that adds between-buyer dispersion while leaving every calibrated
+    schema x year x notice-type rate where the real corpus put it -- the
+    population-averaged versus subject-specific distinction of Zeger, Liang and
+    Albert (1988), solved numerically instead of approximated.
+    """
+
+    def __init__(self, sigma: float) -> None:
+        self.sigma = float(sigma)
+        self._cache: dict[float, float] = {}
+
+    def _marginal(self, eta: float) -> float:
+        return float(
+            (_expit_array(eta + self.sigma * _GAUSS_HERMITE_NODES) * _GAUSS_HERMITE_WEIGHTS).sum()
+        )
+
+    def __call__(self, target_rate: float) -> float:
+        p = min(1.0 - 1e-6, max(1e-6, float(target_rate)))
+        key = round(p, 9)
+        cached = self._cache.get(key)
+        if cached is not None:
+            return cached
+        from scipy.optimize import brentq
+
+        lo, hi = -40.0, 40.0
+        try:
+            eta = float(brentq(lambda e: self._marginal(e) - p, lo, hi, xtol=1e-10, maxiter=200))
+        except ValueError:  # pragma: no cover - only if p is outside the reachable range
+            eta = _logit(p)
+        self._cache[key] = eta
+        return eta
+
+
+def _expit_array(x: np.ndarray) -> np.ndarray:
+    return 1.0 / (1.0 + np.exp(-np.clip(x, -700.0, 700.0)))
+
+
+def buyer_identifier_offsets(buyer_effect_sd: float, propensity: np.ndarray) -> np.ndarray:
+    """Logit-scale buyer random effects from the buyers' identifier propensities.
+
+    v0.2 moved SIRET visibility onto an observable schema x year x notice-type
+    rate table and, in doing so, made it independent across notices of the same
+    buyer: `identifier_quality_propensity` (drawn per buyer in buyers.py) stopped
+    being read on this path entirely. Real BOAMP is strongly buyer-persistent --
+    among real name groups with at least five notices, 27% never show a
+    checksum-valid SIRET and 5% always do, while the synthetic corpus squeezed
+    74% of buyers into a 0.1-0.5 presence rate.
+
+    The offset is applied on the logit scale so the cell-conditional ordering and
+    the calibrated schema/year/type shape are preserved by construction: it moves
+    every cell of a buyer by the same amount, it cannot push a rate outside
+    (0, 1), and averaged over buyers it leaves the conditional rate close to its
+    calibrated value (exactly so only in the limit; the residual is measured in
+    the conditional WMAE gate, not assumed away).
+
+    `propensity` is the Beta(5, 2) draw already stored on the buyer; the probit
+    transform below turns it into an approximately standard normal so
+    `buyer_effect_sd` reads directly as a logit-scale standard deviation. Reusing
+    that existing column rather than drawing a fresh normal keeps the buyer's
+    identifier behaviour tied to the same latent quality signal that
+    missingness.py already uses, instead of introducing a second, unrelated one.
+    """
+    from scipy.stats import beta as _beta, norm as _norm
+
+    values = np.clip(np.asarray(propensity, dtype=float), 1e-9, 1.0 - 1e-9)
+    quantiles = np.clip(_beta.cdf(values, 5.0, 2.0), 1e-9, 1.0 - 1e-9)
+    return buyer_effect_sd * _norm.ppf(quantiles)
+
+
 def _conditional_identifier_outcome(row, siblings_by_siren: dict[str, list[str]], scen_ids,
-                                    rng: np.random.Generator, logger, observation_model) -> tuple[str | None, str | None]:
+                                    rng: np.random.Generator, logger, observation_model,
+                                    buyer_logit_offset: float = 0.0,
+                                    intercept: MarginalPreservingLogitIntercept | None = None,
+                                    ) -> tuple[str | None, str | None]:
     """Draw identifier visibility from observable conditional SIRET targets.
 
     The target is checksum-valid SIRET presence. When SIRET is not observed,
@@ -145,7 +456,11 @@ def _conditional_identifier_outcome(row, siblings_by_siren: dict[str, list[str]]
     """
     cfg = getattr(scen_ids, "conditional_siret_presence", None)
     presence_scale = float(getattr(cfg, "presence_scale", 1.0))
-    present_rate = min(1.0, max(0.0, observation_model.siret_present_rate(row) * presence_scale))
+    cell_rate = observation_model.siret_present_rate(row) * presence_scale
+    if intercept is not None:
+        present_rate = _expit(intercept(cell_rate) + buyer_logit_offset)
+    else:
+        present_rate = min(1.0, max(0.0, cell_rate))
     siret_true, siren_true = row["siret_true"], row["siren_true"]
     wrong_rate = getattr(scen_ids, "wrong_establishment_siret_rate", 0.0)
     siren_only_rate = getattr(cfg, "siren_only_among_absent_rate", 0.03)
@@ -179,10 +494,16 @@ def _conditional_identifier_outcome(row, siblings_by_siren: dict[str, list[str]]
 
 def _corrupt_identifier(row, siblings_by_siren: dict[str, list[str]], mult: float,
                           scen_ids, rng: np.random.Generator, logger,
-                          observation_model=None) -> tuple[str | None, str | None]:
+                          observation_model=None,
+                          buyer_logit_offset: float = 0.0,
+                          intercept: MarginalPreservingLogitIntercept | None = None,
+                          ) -> tuple[str | None, str | None]:
     conditional_cfg = getattr(scen_ids, "conditional_siret_presence", None)
     if observation_model is not None and getattr(conditional_cfg, "enabled", False):
-        return _conditional_identifier_outcome(row, siblings_by_siren, scen_ids, rng, logger, observation_model)
+        return _conditional_identifier_outcome(
+            row, siblings_by_siren, scen_ids, rng, logger, observation_model,
+            buyer_logit_offset=buyer_logit_offset, intercept=intercept,
+        )
 
     regime_scale = _identifier_year_regime_scale(row["publication_date_true"].year, scen_ids)
     rates = dict(SIREN_ONLY=scen_ids.siren_only_rate, BOTH_MISSING=scen_ids.both_missing_rate,
@@ -405,6 +726,36 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
         observation_model is not None
         and getattr(getattr(scenario.identifiers, "conditional_siret_presence", None), "enabled", False)
     )
+    # v0.4: buyer-persistent identifier visibility and persistent alias sets.
+    # Both are precomputed once per world so they are properties of the buyer,
+    # not of the notice that happens to be processed first.
+    buyer_effect_sd = float(
+        getattr(
+            getattr(scenario.identifiers, "conditional_siret_presence", None),
+            "buyer_effect_logit_sd",
+            0.0,
+        )
+    )
+    buyer_offsets: dict[str, float] = (
+        dict(
+            zip(
+                buyers["buyer_id_true"].astype(str),
+                buyer_identifier_offsets(
+                    buyer_effect_sd, buyers["identifier_quality_propensity"].to_numpy(dtype=float)
+                ),
+                strict=False,
+            )
+        )
+        if buyer_effect_sd > 0
+        else {}
+    )
+    identifier_intercept = (
+        MarginalPreservingLogitIntercept(buyer_effect_sd) if buyer_effect_sd > 0 else None
+    )
+    alias_sets = build_buyer_alias_sets(buyers, scenario.buyer_names, rng)
+    alias_dominant_share = float(
+        getattr(getattr(scenario.buyer_names, "persistent_aliases", None), "dominant_alias_share", 0.7)
+    )
     buyer_notice_tier = pd.cut(
         clean_notices.groupby("buyer_id_true")["notice_id_synthetic"].transform("size"),
         bins=[0, 1, 5, 20, np.inf],
@@ -416,6 +767,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
     for i, row in clean_notices.reset_index(drop=True).iterrows():
         m = float(mult.iloc[i])
         buyer = buyers_idx.loc[row["buyer_id_true"]]
+        buyer_offset = buyer_offsets.get(str(row["buyer_id_true"]), 0.0)
 
         is_scoped_notice = str(row["cpv_true"])[:2] in scoped_divisions
         identity_cache_key = (
@@ -437,6 +789,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                 siret_obs, siren_obs = _corrupt_identifier(
                     row, siblings_by_siren, m, scenario.identifiers, rng, logger,
                     observation_model=observation_model,
+                    buyer_logit_offset=buyer_offset, intercept=identifier_intercept,
                 )
 
             name_true = row["buyer_name_true"]
@@ -448,11 +801,23 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                 name_obs = stable_scoped_name_by_buyer[row["buyer_id_true"]]
             else:
                 name_obs = name_true
+                buyer_aliases = alias_sets.get(str(row["buyer_id_true"]))
                 if rng.random() < min(0.98, scenario.buyer_names.generic_collision_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                    # False merge: two different buyers publish under the same
+                    # generic name. Kept ahead of the alias branch so the two
+                    # mechanisms stay separable in the corruption log.
                     pool = GENERIC_NAME_POOL.get(buyer["buyer_type_true"], GENERIC_NAME_POOL["AUTRE"])
                     name_obs = str(rng.choice(pool))
                     logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "GENERIC_NAME_COLLISION", severity=m)
-                elif rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
+                elif buyer_aliases is not None and len(buyer_aliases) > 1:
+                    # False split: the buyer publishes under one of its own
+                    # persistent administrative forms. Which form is drawn per
+                    # notice family; the *set* is fixed for the whole world.
+                    if rng.random() >= alias_dominant_share:
+                        name_obs = str(rng.choice(buyer_aliases[1:]))
+                        logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs,
+                                   "PERSISTENT_BUYER_ALIAS", severity=m)
+                elif buyer_aliases is None and rng.random() < min(0.98, scenario.buyer_names.false_split_rate * m * float(buyer["alias_propensity"] + 0.3)):
                     name_obs = _apply_name_transformation(name_true, row["department_true"], rng)
                     logger.log(row["notice_id_synthetic"], "buyer_name_raw", name_true, name_obs, "NAME_VARIANT", severity=m)
                 if use_stable_scoped_name:
@@ -469,6 +834,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                     cached = _corrupt_identifier(
                         row, siblings_by_siren, m, scenario.identifiers, rng, logger,
                         observation_model=observation_model,
+                        buyer_logit_offset=buyer_offset, intercept=identifier_intercept,
                     )
                     scoped_call_identifier_cache[identity_cache_key] = cached
                 siret_obs, siren_obs = cached
@@ -476,6 +842,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
                 siret_obs, siren_obs = _corrupt_identifier(
                     row, siblings_by_siren, m, scenario.identifiers, rng, logger,
                     observation_model=observation_model,
+                    buyer_logit_offset=buyer_offset, intercept=identifier_intercept,
                 )
         observed_buyer_key = _observed_buyer_key(siret_obs, siren_obs, name_obs)
         family_key = str(row["cycle_id_true"])

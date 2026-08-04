@@ -93,6 +93,8 @@ class ConditionalObservationModel:
     duration_rates: dict[tuple, float]
     generic_text_rates: dict[tuple, float]
     source_path: str
+    calibration_split: str = "full_corpus"
+    n_calibration_notices: int = 0
 
     @property
     def siret_global_rate(self) -> float:
@@ -150,6 +152,7 @@ class ConditionalObservationModel:
             out = table.copy()
             out.insert(0, "parameter", name)
             out["source_path"] = self.source_path
+            out["calibration_split"] = self.calibration_split
             pieces.append(out)
         return pd.concat(pieces, ignore_index=True, sort=False)
 
@@ -160,11 +163,25 @@ def build_conditional_observation_model(
     siret_prior_strength: float = 25.0,
     duration_prior_strength: float = 25.0,
     generic_text_prior_strength: float = 25.0,
+    calibration_split: str | None = None,
 ) -> ConditionalObservationModel:
-    """Build conditional observation targets from the prepared real corpus."""
+    """Build conditional observation targets from the prepared real corpus.
+
+    `calibration_split` selects a side of the frozen real buyer-key holdout
+    (v0.4). Passing None reads the whole corpus, which is what v0.1-v0.3 did and
+    what their replay still needs; passing "calibration" restricts estimation to
+    the 70% calibration buyers so the held-out 30% can provide out-of-sample
+    fidelity evidence.
+    """
     project_root = Path(project_root)
     real_path = project_root / "data" / "interim" / "boamp_common_prepared.csv"
     real = pd.read_csv(real_path, usecols=REAL_USECOLS, low_memory=False)
+    if calibration_split is not None:
+        from boamp.synthetic.holdout import load_real_buyer_holdout
+
+        real = load_real_buyer_holdout(project_root).filter(real, calibration_split)
+        if real.empty:
+            raise ValueError(f"real holdout split {calibration_split!r} selected zero notices")
     real = _add_buyer_activity_tier(real)
     real = _add_generic_text_flag(real)
     real["siret_present"] = real["buyer_siret_clean"].notna()
@@ -199,4 +216,6 @@ def build_conditional_observation_model(
         duration_rates=_mapping(duration_table, duration_cols),
         generic_text_rates=_mapping(generic_text_table, generic_text_cols),
         source_path=str(real_path.relative_to(project_root)),
+        calibration_split=calibration_split or "full_corpus",
+        n_calibration_notices=int(len(real)),
     )

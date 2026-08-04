@@ -156,14 +156,26 @@ def environment_drift(metadata: Mapping) -> dict[str, dict[str, str]]:
 
 
 def regenerate_tables_from_metadata(project_root: Path, metadata: dict, scenario_id: str) -> dict[str, pd.DataFrame]:
-    """Regenerate benchmark tables using recorded seeds and row-count scale."""
+    """Regenerate benchmark tables using recorded seeds and row-count scale.
+
+    The configuration family is read back from the metadata, so an artifact keeps
+    replaying against the configuration it was generated from even after a later
+    generator revision adds a new family. Artifacts written before families
+    existed record no `config_family` and therefore replay from the flat
+    v0.1-v0.3 configuration, unchanged.
+    """
     n_buyers = int((metadata.get("row_counts") or {}).get("buyers") or metadata.get("n_buyers") or 0)
     if n_buyers <= 0:
         raise ValueError("metadata does not record a positive buyer count")
     world_seed = int(metadata["world_seed"])
     corruption_seed = int(metadata["corruption_seed"])
-    world = generate_clean_world(scenario_id, project_root, n_buyers=n_buyers, world_seed=world_seed)
-    observed, corruption_log = generate_observed_world(world, scenario_id, project_root, corruption_seed=corruption_seed)
+    config_family = metadata.get("config_family")
+    world = generate_clean_world(
+        scenario_id, project_root, n_buyers=n_buyers, world_seed=world_seed, config_family=config_family
+    )
+    observed, corruption_log = generate_observed_world(
+        world, scenario_id, project_root, corruption_seed=corruption_seed, config_family=config_family
+    )
     return benchmark_tables_from_world(world, observed, corruption_log)
 
 
