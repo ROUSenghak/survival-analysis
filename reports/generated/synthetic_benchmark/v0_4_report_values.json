@@ -1,0 +1,1100 @@
+{
+  "generated_at_utc": "2026-08-04T07:59:38.496348+00:00",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "previous_version": "v0_3_temporal_candidate_revision",
+  "scenario": "central_provisional",
+  "v03_status_counts": {
+    "PASS": 209,
+    "WARNING": 16,
+    "FAIL": 5,
+    "INCONCLUSIVE": 1
+  },
+  "v03_n_metrics": 231,
+  "v04_status_counts": {
+    "PASS": 220,
+    "WARNING": 21,
+    "FAIL": 1,
+    "INCONCLUSIVE": 1
+  },
+  "v04_n_metrics": 243,
+  "targeted_failures": [
+    {
+      "metric": "overall / siret_missing / rate_abs_diff_pp",
+      "real": "0.728",
+      "v0.3": "0.687",
+      "v0.3 deviation": "4.110",
+      "tolerance": "2.000",
+      "v0.3 status": "FAIL",
+      "v0.4": "0.704",
+      "v0.4 deviation": "2.380",
+      "v0.4 status": "WARNING"
+    },
+    {
+      "metric": "overall / siret_present / presence_rate_abs_diff_pp",
+      "real": "0.272",
+      "v0.3": "0.313",
+      "v0.3 deviation": "4.110",
+      "tolerance": "2.000",
+      "v0.3 status": "FAIL",
+      "v0.4": "0.296",
+      "v0.4 deviation": "2.380",
+      "v0.4 status": "WARNING"
+    },
+    {
+      "metric": "overall / relative_notices_per_buyer / q99_abs_diff",
+      "real": "16.206",
+      "v0.3": "13.864",
+      "v0.3 deviation": "2.341",
+      "tolerance": "1.000",
+      "v0.3 status": "FAIL",
+      "v0.4": "15.394",
+      "v0.4 deviation": "0.812",
+      "v0.4 status": "PASS"
+    },
+    {
+      "metric": "silver_siren_groups / name_token_jaccard / q10_abs_diff",
+      "real": "0.000",
+      "v0.3": "0.333",
+      "v0.3 deviation": "0.333",
+      "tolerance": "0.150",
+      "v0.3 status": "FAIL",
+      "v0.4": "0.000",
+      "v0.4 deviation": "0.000",
+      "v0.4 status": "PASS"
+    },
+    {
+      "metric": "silver_siren_groups / name_token_jaccard / q50_abs_diff",
+      "real": "0.250",
+      "v0.3": "0.667",
+      "v0.3 deviation": "0.417",
+      "tolerance": "0.150",
+      "v0.3 status": "FAIL",
+      "v0.4": "0.250",
+      "v0.4 deviation": "0.000",
+      "v0.4 status": "PASS"
+    }
+  ],
+  "n_status_changes": 34,
+  "improvements": 9,
+  "regressions": 8,
+  "new_metrics_added": 13,
+  "gate_status_v03": {
+    "internal": "PASS",
+    "specification_recovery": "PASS",
+    "marginals": "WARNING",
+    "conditionals": "PASS",
+    "temporal": "WARNING",
+    "candidate_environment": "PASS",
+    "missingness_text_identifier": "WARNING",
+    "buyer_activity": "WARNING",
+    "missingness_structure": "PASS",
+    "names_identifiers": "WARNING",
+    "text": "WARNING",
+    "privacy": "PASS",
+    "hidden_truth_difficulty": "PASS",
+    "algorithm_utility": "PASS",
+    "robustness": "WARNING"
+  },
+  "gate_status_v04": {
+    "internal": "PASS",
+    "specification_recovery": "PASS",
+    "marginals": "WARNING",
+    "conditionals": "PASS",
+    "temporal": "WARNING",
+    "candidate_environment": "WARNING",
+    "missingness_text_identifier": "WARNING",
+    "buyer_activity": "WARNING",
+    "missingness_structure": "PASS",
+    "names_identifiers": "WARNING",
+    "text": "WARNING",
+    "privacy": "PASS",
+    "hidden_truth_difficulty": "PASS",
+    "algorithm_utility": "PASS",
+    "robustness": "WARNING"
+  },
+  "v04_failing_critical_gates": [],
+  "observable_targets": {
+    "generated_at_utc": "2026-08-03T09:31:07.029482+00:00",
+    "benchmark_version": "v0_4_population_alias_revision",
+    "calibration_split": "calibration",
+    "holdout_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+    "source": "data/interim/boamp_common_prepared.csv",
+    "provenance": "EMPIRICAL_OBSERVABLE",
+    "n_calibration_notices": 62122,
+    "n_calibration_buyer_keys": 3713,
+    "activity": {
+      "mean_notices_per_key": 16.730945327228657,
+      "median_notices_per_key": 2.0,
+      "gini": 0.8368128003476093,
+      "top1pct_share": 0.3940471974501787,
+      "keys_per_notice": 0.05976948585042336,
+      "selected_tail_family": "discrete_power_law",
+      "selection_rule": "lowest KS at the shared x_min; the 1-parameter family wins ties within 10% KS",
+      "tail_alpha": 2.036372977249699,
+      "tail_xmin_absolute": 36.0,
+      "tail_xmin_relative": 2.151701490615241,
+      "tail_xmax_relative": 190.3658124335984,
+      "max_notices_per_key": 3185.0,
+      "tail_key_share": 0.07891193105305683,
+      "tail_notice_share": 0.7482695341424938,
+      "body_quantile_grid": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.94,
+        0.97,
+        0.99,
+        1.0
+      ],
+      "body_quantile_values": [
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.05976948585042336,
+        0.11953897170084672,
+        0.11953897170084672,
+        0.11953897170084672,
+        0.17930845755127006,
+        0.17930845755127006,
+        0.23907794340169344,
+        0.29884742925211677,
+        0.3586169151025401,
+        0.5379253726538102,
+        0.7172338302050802,
+        1.016081259457197,
+        1.4601685393258328,
+        1.7930845755127007,
+        2.0919320047648173
+      ],
+      "span_fraction_by_activity_rank": [
+        0.0,
+        0.0,
+        0.0,
+        0.0156582297826926,
+        0.08030020369852099,
+        0.11044329914981679,
+        0.18290125711384483,
+        0.31218275594943184,
+        0.37573923112192165,
+        0.41790776563120574,
+        0.5155885458181824,
+        0.5957361842690679,
+        0.6442765338212219,
+        0.7768831860426784,
+        0.7848457568880042
+      ],
+      "span_knot_positions": [
+        0.05,
+        0.15000000000000002,
+        0.25,
+        0.35,
+        0.45,
+        0.55,
+        0.6499999999999999,
+        0.75,
+        0.825,
+        0.875,
+        0.9199999999999999,
+        0.955,
+        0.98,
+        0.9924999999999999,
+        0.9975
+      ],
+      "notice_weighted_observed_span_fraction": 0.6175369661974354
+    },
+    "publication_year_share": {
+      "2015": 0.07137568011332539,
+      "2016": 0.08013264222014745,
+      "2017": 0.08203213032420077,
+      "2018": 0.08385113164418402,
+      "2019": 0.09371881137117286,
+      "2020": 0.0868452400115901,
+      "2021": 0.08710279772061427,
+      "2022": 0.09389588229612697,
+      "2023": 0.09735681401113937,
+      "2024": 0.08921155146324973,
+      "2025": 0.09141688934676927,
+      "2026": 0.043060429477479796
+    },
+    "siret": {
+      "aggregate_present_rate": 0.2992659605292811,
+      "buyer_effect_logit_sd": 2.1,
+      "n_buyer_groups_used": 1097
+    },
+    "buyer_names": {
+      "alias_set_size_weights": {
+        "1": 0.6963636363636364,
+        "2": 0.18545454545454546,
+        "3": 0.06545454545454546,
+        "4": 0.023636363636363636,
+        "5": 0.008181818181818182,
+        "6": 0.0018181818181818182,
+        "7": 0.0036363636363636364,
+        "8": 0.0027272727272727275,
+        "9": 0.0036363636363636364,
+        "10": 0.0018181818181818182,
+        "12": 0.0018181818181818182,
+        "14": 0.0018181818181818182,
+        "17": 0.0009090909090909091,
+        "26": 0.0009090909090909091,
+        "71": 0.0009090909090909091,
+        "75": 0.0009090909090909091
+      },
+      "mean_names_per_siren": 1.7272727272727273,
+      "n_pairs": 1116,
+      "zero_token_overlap_share": 0.24014336917562723,
+      "full_token_overlap_share": 0.0008960573476702509,
+      "token_jaccard_quantiles": {
+        "0.05": 0.0,
+        "0.1": 0.0,
+        "0.25": 0.071429,
+        "0.5": 0.258333,
+        "0.75": 0.5,
+        "0.9": 0.75,
+        "0.95": 0.803125
+      },
+      "jaro_winkler_quantiles": {
+        "0.05": 0.475219,
+        "0.1": 0.513495,
+        "0.25": 0.58167,
+        "0.5": 0.700711,
+        "0.75": 0.879167,
+        "0.9": 0.957013,
+        "0.95": 0.976
+      },
+      "mean_token_count_difference": 3.509856630824373
+    }
+  },
+  "mechanism_parameters": {
+    "target_n_buyers": 5000,
+    "needs_per_buyer_mean": 8.382,
+    "dispersion_tempering": 1.08,
+    "span_jitter_concentration": 4.0,
+    "span_extension_factor": 1.35,
+    "min_active_days": 30,
+    "dominant_alias_share": 0.55,
+    "presence_scale": 1.0,
+    "scoped_candidate_environment": {
+      "recurrence_propensity_multiplier": 1.45,
+      "near_window_share": 0.75,
+      "hard_negative_alignment_rate": 0.0,
+      "scoped_buyer_affinity_share": 0.08,
+      "scoped_need_probability_high": 0.22
+    },
+    "entry_year_weights": {
+      "2015": 0.140466184985876,
+      "2016": 0.10952363912378883,
+      "2017": 0.11014641867537169,
+      "2018": 0.08857125662950047,
+      "2019": 0.10303555900658087,
+      "2020": 0.0746820416616924,
+      "2021": 0.06975463459487158,
+      "2022": 0.07834401975575853,
+      "2023": 0.07988960132265106,
+      "2024": 0.05853058348988976,
+      "2025": 0.06204455406204133,
+      "2026": 0.02501150669197742
+    },
+    "selection_note": "stage concentration; candidate 2 of 6; status BEST_EFFORT_NO_FULL_PASS; 2 critical metric(s) failing on at least one development seed (activity_relative_q99_abs_diff;siret_present_abs_diff_pp); tolerance-normalised deviation 21.369; selected 2026-08-03 by scripts/select_v0_4_mechanism_parameters.py on the joint observable acceptance vector against calibration-split real BOAMP"
+  },
+  "sweep_scoped_n_candidates": 12,
+  "sweep_scoped_n_accepted": 0,
+  "sweep_scoped_rejection_reasons": {
+    "activity_relative_q99_abs_diff": 12,
+    "candidate_p95_abs_diff": 10,
+    "candidate_p90_abs_diff": 9,
+    "candidate_zero_rate_abs_diff_pp": 7,
+    "candidate_cap_reached_rate": 6,
+    "candidate_source_count_ratio_deviation": 3,
+    "candidate_p75_abs_diff": 2
+  },
+  "frozen_parameter_seed_spread": [
+    {
+      "metric": "activity_gini_abs_diff",
+      "mean_value": -0.021235072030586902,
+      "min_value": -0.0251548013935187,
+      "max_value": -0.0173153426676551,
+      "tolerance": 0.1,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "activity_relative_q50_abs_diff",
+      "mean_value": 0.0379482742438758,
+      "min_value": 0.0109390569785058,
+      "max_value": 0.0649574915092458,
+      "tolerance": 1.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "activity_relative_q90_abs_diff",
+      "mean_value": 0.19239695735880402,
+      "min_value": 0.125930931096603,
+      "max_value": 0.258862983621005,
+      "tolerance": 1.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "activity_relative_q99_abs_diff",
+      "mean_value": -1.2570633874758386,
+      "min_value": -2.118809053051539,
+      "max_value": -0.3953177219001382,
+      "tolerance": 1.0,
+      "critical": true,
+      "n_pass": 1,
+      "n_seeds": 2
+    },
+    {
+      "metric": "activity_top1pct_share_abs_diff_pp",
+      "mean_value": -6.265101079465674,
+      "min_value": -7.583333712299522,
+      "max_value": -4.946868446631825,
+      "tolerance": 10.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "buyer_key_type_mix_tv",
+      "mean_value": 0.0253843032541076,
+      "min_value": 0.0097352305546052,
+      "max_value": 0.04103337595361,
+      "tolerance": 0.1,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_cap_reached_rate",
+      "mean_value": 0.00048575129533675,
+      "min_value": 0.0,
+      "max_value": 0.0009715025906735,
+      "tolerance": 0.01,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_p75_abs_diff",
+      "mean_value": -1.0,
+      "min_value": -2.0,
+      "max_value": 0.0,
+      "tolerance": 3.0,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_p90_abs_diff",
+      "mean_value": -1.0,
+      "min_value": -3.0,
+      "max_value": 1.0,
+      "tolerance": 5.0,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_p95_abs_diff",
+      "mean_value": -3.5,
+      "min_value": -6.0,
+      "max_value": -1.0,
+      "tolerance": 8.0,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_source_count_ratio_deviation",
+      "mean_value": -0.004518316362818499,
+      "min_value": -0.0773568693964105,
+      "max_value": 0.0683202366707735,
+      "tolerance": 0.2,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_zero_rate_abs_diff_pp",
+      "mean_value": 0.2728064434426858,
+      "min_value": -2.9013951773165845,
+      "max_value": 3.447008064201956,
+      "tolerance": 5.0,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_zero_rate_name_fallback_abs_diff_pp",
+      "mean_value": -3.0081553736319906,
+      "min_value": -6.000279913323387,
+      "max_value": -0.0160308339405945,
+      "tolerance": 10.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "candidate_zero_rate_raw_siret_abs_diff_pp",
+      "mean_value": 9.91872985783796,
+      "min_value": 6.625303463509935,
+      "max_value": 13.212156252165986,
+      "tolerance": 10.0,
+      "critical": false,
+      "n_pass": 1,
+      "n_seeds": 2
+    },
+    {
+      "metric": "cpv_division_tv",
+      "mean_value": 0.042425644417953254,
+      "min_value": 0.0409747490433654,
+      "max_value": 0.0438765397925411,
+      "tolerance": 0.05,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "cpv_missing_abs_diff_pp",
+      "mean_value": -1.34976305733574,
+      "min_value": -1.688068481908375,
+      "max_value": -1.0114576327631046,
+      "tolerance": 2.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "duration_present_abs_diff_pp",
+      "mean_value": 0.43305187147788804,
+      "min_value": -1.020155134663725,
+      "max_value": 1.886258877619501,
+      "tolerance": 5.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "keys_per_notice_relative_error",
+      "mean_value": -0.2503131760808076,
+      "min_value": -0.2723264119203935,
+      "max_value": -0.2282999402412218,
+      "tolerance": 0.2,
+      "critical": false,
+      "n_pass": 0,
+      "n_seeds": 2
+    },
+    {
+      "metric": "name_jaro_winkler_q50_abs_diff",
+      "mean_value": 0.0068812723224488,
+      "min_value": -0.0004585283997048,
+      "max_value": 0.0142210730446024,
+      "tolerance": 0.15,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "name_token_jaccard_q10_abs_diff",
+      "mean_value": 0.0,
+      "min_value": 0.0,
+      "max_value": 0.0,
+      "tolerance": 0.15,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "name_token_jaccard_q50_abs_diff",
+      "mean_value": -0.0083333333333333,
+      "min_value": -0.0083333333333333,
+      "max_value": -0.0083333333333333,
+      "tolerance": 0.15,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "name_variants_per_buyer_abs_diff",
+      "mean_value": -0.5247868228266416,
+      "min_value": -0.536296861585424,
+      "max_value": -0.5132767840678591,
+      "tolerance": 0.5,
+      "critical": false,
+      "n_pass": 0,
+      "n_seeds": 2
+    },
+    {
+      "metric": "notice_type_tv",
+      "mean_value": 0.045266058090869046,
+      "min_value": 0.044895528154277,
+      "max_value": 0.0456365880274611,
+      "tolerance": 0.05,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "publication_year_tvd",
+      "mean_value": 0.0419162560686036,
+      "min_value": 0.0386720840729955,
+      "max_value": 0.0451604280642117,
+      "tolerance": 0.2,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "publication_year_wmae_pp",
+      "mean_value": 0.6569252172616499,
+      "min_value": 0.651441881991763,
+      "max_value": 0.6624085525315367,
+      "tolerance": 1.0,
+      "critical": true,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "runway_60m_abs_diff_pp",
+      "mean_value": -0.2633769392876628,
+      "min_value": -3.0504620680164685,
+      "max_value": 2.523708189441143,
+      "tolerance": 5.0,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "schema_family_tv",
+      "mean_value": 0.013071368782491549,
+      "min_value": 0.0088967984786828,
+      "max_value": 0.0172459390863003,
+      "tolerance": 0.05,
+      "critical": false,
+      "n_pass": 2,
+      "n_seeds": 2
+    },
+    {
+      "metric": "siren_present_abs_diff_pp",
+      "mean_value": -1.5649072699502389,
+      "min_value": -4.103337595361001,
+      "max_value": 0.9735230554605234,
+      "tolerance": 2.0,
+      "critical": false,
+      "n_pass": 1,
+      "n_seeds": 2
+    },
+    {
+      "metric": "siret_present_abs_diff_pp",
+      "mean_value": -0.8514459930956673,
+      "min_value": -3.323003437091709,
+      "max_value": 1.6201114509003745,
+      "tolerance": 2.0,
+      "critical": true,
+      "n_pass": 1,
+      "n_seeds": 2
+    }
+  ],
+  "fresh_seed_summary": [
+    {
+      "scenario": "central_provisional",
+      "metric": "activity_relative_q99_abs_diff",
+      "mean_value": -1.2932181365686897,
+      "sd_value": 1.0834722746416772,
+      "min_value": -3.1878033447707868,
+      "max_value": -0.5481177365149605,
+      "tolerance": 1.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 3,
+      "pass_rate": 0.6,
+      "monte_carlo_se": 0.4845435315670223
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_cap_reached_rate",
+      "mean_value": 0.0017043941411451,
+      "sd_value": 0.0038111411600529,
+      "min_value": 0.0,
+      "max_value": 0.0085219707057256,
+      "tolerance": 0.01,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.0017043941411451
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_p75_abs_diff",
+      "mean_value": 0.0,
+      "sd_value": 1.4142135623730951,
+      "min_value": -1.0,
+      "max_value": 2.0,
+      "tolerance": 3.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.6324555320336759
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_p90_abs_diff",
+      "mean_value": 0.3000000000000909,
+      "sd_value": 3.911521443121589,
+      "min_value": -3.099999999999909,
+      "max_value": 6.900000000000091,
+      "tolerance": 5.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 4,
+      "pass_rate": 0.8,
+      "monte_carlo_se": 1.74928556845359
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_p95_abs_diff",
+      "mean_value": -1.4,
+      "sd_value": 5.029910535983717,
+      "min_value": -6.0,
+      "max_value": 7.0,
+      "tolerance": 8.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 2.2494443758403984
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_source_count_ratio_deviation",
+      "mean_value": -0.012662194219574,
+      "sd_value": 0.0696034788285067,
+      "min_value": -0.1008145933681653,
+      "max_value": 0.0856725884275189,
+      "tolerance": 0.2,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.0311276220262017
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "candidate_zero_rate_abs_diff_pp",
+      "mean_value": -0.8201217592873145,
+      "sd_value": 2.4677800394948277,
+      "min_value": -3.63653196132967,
+      "max_value": 1.947836532416708,
+      "tolerance": 5.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 1.1036247843655098
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "name_token_jaccard_q10_abs_diff",
+      "mean_value": 0.0,
+      "sd_value": 0.0,
+      "min_value": 0.0,
+      "max_value": 0.0,
+      "tolerance": 0.15,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.0
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "name_token_jaccard_q50_abs_diff",
+      "mean_value": 0.0166666666666666,
+      "sd_value": 0.0372677996249964,
+      "min_value": 0.0,
+      "max_value": 0.0833333333333333,
+      "tolerance": 0.15,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.0166666666666666
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "publication_year_wmae_pp",
+      "mean_value": 0.7357780098771516,
+      "sd_value": 0.1248583471833913,
+      "min_value": 0.5871643027494077,
+      "max_value": 0.9093743455381306,
+      "tolerance": 1.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 5,
+      "pass_rate": 1.0,
+      "monte_carlo_se": 0.0558383503720664
+    },
+    {
+      "scenario": "central_provisional",
+      "metric": "siret_present_abs_diff_pp",
+      "mean_value": 2.41748010422558,
+      "sd_value": 3.199583063511673,
+      "min_value": -2.950152658686253,
+      "max_value": 5.174221059039713,
+      "tolerance": 2.0,
+      "critical": true,
+      "n_worlds": 5,
+      "n_pass": 0,
+      "pass_rate": 0.0,
+      "monte_carlo_se": 1.4308970459338255
+    }
+  ],
+  "fresh_seed_provenance": {
+    "generated_at_utc": "2026-08-03T14:10:23.692913+00:00",
+    "fresh_version": "v0_4_fresh_seed_evaluation",
+    "release_version": "v0_4_population_alias_revision",
+    "real_reference": "full prepared corpus (same reference as the release validation gates)",
+    "n_artifacts": 15,
+    "scenarios": [
+      "central_provisional",
+      "difficult",
+      "moderate"
+    ],
+    "fresh_world_seeds": [
+      20270101,
+      20270111,
+      20270121,
+      20270131,
+      20270210
+    ],
+    "disjoint_from_development_seeds": true,
+    "disjoint_from_release_seeds": true,
+    "central_critical_pass_rates": {
+      "activity_relative_q99_abs_diff": 0.6,
+      "candidate_cap_reached_rate": 1.0,
+      "candidate_p75_abs_diff": 1.0,
+      "candidate_p90_abs_diff": 0.8,
+      "candidate_p95_abs_diff": 1.0,
+      "candidate_source_count_ratio_deviation": 1.0,
+      "candidate_zero_rate_abs_diff_pp": 1.0,
+      "name_token_jaccard_q10_abs_diff": 1.0,
+      "name_token_jaccard_q50_abs_diff": 1.0,
+      "publication_year_wmae_pp": 1.0,
+      "siret_present_abs_diff_pp": 0.0
+    },
+    "central_critical_means": {
+      "activity_relative_q99_abs_diff": -1.2932,
+      "candidate_cap_reached_rate": 0.0017,
+      "candidate_p75_abs_diff": 0.0,
+      "candidate_p90_abs_diff": 0.3,
+      "candidate_p95_abs_diff": -1.4,
+      "candidate_source_count_ratio_deviation": -0.0127,
+      "candidate_zero_rate_abs_diff_pp": -0.8201,
+      "name_token_jaccard_q10_abs_diff": 0.0,
+      "name_token_jaccard_q50_abs_diff": 0.0167,
+      "publication_year_wmae_pp": 0.7358,
+      "siret_present_abs_diff_pp": 2.4175
+    },
+    "rule": "Run once, after the parameters were frozen. No parameter was changed after these numbers were produced."
+  },
+  "deconvolution_final_wmae_pp": 0.4945140736864985,
+  "deconvolution_final_tvd": 0.0306704338029014,
+  "deconvolution_iterations": 3,
+  "holdout_flagged_metrics": [
+    "candidate_p95_abs_diff",
+    "candidate_zero_rate_abs_diff_pp",
+    "candidate_zero_rate_raw_siret_abs_diff_pp",
+    "cpv_division_tv",
+    "cpv_missing_abs_diff_pp",
+    "siren_present_abs_diff_pp",
+    "siret_present_abs_diff_pp"
+  ],
+  "real_split_marginal_rates": [
+    {
+      "split": "calibration",
+      "n_notices": 62122,
+      "n_buyer_keys": 3713,
+      "siret_present_rate": 0.2992659605292811,
+      "siren_present_rate": 0.2992659605292811,
+      "cpv_missing_rate": 0.167637873861112,
+      "notices_per_key": 16.730945327228657
+    },
+    {
+      "split": "holdout",
+      "n_notices": 22501,
+      "n_buyer_keys": 1555,
+      "siret_present_rate": 0.197635660637305,
+      "siren_present_rate": 0.197635660637305,
+      "cpv_missing_rate": 0.17883649615572642,
+      "notices_per_key": 14.470096463022507
+    },
+    {
+      "split": "full_corpus",
+      "n_notices": 84623,
+      "n_buyer_keys": 5268,
+      "siret_present_rate": 0.2722427708778937,
+      "siren_present_rate": 0.2722427708778937,
+      "cpv_missing_rate": 0.1706155536910769,
+      "notices_per_key": 16.063591495823843
+    }
+  ],
+  "siret_calibration_minus_holdout_pp": 10.16302998919761,
+  "holdout_marginal_rate_limitation": {
+    "title": "Why buyer-level marginal rates are not out-of-sample testable on this holdout",
+    "real_split_marginal_rates": [
+      {
+        "split": "calibration",
+        "n_notices": 62122,
+        "n_buyer_keys": 3713,
+        "siret_present_rate": 0.2992659605292811,
+        "siren_present_rate": 0.2992659605292811,
+        "cpv_missing_rate": 0.167637873861112,
+        "notices_per_key": 16.730945327228657
+      },
+      {
+        "split": "holdout",
+        "n_notices": 22501,
+        "n_buyer_keys": 1555,
+        "siret_present_rate": 0.197635660637305,
+        "siren_present_rate": 0.197635660637305,
+        "cpv_missing_rate": 0.17883649615572642,
+        "notices_per_key": 14.470096463022507
+      },
+      {
+        "split": "full_corpus",
+        "n_notices": 84623,
+        "n_buyer_keys": 5268,
+        "siret_present_rate": 0.2722427708778937,
+        "siren_present_rate": 0.2722427708778937,
+        "cpv_missing_rate": 0.1706155536910769,
+        "notices_per_key": 16.063591495823843
+      }
+    ],
+    "siret_calibration_minus_holdout_pp": 10.16302998919761,
+    "finding": "Checksum-valid SIRET availability is a buyer-level property: in the real corpus, 27% of buyers never publish one and 5% always do. Splitting on buyer key therefore splits that property too, and the two real sides have genuinely different marginal rates (0.2993 calibration vs 0.1976 holdout, a 10.2 pp difference). A generator calibrated to the calibration side must differ from the holdout side by about that amount; the observed synthetic-versus-holdout gap of roughly +9.3 pp is almost exactly this, not a transfer failure.",
+    "consequence": "This holdout provides genuine out-of-sample evidence for distributional-shape metrics -- within-SIREN name similarity, publication-year composition, candidate-count shape, activity quantiles -- because those are not induced by which buyers are in the split. It does NOT provide an out-of-sample test of buyer-level marginal rates (SIRET presence, SIREN presence, and to a lesser extent CPV missingness), which are confounded with the split by construction. Those metrics are reported as in-sample only.",
+    "alternative_considered": "A notice-level split would leave the marginals comparable but would put the same buyer on both sides, which destroys the out-of-sample property for every within-buyer statistic -- including the buyer-name variation this revision exists to fix. The buyer-level split was kept and its limitation stated rather than trading away the evidence that matters most."
+  },
+  "holdout_provenance": {
+    "generated_at_utc": "2026-08-03T13:26:56.790728+00:00",
+    "benchmark_version": "v0_4_population_alias_revision",
+    "split_unit": "buyer_key",
+    "holdout_fraction_target": 0.3,
+    "split_seed": 20260803,
+    "path": "config/synthetic/real_holdout_buyer_keys.csv",
+    "content_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+    "n_buyer_keys_total": 5268,
+    "n_buyer_keys_calibration": 3713,
+    "n_buyer_keys_holdout": 1555,
+    "realized_holdout_key_share": 0.2951784358390281,
+    "n_notices_calibration": 62122,
+    "n_notices_holdout": 22501,
+    "realized_holdout_notice_share": 0.2658969783628564,
+    "n_strata": 45,
+    "note": "Calibration side estimates every observable generator parameter. The holdout side is read once, at fresh-seed evaluation. Notice shares differ from key shares because buyer activity is heavy-tailed; holdout metrics are therefore scale-free.",
+    "scenario": "central_provisional",
+    "n_worlds": 10,
+    "holdout_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+    "n_calibration_buyer_keys": 3713,
+    "n_holdout_buyer_keys": 1555,
+    "metrics_with_material_in_sample_gap": [
+      "candidate_p95_abs_diff",
+      "candidate_zero_rate_abs_diff_pp",
+      "candidate_zero_rate_raw_siret_abs_diff_pp",
+      "cpv_division_tv",
+      "cpv_missing_abs_diff_pp",
+      "siren_present_abs_diff_pp",
+      "siret_present_abs_diff_pp"
+    ],
+    "interpretation": "Metrics absent from the flagged list behave the same on real buyers the generator was calibrated on and on real buyers it never saw, which is evidence against pure in-sample tuning. Flagged metrics are reported as in-sample only.",
+    "limitations": [
+      "The holdout carries roughly a quarter of real notices, so its quantile estimates are noisier; only scale-free metrics are compared.",
+      "The real candidate baseline is filtered to holdout buyers, reducing its source count; candidate metrics are compared as rates and quantiles, never as counts.",
+      "Synthetic buyers are not split: the same synthetic corpus is scored against both real sides, so this tests parameter transfer, not synthetic-side generalisation."
+    ]
+  },
+  "seed_stability": {
+    "generated_at_utc": "2026-08-04T07:56:46.725899+00:00",
+    "benchmark_version": "v0_4_population_alias_revision",
+    "source": "linkage_algorithm_benchmark/per_world_metrics.csv",
+    "metrics": [
+      "pair_f1_end_to_end",
+      "pair_f1_fixed_candidate",
+      "pair_precision",
+      "pair_recall_end_to_end"
+    ],
+    "n_algorithms": 4,
+    "n_worlds_pooled": 20,
+    "n_worlds_deduplicated": 16,
+    "authoritative_scope": "overall_deduplicated",
+    "scenarios_present": [
+      "central_provisional",
+      "difficult",
+      "easier",
+      "moderate",
+      "stress"
+    ],
+    "distinct_scenarios": [
+      "central_provisional",
+      "difficult",
+      "easier",
+      "stress"
+    ],
+    "duplicate_scenarios": {
+      "moderate": "central_provisional"
+    },
+    "bootstrap_reps": 5000,
+    "practical_equivalence_margin_f1": 0.02,
+    "headline_metric": "pair_f1_end_to_end",
+    "headline_support_counts": {
+      "SUPPORTED": 6
+    },
+    "pooled_ranking_reproduced_in_worlds": 1.0,
+    "top1_reproduced_in_worlds": 1.0,
+    "duplicate_scenario_handling": "`moderate` duplicates `central_provisional` exactly. Statistics are reported both pooled (comparable to v0.3, which included it) and deduplicated. The deduplicated scope is authoritative; the pooled scope over-weights central and understates interval width.",
+    "interpretation_rule": "A comparison is only reported as a supported winner when the paired bootstrap interval excludes zero, the mean difference exceeds the practical-equivalence margin, and the winner is consistent across worlds. Otherwise it is reported as practically tied, uncertain, or scenario-dependent. No generator parameter was tuned using any quantity in this file."
+  },
+  "algorithm_comparison": [
+    {
+      "algorithm": "gradient_boosting",
+      "F1 v0.3": "0.394",
+      "F1 v0.4": "0.357",
+      "precision v0.3": "0.729",
+      "precision v0.4": "0.747",
+      "recall v0.3": "0.270",
+      "recall v0.4": "0.235"
+    },
+    {
+      "algorithm": "logistic_regression",
+      "F1 v0.3": "0.319",
+      "F1 v0.4": "0.276",
+      "precision v0.3": "0.388",
+      "precision v0.4": "0.336",
+      "recall v0.3": "0.270",
+      "recall v0.4": "0.235"
+    },
+    {
+      "algorithm": "current_weighted_composite",
+      "F1 v0.3": "0.203",
+      "F1 v0.4": "0.163",
+      "precision v0.3": "0.168",
+      "precision v0.4": "0.128",
+      "recall v0.3": "0.257",
+      "recall v0.4": "0.224"
+    },
+    {
+      "algorithm": "fellegi_sunter_style",
+      "F1 v0.3": "0.161",
+      "F1 v0.4": "0.128",
+      "precision v0.3": "0.153",
+      "precision v0.4": "0.113",
+      "recall v0.3": "0.169",
+      "recall v0.4": "0.148"
+    }
+  ],
+  "algorithm_ranking_v03": [
+    "gradient_boosting",
+    "logistic_regression",
+    "current_weighted_composite",
+    "fellegi_sunter_style"
+  ],
+  "algorithm_ranking_v04": [
+    "gradient_boosting",
+    "logistic_regression",
+    "current_weighted_composite",
+    "fellegi_sunter_style"
+  ],
+  "algorithm_ranking_changed": false,
+  "readiness_v04": {
+    "PIPELINE_TECHNICALLY_VALID": "PASS_WITH_LIMITATIONS",
+    "READY_FOR_PRELIMINARY_MODELING": "PASS_WITH_LIMITATIONS",
+    "READY_FOR_CONTROLLED_ALGORITHM_COMPARISON": "FAIL",
+    "READY_FOR_FINAL_ALGORITHM_RANKING": "FAIL",
+    "READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE": "FAIL"
+  },
+  "readiness_v03": {
+    "PIPELINE_TECHNICALLY_VALID": "PASS_WITH_LIMITATIONS",
+    "READY_FOR_PRELIMINARY_MODELING": "PASS_WITH_LIMITATIONS",
+    "READY_FOR_CONTROLLED_ALGORITHM_COMPARISON": "FAIL",
+    "READY_FOR_FINAL_ALGORITHM_RANKING": "FAIL",
+    "READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE": "FAIL"
+  },
+  "figures": [
+    {
+      "figure": "v04_fig_buyer_activity_concentration",
+      "caption": "v0.3 spread the same notice volume over roughly twice as many observed buyer keys as real BOAMP, flattening the rank-frequency curve and lowering the Gini; v0.4 restores both. Units: notices per buyer key.",
+      "source": "data/processed/synthetic_benchmark/{v0_3,v0_4}/central_provisional/world_001 and data/interim/boamp_common_prepared.csv",
+      "evaluation_population": "all notices with a non-MISSING production buyer key"
+    },
+    {
+      "figure": "v04_fig_buyer_activity_tail",
+      "caption": "The extreme tail (q99.9, maximum) already matched in v0.3; the deficit was in the upper-middle tail and was produced by buyer-key fragmentation, not by the tail family. Units: notices per buyer key, divided by each corpus's own mean.",
+      "source": "data/processed/synthetic_benchmark/{v0_3,v0_4}/central_provisional/world_001",
+      "evaluation_population": "all notices with a non-MISSING production buyer key"
+    },
+    {
+      "figure": "v04_fig_candidate_environment",
+      "caption": "Candidate counts are an emergent property: the same production blocking code is run on each corpus. Concentrating the buyer population raises candidate density, so this is the figure that constrains how far the activity correction may go. Units: candidates per eligible source notice.",
+      "source": "data/processed/boamp_only/boamp_only_candidate_pairs.csv and the generated worlds",
+      "evaluation_population": "digital-scope APPEL_OFFRE sources with a non-MISSING buyer key"
+    },
+    {
+      "figure": "v04_fig_siret_availability",
+      "caption": "The v0.3 aggregate SIRET failure was a composition artifact: standardised to real schema x year x notice-type weights the v0.3 rate is within tolerance, while its raw marginal is not, because its publication-year mix over-weighted the high-SIRET years. Units: percentage points of checksum-valid SIRET presence.",
+      "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+      "evaluation_population": "all notices; cells with data on both sides for the standardised bars"
+    },
+    {
+      "figure": "v04_fig_name_variation",
+      "caption": "A quarter of real same-SIREN name pairs share no token at all; v0.3 produced 0.5% of those and put 18.6% of pairs at an identical token set, because two of its six edit modes could not change the normalised token set. Dimensionless similarity in [0, 1].",
+      "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+      "evaluation_population": "distinct normalised buyer names within one checksum-valid SIREN, <=20 sampled pairs per group"
+    },
+    {
+      "figure": "v04_fig_alias_structure",
+      "caption": "v0.4 replaces per-notice independent name edits with a persistent per-buyer alias set whose size distribution and overlap bands are calibrated to the observable real ones. Units: percentage of SIRENs and of within-SIREN name pairs.",
+      "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+      "evaluation_population": "SIRENs with at least one observed normalised name"
+    },
+    {
+      "figure": "v04_fig_missingness_structure",
+      "caption": "Which fields go missing together sets linkage difficulty more than any marginal rate does. A diverging scale is used for the correlation gap because its sign is meaningful; zero is the neutral midpoint. Units: percentage of notices and correlation difference.",
+      "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+      "evaluation_population": "all notices"
+    },
+    {
+      "figure": "v04_fig_validation_before_after",
+      "caption": "Deviations are shown relative to their own predeclared tolerance so metrics on different scales are comparable; 1.0 is exactly at tolerance. Only metrics present in both runs and moving by more than 0.05 tolerance units are drawn. Dimensionless.",
+      "source": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/{baseline_v0_3,validation_framework}/validation_metrics_long.csv",
+      "evaluation_population": "metrics with a numeric tolerance evaluated in both versions"
+    }
+  ]
+}

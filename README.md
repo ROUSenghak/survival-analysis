@@ -117,6 +117,42 @@ identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
 class.
 
+## Synthetic benchmark v0.4 (`population_alias_revision`)
+
+v0.4 revises three observable mechanisms of the v0.3 benchmark: buyer publication
+timing, buyer population scale with buyer-persistent identifier visibility, and
+buyer-name alias structure. It is an **additional version** — every v0.3 artifact,
+config and report is unchanged and still replays from its own configuration.
+
+- Generator config family: `config/synthetic/scenarios/v0_4/` and
+  `config/synthetic/benchmark_defaults_v0_4.yaml`. A benchmark version replays by
+  re-reading its live scenario file, so a new revision gets its own family rather
+  than editing the shared ones.
+- Real-data holdout: `config/synthetic/real_holdout_buyer_keys.csv` — a frozen
+  70/30 split of real buyer keys. Every observable parameter is estimated on the
+  70%; the 30% is read once, after freezing, for out-of-sample fidelity evidence.
+- Calibration and selection evidence:
+  `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/`
+  (including every rejected candidate parameter set and its full acceptance vector).
+- Rejected mechanism designs, with measurements:
+  `.../v0_4_population_alias_revision/mechanism_tradeoff_log.csv`.
+- Report: `reports/generated/synthetic_benchmark/v0_4_population_alias_revision_report.md`
+  and `v0_4_report_values.json`. Figures:
+  `reports/figures/synthetic_benchmark/v0_4_population_alias_revision/`.
+- Linkage algorithm benchmark (gradient boosting, logistic regression, weighted
+  composite, Fellegi-Sunter style): `notebooks/14_linkage_algorithm_benchmark_v0_4.ipynb`,
+  tables under `.../v0_4_population_alias_revision/linkage_algorithm_benchmark/`, report
+  `reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.{md,tex,pdf}`.
+  Paired world-level comparisons with bootstrap intervals:
+  `.../v0_4_population_alias_revision/seed_stability/`. The v0.3 notebook and report keep
+  their original unversioned filenames and are untouched.
+- Frozen v0.3 comparison baseline:
+  `.../v0_4_population_alias_revision/baseline_v0_3/`.
+
+See `docs/methodology.md` §8c for what changed and why. The readiness assessment
+remains the source of truth for permitted uses; resolving observable fidelity
+failures does not on its own support controlled algorithm comparison or ranking.
+
 ## Synthetic benchmark (v0.3, controlled linkage benchmark)
 
 `src/boamp/synthetic/` implements a synthetic linkage benchmark, adapting

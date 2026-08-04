@@ -333,6 +333,102 @@ as an explicit reachability-vs-conditional-fidelity trade-off.
 machine-readable rejected-local-audit decision rather than as an accepted
 benchmark artifact.
 
+
+## 8c. Synthetic benchmark (v0.4, `population_alias_revision`)
+
+v0.4 is an additional benchmark version, not a replacement: every v0.3 artifact,
+configuration file, validation result and report is left untouched, and v0.3
+continues to replay from its own configuration. Because replay re-reads the live
+scenario YAML, v0.4's generator configuration lives in a separate *family*
+(`config/synthetic/scenarios/v0_4/` plus `benchmark_defaults_v0_4.yaml`), selected
+by `load_scenario(..., family=)` and recorded in each artifact's
+`generation_metadata.json#config_family`.
+
+**What it revises, and why.** v0.3 carried five hard observable-fidelity failures.
+An audit of their causes found two of the three underlying diagnoses to be wrong.
+
+* *Aggregate checksum-valid SIRET availability* failed as a marginal but passes
+  when standardised to the real `schema_family x publication_year x notice_type`
+  cell weights. The gap was v0.3's publication-year mix, which under-produced the
+  low-SIRET early years and over-produced the high-SIRET middle years; the year
+  gate is a total-variation distance with a 0.20 tolerance and did not see it.
+  v0.4 adds a real-share-weighted year WMAE metric *alongside* that TVD.
+* *Buyer-activity q99* failed because the corpus produced roughly twice as many
+  observed buyer keys per notice as real BOAMP, not because its tail was too
+  light; the extreme tail already matched. The excess came from the v0.2
+  conditional identifier revision, which made SIRET visibility independent across
+  a buyer's notices.
+* *Within-SIREN buyer-name similarity* failed as reported, and additionally two of
+  the six v0.3 alias edit modes could not produce an observable variant at all
+  because `normalize_buyer_name` erases them.
+
+**Three revised mechanisms.** `buyers.activity_model` (`src/boamp/synthetic/activity.py`)
+draws relative activity from a smoothed empirical body plus a power-law tail
+*truncated at the observable maximum*, and treats buyer entry time and
+active-window length as separate mechanisms from publication intensity; windows
+may extend past either end of the observation period, so the corpus records their
+intersection as the real one does. `identifiers.conditional_siret_presence` adds a
+buyer-level logit random effect whose per-cell intercept is solved numerically so
+the calibrated conditional rate is preserved exactly (the population-averaged
+versus subject-specific distinction; a naive offset inflates a 0.27 rate to 0.36
+by Jensen's inequality alone). `buyer_names.persistent_aliases` replaces per-notice
+independent name edits with a persistent per-buyer alias set whose size
+distribution and token-overlap bands are calibrated to observable real ones.
+
+**Calibration discipline.** Every observable parameter is estimated from the
+calibration side of a frozen 70/30 buyer-key holdout
+(`config/synthetic/real_holdout_buyer_keys.csv`, stratified on activity decile,
+dominant schema and year-span coverage). Parameters with no observable counterpart
+are labelled MECHANISM_PARAMETER and selected by a bounded sweep scored on the
+*whole* observable acceptance vector (`src/boamp/synthetic/acceptance.py`), never
+on a single failing metric. The held-out 30% is read once, after the parameters
+are frozen, by `scripts/evaluate_v0_4_real_holdout.py`. No generator parameter is
+calibrated from accepted links, linkage scores, acceptance thresholds, synthetic
+precision/recall/F1, algorithm rankings or survival results.
+
+Mechanism designs that were tested and rejected are recorded with their
+measurements in `mechanism_tradeoff_log.csv`; `clean_sanity` is deliberately left
+on the legacy mechanisms, since it is a structural smoke test that consumes no
+real-corpus calibration at all.
+
+**Numbers.** All v0.4 statistics live in the generated report
+`reports/generated/synthetic_benchmark/v0_4_population_alias_revision_report.md`
+and its machine-readable `v0_4_report_values.json`; this section deliberately
+quotes none of them, so it cannot drift from the artifacts.
+
+**Reproducibility.**
+```bash
+PYTHONPATH=src python3 scripts/build_real_buyer_holdout.py
+PYTHONPATH=src python3 scripts/calibrate_v0_4_observables.py
+PYTHONPATH=src python3 scripts/sweep_v0_4_mechanism_parameters.py --stage scoped
+PYTHONPATH=src python3 scripts/write_v0_4_scenario_config.py
+PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_4_population_alias_revision.py
+PYTHONPATH=src python3 scripts/validate_synthetic_benchmark.py --version v0_4_population_alias_revision
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark.py --version v0_4_population_alias_revision
+PYTHONPATH=src python3 scripts/evaluate_v0_4_real_holdout.py
+PYTHONPATH=src python3 scripts/build_v0_4_revision_figures.py
+
+# linkage algorithm benchmark (downstream diagnostic; never feeds back into calibration)
+PYTHONPATH=src python3 scripts/build_linkage_algorithm_benchmark_notebook.py \
+  --version v0_4_population_alias_revision
+jupyter nbconvert --to notebook --execute --inplace \
+  notebooks/14_linkage_algorithm_benchmark_v0_4.ipynb
+PYTHONPATH=src python3 scripts/build_linkage_algorithm_benchmark_report.py \
+  --version v0_4_population_alias_revision
+latexmk -pdf -outdir=reports/generated/synthetic_benchmark \
+  reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex
+PYTHONPATH=src python3 scripts/analyze_seed_stability.py \
+  --version v0_4_population_alias_revision
+
+PYTHONPATH=src python3 scripts/build_v0_4_revision_report.py
+```
+
+Both linkage builders take `--version` and default to v0.3, so an unqualified run
+reproduces the v0.3 notebook sources and report byte-for-byte. A non-default version is
+written to its own notebook file and a version-prefixed report stem, because
+regenerating a notebook strips its executed outputs and the released report path is
+unversioned.
+
 ## 9. Known limitations
 
 1. The renewal event is an unverified proxy; all downstream inference is

@@ -1,0 +1,26 @@
+| metric | algorithm_a | algorithm_b | n_paired_worlds | mean_paired_difference | ci_low | ci_high | monte_carlo_se_of_mean | win_rate_a | support_status |
+|---|---|---|---|---|---|---|---|---|---|
+| pair_f1_end_to_end | current_weighted_composite | fellegi_sunter_style | 16 | 0.0346 | 0.0222 | 0.0463 | 0.0062 | 1.0000 | SUPPORTED |
+| pair_f1_end_to_end | current_weighted_composite | gradient_boosting | 16 | -0.1297 | -0.1533 | -0.1044 | 0.0126 | 0.0000 | SUPPORTED |
+| pair_f1_end_to_end | current_weighted_composite | logistic_regression | 16 | -0.0889 | -0.1144 | -0.0623 | 0.0133 | 0.0000 | SUPPORTED |
+| pair_f1_end_to_end | fellegi_sunter_style | gradient_boosting | 16 | -0.1643 | -0.1993 | -0.1271 | 0.0185 | 0.0000 | SUPPORTED |
+| pair_f1_end_to_end | fellegi_sunter_style | logistic_regression | 16 | -0.1234 | -0.1601 | -0.0845 | 0.0194 | 0.0000 | SUPPORTED |
+| pair_f1_end_to_end | gradient_boosting | logistic_regression | 16 | 0.0408 | 0.0358 | 0.0461 | 0.0027 | 1.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | current_weighted_composite | fellegi_sunter_style | 16 | 0.0370 | 0.0232 | 0.0503 | 0.0069 | 1.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | current_weighted_composite | gradient_boosting | 16 | -0.3814 | -0.4258 | -0.3308 | 0.0243 | 0.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | current_weighted_composite | logistic_regression | 16 | -0.2077 | -0.2724 | -0.1384 | 0.0341 | 0.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | fellegi_sunter_style | gradient_boosting | 16 | -0.4184 | -0.4725 | -0.3572 | 0.0297 | 0.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | fellegi_sunter_style | logistic_regression | 16 | -0.2447 | -0.3221 | -0.1623 | 0.0406 | 0.0000 | SUPPORTED |
+| pair_f1_fixed_candidate | gradient_boosting | logistic_regression | 16 | 0.1736 | 0.1398 | 0.2113 | 0.0185 | 1.0000 | SUPPORTED |
+| pair_precision | current_weighted_composite | fellegi_sunter_style | 16 | 0.0151 | 0.0094 | 0.0212 | 0.0030 | 1.0000 | PRACTICALLY_TIED |
+| pair_precision | current_weighted_composite | gradient_boosting | 16 | -0.4594 | -0.5335 | -0.3767 | 0.0402 | 0.0000 | SUPPORTED |
+| pair_precision | current_weighted_composite | logistic_regression | 16 | -0.2243 | -0.3083 | -0.1351 | 0.0446 | 0.0000 | SUPPORTED |
+| pair_precision | fellegi_sunter_style | gradient_boosting | 16 | -0.4746 | -0.5529 | -0.3875 | 0.0426 | 0.0000 | SUPPORTED |
+| pair_precision | fellegi_sunter_style | logistic_regression | 16 | -0.2395 | -0.3292 | -0.1449 | 0.0472 | 0.0000 | SUPPORTED |
+| pair_precision | gradient_boosting | logistic_regression | 16 | 0.2351 | 0.1994 | 0.2742 | 0.0195 | 1.0000 | SUPPORTED |
+| pair_recall_end_to_end | current_weighted_composite | fellegi_sunter_style | 16 | 0.0632 | 0.0490 | 0.0771 | 0.0072 | 1.0000 | SUPPORTED |
+| pair_recall_end_to_end | current_weighted_composite | gradient_boosting | 16 | -0.0027 | -0.0112 | 0.0063 | 0.0045 | 0.3750 | PRACTICALLY_TIED |
+| pair_recall_end_to_end | current_weighted_composite | logistic_regression | 16 | -0.0071 | -0.0120 | -0.0021 | 0.0026 | 0.1875 | PRACTICALLY_TIED |
+| pair_recall_end_to_end | fellegi_sunter_style | gradient_boosting | 16 | -0.0659 | -0.0879 | -0.0434 | 0.0114 | 0.0625 | SUPPORTED |
+| pair_recall_end_to_end | fellegi_sunter_style | logistic_regression | 16 | -0.0704 | -0.0883 | -0.0520 | 0.0093 | 0.0000 | SUPPORTED |
+| pair_recall_end_to_end | gradient_boosting | logistic_regression | 16 | -0.0044 | -0.0097 | 0.0006 | 0.0026 | 0.3750 | PRACTICALLY_TIED |

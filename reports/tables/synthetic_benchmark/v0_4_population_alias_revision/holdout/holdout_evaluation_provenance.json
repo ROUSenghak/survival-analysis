@@ -1,0 +1,24 @@
+{
+  "generated_at_utc": "2026-08-03T13:26:56.790728+00:00",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "scenario": "central_provisional",
+  "n_worlds": 10,
+  "holdout_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+  "n_calibration_buyer_keys": 3713,
+  "n_holdout_buyer_keys": 1555,
+  "metrics_with_material_in_sample_gap": [
+    "candidate_p95_abs_diff",
+    "candidate_zero_rate_abs_diff_pp",
+    "candidate_zero_rate_raw_siret_abs_diff_pp",
+    "cpv_division_tv",
+    "cpv_missing_abs_diff_pp",
+    "siren_present_abs_diff_pp",
+    "siret_present_abs_diff_pp"
+  ],
+  "interpretation": "Metrics absent from the flagged list behave the same on real buyers the generator was calibrated on and on real buyers it never saw, which is evidence against pure in-sample tuning. Flagged metrics are reported as in-sample only.",
+  "limitations": [
+    "The holdout carries roughly a quarter of real notices, so its quantile estimates are noisier; only scale-free metrics are compared.",
+    "The real candidate baseline is filtered to holdout buyers, reducing its source count; candidate metrics are compared as rates and quantiles, never as counts.",
+    "Synthetic buyers are not split: the same synthetic corpus is scored against both real sides, so this tests parameter transfer, not synthetic-side generalisation."
+  ]
+}

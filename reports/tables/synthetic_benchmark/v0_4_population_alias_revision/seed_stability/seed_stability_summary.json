@@ -1,0 +1,41 @@
+{
+  "generated_at_utc": "2026-08-04T07:56:46.725899+00:00",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "source": "linkage_algorithm_benchmark/per_world_metrics.csv",
+  "metrics": [
+    "pair_f1_end_to_end",
+    "pair_f1_fixed_candidate",
+    "pair_precision",
+    "pair_recall_end_to_end"
+  ],
+  "n_algorithms": 4,
+  "n_worlds_pooled": 20,
+  "n_worlds_deduplicated": 16,
+  "authoritative_scope": "overall_deduplicated",
+  "scenarios_present": [
+    "central_provisional",
+    "difficult",
+    "easier",
+    "moderate",
+    "stress"
+  ],
+  "distinct_scenarios": [
+    "central_provisional",
+    "difficult",
+    "easier",
+    "stress"
+  ],
+  "duplicate_scenarios": {
+    "moderate": "central_provisional"
+  },
+  "bootstrap_reps": 5000,
+  "practical_equivalence_margin_f1": 0.02,
+  "headline_metric": "pair_f1_end_to_end",
+  "headline_support_counts": {
+    "SUPPORTED": 6
+  },
+  "pooled_ranking_reproduced_in_worlds": 1.0,
+  "top1_reproduced_in_worlds": 1.0,
+  "duplicate_scenario_handling": "`moderate` duplicates `central_provisional` exactly. Statistics are reported both pooled (comparable to v0.3, which included it) and deduplicated. The deduplicated scope is authoritative; the pooled scope over-weights central and understates interval width.",
+  "interpretation_rule": "A comparison is only reported as a supported winner when the paired bootstrap interval excludes zero, the mean difference exceeds the practical-equivalence margin, and the winner is consistent across worlds. Otherwise it is reported as practically tied, uncertain, or scenario-dependent. No generator parameter was tuned using any quantity in this file."
+}

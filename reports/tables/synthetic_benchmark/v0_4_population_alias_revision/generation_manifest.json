@@ -1,0 +1,255 @@
+{
+  "generated_at_utc": "2026-08-03T13:37:05.260310+00:00",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "config_family": "v0_4",
+  "target_n_buyers": 5000,
+  "conditional_observation_split": "full_corpus",
+  "real_holdout": {
+    "path": "config/synthetic/real_holdout_buyer_keys.csv",
+    "sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec"
+  },
+  "release_seeds": [
+    [
+      20260721,
+      20260722
+    ],
+    [
+      20260731,
+      20260732
+    ],
+    [
+      20260810,
+      20260811
+    ],
+    [
+      20260820,
+      20260821
+    ],
+    [
+      20260830,
+      20260831
+    ],
+    [
+      20260909,
+      20260910
+    ],
+    [
+      20260919,
+      20260920
+    ],
+    [
+      20260929,
+      20260930
+    ],
+    [
+      20261009,
+      20261010
+    ],
+    [
+      20261019,
+      20261020
+    ]
+  ],
+  "rows": [
+    {
+      "scenario": "easier",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20260731,
+      "corruption_seed": 20260732,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20260810,
+      "corruption_seed": 20260811,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20260820,
+      "corruption_seed": 20260821,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20260830,
+      "corruption_seed": 20260831,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "006",
+      "corruption": "006",
+      "world_seed": 20260909,
+      "corruption_seed": 20260910,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "007",
+      "corruption": "007",
+      "world_seed": 20260919,
+      "corruption_seed": 20260920,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "008",
+      "corruption": "008",
+      "world_seed": 20260929,
+      "corruption_seed": 20260930,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "009",
+      "corruption": "009",
+      "world_seed": 20261009,
+      "corruption_seed": 20261010,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "easier",
+      "world": "010",
+      "corruption": "010",
+      "world_seed": 20261019,
+      "corruption_seed": 20261020,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20260721,
+      "corruption_seed": 20260722,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20260731,
+      "corruption_seed": 20260732,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20260810,
+      "corruption_seed": 20260811,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20260820,
+      "corruption_seed": 20260821,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20260830,
+      "corruption_seed": 20260831,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "006",
+      "corruption": "006",
+      "world_seed": 20260909,
+      "corruption_seed": 20260910,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "007",
+      "corruption": "007",
+      "world_seed": 20260919,
+      "corruption_seed": 20260920,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "008",
+      "corruption": "008",
+      "world_seed": 20260929,
+      "corruption_seed": 20260930,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "009",
+      "corruption": "009",
+      "world_seed": 20261009,
+      "corruption_seed": 20261010,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "010",
+      "corruption": "010",
+      "world_seed": 20261019,
+      "corruption_seed": 20261020,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010",
+      "status": "GENERATED"
+    }
+  ]
+}

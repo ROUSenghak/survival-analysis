@@ -1,0 +1,16 @@
+gate,status,critical,n_pass,n_warning,n_fail,n_inconclusive,headline,blocking_reason,warning_reason
+internal,PASS,True,35,0,0,0,internal validation PASS,,
+specification_recovery,PASS,True,6,0,0,0,specification_recovery validation PASS,,
+marginals,WARNING,False,16,2,0,0,marginals validation WARNING,,text_length:W1_scaled; text_length:q75_relative_error
+conditionals,PASS,True,4,0,0,0,conditionals validation PASS,,
+temporal,WARNING,True,8,1,0,0,temporal validation WARNING,,followup_runway:abs_diff_pp
+candidate_environment,PASS,True,10,0,0,0,candidate_environment validation PASS,,
+missingness_text_identifier,WARNING,False,5,3,2,0,missingness_text_identifier validation WARNING,,siret_missing:rate_abs_diff_pp; siret_present:presence_rate_abs_diff_pp; siren_missing:rate_abs_diff_pp; cpv_missing:rate_abs_diff_pp; siren_present:presence_rate_abs_diff_pp
+buyer_activity,WARNING,False,10,1,1,0,buyer_activity validation WARNING,,relative_notices_per_buyer:q99_abs_diff; activity_share:abs_diff_pp
+missingness_structure,PASS,False,4,0,0,0,missingness_structure validation PASS,,
+names_identifiers,WARNING,False,5,1,2,1,names_identifiers validation WARNING,,name_token_jaccard:q10_abs_diff; name_token_jaccard:q50_abs_diff; name_jaro_winkler:q50_abs_diff
+text,WARNING,False,9,2,0,0,text validation WARNING,,unigram_distribution:JS; bigram_distribution:JS
+privacy,PASS,True,4,0,0,0,privacy validation PASS,,
+hidden_truth_difficulty,PASS,True,12,0,0,0,hidden_truth_difficulty validation PASS,,
+algorithm_utility,PASS,True,34,0,0,0,algorithm_utility validation PASS,,
+robustness,WARNING,False,47,6,0,0,robustness validation WARNING,,blocking_pairs_completeness:coefficient_of_variation; probe_headroom:coefficient_of_variation; probe_ranking:min_kendall_tau; probe_ranking:min_kendall_tau; probe_ranking:min_kendall_tau; probe_ranking:min_kendall_tau

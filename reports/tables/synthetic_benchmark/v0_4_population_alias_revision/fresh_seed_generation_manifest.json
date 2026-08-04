@@ -1,0 +1,159 @@
+{
+  "generated_at_utc": "2026-08-03T14:03:13.795156+00:00",
+  "benchmark_version": "v0_4_fresh_seed_evaluation",
+  "config_family": "v0_4",
+  "dry_run": false,
+  "force": false,
+  "rows": [
+    {
+      "scenario": "central_provisional",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20270101,
+      "corruption_seed": 20270102,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20270111,
+      "corruption_seed": 20270112,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20270121,
+      "corruption_seed": 20270122,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20270131,
+      "corruption_seed": 20270132,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20270210,
+      "corruption_seed": 20270211,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "moderate",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20270101,
+      "corruption_seed": 20270102,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "moderate",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20270111,
+      "corruption_seed": 20270112,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "moderate",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20270121,
+      "corruption_seed": 20270122,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "moderate",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20270131,
+      "corruption_seed": 20270132,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "moderate",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20270210,
+      "corruption_seed": 20270211,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "001",
+      "corruption": "001",
+      "world_seed": 20270101,
+      "corruption_seed": 20270102,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "002",
+      "corruption": "002",
+      "world_seed": 20270111,
+      "corruption_seed": 20270112,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "003",
+      "corruption": "003",
+      "world_seed": 20270121,
+      "corruption_seed": 20270122,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "004",
+      "corruption": "004",
+      "world_seed": 20270131,
+      "corruption_seed": 20270132,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004",
+      "status": "GENERATED"
+    },
+    {
+      "scenario": "difficult",
+      "world": "005",
+      "corruption": "005",
+      "world_seed": 20270210,
+      "corruption_seed": 20270211,
+      "n_buyers": 5000,
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005",
+      "status": "GENERATED"
+    }
+  ]
+}

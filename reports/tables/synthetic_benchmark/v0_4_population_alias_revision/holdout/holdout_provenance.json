@@ -1,0 +1,18 @@
+{
+  "generated_at_utc": "2026-08-03T08:16:13.278479+00:00",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "split_unit": "buyer_key",
+  "holdout_fraction_target": 0.3,
+  "split_seed": 20260803,
+  "path": "config/synthetic/real_holdout_buyer_keys.csv",
+  "content_sha256": "c495c94a563c5792175d723c535b036fa5727af4e297236d92139d6d76b5f8ec",
+  "n_buyer_keys_total": 5268,
+  "n_buyer_keys_calibration": 3713,
+  "n_buyer_keys_holdout": 1555,
+  "realized_holdout_key_share": 0.2951784358390281,
+  "n_notices_calibration": 62122,
+  "n_notices_holdout": 22501,
+  "realized_holdout_notice_share": 0.2658969783628564,
+  "n_strata": 45,
+  "note": "Calibration side estimates every observable generator parameter. The holdout side is read once, at fresh-seed evaluation. Notice shares differ from key shares because buyer activity is heavy-tailed; holdout metrics are therefore scale-free."
+}

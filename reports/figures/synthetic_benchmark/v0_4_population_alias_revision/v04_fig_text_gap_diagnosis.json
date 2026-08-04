@@ -1,0 +1,48 @@
+{
+  "figure": "v04_fig_text_gap_diagnosis",
+  "caption": "The length failure and the vocabulary warnings are different problems. Panel 1: synthetic text is too short at the low end, driven by a 49-character repeated administrative template. Panel 2: the generator draws from a word pool an order of magnitude smaller than real BOAMP's, so its rank-frequency curve ends where the real one continues. Panel 3: the shared vocabulary covers most real word *usage* but a tiny share of real word *types*. Panel 4: v0.4 repeats itself more than v0.3 or real.",
+  "corpora": {
+    "real": {
+      "n_notices": 84622,
+      "n_unique_texts": 60423,
+      "duplicate_share": 0.28596582449008534,
+      "vocabulary_types": 26092,
+      "tokens": 1493477,
+      "length_q10": 48.0,
+      "length_q50": 98.0,
+      "length_q90": 169.0
+    },
+    "old": {
+      "n_notices": 87360,
+      "n_unique_texts": 56394,
+      "duplicate_share": 0.3544642857142857,
+      "vocabulary_types": 2862,
+      "tokens": 1210965,
+      "length_q10": 46.0,
+      "length_q50": 95.0,
+      "length_q90": 161.0
+    },
+    "new": {
+      "n_notices": 82278,
+      "n_unique_texts": 47058,
+      "duplicate_share": 0.42806096404871286,
+      "vocabulary_types": 1601,
+      "tokens": 1091925,
+      "length_q10": 46.0,
+      "length_q50": 88.0,
+      "length_q90": 158.0
+    }
+  },
+  "coverage": [
+    {
+      "version": "Synthetic v0.3",
+      "types_share": 1.467882875977311,
+      "real_mass": 60.354796223845426
+    },
+    {
+      "version": "Synthetic v0.4",
+      "types_share": 1.5215391690939752,
+      "real_mass": 60.95654636797219
+    }
+  ]
+}

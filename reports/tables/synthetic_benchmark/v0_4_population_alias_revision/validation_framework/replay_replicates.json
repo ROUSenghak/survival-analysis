@@ -1,0 +1,415 @@
+{
+  "benchmark_version": "v0_4_population_alias_revision",
+  "n_replicates": 51,
+  "overall_status": "PASS",
+  "replicates": [
+    {
+      "scenario": "central_provisional",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "002",
+      "corruption": "002",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "003",
+      "corruption": "003",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "004",
+      "corruption": "004",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "005",
+      "corruption": "005",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "006",
+      "corruption": "006",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "007",
+      "corruption": "007",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "008",
+      "corruption": "008",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "009",
+      "corruption": "009",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "central_provisional",
+      "world": "010",
+      "corruption": "010",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "clean_sanity",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "002",
+      "corruption": "002",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "003",
+      "corruption": "003",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "004",
+      "corruption": "004",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "005",
+      "corruption": "005",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "006",
+      "corruption": "006",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "007",
+      "corruption": "007",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "008",
+      "corruption": "008",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "009",
+      "corruption": "009",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "difficult",
+      "world": "010",
+      "corruption": "010",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "002",
+      "corruption": "002",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "003",
+      "corruption": "003",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "004",
+      "corruption": "004",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "005",
+      "corruption": "005",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "006",
+      "corruption": "006",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "007",
+      "corruption": "007",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "008",
+      "corruption": "008",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "009",
+      "corruption": "009",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "easier",
+      "world": "010",
+      "corruption": "010",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "002",
+      "corruption": "002",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "003",
+      "corruption": "003",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "004",
+      "corruption": "004",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "005",
+      "corruption": "005",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "006",
+      "corruption": "006",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "007",
+      "corruption": "007",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "008",
+      "corruption": "008",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "009",
+      "corruption": "009",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "moderate",
+      "world": "010",
+      "corruption": "010",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "001",
+      "corruption": "001",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "002",
+      "corruption": "002",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "003",
+      "corruption": "003",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "004",
+      "corruption": "004",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "005",
+      "corruption": "005",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "006",
+      "corruption": "006",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "007",
+      "corruption": "007",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "008",
+      "corruption": "008",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "009",
+      "corruption": "009",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    },
+    {
+      "scenario": "stress",
+      "world": "010",
+      "corruption": "010",
+      "status": "PASS",
+      "failed_tables": [],
+      "table_count": 9
+    }
+  ]
+}

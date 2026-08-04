@@ -1,0 +1,84 @@
+table,layer,grain,table_description,column,present_in_output,dtype,null_share,n_distinct,visible_to_linkage,truth_only_field
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,notice_id_synthetic,True,object,0.0,82278,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,publication_date,True,datetime64[ns],0.0,4152,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,notice_type_normalized,True,object,0.0,2,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,schema_family,True,object,0.0,2,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,buyer_siret_raw,True,object,0.704,2467,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,buyer_siren_raw,True,object,0.711,1902,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,buyer_name_raw,True,object,0.0,1671,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,code_departement,True,object,0.0,75,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,cpv_clean,True,object,0.1519,39105,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,declared_duration_months,True,float64,0.8433,98,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,objet_clean,True,object,0.0,47058,True,False
+observed_notices,observed,notice,BOAMP-like notice table exposed to linkage methods,linked_call_notice_id,True,object,0.8853,9434,True,False
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",notice_id_synthetic,True,object,0.0,82278,False,False
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",cycle_id_true,True,object,0.0,59900,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",need_id_true,True,object,0.0,41861,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",buyer_id_true,True,object,0.0,3242,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",establishment_id_true,True,object,0.0,3614,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",role,True,object,0.0,2,False,False
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",publication_date_true,True,datetime64[ns],0.0,4152,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",notice_type_true,True,object,0.0,2,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",schema_family_true,True,object,0.0,2,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",siret_true,True,object,0.0,3614,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",siren_true,True,object,0.0,3242,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",buyer_name_true,True,object,0.0,956,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",department_true,True,object,0.0,75,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",cpv_true,True,object,0.0,41765,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",duration_true_months,True,float64,0.0,59821,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",objet_true,True,object,0.0,56822,False,True
+clean_notices,truth,notice,"pre-corruption notice values, one row per observed notice",linked_call_notice_id_true,True,object,0.728,22378,False,True
+notice_family_membership,truth,notice,notice to latent cycle mapping with CALL/AWARD role,notice_id_synthetic,True,object,0.0,82278,False,False
+notice_family_membership,truth,notice,notice to latent cycle mapping with CALL/AWARD role,cycle_id_true,True,object,0.0,59900,False,True
+notice_family_membership,truth,notice,notice to latent cycle mapping with CALL/AWARD role,role,True,object,0.0,2,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",source_cycle_id,True,object,0.0,59900,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",target_cycle_id,True,object,0.6988,18039,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",relation_type,True,object,0.0,2,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",strict_label,True,bool,0.0,2,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",broad_label,True,bool,0.0,2,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",true_gap_months,True,float64,0.6988,1246,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",source_expected_end,True,datetime64[ns],0.0,5402,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",target_start,True,datetime64[ns],0.6988,3550,False,False
+true_relations,truth,cycle,"one row per cycle: its successor, or NO_SUCCESSOR",scenario,True,object,0.0,1,False,False
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,cycle_id_true,True,object,0.0,59900,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,need_id_true,True,object,0.0,41861,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,buyer_id_true,True,object,0.0,3242,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,cycle_number,True,int64,0.0,4,False,False
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,start_date_true,True,datetime64[ns],0.0,4152,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,duration_true_months,True,float64,0.0,59821,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,expected_end_true,True,datetime64[ns],0.0,5402,False,True
+latent_cycles,truth,cycle,latent contract cycles with true start and duration,scenario,True,object,0.0,1,False,False
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,need_id_true,True,object,0.0,41861,False,True
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,buyer_id_true,True,object,0.0,3242,False,True
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,establishment_id_true,True,object,0.0,3614,False,True
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,segment_true,True,object,0.0,44,False,True
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,cpv_true,True,object,0.0,41765,False,True
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,base_concepts,True,object,0.0,not countable (list-valued),False,False
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,base_vocabulary,True,object,0.0,not countable (list-valued),False,False
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,duration_profile_months,True,float64,0.0,41835,False,False
+latent_needs,truth,need,recurring procurement needs that spawn cycle chains,recurrence_propensity,True,float64,0.0,41861,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,buyer_id_true,True,object,0.0,5000,False,True
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,siren_true,True,object,0.0,5000,False,True
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,department_true,True,object,0.0,88,False,True
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,buyer_type_true,True,object,0.0,5,False,True
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,activity_rate,True,float64,0.0,2493,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,activity_tier,True,object,0.0,3,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,active_start,True,datetime64[ns],0.0,2550,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,active_end,True,datetime64[ns],0.0,2775,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,alias_propensity,True,float64,0.0,5000,False,False
+latent_buyers,truth,buyer,latent buying entities with activity and quality propensities,identifier_quality_propensity,True,float64,0.0,5000,False,False
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,establishment_id_true,True,object,0.0,5391,False,True
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,buyer_id_true,True,object,0.0,5000,False,True
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,siren_true,True,object,0.0,5000,False,True
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,siret_true,True,object,0.0,5391,False,True
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,department_true,True,object,0.0,88,False,True
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,active_start,True,datetime64[ns],0.0,2550,False,False
+latent_establishments,truth,establishment,establishments belonging to a latent buyer,active_end,True,datetime64[ns],0.0,2775,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",notice_id_synthetic,True,object,0.0,82278,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",field,True,object,0.0,7,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",clean_value,True,object,0.0,131346,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",observed_value,True,object,0.744,15501,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",corruption_type,True,object,0.0,17,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",scenario,True,object,0.0,1,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",severity,True,float64,0.0,3,False,False
+corruption_log,truth,notice-field-event,"every applied corruption, enabling exact replay",seed,True,int64,0.0,1,False,False

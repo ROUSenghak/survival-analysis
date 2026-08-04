@@ -1,0 +1,32 @@
+{
+  "target_n_buyers": 5000,
+  "needs_per_buyer_mean": 8.382,
+  "dispersion_tempering": 1.08,
+  "span_jitter_concentration": 4.0,
+  "span_extension_factor": 1.35,
+  "min_active_days": 30,
+  "dominant_alias_share": 0.55,
+  "presence_scale": 1.0,
+  "scoped_candidate_environment": {
+    "recurrence_propensity_multiplier": 1.45,
+    "near_window_share": 0.75,
+    "hard_negative_alignment_rate": 0.0,
+    "scoped_buyer_affinity_share": 0.08,
+    "scoped_need_probability_high": 0.22
+  },
+  "entry_year_weights": {
+    "2015": 0.140466184985876,
+    "2016": 0.10952363912378883,
+    "2017": 0.11014641867537169,
+    "2018": 0.08857125662950047,
+    "2019": 0.10303555900658087,
+    "2020": 0.0746820416616924,
+    "2021": 0.06975463459487158,
+    "2022": 0.07834401975575853,
+    "2023": 0.07988960132265106,
+    "2024": 0.05853058348988976,
+    "2025": 0.06204455406204133,
+    "2026": 0.02501150669197742
+  },
+  "selection_note": "stage concentration; candidate 2 of 6; status BEST_EFFORT_NO_FULL_PASS; 2 critical metric(s) failing on at least one development seed (activity_relative_q99_abs_diff;siret_present_abs_diff_pp); tolerance-normalised deviation 21.369; selected 2026-08-03 by scripts/select_v0_4_mechanism_parameters.py on the joint observable acceptance vector against calibration-split real BOAMP"
+}

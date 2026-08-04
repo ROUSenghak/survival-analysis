@@ -1,0 +1,36 @@
+{
+  "title": "Why buyer-level marginal rates are not out-of-sample testable on this holdout",
+  "real_split_marginal_rates": [
+    {
+      "split": "calibration",
+      "n_notices": 62122,
+      "n_buyer_keys": 3713,
+      "siret_present_rate": 0.2992659605292811,
+      "siren_present_rate": 0.2992659605292811,
+      "cpv_missing_rate": 0.167637873861112,
+      "notices_per_key": 16.730945327228657
+    },
+    {
+      "split": "holdout",
+      "n_notices": 22501,
+      "n_buyer_keys": 1555,
+      "siret_present_rate": 0.197635660637305,
+      "siren_present_rate": 0.197635660637305,
+      "cpv_missing_rate": 0.17883649615572642,
+      "notices_per_key": 14.470096463022507
+    },
+    {
+      "split": "full_corpus",
+      "n_notices": 84623,
+      "n_buyer_keys": 5268,
+      "siret_present_rate": 0.2722427708778937,
+      "siren_present_rate": 0.2722427708778937,
+      "cpv_missing_rate": 0.1706155536910769,
+      "notices_per_key": 16.063591495823843
+    }
+  ],
+  "siret_calibration_minus_holdout_pp": 10.16302998919761,
+  "finding": "Checksum-valid SIRET availability is a buyer-level property: in the real corpus, 27% of buyers never publish one and 5% always do. Splitting on buyer key therefore splits that property too, and the two real sides have genuinely different marginal rates (0.2993 calibration vs 0.1976 holdout, a 10.2 pp difference). A generator calibrated to the calibration side must differ from the holdout side by about that amount; the observed synthetic-versus-holdout gap of roughly +9.3 pp is almost exactly this, not a transfer failure.",
+  "consequence": "This holdout provides genuine out-of-sample evidence for distributional-shape metrics -- within-SIREN name similarity, publication-year composition, candidate-count shape, activity quantiles -- because those are not induced by which buyers are in the split. It does NOT provide an out-of-sample test of buyer-level marginal rates (SIRET presence, SIREN presence, and to a lesser extent CPV missingness), which are confounded with the split by construction. Those metrics are reported as in-sample only.",
+  "alternative_considered": "A notice-level split would leave the marginals comparable but would put the same buyer on both sides, which destroys the out-of-sample property for every within-buyer statistic -- including the buyer-name variation this revision exists to fix. The buyer-level split was kept and its limitation stated rather than trading away the evidence that matters most."
+}

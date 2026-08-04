@@ -1,0 +1,50 @@
+[
+  {
+    "figure": "v04_fig_buyer_activity_concentration",
+    "caption": "v0.3 spread the same notice volume over roughly twice as many observed buyer keys as real BOAMP, flattening the rank-frequency curve and lowering the Gini; v0.4 restores both. Units: notices per buyer key.",
+    "source": "data/processed/synthetic_benchmark/{v0_3,v0_4}/central_provisional/world_001 and data/interim/boamp_common_prepared.csv",
+    "evaluation_population": "all notices with a non-MISSING production buyer key"
+  },
+  {
+    "figure": "v04_fig_buyer_activity_tail",
+    "caption": "The extreme tail (q99.9, maximum) already matched in v0.3; the deficit was in the upper-middle tail and was produced by buyer-key fragmentation, not by the tail family. Units: notices per buyer key, divided by each corpus's own mean.",
+    "source": "data/processed/synthetic_benchmark/{v0_3,v0_4}/central_provisional/world_001",
+    "evaluation_population": "all notices with a non-MISSING production buyer key"
+  },
+  {
+    "figure": "v04_fig_candidate_environment",
+    "caption": "Candidate counts are an emergent property: the same production blocking code is run on each corpus. Concentrating the buyer population raises candidate density, so this is the figure that constrains how far the activity correction may go. Units: candidates per eligible source notice.",
+    "source": "data/processed/boamp_only/boamp_only_candidate_pairs.csv and the generated worlds",
+    "evaluation_population": "digital-scope APPEL_OFFRE sources with a non-MISSING buyer key"
+  },
+  {
+    "figure": "v04_fig_siret_availability",
+    "caption": "The v0.3 aggregate SIRET failure was a composition artifact: standardised to real schema x year x notice-type weights the v0.3 rate is within tolerance, while its raw marginal is not, because its publication-year mix over-weighted the high-SIRET years. Units: percentage points of checksum-valid SIRET presence.",
+    "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+    "evaluation_population": "all notices; cells with data on both sides for the standardised bars"
+  },
+  {
+    "figure": "v04_fig_name_variation",
+    "caption": "A quarter of real same-SIREN name pairs share no token at all; v0.3 produced 0.5% of those and put 18.6% of pairs at an identical token set, because two of its six edit modes could not change the normalised token set. Dimensionless similarity in [0, 1].",
+    "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+    "evaluation_population": "distinct normalised buyer names within one checksum-valid SIREN, <=20 sampled pairs per group"
+  },
+  {
+    "figure": "v04_fig_alias_structure",
+    "caption": "v0.4 replaces per-notice independent name edits with a persistent per-buyer alias set whose size distribution and overlap bands are calibrated to the observable real ones. Units: percentage of SIRENs and of within-SIREN name pairs.",
+    "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+    "evaluation_population": "SIRENs with at least one observed normalised name"
+  },
+  {
+    "figure": "v04_fig_missingness_structure",
+    "caption": "Which fields go missing together sets linkage difficulty more than any marginal rate does. A diverging scale is used for the correlation gap because its sign is meaningful; zero is the neutral midpoint. Units: percentage of notices and correlation difference.",
+    "source": "data/interim/boamp_common_prepared.csv and the generated worlds",
+    "evaluation_population": "all notices"
+  },
+  {
+    "figure": "v04_fig_validation_before_after",
+    "caption": "Deviations are shown relative to their own predeclared tolerance so metrics on different scales are comparable; 1.0 is exactly at tolerance. Only metrics present in both runs and moving by more than 0.05 tolerance units are drawn. Dimensionless.",
+    "source": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/{baseline_v0_3,validation_framework}/validation_metrics_long.csv",
+    "evaluation_population": "metrics with a numeric tolerance evaluated in both versions"
+  }
+]

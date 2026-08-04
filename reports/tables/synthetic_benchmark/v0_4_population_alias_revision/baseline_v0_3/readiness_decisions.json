@@ -1,0 +1,420 @@
+{
+  "generated_at_utc": "2026-08-03T07:21:58.448602+00:00",
+  "benchmark_version": "v0_3_temporal_candidate_revision",
+  "scenario": "central_provisional",
+  "world": "001",
+  "corruption": "001",
+  "validation_manifest_status": "PASS_WITH_WARNINGS",
+  "current_git_head": "8f1ea054a3f36ac385990b62819d33da57669d6a",
+  "worktree_dirty": false,
+  "release_state_packaged": false,
+  "release_package": {
+    "ok": false,
+    "manifest_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
+    "verification_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "status": "PASS",
+    "archive_path": "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+    "archive_sha256": "a61c2f8c742d8464efc5012d15fb1c726997bac4f72ddb898e281f6e200ac967",
+    "n_hashed_paths_checked": 629,
+    "n_missing": 0,
+    "n_mismatches": 0,
+    "n_deletions_not_representable": 0
+  },
+  "generated_data_git_commit": "436c9bdec8446043cab317531ad6f9bd34901cef",
+  "replicate_counts": {
+    "difficult": 10,
+    "clean_sanity": 1,
+    "moderate": 10,
+    "stress": 10,
+    "central_provisional": 10,
+    "easier": 10
+  },
+  "current_problem_inventory": [
+    {
+      "scope": "marginals",
+      "subgroup": "overall",
+      "property": "text_length",
+      "metric": "W1_scaled",
+      "real_estimate": NaN,
+      "synthetic_estimate": NaN,
+      "difference": 0.1623472823472831,
+      "effect_size": 0.1623472823472831,
+      "tolerance": "0.1",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "marginals",
+      "subgroup": "overall",
+      "property": "text_length",
+      "metric": "q75_relative_error",
+      "real_estimate": 133.0,
+      "synthetic_estimate": "118.0",
+      "difference": -15.0,
+      "effect_size": 0.112781954887218,
+      "tolerance": "0.1",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "temporal",
+      "subgroup": "60m",
+      "property": "followup_runway",
+      "metric": "abs_diff_pp",
+      "real_estimate": 0.5501577585290052,
+      "synthetic_estimate": "0.4399267399267399",
+      "difference": -11.023101860226523,
+      "effect_size": 11.023101860226523,
+      "tolerance": "5.0",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "missingness_text_identifier",
+      "subgroup": "overall",
+      "property": "siret_missing",
+      "metric": "rate_abs_diff_pp",
+      "real_estimate": 0.7277572291221063,
+      "synthetic_estimate": "0.6866529304029304",
+      "difference": -4.110429871917587,
+      "effect_size": 4.110429871917587,
+      "tolerance": "2.0",
+      "status": "FAIL",
+      "notes": NaN
+    },
+    {
+      "scope": "missingness_text_identifier",
+      "subgroup": "overall",
+      "property": "siren_missing",
+      "metric": "rate_abs_diff_pp",
+      "real_estimate": 0.7277572291221063,
+      "synthetic_estimate": "0.6937385531135531",
+      "difference": -3.401867600855313,
+      "effect_size": 3.401867600855313,
+      "tolerance": "2.0",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "missingness_text_identifier",
+      "subgroup": "overall",
+      "property": "cpv_missing",
+      "metric": "rate_abs_diff_pp",
+      "real_estimate": 0.1706155536910769,
+      "synthetic_estimate": "0.1504922161172161",
+      "difference": -2.0123337573860782,
+      "effect_size": 2.0123337573860782,
+      "tolerance": "2.0",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "missingness_text_identifier",
+      "subgroup": "overall",
+      "property": "siret_present",
+      "metric": "presence_rate_abs_diff_pp",
+      "real_estimate": 0.2722427708778937,
+      "synthetic_estimate": "0.3133470695970696",
+      "difference": 4.110429871917587,
+      "effect_size": 4.110429871917587,
+      "tolerance": "2.0",
+      "status": "FAIL",
+      "notes": NaN
+    },
+    {
+      "scope": "missingness_text_identifier",
+      "subgroup": "overall",
+      "property": "siren_present",
+      "metric": "presence_rate_abs_diff_pp",
+      "real_estimate": 0.2722427708778937,
+      "synthetic_estimate": "0.3062614468864469",
+      "difference": 3.4018676008553186,
+      "effect_size": 3.4018676008553186,
+      "tolerance": "2.0",
+      "status": "WARNING",
+      "notes": NaN
+    },
+    {
+      "scope": "buyer_activity",
+      "subgroup": "top1pct",
+      "property": "activity_share",
+      "metric": "abs_diff_pp",
+      "real_estimate": 0.3827800952459733,
+      "synthetic_estimate": "0.33076923076923076",
+      "difference": -5.201086447674258,
+      "effect_size": 5.201086447674258,
+      "tolerance": "10.0",
+      "status": "WARNING",
+      "notes": "share of all notices held by the top1pct most active buyers"
+    },
+    {
+      "scope": "buyer_activity",
+      "subgroup": "overall",
+      "property": "relative_notices_per_buyer",
+      "metric": "q99_abs_diff",
+      "real_estimate": 16.20559138768418,
+      "synthetic_estimate": "13.864239926739927",
+      "difference": -2.341351460944253,
+      "effect_size": 2.341351460944253,
+      "tolerance": "1.0",
+      "status": "FAIL",
+      "notes": "activity divided by that corpus's own mean activity (scale-free)"
+    },
+    {
+      "scope": "text",
+      "subgroup": "overall",
+      "property": "unigram_distribution",
+      "metric": "JS",
+      "real_estimate": NaN,
+      "synthetic_estimate": NaN,
+      "difference": 0.4409631507433597,
+      "effect_size": 0.4409631507433597,
+      "tolerance": "0.3",
+      "status": "WARNING",
+      "notes": "sampled 4000 real / 4000 synthetic texts"
+    },
+    {
+      "scope": "text",
+      "subgroup": "overall",
+      "property": "bigram_distribution",
+      "metric": "JS",
+      "real_estimate": NaN,
+      "synthetic_estimate": NaN,
+      "difference": 0.7825531557249248,
+      "effect_size": 0.7825531557249248,
+      "tolerance": "0.4",
+      "status": "WARNING",
+      "notes": "sampled 4000 real / 4000 synthetic texts"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "cross_scenario",
+      "property": "blocking_pairs_completeness",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3012798913836802",
+      "difference": NaN,
+      "effect_size": 0.3012798913836802,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.391,range=0.341-0.434,n=10; difficult:mean=0.252,range=0.119-0.285,n=10; easier:mean=0.390,range=0.326-0.424,n=10; moderate:mean=0.391,range=0.341-0.434,n=10; stress:mean=0.178,range=0.132-0.212,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "cross_scenario",
+      "property": "probe_headroom",
+      "metric": "coefficient_of_variation",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.5703378913378353",
+      "difference": NaN,
+      "effect_size": 0.5703378913378353,
+      "tolerance": "0.25",
+      "status": "WARNING",
+      "notes": "n_replicates=50; excluded=('clean_sanity',); scenario summaries=central_provisional:mean=0.297,range=0.227-0.347,n=10; difficult:mean=0.108,range=0.034-0.150,n=10; easier:mean=0.322,range=0.244-0.366,n=10; moderate:mean=0.297,range=0.227-0.347,n=10; stress:mean=0.044,range=0.020-0.060,n=10. A high value means this headline property is scenario-dependent and must be quoted with its scenario, not as a single benchmark number"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "ranking_stability:difficult",
+      "property": "probe_ranking",
+      "metric": "min_kendall_tau",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('001', '001') vs ('002', '002'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('002', '002') vs ('003', '003'): tau=0.33; ('002', '002') vs ('004', '004'): tau=0.33; ('002', '002') vs ('006', '006'): tau=0.33; ('002', '002') vs ('007', '007'): tau=0.33; ('002', '002') vs ('008', '008'): tau=0.33; ('002', '002') vs ('009', '009'): tau=0.33"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "ranking_stability:stress",
+      "property": "probe_ranking",
+      "metric": "min_kendall_tau",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "within-scenario probe-ranking stability across generated seeds; seed replicates compared=10; pairwise comparisons=45; worst examples=('001', '001') vs ('002', '002'): tau=0.33; ('001', '001') vs ('003', '003'): tau=0.33; ('001', '001') vs ('004', '004'): tau=0.33; ('001', '001') vs ('005', '005'): tau=0.33; ('001', '001') vs ('006', '006'): tau=0.33; ('001', '001') vs ('008', '008'): tau=0.33; ('001', '001') vs ('009', '009'): tau=0.33; ('001', '001') vs ('010', '010'): tau=0.33"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "ranking_stability:cross_scenario",
+      "property": "probe_ranking",
+      "metric": "min_kendall_tau",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "cross-scenario probe-ranking stability using mean pair-F1 by scenario; scenario means compared=5; pairwise comparisons=10; worst examples=central_provisional vs stress: tau=0.33; difficult vs stress: tau=0.33; easier vs stress: tau=0.33; moderate vs stress: tau=0.33; central_provisional vs difficult: tau=1.00; central_provisional vs easier: tau=1.00; central_provisional vs moderate: tau=1.00; difficult vs easier: tau=1.00"
+    },
+    {
+      "scope": "robustness",
+      "subgroup": "ranking_stability",
+      "property": "probe_ranking",
+      "metric": "min_kendall_tau",
+      "real_estimate": NaN,
+      "synthetic_estimate": "0.3333333333333333",
+      "difference": NaN,
+      "effect_size": 0.3333333333333333,
+      "tolerance": "0.8",
+      "status": "WARNING",
+      "notes": "overall probe-ranking stability across all generated scenario/seed artifacts; a low value means a single global algorithm ranking is not supported; scenario/seed replicates compared=50; pairwise comparisons=1225; worst examples=('central_provisional', '001', '001') vs ('difficult', '002', '002'): tau=0.33; ('central_provisional', '001', '001') vs ('difficult', '005', '005'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '002', '002'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '003', '003'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '004', '004'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '005', '005'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '006', '006'): tau=0.33; ('central_provisional', '001', '001') vs ('stress', '008', '008'): tau=0.33"
+    }
+  ],
+  "decisions": [
+    {
+      "level": "PIPELINE_TECHNICALLY_VALID",
+      "status": "PASS_WITH_LIMITATIONS",
+      "supporting_evidence": [
+        "internal gate: PASS",
+        "specification_recovery gate: PASS",
+        "privacy gate: PASS",
+        "canonical replay checked: True",
+        "all generated artifacts replay: PASS",
+        "replayed artifacts: 51",
+        "source state manifest hashed paths: 629",
+        "worktree dirty: False",
+        "verified dirty-state release package: False",
+        "release package verification status: PASS"
+      ],
+      "failed_hard_gates": [],
+      "remaining_warnings": [
+        "generated data metadata commit 436c9bdec8446043cab317531ad6f9bd34901cef differs from current HEAD 8f1ea054a3f36ac385990b62819d33da57669d6a"
+      ],
+      "permitted_uses": [
+        "local reproducibility checks",
+        "debugging generator and validation mechanisms"
+      ],
+      "prohibited_claims": [
+        "Synthetic precision, recall, recurrence prevalence, or survival estimates equal their unknown real BOAMP values.",
+        "The benchmark proves real-world algorithm ranking or real renewal prevalence.",
+        "Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.",
+        "A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels."
+      ]
+    },
+    {
+      "level": "READY_FOR_PRELIMINARY_MODELING",
+      "status": "PASS_WITH_LIMITATIONS",
+      "supporting_evidence": [
+        "validation framework overall_status: PASS_WITH_WARNINGS",
+        "probe linker best pair-F1: 0.3164959378311551"
+      ],
+      "failed_hard_gates": [],
+      "remaining_warnings": [
+        "preliminary modeling must be labelled synthetic-only",
+        "observable fidelity warnings remain in buyer-activity concentration, text lexical distribution, and identifier completeness"
+      ],
+      "permitted_uses": [
+        "exploratory linker debugging",
+        "pipeline integration tests",
+        "method development dry runs"
+      ],
+      "prohibited_claims": [
+        "Synthetic precision, recall, recurrence prevalence, or survival estimates equal their unknown real BOAMP values.",
+        "The benchmark proves real-world algorithm ranking or real renewal prevalence.",
+        "Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.",
+        "A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels."
+      ]
+    },
+    {
+      "level": "READY_FOR_CONTROLLED_ALGORITHM_COMPARISON",
+      "status": "FAIL",
+      "supporting_evidence": [
+        "scenarios present: ['central_provisional', 'clean_sanity', 'difficult', 'easier', 'moderate', 'stress']",
+        "replicates by scenario: {'difficult': 10, 'clean_sanity': 1, 'moderate': 10, 'stress': 10, 'central_provisional': 10, 'easier': 10}",
+        "metric failures: 5",
+        "three evaluation settings reported: True",
+        "required executable scenario configs present: True",
+        "main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.0}",
+        "overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}"
+      ],
+      "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates"
+      ],
+      "remaining_warnings": [
+        "headline difficulty varies materially across scenarios; comparisons must be scenario-labelled",
+        "probe-linker ranking stability is scenario-dependent; do not claim one global ranking"
+      ],
+      "permitted_uses": [
+        "controlled synthetic algorithm comparisons within documented scenarios",
+        "seed-aggregated moderate/central scenario comparisons when all results are labelled synthetic-only"
+      ],
+      "prohibited_claims": [
+        "Synthetic precision, recall, recurrence prevalence, or survival estimates equal their unknown real BOAMP values.",
+        "The benchmark proves real-world algorithm ranking or real renewal prevalence.",
+        "Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.",
+        "A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels."
+      ]
+    },
+    {
+      "level": "READY_FOR_FINAL_ALGORITHM_RANKING",
+      "status": "FAIL",
+      "supporting_evidence": [
+        "multi-seed ready: True",
+        "required scenario artifacts ready: True",
+        "observable hard failures: True",
+        "probe ranking summary rows: 21",
+        "probe pairwise comparison rows: 21",
+        "main-scenario top-probe rank-1 frequency: 1.0",
+        "all-benchmark top-probe rank-1 frequency: 1.0",
+        "cross-scenario-mean top-probe rank-1 frequency: 1.0",
+        "main pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.0}",
+        "overall pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}",
+        "cross-scenario pairwise comparison support: {'ready': True, 'n_pairs': 3, 'supported_fraction': 1.0, 'ambiguous_fraction': 0.0, 'warning_fraction': 0.3333333333333333}"
+      ],
+      "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates",
+        "headline difficulty varies materially across scenarios and must be scenario-labelled",
+        "cross-scenario probe-linker ranking stability is warning or inconclusive"
+      ],
+      "remaining_warnings": [
+        "algorithm rankings have not been shown stable across seeds and scenarios"
+      ],
+      "permitted_uses": [
+        "none beyond preliminary labelled diagnostics"
+      ],
+      "prohibited_claims": [
+        "Synthetic precision, recall, recurrence prevalence, or survival estimates equal their unknown real BOAMP values.",
+        "The benchmark proves real-world algorithm ranking or real renewal prevalence.",
+        "Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.",
+        "A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels."
+      ]
+    },
+    {
+      "level": "READY_FOR_VALIDATED_SYNTHETIC_BENCHMARK_RELEASE",
+      "status": "FAIL",
+      "supporting_evidence": [
+        "validation status: PASS_WITH_WARNINGS",
+        "calendar-month metric present in saved outputs: True",
+        "generated_from_current_head: False",
+        "source state manifest hashed paths: 629",
+        "worktree dirty: False",
+        "verified dirty-state release package: False",
+        "release package archive sha256: a61c2f8c742d8464efc5012d15fb1c726997bac4f72ddb898e281f6e200ac967"
+      ],
+      "failed_hard_gates": [
+        "observable hard-fidelity failures remain in non-critical current gates",
+        "headline difficulty varies materially across scenarios and must be scenario-labelled",
+        "cross-scenario probe-linker ranking stability is warning or inconclusive",
+        "generated data metadata commit 436c9bdec8446043cab317531ad6f9bd34901cef differs from current HEAD 8f1ea054a3f36ac385990b62819d33da57669d6a"
+      ],
+      "remaining_warnings": [
+        "release docs must use validated synthetic benchmark language only"
+      ],
+      "permitted_uses": [
+        "not release-ready"
+      ],
+      "prohibited_claims": [
+        "Synthetic precision, recall, recurrence prevalence, or survival estimates equal their unknown real BOAMP values.",
+        "The benchmark proves real-world algorithm ranking or real renewal prevalence.",
+        "Previously accepted BOAMP links, linkage scores, thresholds, or the six-month window are real ground truth.",
+        "A validated synthetic benchmark replaces missing manual/legal BOAMP recurrence labels."
+      ]
+    }
+  ],
+  "global_limit": "This is a validated synthetic benchmark only to the readiness level supported above. It cannot prove real BOAMP precision, recall, renewal prevalence, survival estimates, or algorithm ranking."
+}
