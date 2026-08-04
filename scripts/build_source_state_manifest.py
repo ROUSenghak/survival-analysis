@@ -39,6 +39,16 @@ DEFAULT_EXCLUDED_PATHS = {
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_assessment.md",
     "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json",
 }
+PACKAGE_FILENAMES = {
+    "source_state_manifest.json",
+    "dirty_state_overlay.tar.gz",
+    "dirty_state_overlay_manifest.json",
+    "dirty_state_overlay_verification.json",
+}
+READINESS_FILENAMES = {
+    "readiness_assessment.md",
+    "readiness_decisions.json",
+}
 
 
 def _git(args: list[str]) -> str:
@@ -71,6 +81,21 @@ def _sha256(path: Path) -> str | None:
     return digest.hexdigest()
 
 
+def _version_local_excluded_paths(output: Path) -> set[str]:
+    """Exclude version-local package/readiness files that record this package."""
+    excluded: set[str] = set()
+    base = output.parent
+    if base.name in {"readiness", "validation_framework"}:
+        base = base.parent
+    if base.parent.name == "synthetic_benchmark":
+        for name in PACKAGE_FILENAMES:
+            excluded.add((base / name).relative_to(ROOT).as_posix())
+        readiness_dir = base / "readiness"
+        for name in READINESS_FILENAMES:
+            excluded.add((readiness_dir / name).relative_to(ROOT).as_posix())
+    return excluded
+
+
 def _status_entries() -> list[dict]:
     rows = []
     for raw in _git_z(["status", "--porcelain=v1", "-z", "--untracked-files=all"]):
@@ -83,7 +108,7 @@ def _status_entries() -> list[dict]:
 def build_manifest(output: Path, extra_excluded_paths: set[str] | None = None) -> dict:
     output = output.resolve()
     output_rel = output.relative_to(ROOT).as_posix()
-    excluded_paths = {output_rel, *DEFAULT_EXCLUDED_PATHS}
+    excluded_paths = {output_rel, *DEFAULT_EXCLUDED_PATHS, *_version_local_excluded_paths(output)}
     if extra_excluded_paths:
         excluded_paths.update(extra_excluded_paths)
     status_entries = _status_entries()

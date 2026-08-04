@@ -633,10 +633,74 @@ def _generic_weak_text(row, rng: np.random.Generator) -> str:
     )
 
 
+def _generic_text_replacement_survival(
+    notice_type: str,
+    buyer_activity_tier: str,
+    observation_model,
+    conditional_cfg,
+) -> float:
+    """Expected probability that a notice reaches the same-buyer template draw.
+
+    The conditional generic-text branch runs before the same-buyer
+    administrative template. v0.4 calibrates the admin template as an overall
+    corpus share, so the denominator is the generated high-activity tier share
+    *after* the earlier generic replacements have had their chance to fire.
+    """
+    target = observation_model.generic_text_rate(notice_type, buyer_activity_tier)
+    exact_share = getattr(conditional_cfg, "exact_template_share", 0.82)
+    near_extra = getattr(conditional_cfg, "near_boilerplate_extra_rate", 0.08)
+    weak_extra = getattr(conditional_cfg, "generic_weak_extra_rate", 0.04)
+    p_exact = min(0.95, target * exact_share)
+    p_near = min(0.95, target * near_extra)
+    p_weak = min(0.95, target * weak_extra)
+    return float((1.0 - p_exact) * (1.0 - p_near) * (1.0 - p_weak))
+
+
+def _resolve_same_buyer_admin_template_rate(
+    clean_notices: pd.DataFrame,
+    buyer_notice_tier: pd.Series,
+    observation_model,
+    conditional_cfg,
+) -> float:
+    """Return the effective per-exposed-notice admin template probability.
+
+    If the scenario declares ``same_buyer_admin_template_target_share``, solve
+    the per-notice probability against the current world's activity-tier
+    composition. Otherwise preserve the legacy scalar rate.
+    """
+    legacy_rate = float(getattr(conditional_cfg, "same_buyer_admin_template_rate", 0.0))
+    target_share = getattr(conditional_cfg, "same_buyer_admin_template_target_share", None)
+    if target_share is None or observation_model is None:
+        return legacy_rate
+
+    target_share = max(0.0, float(target_share))
+    if target_share == 0.0:
+        return 0.0
+
+    tiers = buyer_notice_tier.astype(str)
+    eligible = tiers.isin({"6-20", "21+"})
+    if not bool(eligible.any()):
+        return 0.0
+
+    exposure = np.zeros(len(clean_notices), dtype=float)
+    for idx in np.flatnonzero(eligible.to_numpy()):
+        exposure[idx] = _generic_text_replacement_survival(
+            str(clean_notices.iloc[idx]["notice_type_true"]),
+            str(tiers.iloc[idx]),
+            observation_model,
+            conditional_cfg,
+        )
+    exposure_share = float(exposure.mean())
+    if exposure_share <= 0.0:
+        return 0.0
+    return min(0.95, target_share / exposure_share)
+
+
 def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.random.Generator,
                   logger, observation_model=None, buyer_activity_tier: str | None = None,
                   same_family_key_mismatch: bool = False,
-                  observed_buyer_key: str | None = None) -> str:
+                  observed_buyer_key: str | None = None,
+                  same_buyer_admin_template_rate: float | None = None) -> str:
     text = row["objet_true"]
     if row["role"] == "AWARD" and text and rng.random() < min(0.98, scen_text.next_cycle_drift_severity * mult * 0.3):
         # Even within a cycle, a poorly-recorded award can drift lexically
@@ -668,7 +732,11 @@ def _corrupt_text(row, mult: float, scen_text, need_vocab: list[str], rng: np.ra
             logger.log(row["notice_id_synthetic"], "objet_clean", text, weak,
                        "GENERIC_WEAK_PROCUREMENT_TEXT", severity=1.0)
             return weak
-        same_buyer_template_rate = getattr(conditional_cfg, "same_buyer_admin_template_rate", 0.0)
+        same_buyer_template_rate = (
+            float(same_buyer_admin_template_rate)
+            if same_buyer_admin_template_rate is not None
+            else float(getattr(conditional_cfg, "same_buyer_admin_template_rate", 0.0))
+        )
         if (
             buyer_activity_tier in {"6-20", "21+"}
             and rng.random() < same_buyer_template_rate
@@ -762,6 +830,17 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
         labels=["1 (single)", "2-5", "6-20", "21+"],
         right=True,
     ).astype(str)
+    conditional_cfg = getattr(getattr(scenario, "text", None), "conditional_reuse", None)
+    same_buyer_admin_template_rate = (
+        _resolve_same_buyer_admin_template_rate(
+            clean_notices.reset_index(drop=True),
+            buyer_notice_tier.reset_index(drop=True),
+            observation_model,
+            conditional_cfg,
+        )
+        if conditional_cfg is not None and getattr(conditional_cfg, "enabled", False)
+        else None
+    )
 
     rows = []
     for i, row in clean_notices.reset_index(drop=True).iterrows():
@@ -866,6 +945,7 @@ def corrupt_notices(clean_notices: pd.DataFrame, buyers: pd.DataFrame, establish
             buyer_activity_tier=str(buyer_notice_tier.iloc[i]),
             same_family_key_mismatch=same_family_key_mismatch,
             observed_buyer_key=observed_buyer_key,
+            same_buyer_admin_template_rate=same_buyer_admin_template_rate,
         )
 
         linked_obs = row["linked_call_notice_id_true"]

@@ -1,0 +1,32 @@
+{
+  "generated_at_utc": "2026-08-04T12:47:14.260689+00:00",
+  "git_head": "2640115395f69c7f88f2199feda34432935f8eab",
+  "archive_path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay.tar.gz",
+  "archive_sha256": "7449f9f165881cbd654f29c6c8c339919cb107daeba0a7c8810cb429559a9f6a",
+  "archive_size_bytes": 403579970,
+  "source_state_manifest_path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json",
+  "source_state_manifest_sha256": "153e382cded4a8e934feaebd366686ce319139ce8f061bd7099be78abb6eec98",
+  "overlay_file_count": 275,
+  "overlay_payload_file_count": 274,
+  "overlay_payload_size_bytes": 525383793,
+  "member_list_matches_manifest": true,
+  "excluded_paths": [
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay.tar.gz",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_manifest.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_decisions.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json"
+  ],
+  "status": "PASS",
+  "limitations": [
+    "This is a release-state overlay on the recorded git_head.",
+    "It does not change scientific readiness decisions and must not be cited as final algorithm-ranking evidence.",
+    "The archive excludes itself and its manifest to avoid self-referential hashes."
+  ]
+}

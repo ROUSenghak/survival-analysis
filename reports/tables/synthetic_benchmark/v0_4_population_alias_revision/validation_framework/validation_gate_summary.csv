@@ -1,15 +1,15 @@
 gate,status,critical,n_pass,n_warning,n_fail,n_inconclusive,headline,blocking_reason,warning_reason
 internal,PASS,True,35,0,0,0,internal validation PASS,,
 specification_recovery,PASS,True,6,0,0,0,specification_recovery validation PASS,,
-marginals,WARNING,False,15,2,1,0,marginals validation WARNING,,text_length:W1_scaled; text_length:q50_relative_error; text_length:q75_relative_error
+marginals,WARNING,False,16,2,0,0,marginals validation WARNING,,text_length:W1_scaled; text_length:q75_relative_error
 conditionals,PASS,True,4,0,0,0,conditionals validation PASS,,
 temporal,WARNING,True,9,1,0,0,temporal validation WARNING,,followup_runway:abs_diff_pp
-candidate_environment,WARNING,True,9,1,0,0,candidate_environment validation WARNING,,zero_candidate_rate_by_key:abs_diff_pp
-missingness_text_identifier,WARNING,False,7,3,0,0,missingness_text_identifier validation WARNING,,siret_missing:rate_abs_diff_pp; text_length:q50_relative_error; siret_present:presence_rate_abs_diff_pp
+candidate_environment,PASS,True,10,0,0,0,candidate_environment validation PASS,,
+missingness_text_identifier,WARNING,False,8,2,0,0,missingness_text_identifier validation WARNING,,siret_missing:rate_abs_diff_pp; siret_present:presence_rate_abs_diff_pp
 buyer_activity,WARNING,False,10,3,0,0,buyer_activity validation WARNING,,activity_share:abs_diff_pp; activity_share:abs_diff_pp; observed_keys_per_notice:relative_error
 missingness_structure,PASS,False,4,0,0,0,missingness_structure validation PASS,,
 names_identifiers,WARNING,False,17,1,0,1,names_identifiers validation WARNING,,name_variants_per_buyer:distribution_TV
-text,WARNING,False,8,3,0,0,text validation WARNING,,token_count:q50_relative_error; unigram_distribution:JS; bigram_distribution:JS
+text,WARNING,False,9,2,0,0,text validation WARNING,,unigram_distribution:JS; bigram_distribution:JS
 privacy,PASS,True,4,0,0,0,privacy validation PASS,,
 hidden_truth_difficulty,PASS,True,12,0,0,0,hidden_truth_difficulty validation PASS,,
 algorithm_utility,PASS,True,34,0,0,0,algorithm_utility validation PASS,,

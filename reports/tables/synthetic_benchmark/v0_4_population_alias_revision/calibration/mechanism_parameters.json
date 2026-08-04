@@ -7,6 +7,8 @@
   "min_active_days": 30,
   "dominant_alias_share": 0.55,
   "presence_scale": 1.0,
+  "same_buyer_admin_template_target_share": 0.2586715280926711,
+  "same_buyer_admin_template_target_source": "v0.3 central_provisional 10-world realised share of SAME_BUYER_ADMIN_TEMPLATE corruptions per observed notice",
   "scoped_candidate_environment": {
     "recurrence_propensity_multiplier": 1.45,
     "near_window_share": 0.75,

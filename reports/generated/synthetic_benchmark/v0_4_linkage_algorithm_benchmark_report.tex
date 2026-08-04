@@ -23,20 +23,20 @@
 \section*{Technical Summary}
 
 Gradient boosting is the strongest current linker on the corrected synthetic benchmark. It reaches
-precision \textbf{0.747}, end-to-end recall \textbf{0.235},
-and end-to-end pair-F1 \textbf{0.357} across the held-out evaluation grid.
+precision \textbf{0.719}, end-to-end recall \textbf{0.235},
+and end-to-end pair-F1 \textbf{0.354} across the held-out evaluation grid.
 
 The result is not mainly a classifier-only story. It is a pipeline story: the production candidate
-generator exposes only \textbf{10,315} of \textbf{32,050} in-scope truth links
-to scoring, a weighted blocking recall of \textbf{32.2\%} and an unweighted
-world-average recall of \textbf{0.293}. This is why gradient boosting has
-fixed-candidate F1 \textbf{0.738} but end-to-end F1 only
-\textbf{0.357}.
+generator exposes only \textbf{10,333} of \textbf{32,404} in-scope truth links
+to scoring, a weighted blocking recall of \textbf{31.9\%} and an unweighted
+world-average recall of \textbf{0.291}. This is why gradient boosting has
+fixed-candidate F1 \textbf{0.728} but end-to-end F1 only
+\textbf{0.354}.
 
 Logistic regression recovers essentially the same number of true links as gradient boosting
-(7,519 versus 7,517), but accepts far more links
-(22,408 versus 10,057). The extra volume lowers
-precision from \textbf{0.747} to \textbf{0.336}. The current
+(7,704 versus 7,624), but accepts far more links
+(22,706 versus 10,610). The extra volume lowers
+precision from \textbf{0.719} to \textbf{0.339}. The current
 weighted composite and Fellegi-Sunter-style baseline remain useful comparators, but they are not the
 preferred scorers under this benchmark.
 
@@ -63,24 +63,24 @@ benchmark ranking and the least risky of the tested options for downstream survi
 \toprule
 Algorithm & Predicted links & True positives & Precision & Fixed-candidate recall & End-to-end recall & End-to-end F1 \\
 \midrule
-Gradient boosting & 10,057 & 7,517 & 0.747 & 0.729 & 0.235 & 0.357 \\
-Logistic regression & 22,408 & 7,519 & 0.336 & 0.729 & 0.235 & 0.276 \\
-Current weighted composite & 56,017 & 7,189 & 0.128 & 0.697 & 0.224 & 0.163 \\
-Fellegi-Sunter style & 42,040 & 4,739 & 0.113 & 0.459 & 0.148 & 0.128 \\
+Gradient boosting & 10,610 & 7,624 & 0.719 & 0.738 & 0.235 & 0.354 \\
+Logistic regression & 22,706 & 7,704 & 0.339 & 0.746 & 0.238 & 0.280 \\
+Current weighted composite & 56,103 & 7,288 & 0.130 & 0.705 & 0.225 & 0.165 \\
+Fellegi-Sunter style & 41,909 & 4,752 & 0.113 & 0.460 & 0.147 & 0.128 \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
 Compared with the current weighted composite, gradient boosting improves precision by
-\textbf{5.8x} and end-to-end F1 by
+\textbf{5.5x} and end-to-end F1 by
 \textbf{2.2x}.
 
 \section*{Candidate Generation Is The Binding Constraint}
 
 End-to-end performance is much lower than fixed-candidate performance because most truth links never
-enter the candidate set. The evaluation run scored \textbf{876,190} candidate pairs over
-\textbf{32,050} in-scope truth links, but only \textbf{10,315} truth links
+enter the candidate set. The evaluation run scored \textbf{879,179} candidate pairs over
+\textbf{32,404} in-scope truth links, but only \textbf{10,333} truth links
 were reachable by the production candidate generator.
 
 \begin{table}[H]
@@ -92,11 +92,11 @@ were reachable by the production candidate generator.
 \toprule
 Scenario & Worlds & Candidate pairs & Truth links & Reachable truth & Mean blocking recall & Min & Max \\
 \midrule
-central\_provisional & 4 & 81,457 & 6,435 & 2,183 & 0.340 & 0.307 & 0.359 \\
-difficult & 4 & 175,881 & 3,723 & 851 & 0.231 & 0.196 & 0.267 \\
-easier & 4 & 142,948 & 11,526 & 4,449 & 0.387 & 0.350 & 0.402 \\
-moderate & 4 & 81,457 & 6,435 & 2,183 & 0.340 & 0.307 & 0.359 \\
-stress & 4 & 394,447 & 3,931 & 649 & 0.166 & 0.157 & 0.182 \\
+central\_provisional & 4 & 80,801 & 6,488 & 2,166 & 0.334 & 0.303 & 0.355 \\
+difficult & 4 & 177,492 & 3,823 & 881 & 0.234 & 0.191 & 0.286 \\
+easier & 4 & 145,729 & 11,707 & 4,475 & 0.383 & 0.345 & 0.410 \\
+moderate & 4 & 80,801 & 6,488 & 2,166 & 0.334 & 0.303 & 0.355 \\
+stress & 4 & 394,356 & 3,898 & 645 & 0.167 & 0.155 & 0.188 \\
 \bottomrule
 \end{tabular}%
 }
@@ -127,26 +127,26 @@ performance changes sharply as the benchmark gets harder.
 \toprule
 Scenario & Algorithm & Mean F1 & Mean precision & Mean recall & SD F1 \\
 \midrule
-central\_provisional & Gradient boosting & 0.387 & 0.778 & 0.258 & 0.019 \\
-central\_provisional & Logistic regression & 0.354 & 0.561 & 0.259 & 0.020 \\
-central\_provisional & Current weighted composite & 0.223 & 0.204 & 0.247 & 0.020 \\
-central\_provisional & Fellegi-Sunter style & 0.172 & 0.183 & 0.163 & 0.018 \\
-difficult & Gradient boosting & 0.178 & 0.487 & 0.109 & 0.011 \\
-difficult & Logistic regression & 0.123 & 0.127 & 0.120 & 0.017 \\
-difficult & Current weighted composite & 0.063 & 0.044 & 0.111 & 0.013 \\
-difficult & Fellegi-Sunter style & 0.047 & 0.036 & 0.068 & 0.012 \\
-easier & Gradient boosting & 0.462 & 0.881 & 0.314 & 0.019 \\
-easier & Logistic regression & 0.426 & 0.711 & 0.304 & 0.017 \\
-easier & Current weighted composite & 0.280 & 0.271 & 0.290 & 0.014 \\
-easier & Fellegi-Sunter style & 0.215 & 0.242 & 0.193 & 0.015 \\
-moderate & Gradient boosting & 0.387 & 0.778 & 0.258 & 0.019 \\
-moderate & Logistic regression & 0.354 & 0.561 & 0.259 & 0.020 \\
-moderate & Current weighted composite & 0.223 & 0.204 & 0.247 & 0.020 \\
-moderate & Fellegi-Sunter style & 0.172 & 0.183 & 0.163 & 0.018 \\
-stress & Gradient boosting & 0.083 & 0.226 & 0.051 & 0.022 \\
-stress & Logistic regression & 0.043 & 0.032 & 0.066 & 0.008 \\
-stress & Current weighted composite & 0.026 & 0.016 & 0.072 & 0.005 \\
-stress & Fellegi-Sunter style & 0.019 & 0.012 & 0.043 & 0.002 \\
+central\_provisional & Gradient boosting & 0.382 & 0.770 & 0.254 & 0.015 \\
+central\_provisional & Logistic regression & 0.350 & 0.549 & 0.258 & 0.011 \\
+central\_provisional & Current weighted composite & 0.222 & 0.204 & 0.244 & 0.014 \\
+central\_provisional & Fellegi-Sunter style & 0.168 & 0.181 & 0.158 & 0.012 \\
+difficult & Gradient boosting & 0.199 & 0.475 & 0.126 & 0.023 \\
+difficult & Logistic regression & 0.140 & 0.143 & 0.138 & 0.021 \\
+difficult & Current weighted composite & 0.077 & 0.054 & 0.133 & 0.024 \\
+difficult & Fellegi-Sunter style & 0.055 & 0.043 & 0.077 & 0.019 \\
+easier & Gradient boosting & 0.460 & 0.879 & 0.312 & 0.029 \\
+easier & Logistic regression & 0.429 & 0.715 & 0.307 & 0.025 \\
+easier & Current weighted composite & 0.279 & 0.270 & 0.288 & 0.023 \\
+easier & Fellegi-Sunter style & 0.214 & 0.242 & 0.192 & 0.024 \\
+moderate & Gradient boosting & 0.382 & 0.770 & 0.254 & 0.015 \\
+moderate & Logistic regression & 0.350 & 0.549 & 0.258 & 0.011 \\
+moderate & Current weighted composite & 0.222 & 0.204 & 0.244 & 0.014 \\
+moderate & Fellegi-Sunter style & 0.168 & 0.181 & 0.158 & 0.012 \\
+stress & Gradient boosting & 0.076 & 0.162 & 0.049 & 0.017 \\
+stress & Logistic regression & 0.043 & 0.032 & 0.065 & 0.009 \\
+stress & Current weighted composite & 0.024 & 0.015 & 0.067 & 0.003 \\
+stress & Fellegi-Sunter style & 0.019 & 0.012 & 0.042 & 0.005 \\
 \bottomrule
 \end{tabular}%
 }
@@ -171,9 +171,9 @@ analysis could inherit them.
 \label{fig:candidate-bin}
 \end{figure}
 
-For gradient boosting, end-to-end recall is \textbf{0.552}
+For gradient boosting, end-to-end recall is \textbf{0.544}
 when a source has exactly one candidate, but only
-\textbf{0.113} when it has sixteen or more candidates.
+\textbf{0.120} when it has sixteen or more candidates.
 This is the strongest bias diagnostic: crowded candidate environments are under-linked.
 
 \begin{figure}[H]
@@ -184,10 +184,10 @@ This is the strongest bias diagnostic: crowded candidate environments are under-
 \end{figure}
 
 Identifier quality also matters. Gradient boosting recall is
-\textbf{0.278} for RAW\_SIRET truth links versus
-\textbf{0.224} for NAME\_FALLBACK. CPV availability
+\textbf{0.285} for RAW\_SIRET truth links versus
+\textbf{0.223} for NAME\_FALLBACK. CPV availability
 matters as well: recall is \textbf{0.251} when CPV is present
-and \textbf{0.088} when CPV is missing.
+and \textbf{0.099} when CPV is missing.
 
 \section*{Thresholds And Model Setup}
 
@@ -207,8 +207,8 @@ Algorithm & Score column & Threshold & Threshold source \\
 \midrule
 Current weighted composite & composite\_score & 0.343167 & production primary threshold \\
 Fellegi-Sunter style & fs\_log\_odds & 0 & frozen zero log-odds threshold \\
-Logistic regression & logistic\_score & 0.757136 & calibration F1 maximum \\
-Gradient boosting & gradient\_boosting\_score & 0.221966 & calibration F1 maximum \\
+Logistic regression & logistic\_score & 0.745678 & calibration F1 maximum \\
+Gradient boosting & gradient\_boosting\_score & 0.230964 & calibration F1 maximum \\
 \bottomrule
 \end{tabular}%
 }

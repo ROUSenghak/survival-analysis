@@ -1,0 +1,26 @@
+{
+  "generated_at_utc": "2026-08-04T12:51:32.453771+00:00",
+  "status": "PASS",
+  "archive_path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay.tar.gz",
+  "archive_sha256": "7449f9f165881cbd654f29c6c8c339919cb107daeba0a7c8810cb429559a9f6a",
+  "archive_sha_matches_manifest": true,
+  "git_head": "2640115395f69c7f88f2199feda34432935f8eab",
+  "source_state_manifest_path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json",
+  "source_state_manifest_sha_matches_manifest": true,
+  "member_list_matches_manifest": true,
+  "n_members": 275,
+  "n_expected_members": 275,
+  "n_hashed_paths_checked": 274,
+  "n_manifest_rows": 274,
+  "n_missing": 0,
+  "n_mismatches": 0,
+  "n_deletions_not_representable": 0,
+  "deletions_not_representable": [],
+  "missing": [],
+  "mismatches": [],
+  "limitations": [
+    "Verification applies the overlay to a clean git archive of git_head and checks recorded dirty-file hashes.",
+    "This verifies archive replayability only; it does not change final algorithm-ranking readiness.",
+    "A tar overlay cannot express a deletion. Paths the dirty state removes are listed under deletions_not_representable and downgrade the status to PASS_WITH_LIMITATIONS: replaying the overlay onto a clean HEAD leaves those files in place."
+  ]
+}

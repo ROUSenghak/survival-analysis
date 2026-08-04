@@ -319,6 +319,15 @@ text:
       within-corpus duplicate share without pooling text across unrelated buyer keys.
 
       '
+    same_buyer_admin_template_target_share: 0.25867153
+    same_buyer_admin_template_target_source: v0.3 central_provisional 10-world realised share of SAME_BUYER_ADMIN_TEMPLATE
+      corruptions per observed notice
+    same_buyer_admin_template_rate_note: The scalar same_buyer_admin_template_rate is retained as a legacy
+      fallback. When same_buyer_admin_template_target_share is present, the corruption layer solves the
+      effective per-exposed-notice rate from the generated world's actual 6-20/21+ buyer-tier composition
+      and the earlier exact/near/weak generic-text replacement probabilities. This prevents the v0.4 buyer-population
+      correction from mechanically shortening the text corpus by over-firing the 49-character same-buyer
+      administrative template.
 linked_notice_visibility:
   missing_rate: 0.6788
 conditional_observation:
@@ -340,7 +349,7 @@ quality_class_mix:
 config_family: v0_4
 generated_by: scripts/write_v0_4_scenario_config.py
 generated_from: reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/observable_targets.json
-generated_at_utc: '2026-08-03T13:08:36.970726+00:00'
+generated_at_utc: '2026-08-04T09:43:53.083640+00:00'
 needs:
   needs_per_buyer_mean: 8.382
   note: MECHANISM_PARAMETER. Benchmark size used to be a side effect of the buyer count through needs.py's

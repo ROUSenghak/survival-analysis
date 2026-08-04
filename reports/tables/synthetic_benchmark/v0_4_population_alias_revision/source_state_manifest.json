@@ -1,0 +1,3066 @@
+{
+  "generated_at_utc": "2026-08-04T12:44:44.365831+00:00",
+  "git_head": "2640115395f69c7f88f2199feda34432935f8eab",
+  "git_status_porcelain": [
+    {
+      "status": " M",
+      "path": "README.md"
+    },
+    {
+      "status": " M",
+      "path": "config/synthetic/scenarios/v0_4/central_provisional.yaml"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/clean_sanity/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/corruption_log.parquet"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/generation_metadata.json"
+    },
+    {
+      "status": " M",
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/observed_notices.parquet"
+    },
+    {
+      "status": " M",
+      "path": "docs/methodology.md"
+    },
+    {
+      "status": " M",
+      "path": "notebooks/14_linkage_algorithm_benchmark_v0_4.ipynb"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/pair_f1_by_mode.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_scatter.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/score_separability_by_algorithm.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_alias_structure.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_alias_structure.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_concentration.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_concentration.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_tail.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_tail.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_candidate_environment.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_candidate_environment.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_missingness_structure.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_missingness_structure.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_name_variation.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_name_variation.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_siret_availability.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_siret_availability.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_validation_before_after.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_validation_before_after.png"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.log"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_population_alias_revision_report.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_report_values.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/algorithm_v03_v04.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/fresh_seeds.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/gates.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/holdout.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/paired_algorithm_differences.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/readiness.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/status_changes.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/targeted_failures.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/mechanism_parameters.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_metrics_long.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_provenance.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_summary.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_generation_manifest.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/generation_manifest.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_evaluation_provenance.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_fidelity_long.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_fidelity_summary.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_vs_calibration_summary.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/algorithm_thresholds.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/bias_gap_summary.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/per_world_metrics.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/predicted_links.parquet"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_slices.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_summary_metrics.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/summary_metrics.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/world_candidate_metadata.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_decisions.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/paired_algorithm_differences.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/ranking_reversals_by_world.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/scenario_by_seed_spread.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/seed_stability_summary.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/discrepancy_register.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_linker_results.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_pairwise_comparisons.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_ranking_stability.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_replicate_results.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_gate_summary.csv"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_manifest.json"
+    },
+    {
+      "status": " M",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_metrics_long.csv"
+    },
+    {
+      "status": " M",
+      "path": "scripts/build_source_state_manifest.py"
+    },
+    {
+      "status": " M",
+      "path": "scripts/build_v0_4_revision_report.py"
+    },
+    {
+      "status": " M",
+      "path": "scripts/write_v0_4_scenario_config.py"
+    },
+    {
+      "status": " M",
+      "path": "src/boamp/synthetic/corruption.py"
+    },
+    {
+      "status": "??",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_verification.json"
+    },
+    {
+      "status": "??",
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_synthetic_text_template_calibration.py"
+    }
+  ],
+  "excluded_self": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json",
+  "excluded_paths": [
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay.tar.gz",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_manifest.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_3_temporal_candidate_revision/readiness/readiness_decisions.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay.tar.gz",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_manifest.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/dirty_state_overlay_verification.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_decisions.json",
+    "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/source_state_manifest.json"
+  ],
+  "tracked_diff_sha256": "17452bfed12dd4505bda4b8fb0d0016b376f92e114ba16fdda6153a59ab8016d",
+  "staged_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "n_status_entries": 279,
+  "n_hashed_paths": 274,
+  "files": [
+    {
+      "path": "README.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 18321,
+      "sha256": "b99ed9c6912531c074fccc077b3cea8ccdd8f2e8473639106392d4e1f858b6dc"
+    },
+    {
+      "path": "config/synthetic/scenarios/v0_4/central_provisional.yaml",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 13015,
+      "sha256": "6a62cbdce78584d0dfb5cbd83a02c375db025b70afba49eff0a314f3c37bcd83"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4123534,
+      "sha256": "61eaca7b2f70f2b13b2ce2dcc6a2cd09ef97b26cc86b07d169e078806a6a5a8c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17732,
+      "sha256": "ab43d382616896b4dbb47dba5e2e444f2ae32313cf139d6f38136d29ec065936"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2840567,
+      "sha256": "fe2d92e81e002a875492df57f1813f41ff490ad4007f742e2048b77ee0e0f59f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4156809,
+      "sha256": "e4d7d230dbac2f6fab096872019fe2ca3595e0cd38e1ac287723b5acefad48d3"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17732,
+      "sha256": "96b277e09162a07f2494b74c5bbf183436257062e3621295c027beaa99a1a391"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2846776,
+      "sha256": "61915cc45c7eb326d2bd3c9da66773a1d4ed11d2093c3fd4f8d52f9f7746a9bf"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4230618,
+      "sha256": "71dbd00e4e50c761b38948cbfef2cda6d07fe0d693cac77766fc13a4f7341e59"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17732,
+      "sha256": "cc22e0bf2381da73961e6d8cbf847c127a9353bf7dde7d59afbc8f38082ced21"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2879153,
+      "sha256": "7e939f608ae812698cbbfbe781562ba7af56c950184928538b191ccbdf41fae7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4104155,
+      "sha256": "c03bb44ccd3538057bd7bef007b5e87c767588f462c0e9cbe7e3bfa9eab8a069"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17732,
+      "sha256": "af61f158b5e15859b9c62dfbace1641fce75184797487a79b12b1afd291aed37"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2817359,
+      "sha256": "23827d6f0dfea07aa16a715f18ee073d52a56436cfde8eb9faa0096fa2687059"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4294911,
+      "sha256": "f25d305af217d27393f648f77073599d9722f093510a54942497874deeb7d3fe"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17732,
+      "sha256": "d3781302caca356fbd479d92d2ca2190a6099f079661dcbbb0e7f837c4088c69"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/central_provisional/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2929679,
+      "sha256": "6fdd41a8745c773f69aebc9e463420f2805f43e22d206f011700f76f69a40a1e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4982676,
+      "sha256": "8d3360cc897fc842a12377abcdf555734da91424b0c06b627495ac700f4e055f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17523,
+      "sha256": "968ca24c944498199b23858f3a40da03df385b09849a2c9cc9add646fc01294b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3032330,
+      "sha256": "6b6125a65496017d064a88136abcbb6903963497eb6499dd443326151614e3ba"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5056288,
+      "sha256": "a587d72fc19e1dafde591c5245b43689afd5934fe5f64489ff08ad7087b4df98"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17523,
+      "sha256": "2b8f9455ced9e083d6394115a48a6f585a7b9784c03397cb3ac83f348c8d3f72"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3064654,
+      "sha256": "62dbfa5d26c616bd3237bee5b30f463e7cb618022ede62f2b17d1e99f5b26327"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5181634,
+      "sha256": "bceb2c5e1cbd119f2e140ee50494aabd308f01bb504ed5f6c6bb10f0b407f88b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17523,
+      "sha256": "d6a5ee49e7ac22899ceb9c5dab5477daac988b16ba92b2c180781ab792340f93"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3089315,
+      "sha256": "b0e09c05ad7ca8e33f580efc512534d1c5f8725cc1435040666114c6886e829c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5051058,
+      "sha256": "21c03e39fec0c9c2ef7cd2e2a105245c0d6969924dc3fa1b3ac44f278cda0187"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17523,
+      "sha256": "57083c99f7c12fed6bb8fc2a4f2d347540de3b7f391f87c52ad9b4b29cffa35e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3054533,
+      "sha256": "b35b2bf70367c74abba8da03c81ff02099029f11d72679b016b439790c46e3d5"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5163262,
+      "sha256": "b13c979008a34a3bf57e8452c8c309c3cce5986e050cd6dcb3b5304e06549483"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17523,
+      "sha256": "986b8bbc75e9b2f9805ffa8b6422ac406d6ea08fa1aab23f0788ed2f520a3976"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/difficult/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3124421,
+      "sha256": "3f888813b9d28e073da521a337cfea71700a802ca46be586324255a9618ce272"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4123193,
+      "sha256": "d8ab9d092c9e2fa4ba0825d0cfc693f72ff303374ff138453a2f1b3b0549a12e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17620,
+      "sha256": "fe0cf4672702ec6444cd2d38a0cdb1206d19cbe08cfa90e645d4dd53fadd2886"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2840567,
+      "sha256": "fe2d92e81e002a875492df57f1813f41ff490ad4007f742e2048b77ee0e0f59f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4156446,
+      "sha256": "0864c368cdc92462e125c722eb246000c0c44f3bd5c6ceb270a16f17ed0c403a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17620,
+      "sha256": "395d4cd118bfc778304f1649607a44ce469ea16284a3dcef528351bea2f6e9dc"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2846776,
+      "sha256": "61915cc45c7eb326d2bd3c9da66773a1d4ed11d2093c3fd4f8d52f9f7746a9bf"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4230255,
+      "sha256": "d7446a6ee43b5cd8a4d3fee8a80e03dbbedbaf189d1a54507c6e39e1e85f751c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17620,
+      "sha256": "004cccdc695bcd02a26e9e43aa02cc141e71351b1c44260f1883eb54bf3140cc"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2879153,
+      "sha256": "7e939f608ae812698cbbfbe781562ba7af56c950184928538b191ccbdf41fae7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4103814,
+      "sha256": "d1b4d23a2ce10b48e4144a69e06337d02211497c1599e58fb788a8e0d867d526"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17620,
+      "sha256": "0735b17cbf70224797c46b6fadc09c03d132f9f86ee246aa8e5a8f313693537c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2817359,
+      "sha256": "23827d6f0dfea07aa16a715f18ee073d52a56436cfde8eb9faa0096fa2687059"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4294548,
+      "sha256": "68322cf8f4d0cc1904a452f1eb2ff776dd65db32a80e1618083783d41b3cf206"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17620,
+      "sha256": "1d64f2401dbd7a8e2f33cfc52ccde48aabbfafc3e19a58b191dd5f7b452deca8"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_fresh_seed_evaluation/moderate/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2929679,
+      "sha256": "6fdd41a8745c773f69aebc9e463420f2805f43e22d206f011700f76f69a40a1e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4082403,
+      "sha256": "a44158cec36316927d6024fa0de50d881cc2f7b7a6722dbd23d5361d5b537e88"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "e67b4a4e3a1333c0540a7c9141d85d0da3a4b94aab0e5e835a00ff369c465ab9"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2814432,
+      "sha256": "de54d34b4e21fa9e8e7cdfd79e60334a7ea09c8474cf7bd29d82c1daa6fa723d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4188334,
+      "sha256": "462e59c62f93b602013e2604ce1eb1d0adac5731c4742c0ce385f98eca83c212"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "494159e867456043721aa724be37668e991dcbaa7194f4ff921fa8902346ebdd"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2852888,
+      "sha256": "ec6304dfe1925dce21c960b52a2aaf915fc3e2efae01fb728beb440f02108386"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4179992,
+      "sha256": "3304943242c850f72f64a77f86fa03f6d2d33f36ebb5210e02c41d0f303b26d0"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "7af676bb6eed0d65514a02c0a9f14df8c1eaece627608865fdd76caa32c393b7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2875294,
+      "sha256": "f67b0fa0c0dc263aa464157ee164878f9169d7780bd4fb9ab385658f72e41edb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4256815,
+      "sha256": "e135f9deabce516c1bd2c08f6287831155e9259c868e4c862d8dd67ac58c8fbb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "d275987471b714d89596a26d418a3b908d97a6799d30215e578cfcf655469ddc"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2899301,
+      "sha256": "aee463d41aae8cc916f0d6f2986ac40c560bb17a1323886fa8d1b2d7c6333b75"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4204568,
+      "sha256": "bcc533c0cc6116f003fd1b8ffc557dcf8faf45872771f9e311ff8a6bec8fe601"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "59f0cef6be890bdbda43f6e6f3357aa400bc6ee5acf0d57811ed02d7aa435c7f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2878269,
+      "sha256": "21e9e34fdc9ef1b3345d76b04b398448ca3d12a2209f43b475814e27f0fa437e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4262632,
+      "sha256": "0a9e05650414759087f20c40a1fb54c069c12359413b4dbbd786000d1f10c205"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "c5834e845006ae18a89e6adb77d94e0eb2e5159c8ccb8915403005c93f5365cb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_006/corruption_006/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2911726,
+      "sha256": "74c9e946ab673d8770c3c554c14d441b69e2d253af4e67780397ffdbb99e6319"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4115241,
+      "sha256": "7cba4a2c2368ab2c961b7eb9b5380896dc3eef6702a5a074c7ce337bed702631"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "f834a85cd781849fb7c7fa00b99a1b5ae650f6df6b84edc38b2808a5075ce139"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_007/corruption_007/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2804958,
+      "sha256": "eed1001401fef26a99be151ca8df7b8fb20d3efffe30398e3f2a0285062c6a8b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4241999,
+      "sha256": "183fc016293cf54a22ab99080399c507cfcd92ea226143460496643d2d425795"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "29e4adca43e6de7883c83757f1677f26637d8e7239ea3084fa6e0a5eeb5a7757"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_008/corruption_008/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2901177,
+      "sha256": "707ff5c205b6c4f745e597bcbee4918162640189e623e522216f2df250fdc890"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4215409,
+      "sha256": "641b1f4ee0e765d0d518fe242c9184901ce3260f558a6fb4ec47757db5940d0d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17736,
+      "sha256": "0ff70012f98bfa73948ffdd5aa094722f7ba8ce32afba0b8f03ec77390f7bdba"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_009/corruption_009/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2881753,
+      "sha256": "666b0b35bc30acbac828509e60a1d1cd90d2af88be78b2a19e23f8bb04d75f30"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4223638,
+      "sha256": "d5ab8ed2ce3f0be14c2858c873d31ca541d757d2492747101f9a3b17dff71de5"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17738,
+      "sha256": "a6e50df540f122c752a7aa99294dfb316126adc0135b499bb5dab386ffe6c859"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/central_provisional/world_010/corruption_010/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2895784,
+      "sha256": "3f24f37048aa554cb0cb61fcc900d7e6434e58f829be3668c76897b5046a8224"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/clean_sanity/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5008,
+      "sha256": "de93faf4b949cf17406fc27eb09af8e7bba5bfc0ec352abdd21f3878f98a4301"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5042957,
+      "sha256": "1b599752bcbc996f1ea8493380894aa18fc80c5bb9d3a5705cc7fb68ea37bf98"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "02b18486ed7174fa324ec6c1947134d7fe29be6fffee5ddee37445fa1347afd4"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3014537,
+      "sha256": "4f35b12afdf9f896d727c67501f78646e8fae6c62f4a31872e15fe0cb9095603"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5142298,
+      "sha256": "a597555c130e1818080240e5fec97b9ae57d1a0dc33e133499d3ba4ef02766c4"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "05d2143143263771a623d251dbb9c547eee8c8be875f4d983fe3cec098844236"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3069332,
+      "sha256": "3584ffa80d0ff856cbbd8f062de582b72f5cc965fca305943048ed617f8c04dd"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5117616,
+      "sha256": "93afabe28dd7a725752461e8e60d1da163335ca882eec050c492243929fd289c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "1d3bab6bfdf9e190d889c6f293f859e6ba6ff9386c8f937a49661f307ba8db96"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3077801,
+      "sha256": "1fc34f8139e6f5041d2df306428c272777ee2c2a42b97cfc7df62b5a71c8217b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5136088,
+      "sha256": "eab65457d3e163ed94755ba68e276e4802efafb8d9aa203954477bbfcff5148b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "e4b118e960354b73df90f0a98a05bb01b7fdf64395959d361c9b481bcf3f8d4f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3054224,
+      "sha256": "7103e768202efcc8c7dd59bfcccc0d1f7a00e47821bc726a2516d0aec7af6f00"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5197729,
+      "sha256": "14e91c565b2e800791128d2a1a2cafef8db0931e63b62fac28348b24163faa72"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "7cc91c60b8c45a34a3537a15f3eb6e22e0cf5d44846e9ed68c80a35c5a52ee4d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3067411,
+      "sha256": "6a301a6e30ff2d79e4047ca0ab973c3cd351de494884e7e8ac61b8650e00898a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5194653,
+      "sha256": "b51bddd477a78c46e8ce4b3cd156523ae4700fa3e093f87ff0fddbfc0d06a39d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "4a4ab0bf380f68fbdce4c079ca370c9db8bc41929913ea75ad9252cd76da280a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_006/corruption_006/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3107526,
+      "sha256": "be1f58288ec9b6a4f6538845ae71eef90b179f0e070625a1e41b2741f328fe93"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5042172,
+      "sha256": "ddfe854936456e47ed01d457d758aa9f08f3bed84ad6cf7ef20e3d2b8efb4ea8"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "3b89c77767c20c14761e1502111740799f71185416fa26175720f9e83a5d4bc1"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_007/corruption_007/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3014049,
+      "sha256": "7ac51ee9bda6cdf54b7f1752df4b15843d208ed3640d84308a1b99ce5fb325c1"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5228206,
+      "sha256": "505cf5eef6294a1897a758b96e8c2c6f7d81d9497d137b440280102929b318e3"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "29411a06ad87fee5185430093ad7ef0dd556fee8f4026a98cd7d8e049920ab8a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_008/corruption_008/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3124670,
+      "sha256": "3b711fa18cbb460f8e39ea04badcaad5f99aac5c3c1094e271aaccd27d494f83"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5154960,
+      "sha256": "488f622ec6e5fa99e7d0957b24b02c5e1cd2a0c7521aa7382d6a7b55f74b0398"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17527,
+      "sha256": "4f607f43a6d77547b147d34399327055d7410a85eb0c83e516f6681fe5b22fe5"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_009/corruption_009/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3071461,
+      "sha256": "67e71c5943c39d63e3378e484c8af2e164d70396b5c51d5bf1acd36fa6a8ba9c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5061860,
+      "sha256": "97d203870583839815e49dadcfd78689ba821f8f14f1b3b317de2409b83d240e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17529,
+      "sha256": "b2317ddd9504d0e8b084469a47862ec9c5d1492ac15137e7013ef8a6ee0b8232"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/difficult/world_010/corruption_010/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3048338,
+      "sha256": "0dd0eb5008dc0306df44542d84ece8f5e5ac1e1a8b0377724700aceab57a76a7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5276669,
+      "sha256": "7e1d0b69cdd4677d955979226984aba29174d21913cc6e94e4cd30abf577a929"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17514,
+      "sha256": "7d33b7e91e58e07f3e8f1af3dc89a4700469c0b0a43ef6e7406d4e56210385c7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3940194,
+      "sha256": "0c5f1c2e6f9408a7eda08f38bf6e1a8068249a7889fd142d7c38f8b3fa01ffce"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5500016,
+      "sha256": "d3411d5bfa1cd347b55437d609c840a020916f26ab9e6231d23c5beaeecb8aea"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "dcd1d74c109bb0883434d46886ae1b663d7dd90291daa432dec81110ca9abb38"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4063071,
+      "sha256": "a2832ee20810a4de64c8e5556e7a48d11f8830e4762bca7bf9fdc7370750d70e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5422153,
+      "sha256": "471070229719a03a0de3d92d77bc48d4c80100d2df3779825b1c8698c0e8c7a6"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "17b93d2702863efd2166d7c3b461bb1c8314f5964ac4bebef3136af3c5394cdc"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4053468,
+      "sha256": "965a08fe7b11cb4d3c33c49d488afe10f40f05ffef9d49f5180ac94a55041784"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5572891,
+      "sha256": "b8415d67158d283a41554e23e185d00723e437e2a17e7fa9007ed85c2a773d47"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "64821401f0ee34318117864d01750dbd7fe60925cb20150a850b584dffbeb064"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4103451,
+      "sha256": "3bf9d710935d43737bfa93a80b77ebbf40673054ed034b3b673bbec6809eecf4"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5502461,
+      "sha256": "32b6c5f5d6d3b3d2474406392a9c9944a9ae4fa2a3e97b874632c1676a68b159"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "d4ea5c2e52793056111f7f52b87e18ddaf7ceccce176ca92d3e970444d9b6a75"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4038094,
+      "sha256": "2740f0f953935383a3cc1058a85f2e9ebbcae0e326bdeb6dbe54ed873982cd49"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5586439,
+      "sha256": "a4d9d0526327a69dbc572c206661102e265c55a1149d8528972668456d0b75ce"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "48f418f67280103582ff913b69b2e28db71c1f0ce92f1e715f38b8bd6dc77b40"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_006/corruption_006/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4124454,
+      "sha256": "89c5e5d75bdb53d92878189cbdfff7ed142365ecd5aa6666ab621763c4418f13"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5278962,
+      "sha256": "170a2a901cce00e27d8258089afe8067951af9bcd825524b90f00d02fff0a800"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "f0933e8135ac32a6f743825b0076543b68745265d045b23b676db2c17f31c0f8"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_007/corruption_007/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3959444,
+      "sha256": "2d47cafb6efa08223de06969f9216cbe3458b56916eb814210ec29652293c897"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5537687,
+      "sha256": "ef4d4f6ff33271bb611442a62b39ce78765e7d772d8d5ae362ec5a3b158d1d2c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "33921283c6f9a0cda5b817f6367f93b8296fc9a4110c9da273d868043c100941"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_008/corruption_008/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4105752,
+      "sha256": "d317ff67514e4d20e6fc0fa9af16728d4606a10db2fa5da9f872e3349a9559cb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5489182,
+      "sha256": "674fc1dca3837a3204f6dfc00191a651b3130792d11275c594e4c0af355211ee"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17517,
+      "sha256": "d017ca6a23f13ff1ec083b48f61507e2445908666b86c41b57c6f0740b80f637"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_009/corruption_009/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4046463,
+      "sha256": "7d61524f175e73849951047cc82f3501a6db2b9c22fd0a4062e28d58beadfdeb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5525156,
+      "sha256": "cc4304e93b6b14509a866ed16f333a313bf98d85c90b7bad256e3bcf9aa62143"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17519,
+      "sha256": "3b69f0a98484b6bdd1c72ae7e392b6d61764d76a48cc1ac15488522f4ee50107"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/easier/world_010/corruption_010/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4118057,
+      "sha256": "63c657750a592493a9d0710a7e7bb3ee9da0b3d751e3f31e02c536f9ae763f68"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4082062,
+      "sha256": "05ae1e266a4c7f3fd635cf2ea6e41414f0bc55c24163f7111d621e09ee50c3f9"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "aca20bad4c7fd6d887cd0506ec4331571f9f24eab5d18c6503a7ea415d6d2f28"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2814432,
+      "sha256": "de54d34b4e21fa9e8e7cdfd79e60334a7ea09c8474cf7bd29d82c1daa6fa723d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4187971,
+      "sha256": "61d4c6eca32de99388cb6d7ca7757cd727043af4c881f95a5a8a885d62709c71"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "595271588c8d63bd9f796fc498eecf25cb1926a12f219e33f5d0e845ad791ef1"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2852888,
+      "sha256": "ec6304dfe1925dce21c960b52a2aaf915fc3e2efae01fb728beb440f02108386"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4179651,
+      "sha256": "61ce7fd8b58e0f043b6bdbf3599ed289b9902dc8bbc12bde492c7bf90d82c50a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "372edfbb02261c37f8db210afa8a2fbde29a84b77d16141b8db63aac923ba0dd"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2875294,
+      "sha256": "f67b0fa0c0dc263aa464157ee164878f9169d7780bd4fb9ab385658f72e41edb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4256452,
+      "sha256": "a8cbe48fb0cd40f56d881a1243cff73a9b20554b3e116df9704b006f3f4c029a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "63fe72f5a929e4d17895a700a004af731389e784b5c503878a431ba99757e31f"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2899301,
+      "sha256": "aee463d41aae8cc916f0d6f2986ac40c560bb17a1323886fa8d1b2d7c6333b75"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4204205,
+      "sha256": "2ba2a97e95b6fa94a711c9fb633f37316c604e37ad22c2827d857f9bddf82b34"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "90794a40844791d69680b15ca68339210289ecfa5d77d8d3773f7e9dbe754199"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2878269,
+      "sha256": "21e9e34fdc9ef1b3345d76b04b398448ca3d12a2209f43b475814e27f0fa437e"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4262269,
+      "sha256": "a0ef9276f4ebee719610243d3f26b04c6433663facf9301fd50ddf2336be1896"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "a2e86466fc86bb1cec7bad20a8a894cd748d0ac1564965a69f76b1f33c5a1b47"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_006/corruption_006/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2911726,
+      "sha256": "74c9e946ab673d8770c3c554c14d441b69e2d253af4e67780397ffdbb99e6319"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4114878,
+      "sha256": "3c9d6a048f18dcd3ced5fbe712f62a7cc32ce43d3122012f8a1ce3144e108589"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "d5f5b75544e3abad3b3673b3ef3183973896b4a07bbead362afd692cd4c3422c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_007/corruption_007/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2804958,
+      "sha256": "eed1001401fef26a99be151ca8df7b8fb20d3efffe30398e3f2a0285062c6a8b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4241636,
+      "sha256": "8e5dd284e05b48b25f209207feda56abdfd6e37a1ba6fff734bd0ae8517a2c86"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "c19304c7dadbb0a4db95b686a44f2848c63b68d7801cd288d3f860786560c0b7"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_008/corruption_008/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2901177,
+      "sha256": "707ff5c205b6c4f745e597bcbee4918162640189e623e522216f2df250fdc890"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4215046,
+      "sha256": "1e1ebebca0520794e69b9432e896fe22c19de022a1328ea4cc20e98fe05aa653"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17624,
+      "sha256": "1ef23bd32e3df2650d58ff2ea729147bcfa92f0d514944ab6fb01f9ee81d412b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_009/corruption_009/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2881753,
+      "sha256": "666b0b35bc30acbac828509e60a1d1cd90d2af88be78b2a19e23f8bb04d75f30"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4223275,
+      "sha256": "529b55a6bd7f30e61c498050b63da2d31dd8c4bd9df9e81af244cbc15c87b29a"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17626,
+      "sha256": "6da8f2ce99b6a1e75c311762e3e799d7e3eb07517acb6729f7a3a3ce8d8cb79c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/moderate/world_010/corruption_010/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2895784,
+      "sha256": "3f24f37048aa554cb0cb61fcc900d7e6434e58f829be3668c76897b5046a8224"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5238728,
+      "sha256": "edc64ae8f8e428c52584e74fc5b53810a0f708fd4b653ea3ca5e5d3f36ce4172"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "3b0714979cf0c59982debfbd74e4f769ae0447b3a3a1dfff2b469c333b0b5974"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_001/corruption_001/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2771659,
+      "sha256": "0b756cb042f6971139052d7cf637624459e8f1df01ad283be4c09b8925768ea2"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5297324,
+      "sha256": "24a4d5f39301d8f5ee5257a238f35163faa21092b9dec880bcea217f70e189db"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "a4b9ebda3b9ced626193a5c92d3ae4afd29675b99ab260b4bfba32cce3fc7844"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_002/corruption_002/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2791563,
+      "sha256": "ae938f00fe15b6c1e5cd5d5ab2d6037f46779b7cf8a297ea1f9f82ad58c753e6"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5319818,
+      "sha256": "4e68e95703db4db2ee00cde509a098aba2f07cbbde1a12ed6829443ce98d40de"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "7d5305409a639c6bd5c974539d172409052b5f74088e9f73de15b3ff8508dcda"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_003/corruption_003/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2854808,
+      "sha256": "07a6fd52d652d10e5464301f8c17239f42fdce2124111f6a8c14dbb95c2e1710"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5282394,
+      "sha256": "efbc6ca045eac6569e1bf074c99843bd714ec4b1b74788d20550300d361f4b67"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "fb08f50e25c0fbcb0426739540f9b5a432ed00b057603e994a8660469893d589"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_004/corruption_004/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2782255,
+      "sha256": "608f58da2a6e8c7f4d6bbcdb668454d798db175cbf75bb6227e7acdf2cc47b95"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5367332,
+      "sha256": "705070ce08fe57b01bda4993c129ea831af8d98997de5e80683e1561da1a2e08"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "d0edd4ee5420385d4f513cd834949c7db25458967983a06490db68da4fc6e9cb"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_005/corruption_005/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2808416,
+      "sha256": "16e5bd0943418d1dafed6375c7ac32ae205ca02c67f71d5d28f228d5174f5bf2"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5339733,
+      "sha256": "dea5aeb1db4c057aabc81973df5520fdb9bec8b50bc41ce946d99d3cce31800c"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "0bfaf3ae2000d062d59cda5c9c4b3cd760544608b5975c47ddf63b6400c45974"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_006/corruption_006/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2822528,
+      "sha256": "351c41adc9071b46d79e2fe6316ff8f0a1e8ea5acbebd1af6207e8fff1a8d47d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5257555,
+      "sha256": "b9fda87c88f5eb12f44f51c429f9bba128291dfb907ade8333902ebd142d384b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "fbf9b91450ba0da05873217a45075d48900a687b1fb06ae3789d737c208071b9"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_007/corruption_007/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2785160,
+      "sha256": "22a8429ed7f25cbc918d31bf2e0f2a2080869f1c0bfcdc141f20796c4a3398f2"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5382827,
+      "sha256": "4495272c03f398f47ae86b46ab7c0b3d1695fa5b109117d1b8f5bd2ae926eb6b"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "16520048e319d50163906be4b31345ddb0ea01f0945555f6846088760da774e5"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_008/corruption_008/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2854927,
+      "sha256": "77cbb0b5d32c6cb03c161391b6bc55ed7c572149bc916c1ceb433a8986d0d756"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5268797,
+      "sha256": "f216e31191f5b233d259e40db10eb4cf4ef3af5cf524971d2eb0eb6865302b75"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17504,
+      "sha256": "7a22346a1e829ce6f1bbed401f0a96abc0a9f4c28189835529f0977248b262ff"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_009/corruption_009/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2788393,
+      "sha256": "70000726e673b74f5aa311c09438d88884f05f86880041b07148f2ad5f19f82d"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/corruption_log.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5271117,
+      "sha256": "72927eb863e3700067bf60de796dfef0ca49ffa29f61f9bc54117a0fb6396b48"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/generation_metadata.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17506,
+      "sha256": "2a205d8673f8765a8b2f0cd27d435e3d78ac9e66b6d9fcc360d5220092dcc0b1"
+    },
+    {
+      "path": "data/processed/synthetic_benchmark/v0_4_population_alias_revision/stress/world_010/corruption_010/observed_notices.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2807275,
+      "sha256": "ae74afb673dddd3b272937f8e7e8a99bb3c58e9be03fdb7b3f5eb4168e06c9aa"
+    },
+    {
+      "path": "docs/methodology.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 26992,
+      "sha256": "ff55af229f9d4ceedce36d19972a4029d446a3ef6fc26c0b2034ba93e45b7add"
+    },
+    {
+      "path": "notebooks/14_linkage_algorithm_benchmark_v0_4.ipynb",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 557240,
+      "sha256": "450543b8c26ef19e82aa742dc70fef53d2ed28f5c85711a7e9d81e52c36a8617"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/pair_f1_by_mode.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 51353,
+      "sha256": "9e718f36d19884affdfc363bcf372d11c27859e0d85e74b2c3acb655b77e5b67"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_scatter.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 58153,
+      "sha256": "7c0fa1b07f5944e25692b0374fd9d2a8dfabbd2c12194eb226cbc58991c70611"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 70319,
+      "sha256": "a1c51bb5db02fd6ae8f4b82a5073e559eabf2003b4896610247ca7c77fe8fb25"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 134653,
+      "sha256": "e438d33b5418c92a3f28085d466f80b1f35a32ad15a11a76c7ada42e8be2a127"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 74040,
+      "sha256": "ea4bb346b002168bce69c58dfbb00ed5d84e466625159c07ae77075c03c08ae0"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/score_separability_by_algorithm.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 82788,
+      "sha256": "9e78cf7bb3c5b537bea6f385dbe3d5d1bc9da8f433e02904a77e6131b584f9a4"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_alias_structure.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 22430,
+      "sha256": "ac7ffe63c244c290a7d697e080b9ab5d4be0cbf0204e1029b03b990525cc9820"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_alias_structure.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 91547,
+      "sha256": "edc3b0e903cc9da8ea34dc19b92a7d96387006aee10823c45450ff4ac93db21f"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_concentration.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 31197,
+      "sha256": "d7ead4163b8df7c0257d2db8c24b6fec68e7dbbe909330e94115f61f79f8c5bb"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_concentration.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 145501,
+      "sha256": "56517f2462ffb389c5717c58af90c23f9ad4cb6c59a665ca59be96c0dde94979"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_tail.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 30841,
+      "sha256": "8c4bb2f97f838ac0cd4129293df3cac61cd98a8cf5f977c9fab737b1c8281a6b"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_buyer_activity_tail.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 135400,
+      "sha256": "26c5e2945e7180dca85893f43376cfb2a9beec0a4d8cc3192576e71b907f85d4"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_candidate_environment.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 25663,
+      "sha256": "bcdd9eeda98747f68d0d74192f1c7b327aafea4318a785b49e9da787e007708d"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_candidate_environment.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 139133,
+      "sha256": "65e8e3714ea91823a6119910a3293671141c9312796fd30d05187f33964f4400"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_missingness_structure.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 27182,
+      "sha256": "ffbda97e19039c73ef089472d86a9ddd128e9aaf0c4421d33625c25d708ed45f"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_missingness_structure.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 94893,
+      "sha256": "56bac16dc766c5e890e9b179bb510be61b485dba25c73ecf754817f02e235311"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_name_variation.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 42169,
+      "sha256": "e8caf6af97f732ef989b6eff6c8545ec2ced3fb20f342bce0abafac98e5b4f08"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_name_variation.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 156799,
+      "sha256": "64ab72214e2d2b915346a6fe2a080d5827b83a16bc1c66a4d537f37d947d5495"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_siret_availability.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 28398,
+      "sha256": "1c7e7e2544783915530fef8ef0e09a2ca3f6c651f77ecdd120ffb7fa3899d13b"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_siret_availability.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 199896,
+      "sha256": "b460cc1234ae1dbf8264bbd414774789812fe89d5379b1fe66c54f6a40c3767d"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1621,
+      "sha256": "6a04df6cacba2c5bc51c59113c7be74c0fc000e408b35d3ee903244dba44c61f"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 46406,
+      "sha256": "5d81b089b6e105b1f6608fdb9f677f388aafbc691e4baec6f7120f2bad2ee8de"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_text_gap_diagnosis.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 258705,
+      "sha256": "83f239e6c6c1846deb07edda43d196dcee41a05b11c6741b9b8948d60e2d4e8b"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_validation_before_after.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 28485,
+      "sha256": "abfb39304af33b112ba833e203aad5301df11d4e3b12e99d5488f70782bde945"
+    },
+    {
+      "path": "reports/figures/synthetic_benchmark/v0_4_population_alias_revision/v04_fig_validation_before_after.png",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 182298,
+      "sha256": "bdbfd09872c2cb3f3d3e1b19a89024c5969728f7a08dcbe656d1405ae14aa587"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.log",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 19856,
+      "sha256": "6054c85f8b04bfdd18f3690ae61a28058960ff1226fd43a651afe69758b1cd9b"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 11180,
+      "sha256": "3f2a796e0162a29e6944c7d1ab1aac1b53202fa333912d1cf1b9f91fee6d8dbc"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 365286,
+      "sha256": "7af320145c5b96c1a10466a0f67887a666f3b3f49dce0fefa88b1863262a2cdd"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 13334,
+      "sha256": "a7b78740748269a580ca683103316c5df85a72f9412a2a6133e0a24dd0cf4de2"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_population_alias_revision_report.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 33318,
+      "sha256": "d054c35b2ab84b728be5518797beb6c47b4d9cc4b9e29d982531ec80776d5da5"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_report_values.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 38337,
+      "sha256": "62982c1c4a39894a3f93ecc7f32c02bfdf06626d393c1b3101a51afddca7a6c8"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/algorithm_v03_v04.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 420,
+      "sha256": "b5ae05cee2218537074a2bcfe3fe33e91b7b2af65c6c1b222b9e0ccbe3d811af"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/fresh_seeds.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1131,
+      "sha256": "d9555654139d0b6bcaa12a0932ab1b0cc396cc777cbf178bd9d67e8c498a26a3"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/gates.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 711,
+      "sha256": "6602be71d7bcc449c5e241c3b87448cb7f9752b08630edb4068eb3c8163911e6"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/holdout.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2855,
+      "sha256": "7521f8839d9a147905df3c6217a634af423d3473ea8055d17588dce3a4ebab1a"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/paired_algorithm_differences.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3474,
+      "sha256": "06ee2746a1fb0b3941b43a6b35d5be58aa63329559e9a54f1872b18ddc7a6d44"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/readiness.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 388,
+      "sha256": "476edb85fe1035206922fc1ff092a2ec38350c02002efa014a6f80e17d2868cb"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/status_changes.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3405,
+      "sha256": "4d5306f4726b579e737ed039c6908a766e89d00968b6326d5d61e86d2b070da4"
+    },
+    {
+      "path": "reports/generated/synthetic_benchmark/v0_4_tables/targeted_failures.md",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 742,
+      "sha256": "5b64e52c0099d9880975b02c07d9c3cb68fdfb7677be12891af8434442b7b758"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/mechanism_parameters.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1534,
+      "sha256": "bb2101524dd1c4cb45cd6b3ae6b3b5b3591a8bc6c2db5700b7941cb58d4a4962"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_metrics_long.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 79456,
+      "sha256": "61f7fd323e5b0f8345a8baaacd6d45c3a9987fa3d56e22297ae181e8fe0b7e9f"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_provenance.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1717,
+      "sha256": "4c541932a8c7965ea73fcd005f4c920446400362fc9a2763b878804b0b714ac5"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_evaluation/fresh_seed_summary.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 16829,
+      "sha256": "c35371033f2c7d7249393818029d9e5956c82faf9957f2d60e9880b85c52db4c"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/fresh_seed_generation_manifest.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5107,
+      "sha256": "cf12c01c67828fcf6b7832fed88ef2b9b8ed4da3515056636be65f5dfa14b35e"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/generation_manifest.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 17662,
+      "sha256": "91e3324e716a4256ad6ba2082751b7d8706f9e4e6cf45670ac5848a9562a626c"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_evaluation_provenance.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1363,
+      "sha256": "bf6d1312a8f87bdfc8e647e1d42d83622e88b960524ad3f4d40c5dbeba41907d"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_fidelity_long.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 114813,
+      "sha256": "4f3cdd9ab5af8859f91ec45a5814d41a37656b4b34ac3026a40a9dad741a85e4"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_fidelity_summary.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 11263,
+      "sha256": "f26da6ff9a79e1cb4ab1b107ff305c5a33c7fd93d9594a96587432ec3e72acfc"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/holdout/holdout_vs_calibration_summary.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 3577,
+      "sha256": "f5f788ebe79e26a59451720a10d067b58bda5c571248ecff4fc2a9f3390ac01a"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/algorithm_thresholds.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 367,
+      "sha256": "4136abd14dec544e4c094feb22ae40764407cef0633fb5de31acf919920de066"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/bias_gap_summary.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1216,
+      "sha256": "096b4881b8c1a06fa4ba7a57d62821bd6b6c022a6f78dee3e84f29c3421722e4"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/per_world_metrics.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 18755,
+      "sha256": "d981ab6c4f5dd98261c91b21e2a2e7c553e60dbda6d7645e9f9921989142971e"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/predicted_links.parquet",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 9344141,
+      "sha256": "9333e814feb7aab09a064794f5193f00db1a9adbb9ef4844c0e3186dcc916454"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_slices.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 11352,
+      "sha256": "01b6410f1879ae65a7f8e2a783ab21bd0c04de4f66291a0596b8381fdcf1a160"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_summary_metrics.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2346,
+      "sha256": "119f7065424f5c5c8d7118b9b0d41bbe62d6a8038475d22ebc6051d8915b39fb"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/summary_metrics.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1189,
+      "sha256": "7a49d40c61080cdf255032ca8f177098ec89979ec2ce4c36483aff1d2651291c"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/world_candidate_metadata.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1948,
+      "sha256": "d9c60ab7cbc55f10075c8b631436557789e0fab625a0a5218a1b4dce1edf183b"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/paired_algorithm_differences.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 61741,
+      "sha256": "6d3739bd61da6b55a1f2560e5a991e198de55ef2589edb8d2794d6b8695bc075"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/ranking_reversals_by_world.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 13904,
+      "sha256": "57ed6642b1f49ac0fd1b2e6789e2196587f9fdcb175cb02420f8d02891f74776"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/scenario_by_seed_spread.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 6121,
+      "sha256": "3b6f81334d9c018d0bf5434d328593673079656881e355901adcfdc2102eb6e3"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/seed_stability/seed_stability_summary.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1651,
+      "sha256": "ac2f6a6aa5bf54c4c9c65f61fc58d1fbbe2190ccb9dada06c61375d38b6ddc62"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/discrepancy_register.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 6393,
+      "sha256": "4bf5cce64a27d53048384560870442e3f24e41616d50ec86f5d9145e3d29203f"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_linker_results.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 520,
+      "sha256": "554a5845cf5f9b8f4acaf4ee978ed677f64ebe268248f7beb0ea708d2824a4e7"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_pairwise_comparisons.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 6877,
+      "sha256": "f88d4e52dfbc3fc5d3c526257a1b87de31a6c6de21465858c926adccf73f788f"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_ranking_stability.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 4391,
+      "sha256": "03c2e1c9867be48899cbbb675916ba435bdec9895ccbc0ee007a6ddf2e9b5478"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/probe_replicate_results.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 24080,
+      "sha256": "2e61fc7285b59a4b49724bc33fe0253b95d89a9392b356a394208124b9b48398"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_gate_summary.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 1785,
+      "sha256": "fa2dfbb179e53323941950305fde5e8f236954c26b4423e1a612c8b10cc044a0"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_manifest.json",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 90672,
+      "sha256": "8bf3895e96691a80538dfcfc7357eea3a1ac84246ca492d1b5ba419397956dc2"
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/validation_metrics_long.csv",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 77448,
+      "sha256": "caf79ab457b41504f82663fe7005f44afba34414026804a55d9b5586bce90eab"
+    },
+    {
+      "path": "scripts/build_source_state_manifest.py",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 5841,
+      "sha256": "cf5d0144515e04fb2219cbe148e9906ca8e672a1853a3f592d99df2b4aed8598"
+    },
+    {
+      "path": "scripts/build_v0_4_revision_report.py",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 39442,
+      "sha256": "3613020876f93303f5e2e570b6689b5069f0126770e22d85c344e4864fc14464"
+    },
+    {
+      "path": "scripts/write_v0_4_scenario_config.py",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 20176,
+      "sha256": "ecbb5f16982f1ce2fd15725ac595b7d044736c7c70378dad30355232ec0f68b9"
+    },
+    {
+      "path": "src/boamp/synthetic/corruption.py",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 47900,
+      "sha256": "54dbf1d8566ee571dec221fc659bb677a1caaa2ae590403161321f4dacdf4d3d"
+    },
+    {
+      "path": "tests/test_synthetic_text_template_calibration.py",
+      "exists": true,
+      "is_file": true,
+      "size_bytes": 2148,
+      "sha256": "124ad67a2732f722136df8a881e597c374a736519d95a0c7fc9f2ff95a8d9cb7"
+    }
+  ],
+  "limitations": [
+    "The manifest hashes the dirty worktree for auditability and release-state packaging.",
+    "Dirty-state overlay archive paths are excluded to avoid self-referential hashes.",
+    "The manifest cannot include its own final hash without becoming self-referential; excluded_self records that path.",
+    "This state-capture manifest does not change scientific ranking or robustness readiness."
+  ]
+}

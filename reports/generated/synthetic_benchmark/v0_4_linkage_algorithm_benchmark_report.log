@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.22)  4 AUG 2026 10:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.22)  4 AUG 2026 14:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -370,7 +370,7 @@ Here is how much of TeX's memory you used:
  36 hyphenation exceptions out of 8191
  74i,9n,79p,412b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf (6 pages, 364230 bytes).
+Output written on reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf (6 pages, 365286 bytes).
 PDF statistics:
  111 PDF objects out of 1000 (max. 8388607)
  80 compressed objects within 1 object stream

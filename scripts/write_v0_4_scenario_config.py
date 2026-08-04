@@ -66,6 +66,16 @@ DEFAULT_MECHANISM_PARAMETERS = {
     "min_active_days": 30,
     "dominant_alias_share": 0.70,
     "presence_scale": 1.00,
+    # v0.4 changed the buyer population and moved more notices into the 6-20/21+
+    # activity tiers that can receive the same-buyer administrative template.
+    # Preserve the v0.3 realised central share as the observable repeated-admin
+    # text target, and let corruption.py solve the per-world scalar from the
+    # generated tier composition.
+    "same_buyer_admin_template_target_share": 0.2586715280926711,
+    "same_buyer_admin_template_target_source": (
+        "v0.3 central_provisional 10-world realised share of SAME_BUYER_ADMIN_TEMPLATE "
+        "corruptions per observed notice"
+    ),
     "scoped_candidate_environment": {
         "recurrence_propensity_multiplier": 1.60,
         "near_window_share": 0.90,
@@ -246,6 +256,26 @@ def build_central_scenario(targets: dict, mechanism: dict) -> dict:
         "See holdout/holdout_marginal_rate_limitation.json."
     )
     scenario["conditional_observation"] = conditional_observation
+
+    text = dict(scenario.get("text", {}))
+    conditional_reuse = dict(text.get("conditional_reuse", {}))
+    conditional_reuse["same_buyer_admin_template_target_share"] = round(
+        float(mechanism["same_buyer_admin_template_target_share"]), 8
+    )
+    conditional_reuse["same_buyer_admin_template_target_source"] = mechanism[
+        "same_buyer_admin_template_target_source"
+    ]
+    conditional_reuse["same_buyer_admin_template_rate_note"] = (
+        "The scalar same_buyer_admin_template_rate is retained as a legacy fallback. "
+        "When same_buyer_admin_template_target_share is present, the corruption layer "
+        "solves the effective per-exposed-notice rate from the generated world's actual "
+        "6-20/21+ buyer-tier composition and the earlier exact/near/weak generic-text "
+        "replacement probabilities. This prevents the v0.4 buyer-population correction "
+        "from mechanically shortening the text corpus by over-firing the 49-character "
+        "same-buyer administrative template."
+    )
+    text["conditional_reuse"] = conditional_reuse
+    scenario["text"] = text
 
     scoped = dict(scenario["recurrence"]["scoped_candidate_environment"])
     scoped.update(mechanism["scoped_candidate_environment"])

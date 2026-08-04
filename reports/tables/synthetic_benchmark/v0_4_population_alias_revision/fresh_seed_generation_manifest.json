@@ -1,9 +1,7 @@
 {
-  "generated_at_utc": "2026-08-03T14:03:13.795156+00:00",
+  "generated_at_utc": "2026-08-04T12:25:48.874562+00:00",
   "benchmark_version": "v0_4_fresh_seed_evaluation",
   "config_family": "v0_4",
-  "dry_run": false,
-  "force": false,
   "rows": [
     {
       "scenario": "central_provisional",

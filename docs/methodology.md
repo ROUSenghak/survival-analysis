@@ -374,6 +374,10 @@ versus subject-specific distinction; a naive offset inflates a 0.27 rate to 0.36
 by Jensen's inequality alone). `buyer_names.persistent_aliases` replaces per-notice
 independent name edits with a persistent per-buyer alias set whose size
 distribution and token-overlap bands are calibrated to observable real ones.
+`text.conditional_reuse.same_buyer_admin_template_target_share` keeps the short
+same-buyer administrative template calibrated to the realised eligible buyer-tier
+composition, so the v0.4 buyer-population correction does not over-fire that text
+template.
 
 **Calibration discipline.** Every observable parameter is estimated from the
 calibration side of a frozen 70/30 buyer-key holdout
@@ -404,7 +408,9 @@ PYTHONPATH=src python3 scripts/sweep_v0_4_mechanism_parameters.py --stage scoped
 PYTHONPATH=src python3 scripts/write_v0_4_scenario_config.py
 PYTHONPATH=src python3 scripts/generate_synthetic_benchmark_v0_4_population_alias_revision.py
 PYTHONPATH=src python3 scripts/validate_synthetic_benchmark.py --version v0_4_population_alias_revision
-PYTHONPATH=src python3 scripts/replay_synthetic_benchmark.py --version v0_4_population_alias_revision
+PYTHONPATH=src python3 scripts/replay_synthetic_benchmark_replicates.py \
+  --version v0_4_population_alias_revision \
+  --output reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/replay_replicates.json
 PYTHONPATH=src python3 scripts/evaluate_v0_4_real_holdout.py
 PYTHONPATH=src python3 scripts/build_v0_4_revision_figures.py
 
@@ -420,6 +426,8 @@ latexmk -pdf -outdir=reports/generated/synthetic_benchmark \
 PYTHONPATH=src python3 scripts/analyze_seed_stability.py \
   --version v0_4_population_alias_revision
 
+PYTHONPATH=src python3 scripts/assess_synthetic_benchmark_readiness.py \
+  --version v0_4_population_alias_revision
 PYTHONPATH=src python3 scripts/build_v0_4_revision_report.py
 ```
 

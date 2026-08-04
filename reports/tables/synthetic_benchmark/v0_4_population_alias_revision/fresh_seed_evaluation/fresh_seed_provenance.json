@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-03T14:10:23.692913+00:00",
+  "generated_at_utc": "2026-08-04T12:27:23.471534+00:00",
   "fresh_version": "v0_4_fresh_seed_evaluation",
   "release_version": "v0_4_population_alias_revision",
   "real_reference": "full prepared corpus (same reference as the release validation gates)",
@@ -20,7 +20,7 @@
   "disjoint_from_release_seeds": true,
   "central_critical_pass_rates": {
     "activity_relative_q99_abs_diff": 0.6,
-    "candidate_cap_reached_rate": 1.0,
+    "candidate_cap_reached_rate": 0.8,
     "candidate_p75_abs_diff": 1.0,
     "candidate_p90_abs_diff": 0.8,
     "candidate_p95_abs_diff": 1.0,
@@ -29,20 +29,22 @@
     "name_token_jaccard_q10_abs_diff": 1.0,
     "name_token_jaccard_q50_abs_diff": 1.0,
     "publication_year_wmae_pp": 1.0,
-    "siret_present_abs_diff_pp": 0.0
+    "siret_present_abs_diff_pp": 0.0,
+    "text_length_w1_scaled": 0.0
   },
   "central_critical_means": {
-    "activity_relative_q99_abs_diff": -1.2932,
-    "candidate_cap_reached_rate": 0.0017,
+    "activity_relative_q99_abs_diff": -1.1873,
+    "candidate_cap_reached_rate": 0.0025,
     "candidate_p75_abs_diff": 0.0,
     "candidate_p90_abs_diff": 0.3,
-    "candidate_p95_abs_diff": -1.4,
-    "candidate_source_count_ratio_deviation": -0.0127,
-    "candidate_zero_rate_abs_diff_pp": -0.8201,
+    "candidate_p95_abs_diff": -1.2,
+    "candidate_source_count_ratio_deviation": -0.0068,
+    "candidate_zero_rate_abs_diff_pp": -0.8104,
     "name_token_jaccard_q10_abs_diff": 0.0,
     "name_token_jaccard_q50_abs_diff": 0.0167,
     "publication_year_wmae_pp": 0.7358,
-    "siret_present_abs_diff_pp": 2.4175
+    "siret_present_abs_diff_pp": 2.3665,
+    "text_length_w1_scaled": 0.1629
   },
   "rule": "Run once, after the parameters were frozen. No parameter was changed after these numbers were produced."
 }

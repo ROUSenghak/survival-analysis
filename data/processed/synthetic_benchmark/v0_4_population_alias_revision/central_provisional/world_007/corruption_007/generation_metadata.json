@@ -11,7 +11,7 @@
     "calibration_parameters_v0_1.yaml": "f5dfa65689ebfb28",
     "benchmark_defaults_v0_4.yaml": "fa0fa485452fb262",
     "recurrence_ontology_v0_1.yaml": "af5b9e6a324f0e27",
-    "scenarios/central_provisional.yaml": "1069331136affbc9",
+    "scenarios/central_provisional.yaml": "6a62cbdce78584d0",
     "boamp_common_prepared.csv": "b8bb2eb0089165c2",
     "real_holdout_buyer_keys.csv": "c495c94a563c5792",
     "_scenario_source_path": "config/synthetic/scenarios/v0_4/central_provisional.yaml"
@@ -25,10 +25,10 @@
     "notice_family_membership": 82918,
     "clean_notices": 82918,
     "observed_notices": 82918,
-    "corruption_log": 289752
+    "corruption_log": 285794
   },
-  "execution_timestamp_utc": "2026-08-03T13:17:59.243115+00:00",
-  "git_commit": "3fa502b7bce38f110e0066afd4e9e1afcd11ad34",
+  "execution_timestamp_utc": "2026-08-04T09:55:01.831176+00:00",
+  "git_commit": "2640115395f69c7f88f2199feda34432935f8eab",
   "runtime_environment": {
     "python": "3.12.3",
     "numpy": "2.5.1",
@@ -344,7 +344,10 @@
         "generic_weak_extra_rate": 0.04,
         "same_buyer_admin_template_rate": 0.35,
         "same_family_near_duplicate_rate": 0.0,
-        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact when the observed buyer key is stable. The corruption layer adds a stable attribution suffix only when notice-level SIRET/name-key differences would otherwise make a family duplicate look like cross-buyer generic boilerplate. High-activity buyers also reuse an observable-buyer-key administrative title at a calibrated rate, increasing within-corpus duplicate share without pooling text across unrelated buyer keys.\n"
+        "note": "Replaces the high global boilerplate_rate in central_provisional v0.2. It separates exact cross-buyer template reuse from near-boilerplate text with row-specific tokens and generic weak procurement wording. This reduces unrealistic cross-buyer exact duplicates while preserving repeated administrative language. Same-family CALL/AWARD wording remains exact when the observed buyer key is stable. The corruption layer adds a stable attribution suffix only when notice-level SIRET/name-key differences would otherwise make a family duplicate look like cross-buyer generic boilerplate. High-activity buyers also reuse an observable-buyer-key administrative title at a calibrated rate, increasing within-corpus duplicate share without pooling text across unrelated buyer keys.\n",
+        "same_buyer_admin_template_target_share": 0.25867153,
+        "same_buyer_admin_template_target_source": "v0.3 central_provisional 10-world realised share of SAME_BUYER_ADMIN_TEMPLATE corruptions per observed notice",
+        "same_buyer_admin_template_rate_note": "The scalar same_buyer_admin_template_rate is retained as a legacy fallback. When same_buyer_admin_template_target_share is present, the corruption layer solves the effective per-exposed-notice rate from the generated world's actual 6-20/21+ buyer-tier composition and the earlier exact/near/weak generic-text replacement probabilities. This prevents the v0.4 buyer-population correction from mechanically shortening the text corpus by over-firing the 49-character same-buyer administrative template."
       }
     },
     "linked_notice_visibility": {
@@ -369,7 +372,7 @@
     "config_family": "v0_4",
     "generated_by": "scripts/write_v0_4_scenario_config.py",
     "generated_from": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/calibration/observable_targets.json",
-    "generated_at_utc": "2026-08-03T13:08:36.970726+00:00",
+    "generated_at_utc": "2026-08-04T09:43:53.083640+00:00",
     "needs": {
       "needs_per_buyer_mean": 8.382,
       "note": "MECHANISM_PARAMETER. Benchmark size used to be a side effect of the buyer count through needs.py's activity-tier means; making it explicit lets the buyer population be recalibrated without rescaling the corpus."

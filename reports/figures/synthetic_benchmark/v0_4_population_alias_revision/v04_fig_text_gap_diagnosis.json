@@ -24,13 +24,13 @@
     },
     "new": {
       "n_notices": 82278,
-      "n_unique_texts": 47058,
-      "duplicate_share": 0.42806096404871286,
-      "vocabulary_types": 1601,
-      "tokens": 1091925,
+      "n_unique_texts": 49866,
+      "duplicate_share": 0.39393276453000803,
+      "vocabulary_types": 1575,
+      "tokens": 1134599,
       "length_q10": 46.0,
-      "length_q50": 88.0,
-      "length_q90": 158.0
+      "length_q50": 94.0,
+      "length_q90": 160.0
     }
   },
   "coverage": [
@@ -42,7 +42,7 @@
     {
       "version": "Synthetic v0.4",
       "types_share": 1.5215391690939752,
-      "real_mass": 60.95654636797219
+      "real_mass": 61.02209809725895
     }
   ]
 }

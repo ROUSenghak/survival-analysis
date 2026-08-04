@@ -5,7 +5,7 @@
 | marginals | False | WARNING | WARNING |
 | conditionals | True | PASS | PASS |
 | temporal | True | WARNING | WARNING |
-| candidate_environment | True | PASS | WARNING |
+| candidate_environment | True | PASS | PASS |
 | missingness_text_identifier | False | WARNING | WARNING |
 | buyer_activity | False | WARNING | WARNING |
 | missingness_structure | False | PASS | PASS |

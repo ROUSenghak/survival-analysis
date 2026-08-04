@@ -150,8 +150,9 @@ config and report is unchanged and still replays from its own configuration.
   `.../v0_4_population_alias_revision/baseline_v0_3/`.
 
 See `docs/methodology.md` §8c for what changed and why. The readiness assessment
-remains the source of truth for permitted uses; resolving observable fidelity
-failures does not on its own support controlled algorithm comparison or ranking.
+remains the source of truth for permitted uses. In the current regenerated
+artifacts, controlled synthetic algorithm comparison is permitted with
+limitations; final algorithm ranking and validated benchmark release still fail.
 
 ## Synthetic benchmark (v0.3, controlled linkage benchmark)
 
