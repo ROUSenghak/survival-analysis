@@ -53,7 +53,20 @@ TOLERANCES = {
     "identifier_source_tv": 0.10,
     "name_variants_per_buyer_abs": 0.50,
     "name_similarity_quantile_abs": 0.15,
+    # v0.4 additions. q10/q50 alone let a badly-shaped similarity distribution
+    # pass, and observed buyer-key density is the quantity that actually drives
+    # the relative-activity quantiles the buyer_activity gate reports.
+    "name_similarity_tail_quantile_abs": 0.15,
+    "name_overlap_share_abs": 0.10,
+    "name_token_count_difference_abs": 1.50,
+    "name_variants_distribution_tv": 0.15,
+    "keys_per_notice_relative": 0.20,
 }
+
+# Full similarity grid. q10 and q50 are the two v0.3 gated the quantiles; the
+# rest are added so a mechanism cannot match the median while getting the shape
+# wrong on either side of it.
+NAME_SIMILARITY_QUANTILES = (0.10, 0.25, 0.50, 0.75, 0.90)
 
 MISSINGNESS_FIELDS = [
     ("siret", "buyer_siret_clean", "buyer_siret_clean"),
@@ -185,6 +198,33 @@ def run_buyer_activity_metrics(
     # quantiles are therefore not comparable: they are recorded as context, and
     # the gated comparison uses activity relative to each corpus's own mean,
     # which is invariant to that scale difference.
+    # How many distinct observed buyer keys the corpus produces per notice. This
+    # is gated in v0.4 because it is what the scale-free relative-activity
+    # quantiles below are implicitly normalised by: v0.3 produced 10,532 keys for
+    # 87,360 notices against the real corpus's 5,268 for 84,623, which halved the
+    # mean and compressed every relative quantile, and the q99 gate reported that
+    # as a missing activity tail.
+    real_keys_per_notice = len(real_activity) / len(real)
+    syn_keys_per_notice = len(syn_activity) / len(syn)
+    relative_error = (
+        (syn_keys_per_notice - real_keys_per_notice) / real_keys_per_notice
+        if real_keys_per_notice
+        else float("nan")
+    )
+    metrics.append(
+        _metric(
+            data, "buyer_activity", "overall", "observed_keys_per_notice", "relative_error",
+            real_keys_per_notice, syn_keys_per_notice, syn_keys_per_notice - real_keys_per_notice,
+            abs(relative_error), TOLERANCES["keys_per_notice_relative"],
+            classify_abs(relative_error, TOLERANCES["keys_per_notice_relative"]),
+            notes=(
+                f"n_real_keys={len(real_activity)} over {len(real)} notices; "
+                f"n_syn_keys={len(syn_activity)} over {len(syn)} notices; "
+                "scale-free, so it is comparable even though the benchmark is a different size"
+            ),
+        )
+    )
+
     real_mean = float(real_activity.mean())
     syn_mean = float(syn_activity.mean())
     exposure_ratio = syn_mean / real_mean if real_mean else float("nan")
@@ -404,9 +444,12 @@ def _within_group_similarities(
                     "group": str(group),
                     "jaro_winkler": float(JaroWinkler.similarity(a, b)),
                     "token_jaccard": float(len(ta & tb) / len(union)) if union else float("nan"),
+                    "token_count_difference": float(abs(len(a.split()) - len(b.split()))),
                 }
             )
-    return pd.DataFrame(rows, columns=["group", "jaro_winkler", "token_jaccard"])
+    return pd.DataFrame(
+        rows, columns=["group", "jaro_winkler", "token_jaccard", "token_count_difference"]
+    )
 
 
 def run_identifier_name_metrics(
@@ -478,8 +521,10 @@ def run_identifier_name_metrics(
 
     real_sim = _within_group_similarities(real, "buyer_siren_clean", "buyer_name_normalized")
     syn_sim = _within_group_similarities(syn_sources, "buyer_siren_clean", "buyer_name_normalized")
+    have_pairs = len(real_sim) >= MIN_GROUP_SIZE and len(syn_sim) >= MIN_GROUP_SIZE
+    pair_note = f"n_real_pairs={len(real_sim)}; n_syn_pairs={len(syn_sim)}"
     for column in ["jaro_winkler", "token_jaccard"]:
-        if len(real_sim) < MIN_GROUP_SIZE or len(syn_sim) < MIN_GROUP_SIZE:
+        if not have_pairs:
             metrics.append(
                 _metric(
                     data, "names_identifiers", "silver_siren_groups", f"name_{column}", "q50_abs_diff",
@@ -489,20 +534,80 @@ def run_identifier_name_metrics(
                 )
             )
             continue
-        for q in [0.10, 0.50]:
+        for q in NAME_SIMILARITY_QUANTILES:
             rq = float(real_sim[column].quantile(q))
             sq = float(syn_sim[column].quantile(q))
             diff = sq - rq
+            # q10 and q50 keep the v0.3 tolerance and criticality they were
+            # gated at; the quantiles added in v0.4 use the same tolerance so the
+            # whole distribution is judged on one scale.
+            tolerance = (
+                TOLERANCES["name_similarity_quantile_abs"]
+                if q in (0.10, 0.50)
+                else TOLERANCES["name_similarity_tail_quantile_abs"]
+            )
             metrics.append(
                 _metric(
                     data, "names_identifiers", "silver_siren_groups", f"name_{column}",
                     f"q{int(q * 100)}_abs_diff", rq, sq, diff, abs(diff),
-                    TOLERANCES["name_similarity_quantile_abs"],
-                    classify_abs(diff, TOLERANCES["name_similarity_quantile_abs"]),
+                    tolerance, classify_abs(diff, tolerance),
                     provenance="silver_standard_real_vs_synthetic",
-                    notes=f"n_real_pairs={len(real_sim)}; n_syn_pairs={len(syn_sim)}",
+                    notes=pair_note,
                 )
             )
+
+    if have_pairs:
+        # Shape statistics the quantile grid alone can hide. A quarter of real
+        # same-SIREN name pairs share no token at all (acronyms, directorate and
+        # service names); v0.3 produced 0.5% of those and 18.6% pairs with an
+        # identical token set, which is the signature of an alias mechanism that
+        # only reorders and decorates rather than restructuring.
+        for label, predicate in [
+            ("zero_token_overlap_share", lambda s: (s["token_jaccard"] == 0).mean()),
+            ("full_token_overlap_share", lambda s: (s["token_jaccard"] == 1).mean()),
+        ]:
+            rq = float(predicate(real_sim))
+            sq = float(predicate(syn_sim))
+            diff = sq - rq
+            metrics.append(
+                _metric(
+                    data, "names_identifiers", "silver_siren_groups", "name_token_jaccard", label,
+                    rq, sq, diff, abs(diff), TOLERANCES["name_overlap_share_abs"],
+                    classify_abs(diff, TOLERANCES["name_overlap_share_abs"]),
+                    provenance="silver_standard_real_vs_synthetic", notes=pair_note,
+                )
+            )
+        rq = float(real_sim["token_count_difference"].mean())
+        sq = float(syn_sim["token_count_difference"].mean())
+        metrics.append(
+            _metric(
+                data, "names_identifiers", "silver_siren_groups", "name_token_count_difference",
+                "mean_abs_diff", rq, sq, sq - rq, abs(sq - rq),
+                TOLERANCES["name_token_count_difference_abs"],
+                classify_abs(sq - rq, TOLERANCES["name_token_count_difference_abs"]),
+                provenance="silver_standard_real_vs_synthetic", notes=pair_note,
+            )
+        )
+
+    if len(real_variants) >= MIN_GROUP_SIZE and len(syn_variants) >= MIN_GROUP_SIZE:
+        # The mean alias count can match while the shape does not: a corpus where
+        # every buyer has exactly two names and one where 70% have one and 8%
+        # have five have the same mean and very different linkage difficulty.
+        real_shape = real_variants.clip(upper=6).value_counts(normalize=True)
+        syn_shape = syn_variants.clip(upper=6).value_counts(normalize=True)
+        idx = real_shape.index.union(syn_shape.index)
+        tv = float(
+            0.5 * (real_shape.reindex(idx, fill_value=0) - syn_shape.reindex(idx, fill_value=0)).abs().sum()
+        )
+        metrics.append(
+            _metric(
+                data, "names_identifiers", "silver_siren_groups", "name_variants_per_buyer",
+                "distribution_TV", None, None, tv, tv, TOLERANCES["name_variants_distribution_tv"],
+                classify_upper(tv, TOLERANCES["name_variants_distribution_tv"]),
+                provenance="silver_standard_real_vs_synthetic",
+                notes="alias-count distribution, top-coded at 6+",
+            )
+        )
 
     # Silver-standard bias quantification: the same synthetic statistic under
     # hidden truth versus under the SIREN silver grouping. This is not a

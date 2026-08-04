@@ -396,7 +396,13 @@ def validate_parameter_recovery(data: BenchmarkData) -> list[MetricResult]:
 
     metrics: list[MetricResult] = []
     try:
-        scenario = load_scenario(data.project_root, data.scenario)
+        # Read the scenario from the configuration family the artifact was
+        # generated under. Loading the flat file for a family-versioned artifact
+        # compares the realized world against a *different* scenario, which
+        # reports a specification defect that does not exist.
+        scenario = load_scenario(
+            data.project_root, data.scenario, family=data.metadata.get("config_family")
+        )
     except (FileNotFoundError, KeyError, AttributeError) as exc:
         return [_base(data, "parameter_recovery", "scenario_loadable", False, f"error={exc}", scope=SPEC_SCOPE)]
 
@@ -637,7 +643,11 @@ def _scenario_snapshot_mismatches(data: BenchmarkData) -> tuple[list[str], str]:
     if not snapshot:
         return [], "run metadata carries no resolved_scenario snapshot to compare"
     try:
-        live = to_plain_dict(load_scenario(data.project_root, data.scenario))
+        live = to_plain_dict(
+            load_scenario(
+                data.project_root, data.scenario, family=data.metadata.get("config_family")
+            )
+        )
     except (FileNotFoundError, ValueError) as exc:
         return ["<scenario file unreadable>"], f"{type(exc).__name__}: {exc}"
 
@@ -645,8 +655,20 @@ def _scenario_snapshot_mismatches(data: BenchmarkData) -> tuple[list[str], str]:
 
     def walk(recorded, current, path: str) -> None:
         if isinstance(recorded, dict) and isinstance(current, dict):
-            for key in sorted(set(recorded) | set(current)):
-                walk(recorded.get(key), current.get(key), f"{path}.{key}" if path else key)
+            # Compare on string keys. The snapshot is round-tripped through JSON,
+            # which turns integer mapping keys into strings, while the live
+            # scenario keeps them as integers -- v0.4's by-year entry weights and
+            # alias-set-size weights are both keyed that way. Without this the
+            # union of the two key sets is a mix of str and int and cannot be
+            # sorted, and every such table would otherwise report as a mismatch.
+            recorded_by_key = {str(k): v for k, v in recorded.items()}
+            current_by_key = {str(k): v for k, v in current.items()}
+            for key in sorted(set(recorded_by_key) | set(current_by_key)):
+                walk(
+                    recorded_by_key.get(key),
+                    current_by_key.get(key),
+                    f"{path}.{key}" if path else key,
+                )
             return
         if isinstance(recorded, float) or isinstance(current, float):
             try:

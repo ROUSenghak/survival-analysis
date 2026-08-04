@@ -31,6 +31,7 @@ TOLERANCES = {
     "conditional_wmae_pp": 3.0,
     "conditional_max_warning_pp": 10.0,
     "temporal_year_tvd": 0.20,
+    "temporal_year_wmae_pp": 1.0,
     "temporal_month_tvd": 0.20,
     "temporal_calendar_month_tvd": 0.10,
     "temporal_schema_by_year_wmae_pp": 3.0,
@@ -307,6 +308,25 @@ def _distribution_comparison(real_keys: pd.Series, synthetic_keys: pd.Series) ->
     return out
 
 
+def _share_wmae_pp(real_share: pd.Series, synthetic_share: pd.Series) -> float:
+    """Real-share-weighted mean absolute share error, in percentage points.
+
+    Added in v0.4 alongside -- never replacing -- the publication-year TVD. The
+    v0.3 corpus under-produced 2015-2017 by 15 pp and over-produced 2020-2024 by
+    the same amount, which is a 0.151 TVD against a 0.20 tolerance: passing. That
+    year skew was the direct cause of the aggregate SIRET-availability failure,
+    because SIRET presence rises from ~7% (2015) to ~57% (2022), so a composition
+    error read as an identifier-mechanism error. Weighting by the real share puts
+    the same discrepancy on the same percentage-point scale as the conditional
+    gates, where it is visible.
+    """
+    index = real_share.index.union(synthetic_share.index)
+    real = real_share.reindex(index, fill_value=0.0).astype(float)
+    synthetic = synthetic_share.reindex(index, fill_value=0.0).astype(float)
+    weights = real / real.sum() if real.sum() else real
+    return float((weights * (synthetic - real).abs() * 100).sum())
+
+
 def _conditional_share_wmae(real_df: pd.DataFrame, syn_df: pd.DataFrame, outer_col: str, category_col: str) -> float:
     rows = []
     outers = sorted(set(real_df[outer_col].dropna().astype(str)) | set(syn_df[outer_col].dropna().astype(str)))
@@ -332,10 +352,9 @@ def run_temporal_metrics(data: BenchmarkData, strict_60m: bool = False) -> list[
     real["publication_calendar_month"] = pd.to_datetime(real["publication_date"]).dt.month.astype("Int64")
     syn["publication_calendar_month"] = pd.to_datetime(syn["publication_date"]).dt.month.astype("Int64")
 
-    year_tvd = _tv(
-        _distribution_comparison(real["publication_year"], syn["publication_year"])["real_share"],
-        _distribution_comparison(real["publication_year"], syn["publication_year"])["synthetic_share"],
-    )
+    year_comparison = _distribution_comparison(real["publication_year"], syn["publication_year"])
+    year_tvd = _tv(year_comparison["real_share"], year_comparison["synthetic_share"])
+    year_wmae = _share_wmae_pp(year_comparison["real_share"], year_comparison["synthetic_share"])
     month_period_tvd = _tv(
         _distribution_comparison(real["publication_month_period"], syn["publication_month_period"])["real_share"],
         _distribution_comparison(real["publication_month_period"], syn["publication_month_period"])["synthetic_share"],
@@ -349,6 +368,23 @@ def run_temporal_metrics(data: BenchmarkData, strict_60m: bool = False) -> list[
 
     metrics = [
         _metric(data, "temporal", "overall", "publication_year", "TVD", None, None, year_tvd, year_tvd, TOLERANCES["temporal_year_tvd"], classify_upper(year_tvd, TOLERANCES["temporal_year_tvd"])),
+        _metric(
+            data,
+            "temporal",
+            "overall",
+            "publication_year",
+            "WMAE_pp",
+            None,
+            None,
+            year_wmae,
+            year_wmae,
+            TOLERANCES["temporal_year_wmae_pp"],
+            classify_upper(year_wmae, TOLERANCES["temporal_year_wmae_pp"]),
+            notes=(
+                "real-share-weighted mean absolute year-share error; added in v0.4 alongside the "
+                "TVD above, which a 15pp year-mix error can pass"
+            ),
+        ),
         _metric(
             data,
             "temporal",
