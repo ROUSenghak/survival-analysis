@@ -1,4 +1,4 @@
-| algorithm | F1 v0.3 | F1 v0.4 | precision v0.3 | precision v0.4 | recall v0.3 | recall v0.4 |
+| algorithm | end-to-end F1 v0.3 | end-to-end F1 v0.4 | candidate-conditional precision v0.3 | candidate-conditional precision v0.4 | end-to-end recall v0.3 | end-to-end recall v0.4 |
 |---|---|---|---|---|---|---|
 | gradient_boosting | 0.394 | 0.354 | 0.729 | 0.719 | 0.270 | 0.235 |
 | logistic_regression | 0.319 | 0.280 | 0.388 | 0.339 | 0.270 | 0.238 |

@@ -1,0 +1,22 @@
+rule,dimension,level,n,events,event_rate,rmst60
+primary_balanced,buyer_key_type,NAME_FALLBACK,2506,721,0.2877094972067039,44.07781392754925
+primary_balanced,buyer_key_type,RAW_SIRET,874,282,0.32265446224256294,41.77431669851515
+primary_balanced,buyer_key_type__logrank,NAME_FALLBACK vs RAW_SIRET,3380,1003,,0.032371191498391697
+primary_balanced,category_label,DIGITAL_ICT,3380,1003,0.2967455621301775,43.51492343865108
+primary_balanced,dur_imputed,True,2795,868,0.3105545617173524,43.35867159624245
+primary_balanced,dur_imputed,False,585,135,0.23076923076923078,44.58847830304983
+primary_balanced,dur_imputed__logrank,True vs False,3380,1003,,0.407104577707317
+conservative_strict,buyer_key_type,NAME_FALLBACK,2506,311,0.12410215482841182,52.99670899511405
+conservative_strict,buyer_key_type,RAW_SIRET,874,111,0.12700228832951946,52.69857470282848
+conservative_strict,buyer_key_type__logrank,NAME_FALLBACK vs RAW_SIRET,3380,422,,0.6676632352170221
+conservative_strict,category_label,DIGITAL_ICT,3380,422,0.12485207100591716,52.931251615197944
+conservative_strict,dur_imputed,True,2795,362,0.1295169946332737,52.89046800298826
+conservative_strict,dur_imputed,False,585,60,0.10256410256410256,53.23071921221104
+conservative_strict,dur_imputed__logrank,True vs False,3380,422,,0.738883664031527
+baseline_broad,buyer_key_type,NAME_FALLBACK,2506,1115,0.4449321628092578,35.55729035370348
+baseline_broad,buyer_key_type,RAW_SIRET,874,389,0.4450800915331808,35.02604423629069
+baseline_broad,buyer_key_type__logrank,NAME_FALLBACK vs RAW_SIRET,3380,1504,,0.8989122098755989
+baseline_broad,category_label,DIGITAL_ICT,3380,1504,0.44497041420118344,35.434604377267874
+baseline_broad,dur_imputed,True,2795,1323,0.473345259391771,34.807175065473245
+baseline_broad,dur_imputed,False,585,181,0.3094017094017094,39.30794276892367
+baseline_broad,dur_imputed__logrank,True vs False,3380,1504,,0.00220965439750745

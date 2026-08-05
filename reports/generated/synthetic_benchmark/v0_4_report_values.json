@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-04T12:44:33.651515+00:00",
+  "generated_at_utc": "2026-08-05T08:45:24.458826+00:00",
   "benchmark_version": "v0_4_population_alias_revision",
   "previous_version": "v0_3_temporal_candidate_revision",
   "scenario": "central_provisional",
@@ -1002,39 +1002,39 @@
   "algorithm_comparison": [
     {
       "algorithm": "gradient_boosting",
-      "F1 v0.3": "0.394",
-      "F1 v0.4": "0.354",
-      "precision v0.3": "0.729",
-      "precision v0.4": "0.719",
-      "recall v0.3": "0.270",
-      "recall v0.4": "0.235"
+      "end-to-end F1 v0.3": "0.394",
+      "end-to-end F1 v0.4": "0.354",
+      "candidate-conditional precision v0.3": "0.729",
+      "candidate-conditional precision v0.4": "0.719",
+      "end-to-end recall v0.3": "0.270",
+      "end-to-end recall v0.4": "0.235"
     },
     {
       "algorithm": "logistic_regression",
-      "F1 v0.3": "0.319",
-      "F1 v0.4": "0.280",
-      "precision v0.3": "0.388",
-      "precision v0.4": "0.339",
-      "recall v0.3": "0.270",
-      "recall v0.4": "0.238"
+      "end-to-end F1 v0.3": "0.319",
+      "end-to-end F1 v0.4": "0.280",
+      "candidate-conditional precision v0.3": "0.388",
+      "candidate-conditional precision v0.4": "0.339",
+      "end-to-end recall v0.3": "0.270",
+      "end-to-end recall v0.4": "0.238"
     },
     {
       "algorithm": "current_weighted_composite",
-      "F1 v0.3": "0.203",
-      "F1 v0.4": "0.165",
-      "precision v0.3": "0.168",
-      "precision v0.4": "0.130",
-      "recall v0.3": "0.257",
-      "recall v0.4": "0.225"
+      "end-to-end F1 v0.3": "0.203",
+      "end-to-end F1 v0.4": "0.165",
+      "candidate-conditional precision v0.3": "0.168",
+      "candidate-conditional precision v0.4": "0.130",
+      "end-to-end recall v0.3": "0.257",
+      "end-to-end recall v0.4": "0.225"
     },
     {
       "algorithm": "fellegi_sunter_style",
-      "F1 v0.3": "0.161",
-      "F1 v0.4": "0.128",
-      "precision v0.3": "0.153",
-      "precision v0.4": "0.113",
-      "recall v0.3": "0.169",
-      "recall v0.4": "0.147"
+      "end-to-end F1 v0.3": "0.161",
+      "end-to-end F1 v0.4": "0.128",
+      "candidate-conditional precision v0.3": "0.153",
+      "candidate-conditional precision v0.4": "0.113",
+      "end-to-end recall v0.3": "0.169",
+      "end-to-end recall v0.4": "0.147"
     }
   ],
   "algorithm_ranking_v03": [

@@ -1,0 +1,17 @@
+{
+  "n_sources": 3380,
+  "n_candidate_pairs": 10862,
+  "window_months": 6,
+  "self_links": 0,
+  "non_forward_links": 0,
+  "negative_gap": 0,
+  "successors_reused": 188,
+  "max_reuse_of_one_successor": 6,
+  "sources_with_multiple_links": 0,
+  "n_eligible_for_linkage": 3380,
+  "sources_with_at_least_one_candidate": 2005,
+  "sources_with_no_candidate": 1375,
+  "sources_rejected_top_candidate": 1002,
+  "sources_accepted": 1003,
+  "accepted_but_ambiguous_potential": 327
+}

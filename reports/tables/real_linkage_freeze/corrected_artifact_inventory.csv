@@ -1,0 +1,7 @@
+scenario,replicates,unique_evidence
+central_provisional,10,True
+clean_sanity,1,True
+difficult,10,True
+easier,10,True
+moderate,10,False
+stress,10,True

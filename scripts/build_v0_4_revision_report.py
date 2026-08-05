@@ -695,8 +695,16 @@ def main() -> None:
         table = table.sort_values("pair_f1_end_to_end_v04", ascending=False)
         for column in table.columns[1:]:
             table[column] = table[column].map(lambda v: _fmt(v, 3))
-        table.columns = ["algorithm", "F1 v0.3", "F1 v0.4", "precision v0.3",
-                         "precision v0.4", "recall v0.3", "recall v0.4"]
+        # Column names must carry the evaluation level. Precision is defined only
+        # over generated candidates, while recall and F1 are end-to-end over all
+        # in-scope truth links; unqualified "precision/recall/F1" headers invite
+        # the reader to combine two different denominators.
+        table.columns = [
+            "algorithm",
+            "end-to-end F1 v0.3", "end-to-end F1 v0.4",
+            "candidate-conditional precision v0.3", "candidate-conditional precision v0.4",
+            "end-to-end recall v0.3", "end-to-end recall v0.4",
+        ]
         (OUT_TABLES / "algorithm_v03_v04.md").write_text(
             _markdown_table(table) + "\n", encoding="utf-8"
         )

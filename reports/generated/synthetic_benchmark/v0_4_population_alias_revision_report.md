@@ -376,7 +376,7 @@ Pooled ranking reproduced in 1.000 of worlds; the top-ranked method reproduced i
 
 ### v0.3 versus v0.4 algorithm results
 
-| algorithm | F1 v0.3 | F1 v0.4 | precision v0.3 | precision v0.4 | recall v0.3 | recall v0.4 |
+| algorithm | end-to-end F1 v0.3 | end-to-end F1 v0.4 | candidate-conditional precision v0.3 | candidate-conditional precision v0.4 | end-to-end recall v0.3 | end-to-end recall v0.4 |
 |---|---|---|---|---|---|---|
 | gradient_boosting | 0.394 | 0.354 | 0.729 | 0.719 | 0.270 | 0.235 |
 | logistic_regression | 0.319 | 0.280 | 0.388 | 0.339 | 0.270 | 0.238 |
@@ -494,4 +494,4 @@ cross-scenario spread, which this revision did not target.
 .venv/bin/python scripts/build_v0_4_revision_report.py
 ```
 
-Generated 2026-08-04T12:44:33.651515+00:00.
+Generated 2026-08-05T08:45:24.458826+00:00.

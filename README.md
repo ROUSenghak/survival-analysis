@@ -117,6 +117,29 @@ identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
 class.
 
+## Frozen linkage configuration (2026-08-05)
+
+The linkage configuration used for the real analysis is frozen and documented in
+[reports/generated/real_linkage_freeze_decision.md](reports/generated/real_linkage_freeze_decision.md),
+with artifacts in `reports/tables/real_linkage_freeze/`. Summary:
+
+- **Candidate generator:** unchanged canonical duration-anchored ±6-month window.
+  Wider windows (9/12/18m) and the duration-free forward-24m route are retained as
+  a pre-registered sensitivity set, not as the primary rule.
+- **Primary rule:** transparent composite score at the frozen balanced threshold
+  (1,003 links, 29.7%). **Conservative:** strict threshold with POTENTIAL links
+  dropped (422, 12.5%). **Baseline:** broad threshold (1,504, 44.5%).
+- **The supervised linkers are not used on real BOAMP.** There are no real labels
+  to train on, and synthetic-to-real transfer fails on covariate shift concentrated
+  in `s_text` (synthetic mean 3.56x real).
+- **Algorithm ranking is not claimed.** Gradient boosting leads the v0.4 benchmark,
+  but exact CPV codes are invented (~39,300 distinct per world against 3,145 real),
+  which inflates part of that margin; see the decision document §5. The ranking is
+  not needed for the real analysis, since supervised linkers are excluded from real
+  use for the reason above.
+- `moderate` is a byte-identical duplicate of `central_provisional`; unique
+  evidence is 41 artifacts across 5 scenarios and 16 evaluation worlds, not 51/6/20.
+
 ## Synthetic benchmark v0.4 (`population_alias_revision`)
 
 v0.4 revises three observable mechanisms of the v0.3 benchmark: buyer publication

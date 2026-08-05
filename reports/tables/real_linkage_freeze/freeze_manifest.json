@@ -1,0 +1,16 @@
+{
+  "window_months": 6,
+  "n_sources": 3380,
+  "n_pairs": 10862,
+  "thresholds": {
+    "broad": 0.27838673159124894,
+    "balanced": 0.3431669423310381,
+    "strict": 0.44206956893514254
+  },
+  "survival_paths": {
+    "primary_balanced": "data/processed/boamp_only/boamp_only_survival_primary_balanced.csv",
+    "conservative_strict": "data/processed/boamp_only/boamp_only_survival_conservative_strict.csv",
+    "baseline_broad": "data/processed/boamp_only/boamp_only_survival_baseline_broad.csv"
+  },
+  "study_end_date": "2026-07-13 00:00:00"
+}

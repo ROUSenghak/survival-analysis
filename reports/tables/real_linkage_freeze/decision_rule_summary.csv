@@ -1,0 +1,4 @@
+rule,threshold,high_conf_only,n_links,link_rate,n_potential,n_high,n_medium
+primary_balanced,0.3431669423310381,False,1003,0.2967455621301775,327,320,356
+conservative_strict,0.44206956893514254,True,422,0.12485207100591716,0,320,102
+baseline_broad,0.27838673159124894,False,1504,0.44497041420118344,604,320,580
