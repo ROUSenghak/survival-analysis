@@ -1,0 +1,9 @@
+audit_stratum,n_cases,n_wrong_links,wrong_share,material_scope_mismatch,administrative_version_or_rectificatif,same_buyer_broad_digital_signal,high_buyer_activity_ambiguity,name_fallback_identity_risk,high_cpv_false_security,low_text_evidence,small_margin_ambiguity,method_disagreement_false_positive
+composite_only,18,16,0.8888888888888888,13,2,12,10,13,2,9,6,16
+gbm_and_composite,18,15,0.8333333333333334,12,3,11,9,12,13,8,1,0
+gbm_only,14,13,0.9285714285714286,13,1,13,5,12,0,12,1,13
+gbm_borderline_score,12,10,0.8333333333333334,9,0,9,1,10,0,7,0,7
+gbm_small_margin,12,10,0.8333333333333334,8,2,7,9,7,10,8,10,0
+censored_no_candidate,8,0,0.0,0,0,0,0,0,0,0,0,0
+rejected_composite_top_candidate,12,0,0.0,0,0,0,0,0,0,0,0,0
+rejected_far_below,6,0,0.0,0,0,0,0,0,0,0,0,0

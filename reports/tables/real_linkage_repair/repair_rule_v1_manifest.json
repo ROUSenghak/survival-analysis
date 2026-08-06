@@ -1,0 +1,24 @@
+{
+  "generated_at_utc": "2026-08-06T13:12:30.953209+00:00",
+  "rule_version": "manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens",
+  "rule_status": "REPAIR_CANDIDATE_REQUIRES_FRESH_VALIDATION",
+  "text_min": 0.3,
+  "min_token_count": 4,
+  "criteria": [
+    "base maintained method accepts the link",
+    "source_etat == INITIAL",
+    "candidate_etat == INITIAL",
+    "candidate_annonce_lie does not point to source and source_annonce_lie does not point to candidate",
+    "source_token_count >= 4",
+    "candidate_token_count >= 4",
+    "s_text >= 0.30"
+  ],
+  "preferred_candidate_for_next_validation": "composite_balanced",
+  "scientific_caveat": "This rule was motivated by the completed stratified audit. Its same-audit diagnostics are not final precision estimates. A fresh probability-designed validation sample is required.",
+  "outputs": {
+    "primary_gbm_links": "reports/tables/real_linkage_repair/primary_gbm_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens_links.csv",
+    "composite_links": "reports/tables/real_linkage_repair/composite_balanced_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens_links.csv",
+    "summary": "reports/tables/real_linkage_repair/repair_rule_v1_real_link_summary.csv",
+    "audit_diagnostic": "reports/tables/real_linkage_repair/repair_rule_v1_audit_diagnostic.csv"
+  }
+}

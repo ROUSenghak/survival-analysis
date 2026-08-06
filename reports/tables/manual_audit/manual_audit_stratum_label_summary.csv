@@ -1,0 +1,9 @@
+audit_stratum,CORRECT_LINK,CORRECT_REJECTION,INSUFFICIENT_INFORMATION,MISSED_LINK,WRONG_LINK,n_cases
+censored_no_candidate,0,5,1,2,0,8
+composite_only,2,0,0,0,16,18
+gbm_and_composite,3,0,0,0,15,18
+gbm_borderline_score,2,0,0,0,10,12
+gbm_only,0,0,1,0,13,14
+gbm_small_margin,1,0,1,0,10,12
+rejected_composite_top_candidate,0,12,0,0,0,12
+rejected_far_below,0,4,0,2,0,6

@@ -1,27 +1,27 @@
 {
   "run_id": "canonical_boamp_linkage_freeze_v1",
-  "generated_at_utc": "2026-08-06T09:37:16.708685+00:00",
+  "generated_at_utc": "2026-08-06T13:12:39.854191+00:00",
   "project_status": {
     "canonical_real_layer": "boamp_only",
-    "real_precision_recall_status": "UNKNOWN_REAL_PRECISION_RECALL",
+    "real_precision_recall_status": "NOT_SUPPORTED_BY_STRATIFIED_AUDIT_DESIGN",
     "event_censoring_status": "PROVISIONAL_LINKAGE_OUTPUT",
     "manual_audit_gate": {
-      "status": "BLOCKED_BY_MANUAL_AUDIT",
-      "reason": "manual audit labels are blank",
-      "path": "/home/senghakrou/survival-analysis/reports/tables/real_linkage_freeze/real_audit_sample_30.csv"
+      "status": "PASS",
+      "reason": "100 manual labels present",
+      "path": "/home/senghakrou/survival-analysis/reports/tables/manual_audit/real_audit_validated_labels.csv"
     },
     "classification_gate": {
       "status": "BLOCKED_BY_EXTERNAL_CLASSIFICATION",
       "reason": "external technological classification export is absent",
       "path": "/home/senghakrou/survival-analysis/data/raw/external/technology_classification/technology_classification_export.csv"
     },
-    "survival_analysis_gate": "BLOCKED_BY_MANUAL_AUDIT",
+    "survival_analysis_gate": "INITIAL_MANUAL_AUDIT_DIAGNOSTIC_AVAILABLE",
     "technology_specific_gate": "BLOCKED_BY_EXTERNAL_CLASSIFICATION"
   },
   "git": {
     "branch": "restructure/two-layer",
-    "head": "22e104be483901cdbd78798003e64e6f8ad67b83",
-    "status_porcelain": "M README.md\n M config/paths.yaml\n M docs/methodology.md\n M reports/figures/real_linkage_freeze/km_by_linkage_rule.pdf\n M reports/generated/real_linkage_freeze_decision.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.aux\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.log\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex\n M reports/tables/real_linkage_freeze/freeze_manifest.json\n M reports/tables/real_linkage_freeze/real_audit_sample_100.csv\n M reports/tables/real_linkage_freeze/real_candidate_generator_sensitivity.csv\n M reports/tables/real_linkage_freeze/synthetic_to_real_transfer_test.csv\n M reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md\n M scripts/build_linkage_algorithm_benchmark_report.py\n M scripts/build_real_audit_sample.py\n M scripts/freeze_real_linkage.py\n M scripts/real_survival_analysis.py\n M scripts/test_synthetic_to_real_transfer.py\n M src/boamp/config.py\n?? canonical/\n?? data/processed/boamp_only/boamp_only_survival_baseline_composite_balanced.csv\n?? data/processed/boamp_only/boamp_only_survival_gradient_boosting_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_logistic_regression_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_primary_gbm.csv\n?? docs/classification_input_contract.md\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png\n?? reports/generated/manual_audit_instructions.md\n?? reports/run_logs/canonical_pipeline_manifest.json\n?? reports/tables/data_quality/\n?? reports/tables/real_linkage_freeze/adaptive_task_inventory.csv\n?? reports/tables/real_linkage_freeze/manual_audit_entry_template.csv\n?? reports/tables/real_linkage_freeze/real_audit_sample_30.csv\n?? reports/tables/real_linkage_freeze/real_linkage_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_manifest.json\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_primary_gbm_links.csv\n?? reports/tables/real_linkage_freeze/real_supervised_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_supervised_rank1_scored.csv\n?? reports/tables/real_linkage_freeze/real_supervised_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_supervised_transfer_links.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/diagnostic_curve_summary.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curve_points.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curve_points.csv\n?? scripts/build_canonical_run_manifest.py\n?? scripts/build_linkage_algorithm_diagnostic_curves.py\n?? scripts/check_boamp_corpus_quality.py\n?? src/boamp/data/classification.py\n?? src/boamp/status.py\n?? tests/test_classification.py\n?? tests/test_manual_audit_package.py\n?? tests/test_scientific_gates.py"
+    "head": "8aeb74cbedb398a6c4d642c4f3d7caf25527f11e",
+    "status_porcelain": "M canonical/audit/README.md\n M canonical/linkage/README.md\n M canonical/reports/README.md\n M config/paths.yaml\n M reports/generated/manual_audit_instructions.md\n M reports/run_logs/canonical_pipeline_manifest.json\n M scripts/build_canonical_run_manifest.py\n M scripts/build_real_audit_sample.py\n M src/boamp/status.py\n M tests/test_scientific_gates.py\n?? data/processed/boamp_only/boamp_only_survival_composite_balanced_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens.csv\n?? data/processed/boamp_only/boamp_only_survival_primary_gbm_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens.csv\n?? reports/generated/manual_audit_failure_analysis.md\n?? reports/generated/manual_audit_repair_rule_v1.md\n?? reports/generated/manual_audit_validation_report.md\n?? reports/manual_audit/\n?? reports/tables/manual_audit/\n?? reports/tables/real_linkage_repair/\n?? scripts/analyze_manual_audit_failures.py\n?? scripts/apply_manual_audit_repair_rule.py\n?? scripts/build_manual_audit_review_artifacts.py\n?? scripts/validate_manual_audit_results.py"
   },
   "configuration": {
     "seed": 20260713,
@@ -46,8 +46,8 @@
       "path": "config/paths.yaml",
       "exists": true,
       "rows": null,
-      "bytes": 2256,
-      "sha256": "c04fd137b5fff68b5bea99dacc5a235eec2570297f62d55d41869f15cbc21bca",
+      "bytes": 2833,
+      "sha256": "20e44a31045a8e7adf5bf34c52e75cf5c45f76967e6ea14ae164ffc151541a04",
       "git_tracked": true
     },
     {
@@ -74,7 +74,7 @@
       "rows": null,
       "bytes": 2089,
       "sha256": "5ffc4789b9c17eb9f4cd86dcb2d667197db28372656fe79f6b2390d785092a46",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/config/README.md",
@@ -82,7 +82,7 @@
       "rows": null,
       "bytes": 655,
       "sha256": "27e9e6a8e457435e06d0d092c065a405241392bf79d66f411591c3b79800c04b",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/data/README.md",
@@ -90,7 +90,7 @@
       "rows": null,
       "bytes": 1096,
       "sha256": "e29b81c3eec832480e0f51d2228bd94e3ea89e63c5c4370b31321345bf7816d8",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/synthetic_benchmark/README.md",
@@ -98,23 +98,23 @@
       "rows": null,
       "bytes": 1201,
       "sha256": "2e76cbce66edf7dc607be78f356c305fe516604d5f9235bb7443e0308c16ba98",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/linkage/README.md",
       "exists": true,
       "rows": null,
-      "bytes": 1116,
-      "sha256": "82cb6c49620472c339d27e6da9b271b2fc75b461fc61dd69160cfd2d70fece7b",
-      "git_tracked": false
+      "bytes": 1850,
+      "sha256": "2bad2c58932ce8a551283c9e65b9114dad13a37bb57b56417b3f5dd52a4233b6",
+      "git_tracked": true
     },
     {
       "path": "canonical/audit/README.md",
       "exists": true,
       "rows": null,
-      "bytes": 667,
-      "sha256": "ca3e1fc2ae7df5aba1bdb2eb19e4a718239f157aae9efd2828033ad3d2f5cbf2",
-      "git_tracked": false
+      "bytes": 1483,
+      "sha256": "778b6040b4b917cab488eae07bfa447ff4e1725525335ea90a10697af8ceba7c",
+      "git_tracked": true
     },
     {
       "path": "canonical/classification/README.md",
@@ -122,7 +122,7 @@
       "rows": null,
       "bytes": 735,
       "sha256": "223cfc043e015e4b04c51ef2c08ceb5f58eb6ba9b2a7ff37ad4c4fba2bd58f9b",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/downstream/README.md",
@@ -130,15 +130,15 @@
       "rows": null,
       "bytes": 659,
       "sha256": "a356f5763e10ed04be1d005bdc13b45f0358624cebddf0b14c83f30a18264db1",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "canonical/reports/README.md",
       "exists": true,
       "rows": null,
-      "bytes": 858,
-      "sha256": "652a250eec4a7799ff3a0057268019bd3d2d97d9fe35aa3660ddb722306f304b",
-      "git_tracked": false
+      "bytes": 1263,
+      "sha256": "d8573730e67dbc8cc2c2624245014eab82851a76ba2c349dce5ed5213f0b7c18",
+      "git_tracked": true
     }
   ],
   "canonical_outputs": [
@@ -188,7 +188,7 @@
       "rows": 411,
       "bytes": 158526,
       "sha256": "40c30b5b7f4a87d119a9a403bed7de4f6680506df26edf1f57844d00c34c9949",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv",
@@ -196,7 +196,7 @@
       "rows": 5,
       "bytes": 1870,
       "sha256": "d898aeed1b8a62bc305e5259fdfab2685e98aa0296b3bf01dfb924e446a8d16f",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "reports/tables/real_linkage_freeze/real_audit_sample_30.csv",
@@ -204,7 +204,7 @@
       "rows": 30,
       "bytes": 17711,
       "sha256": "93cb4e428d314e1a8bdaae5b290b547c1cdc494e8fa6ec97d5f3b8b5a2c74122",
-      "git_tracked": false
+      "git_tracked": true
     },
     {
       "path": "reports/tables/real_linkage_freeze/manual_audit_entry_template.csv",
@@ -212,6 +212,198 @@
       "rows": 0,
       "bytes": 507,
       "sha256": "685a5fcf1daf109db9c1cfe3fbe3e8dfc2998535c96c268f23a3f3025b0730d9",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/manual_audit/real_audit_sample_100.xlsx",
+      "exists": true,
+      "rows": null,
+      "bytes": 36401,
+      "sha256": "442d68f8ca9705c6a2f896996e4bb110518316ef811929c282392aa7e43e979e",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/manual_audit/real_audit_evidence_100.html",
+      "exists": true,
+      "rows": null,
+      "bytes": 178469,
+      "sha256": "eec9734da791141be5bd1cc7f8702bb9e856856568a749b8b7fceebfa0102d01",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/manual_audit/real_audit_sample_100_validated.xlsx",
+      "exists": true,
+      "rows": null,
+      "bytes": 73090,
+      "sha256": "1e2c1727f14dd1a44c18d0f31e5fe2e5912aaa0a55a5de4bbeff992f047d2fc5",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/real_audit_validated_labels.csv",
+      "exists": true,
+      "rows": 100,
+      "bytes": 91763,
+      "sha256": "e9e5842a37ca797a06598701e04e3d60b204f1788afcc378724898655f9f9550",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/generated/manual_audit_validation_report.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 2318,
+      "sha256": "44f950d1c8a9e1d07c904ca9b7906315682ddde1ca24933ff5202cfb7c2bb1ff",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/manual_audit_label_summary.csv",
+      "exists": true,
+      "rows": 5,
+      "bytes": 114,
+      "sha256": "78f5f903f4c0a63ad35064edb69cbf7dd85aa1ef9f00f914302bdc7517cad5cf",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/manual_audit_stratum_label_summary.csv",
+      "exists": true,
+      "rows": 8,
+      "bytes": 363,
+      "sha256": "7fdcb18be47e494d9b4be232fd5be139404ad932a458bc41fea9463857755090",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/manual_audit_quality_checks.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 2124,
+      "sha256": "d02ea7c6736657375824cd0dc74d8dcd5b9ea4c0895174b0d34b4ae360a75090",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/generated/manual_audit_failure_analysis.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 5923,
+      "sha256": "1ff15c56e7f2263926e16f6f7e55c8cf784a9410657f2b4b9bc1d993209e6626",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/failure_analysis_manifest.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 1642,
+      "sha256": "5be1e841c39ee277ebd61243427ac73f4ab15bc3bcd27e23d3b8f3cdcaabad12",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/manual_audit_cases_with_failure_flags.csv",
+      "exists": true,
+      "rows": 100,
+      "bytes": 106322,
+      "sha256": "acd2cc6c5e28a0dae65903f6c61c7cb5df700382f1cd61b095fd0dd8398e59b1",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/wrong_link_failure_mode_summary.csv",
+      "exists": true,
+      "rows": 9,
+      "bytes": 2267,
+      "sha256": "b03fee525d53bed259d70c32475dcacb7c84c4b4027a6794bde34b5800bacc70",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/feature_summary_by_manual_label.csv",
+      "exists": true,
+      "rows": 5,
+      "bytes": 2523,
+      "sha256": "304513f1245e6a10e30ffbf65f590c16c241eb270416640c685f95144d3fb56b",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/method_diagnostic_precision.csv",
+      "exists": true,
+      "rows": 2,
+      "bytes": 217,
+      "sha256": "75b99c9e6fe8e288073fc41e523d8db0e1f43216f5800db94b2785e1a0a500e2",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/stratum_failure_summary.csv",
+      "exists": true,
+      "rows": 8,
+      "bytes": 766,
+      "sha256": "338b20aedfcf8ba05a0ed96fbca9fb6597838cb5b5a52406c46421520637a022",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/manual_audit/failure_analysis/single_filter_repair_signals.csv",
+      "exists": true,
+      "rows": 9,
+      "bytes": 632,
+      "sha256": "36b030e425de23752e54e0ddf453d203f2b3af074d4c8c9a865c3b76c472a29d",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/generated/manual_audit_repair_rule_v1.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 2521,
+      "sha256": "714f0dedb2c0de4210f09a4fb3626c3fcf90e7a93e9a095f35b76fd3f7f06983",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_repair/repair_rule_v1_manifest.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 1357,
+      "sha256": "2b672d200420443eb93c7a95b53d575fd13c7897ac395555eb2293038f8763c3",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_repair/repair_rule_v1_real_link_summary.csv",
+      "exists": true,
+      "rows": 2,
+      "bytes": 407,
+      "sha256": "074db5815067f6f5394b7dc48dd59b407a5bb31d81f7590ba730a911172a9840",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_repair/repair_rule_v1_audit_diagnostic.csv",
+      "exists": true,
+      "rows": 2,
+      "bytes": 392,
+      "sha256": "056985566b614e3e3af5144ad211a68622a0400bd698cb390ca5023cb5b58323",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_repair/primary_gbm_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens_links.csv",
+      "exists": true,
+      "rows": 123,
+      "bytes": 81149,
+      "sha256": "599e7f5b9a72569fc71405944ca3f089ac549e89e784eb65c783f218f1bbed0b",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_repair/composite_balanced_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens_links.csv",
+      "exists": true,
+      "rows": 269,
+      "bytes": 147359,
+      "sha256": "26377877137f0e709962917c14e05b647a8a622c0c68cb948e6ee37f7f6bbb99",
+      "git_tracked": false
+    },
+    {
+      "path": "data/processed/boamp_only/boamp_only_survival_primary_gbm_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens.csv",
+      "exists": true,
+      "rows": 3380,
+      "bytes": 866782,
+      "sha256": "758e0fb8888ed26454649867d8094a69f660ff03b8d8ef2851e9ec1f2946d60d",
+      "git_tracked": false
+    },
+    {
+      "path": "data/processed/boamp_only/boamp_only_survival_composite_balanced_manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens.csv",
+      "exists": true,
+      "rows": 3380,
+      "bytes": 901731,
+      "sha256": "3892478422f34251361aacefc95f28e09b18e1e6a96df213524c82134cd163be",
       "git_tracked": false
     },
     {
@@ -220,7 +412,7 @@
       "rows": null,
       "bytes": 5236,
       "sha256": "582d7ddbfcff4a5f4b8df8aed6f5974132b3e2906e9be34eb552ae928167eabe",
-      "git_tracked": false
+      "git_tracked": true
     }
   ],
   "synthetic_benchmark_outputs": [
@@ -263,6 +455,9 @@
     "PYTHONPATH=src .venv/bin/python scripts/build_linkage_algorithm_diagnostic_curves.py",
     "PYTHONPATH=src .venv/bin/python scripts/test_synthetic_to_real_transfer.py",
     "PYTHONPATH=src .venv/bin/python scripts/build_real_audit_sample.py",
+    "PYTHONPATH=src .venv/bin/python scripts/validate_manual_audit_results.py",
+    "PYTHONPATH=src .venv/bin/python scripts/analyze_manual_audit_failures.py",
+    "PYTHONPATH=src .venv/bin/python scripts/apply_manual_audit_repair_rule.py",
     "PYTHONPATH=src .venv/bin/python scripts/build_canonical_run_manifest.py"
   ]
 }

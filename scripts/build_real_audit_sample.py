@@ -200,8 +200,8 @@ Blank entry template:
 4. For no-candidate and rejected cases, decide whether the absence/rejection is
    credible from the evidence available in the row. Use `MISSED_LINK` only when
    the row evidence identifies a plausible successor that the method missed.
-5. Leave uncertain cases as `INSUFFICIENT_INFORMATION` or
-   `NEEDS_SECOND_REVIEW`; do not force a binary answer.
+5. Leave uncertain cases as `INSUFFICIENT_INFORMATION`; set
+   `needs_second_review` to `TRUE` if you want to revisit the case later.
 
 ## Scientific Gate
 

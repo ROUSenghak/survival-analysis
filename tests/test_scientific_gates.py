@@ -43,7 +43,6 @@ def test_manual_audit_label_vocabulary_matches_project_plan():
         "MISSED_LINK",
         "CORRECT_REJECTION",
         "INSUFFICIENT_INFORMATION",
-        "NEEDS_SECOND_REVIEW",
     }
 
 

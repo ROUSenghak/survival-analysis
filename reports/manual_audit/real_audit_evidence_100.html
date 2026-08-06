@@ -1,0 +1,3336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Real BOAMP Manual Audit Evidence</title>
+<style>
+body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f7f7f4; color: #1f2933; }
+main { max-width: 1180px; margin: 0 auto; padding: 28px; }
+h1 { margin-bottom: 4px; }
+.subtitle { margin-top: 0; color: #5b6470; }
+.labels code { display: inline-block; margin: 3px 6px 3px 0; padding: 3px 6px; background: #eef2f7; border: 1px solid #d9e0ea; border-radius: 4px; }
+.case { background: white; border: 1px solid #d8dde6; border-radius: 6px; margin: 18px 0; padding: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.case h2 { margin: 0 0 8px; font-size: 18px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; color: #4b5563; }
+.meta span { background: #f1f5f9; border: 1px solid #e2e8f0; padding: 3px 7px; border-radius: 4px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-top: 14px; }
+.kv { border-top: 1px solid #edf0f4; padding-top: 6px; }
+.kv b { display: block; font-size: 12px; color: #64748b; }
+.texts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+.texts div { border: 1px solid #e5e7eb; background: #fcfcfb; padding: 12px; border-radius: 4px; }
+.texts h3 { margin-top: 0; font-size: 14px; }
+.texts p { white-space: pre-wrap; line-height: 1.45; }
+.decision { margin-top: 12px; color: #4b5563; }
+@media (max-width: 760px) { .texts { grid-template-columns: 1fr; } main { padding: 16px; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Real BOAMP Manual Audit Evidence</h1>
+<p class="subtitle">Read-only evidence for 100 stratified cases. Enter labels in the XLSX workbook.</p>
+<p class="labels"><code>CORRECT_LINK</code><code>WRONG_LINK</code><code>MISSED_LINK</code><code>CORRECT_REJECTION</code><code>INSUFFICIENT_INFORMATION</code></p>
+<article class="case">
+  <header>
+    <h2>AUDIT-001 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-134974</span>
+      <span>Candidate 18-73911</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>ville de Bouchemaine</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-09-25</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-06-07</span></div>
+    <div class="kv"><b>Gap months</b><span>8.377135348226018</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.5278759841311622</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.5948313622426631</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4234644350065725</span></div>
+    <div class="kv"><b>GBM score</b><span>0.5351223228708686</span></div>
+    <div class="kv"><b>Margin</b><span>0.4234644350065725</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture et maintenance de logiciels métiers de la commune de Bouchemaine</p></div>
+    <div><h3>Candidate Text</h3><p>fourniture et maintenance d&#x27;un logiciel métier finances pour la commune de bouchemaine</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-002 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-139193</span>
+      <span>Candidate 17-159853</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-10-04</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-11-13</span></div>
+    <div class="kv"><b>Gap months</b><span>1.314060446780552</span></div>
+    <div class="kv"><b>CPV</b><span>72267000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1410946318206214</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.22251423565484</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4050116800509275</span></div>
+    <div class="kv"><b>GBM score</b><span>0.6148984656292993</span></div>
+    <div class="kv"><b>Margin</b><span>0.1049859781264856</span></div>
+    <div class="kv"><b>Candidate count</b><span>12</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Maintenance et support technique du logiciel Business Object et 360 View et prestations associées</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, maintenance des logiciels et produits ESRI et prestations associées</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-003 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 15-192276</span>
+      <span>Candidate 16-94711</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Vendée Eau</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-02-05</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-07-04</span></div>
+    <div class="kv"><b>Gap months</b><span>4.92772667542707</span></div>
+    <div class="kv"><b>CPV</b><span>48900000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0367841550534658</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.1841874726237407</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4189213224246482</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9349229833995556</span></div>
+    <div class="kv"><b>Margin</b><span>0.0945803920689609</span></div>
+    <div class="kv"><b>Candidate count</b><span>3</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>création d&#x27;un système d&#x27;information des données abonnés et patrimoine du service public d&#x27;eau potable (relance de la procédure à la suite d&#x27;une déclaration sans suite) à La Roche- sur-Yon</p></div>
+    <div><h3>Candidate Text</h3><p>Développement d&#x27;un outil de gestion dynamique des retenues - Département de la Vendée</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-004 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-76616</span>
+      <span>Candidate 17-129614</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-06-03</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-12-21</span></div>
+    <div class="kv"><b>Gap months</b><span>6.603153745072273</span></div>
+    <div class="kv"><b>CPV</b><span>72250000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.214962581706752</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9014454664914586</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.6605982702202278</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9403995208541638</span></div>
+    <div class="kv"><b>Margin</b><span>0.121456044278239</span></div>
+    <div class="kv"><b>Candidate count</b><span>27</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>tierce maintenance applicative sur géonantes, portail géographique intranet, extranet et internet de nantes métropole (maintien en conditions opérationnelles et évolutions)</p></div>
+    <div><h3>Candidate Text</h3><p>tierce maintenance applicative du système d&#x27;information ressources (s.i.r.h.) pour le compte de nantes métropole</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-005 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-161606</span>
+      <span>Candidate 18-55179</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CARENE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-11-23</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-04-27</span></div>
+    <div class="kv"><b>Gap months</b><span>5.091984231274639</span></div>
+    <div class="kv"><b>CPV</b><span>32321200.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1247095529549985</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.8083661848445028</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3657398897453752</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2639571512570136</span></div>
+    <div class="kv"><b>Margin</b><span>0.0932973905353717</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>17S0075 - Travaux d&#x27;installation d&#x27;équipements audiovisuels dans le cadre de la modernisation ou la création de salles de réunion pour la Carene</p></div>
+    <div><h3>Candidate Text</h3><p>18s0030 fourniture d&#x27;un équipement d&#x27;inspection télévisée des réseaux d&#x27;assainissement et d&#x27;un logiciel d&#x27;édition des rapports d&#x27;inspection pour la carene</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-006 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 21-124527</span>
+      <span>Candidate 21-130046</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>GPM de Nantes - St Nazaire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-09-16</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-09-29</span></div>
+    <div class="kv"><b>Gap months</b><span>0.4270696452036793</span></div>
+    <div class="kv"><b>CPV</b><span>48332000.0</span></div>
+    <div class="kv"><b>s_text</b><span>1.0000000000000004</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.0801576872536137</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.7300394218134036</span></div>
+    <div class="kv"><b>GBM score</b><span>0.4858591373128311</span></div>
+    <div class="kv"><b>Margin</b><span>0.4447836692120347</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mise en oeuvre d&#x27;un logiciel de gestion des bordées.</p></div>
+    <div><h3>Candidate Text</h3><p>Mise en oeuvre d&#x27;un logiciel de gestion des bordées.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-007 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 16-45870</span>
+      <span>Candidate 16-70219</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-03-30</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-05-17</span></div>
+    <div class="kv"><b>Gap months</b><span>1.5768725361366622</span></div>
+    <div class="kv"><b>CPV</b><span>72267100.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0771266674825798</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.2553657468243538</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4508357703249914</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8490238826920968</span></div>
+    <div class="kv"><b>Margin</b><span>0.0338758581004445</span></div>
+    <div class="kv"><b>Candidate count</b><span>12</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture et maintenance des logiciels Business Geografic (CIRIL GROUP), prestations annexes et de support pour le compte d&#x27;Angers Loire Métropole, à Angers</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition, maintenance et prestations associées d&#x27;une solution de paiement dématérialisé du stationnement payant sur voirie à Angers</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-008 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-9361</span>
+      <span>Candidate 17-35545</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-01-19</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-03-16</span></div>
+    <div class="kv"><b>Gap months</b><span>1.8396846254927728</span></div>
+    <div class="kv"><b>CPV</b><span>48814300.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1122271996826206</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.3155935173017958</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4181778992143661</span></div>
+    <div class="kv"><b>GBM score</b><span>0.6339046140074496</span></div>
+    <div class="kv"><b>Margin</b><span>0.0682493609517466</span></div>
+    <div class="kv"><b>Candidate count</b><span>11</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>FOURNITURE ET MAINTENANCE D&#x27;UNE SOLUTION INFORMATISEE DE GESTION DES CHECK-LIST DE BLOCS OPERATOIRES</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, Installation, Paramétrage, Intégration, Déploiement et Maintenance d&#x27;une solution d&#x27;automatisation de la prise en charge d&#x27;un patient dans les services de médecine nucléaire</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-009 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 22-94809</span>
+      <span>Candidate 23-70584</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>COM D AGGLO REG NAZAIRIENNE ESTUAIRE</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-07-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-05-24</span></div>
+    <div class="kv"><b>Gap months</b><span>10.512483574244415</span></div>
+    <div class="kv"><b>CPV</b><span>48160000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.4514647026095493</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.7700394218134035</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.7505225013666931</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9209318435316564</span></div>
+    <div class="kv"><b>Margin</b><span>0.250708277937392</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, mise en oeuvre, maintenance d&#x27;un système intégré de gestion de bibliothèque, d&#x27;un portail documentaire web,d&#x27;un système de gestion des terminaux publics pour le réseau d</p></div>
+    <div><h3>Candidate Text</h3><p>Système de gestion des terminaux publics pour le réseau des bibliothèques de la Carene</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-010 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 15-86342</span>
+      <span>Candidate 16-63741</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil général de Loire-Atlantique</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-06-05</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-05-05</span></div>
+    <div class="kv"><b>Gap months</b><span>11.00525624178712</span></div>
+    <div class="kv"><b>CPV</b><span>64210000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2282287432313073</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9123959702146298</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.667979052684615</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9212533926413246</span></div>
+    <div class="kv"><b>Margin</b><span>0.3640634197521137</span></div>
+    <div class="kv"><b>Candidate count</b><span>10</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>services de téléphonie fixe analogique et numérique de base et services de téléphonie fixe secondaire pour les établissements départementaux, à Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>services de télécommunications, téléphonie et réseau numérique pour l&#x27;ensemble d..</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-011 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 25-110291</span>
+      <span>Candidate 25-121229</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-10-05</span></div>
+    <div class="kv"><b>Candidate date</b><span>2025-10-31</span></div>
+    <div class="kv"><b>Gap months</b><span>0.8541392904073587</span></div>
+    <div class="kv"><b>CPV</b><span>72500000.0</span></div>
+    <div class="kv"><b>s_text</b><span>1.0</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.3155935173017958</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.8288983793254489</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8087544120805777</span></div>
+    <div class="kv"><b>Margin</b><span>0.4468936583672837</span></div>
+    <div class="kv"><b>Candidate count</b><span>12</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Accord-cadre mono-attributaire à bons de commande - prestations de maintenance des infrastructures centrales de régulation de trafic</p></div>
+    <div><h3>Candidate Text</h3><p>Accord-cadre mono-attributaire à bons de commande - prestations de maintenance des infrastructures centrales de régulation de trafic</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-012 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 24-82099</span>
+      <span>Candidate 24-83982</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>GRAND PORT MARITIME DE NANTES SAINT NAZAIRE
+18, quai Ernest Renaud, Nantes 44186</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2024-07-11</span></div>
+    <div class="kv"><b>Candidate date</b><span>2024-07-16</span></div>
+    <div class="kv"><b>Gap months</b><span>0.164257555847569</span></div>
+    <div class="kv"><b>CPV</b><span>72242000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0032672562178939</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.0199299167761717</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3661260188703058</span></div>
+    <div class="kv"><b>GBM score</b><span>0.7076292002571609</span></div>
+    <div class="kv"><b>Margin</b><span>0.3661260188703058</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Réalisation de modélisations hydrosédimentaires dans le cadre du projet EOLE. lieu : Circonscription du GPMNSN.</p></div>
+    <div><h3>Candidate Text</h3><p>Etudes en vue de la remotorisation d&#x27;un pont basculant à Saint-Nazaire</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-013 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 15-102348</span>
+      <span>Candidate 16-48016</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Université de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-07-03</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-03-31</span></div>
+    <div class="kv"><b>Gap months</b><span>8.935611038107753</span></div>
+    <div class="kv"><b>CPV</b><span>32420000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2726721156563377</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.8631187034603591</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.671214916344808</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9321263702267216</span></div>
+    <div class="kv"><b>Margin</b><span>0.1964295053862257</span></div>
+    <div class="kv"><b>Candidate count</b><span>12</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Extension de l&#x27;infrastructure Wifi haut débit à l&#x27;université de Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>refonte de l&#x27;infrastructure WI-FI haute densité de l&#x27;université de Nantes</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-014 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 25-109666</span>
+      <span>Candidate 25-125088</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-10-04</span></div>
+    <div class="kv"><b>Candidate date</b><span>2025-11-12</span></div>
+    <div class="kv"><b>Gap months</b><span>1.281208935611038</span></div>
+    <div class="kv"><b>CPV</b><span>32323500.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.9999999999999998</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.3867717915024091</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.8466929478756021</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8486957280760423</span></div>
+    <div class="kv"><b>Margin</b><span>0.3374488909008387</span></div>
+    <div class="kv"><b>Candidate count</b><span>3</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture de caméras piétons avec accessoires pour les agents de la Police Municipale (Ville de Nantes) et de l&#x27;Unité Métropolitaine des Transports en Commun (Nantes Métropole)</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de caméras piétons avec accessoires pour les agents de la Police Municipale (Ville de Nantes) et de l&#x27;Unité Métropolitaine des Transports en Commun (Nantes Métropole)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-015 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 22-52158</span>
+      <span>Candidate 22-61807</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CD 44</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-04-11</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-04-29</span></div>
+    <div class="kv"><b>Gap months</b><span>0.5913272010512484</span></div>
+    <div class="kv"><b>CPV</b><span>72268000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1159640952732297</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.0965834428383706</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.464733294055223</span></div>
+    <div class="kv"><b>GBM score</b><span>0.654830990641589</span></div>
+    <div class="kv"><b>Margin</b><span>0.0549259290917627</span></div>
+    <div class="kv"><b>Candidate count</b><span>14</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Abonnement à un logiciel de gestion d&#x27;une flotte vélos</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition, mise en oeuvre, maintenance et évolution d&#x27;un logiciel de recrutement en mode Saas et prestations associées</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-016 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 17-39457</span>
+      <span>Candidate 17-136551</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DIR INTERDEPARTEMENTALE ROUTES OUEST</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-03-23</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-09-30</span></div>
+    <div class="kv"><b>Gap months</b><span>6.274638633377135</span></div>
+    <div class="kv"><b>CPV</b><span>72267000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.8377922746823196</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9616732369689006</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.8936456053810371</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9759883790770412</span></div>
+    <div class="kv"><b>Margin</b><span>0.8936456053810371</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>16-DIR-UDI-10</p></div>
+    <div><h3>Candidate Text</h3><p>16-DIR-UDI-05</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-017 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 20-118247</span>
+      <span>Candidate 21-76512</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Commune de Saint-Herblain</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-09-30</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-06-09</span></div>
+    <div class="kv"><b>Gap months</b><span>8.278580814717477</span></div>
+    <div class="kv"><b>CPV</b><span>72250000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2093452826113215</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.8412176960140166</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.6435752729174666</span></div>
+    <div class="kv"><b>GBM score</b><span>0.94025726326149</span></div>
+    <div class="kv"><b>Margin</b><span>0.2170994389829086</span></div>
+    <div class="kv"><b>Candidate count</b><span>6</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Maintenance et prestations associées pour les logiciels de sécurité périmétriques et postes clients de la Ville de Saint-Herblain</p></div>
+    <div><h3>Candidate Text</h3><p>Installation et maintenance des dispositifs de télésurveillance des équipements municipaux de la Ville de Saint-Herblain</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-018 · gbm_and_composite</h2>
+    <div class="meta">
+      <span>Source 21-125688</span>
+      <span>Candidate 22-93332</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Vendée Expansion</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-09-22</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-07-06</span></div>
+    <div class="kv"><b>Gap months</b><span>9.42838370565046</span></div>
+    <div class="kv"><b>CPV</b><span>72000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1348238300139508</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.8850197109067017</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3884432682315582</span></div>
+    <div class="kv"><b>GBM score</b><span>0.6779397811743436</span></div>
+    <div class="kv"><b>Margin</b><span>0.3884432682315582</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Conception, maintenance, mise en ligne, hébergement et référencement de sites internet</p></div>
+    <div><h3>Candidate Text</h3><p>Mise à disposition d&#x27;une solution en ligne de gestion d&#x27;un système d&#x27;information touristique</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-019 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 17-32165</span>
+      <span>Candidate 18-13243</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Université d&#x27;Angers</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-03-07</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-01-29</span></div>
+    <div class="kv"><b>Gap months</b><span>10.775295663600524</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.5893561103810776</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2373390275952694</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2935289566891391</span></div>
+    <div class="kv"><b>Margin</b><span>0.2373390275952694</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Tour à commande numérique 4 axes</p></div>
+    <div><h3>Candidate Text</h3><p>Maintenance du logiciel ZIMBRA</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-020 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 20-130827</span>
+      <span>Candidate 21-51441</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CIF GIE GEIPCI</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2020-10-25</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-04-18</span></div>
+    <div class="kv"><b>Gap months</b><span>5.7490144546649145</span></div>
+    <div class="kv"><b>CPV</b><span>72514000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0079467900677649</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.3758212877792378</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2567366984685272</span></div>
+    <div class="kv"><b>GBM score</b><span>0.6452330680213538</span></div>
+    <div class="kv"><b>Margin</b><span>0.2567366984685272</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Evolution de l&#x27;infrastructure informatique et de la téléphonie</p></div>
+    <div><h3>Candidate Text</h3><p>PRESTATION DE GESTION DU SYSTEME D&#x27;INFORMATION et TIERCE MAINTENANCE APPLICATIVE DU SYSTEME D&#x27;INFORMATION DES SOCIETES DU GROUPE CIF</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-021 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 16-110202</span>
+      <span>Candidate 17-129931</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CMAR PAYS DE LA LOIRE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-07-25</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-09-17</span></div>
+    <div class="kv"><b>Gap months</b><span>13.76478318002628</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.1246707629615772</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.6605343845816907</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2987683631819747</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3127825554475726</span></div>
+    <div class="kv"><b>Margin</b><span>0.2987683631819747</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Applicatifs informatiques pour la gestion du centre de formalités des entreprises, du répertoire des métiers et des contrats d&#x27;apprentissage</p></div>
+    <div><h3>Candidate Text</h3><p>Marché de fourniture et maintenance des progiciels métiers, ainsi que la fourniture et la maintenance des logiciels nécessaires au fonctionnement de ces logiciels métiers</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-022 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 23-217</span>
+      <span>Candidate 23-159358</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville d&#x27;Orvault</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2023-01-02</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-11-16</span></div>
+    <div class="kv"><b>Gap months</b><span>10.446780551905388</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0028647265807317</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.2498904949627682</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1534752780439481</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2743176747989479</span></div>
+    <div class="kv"><b>Margin</b><span>0.1534752780439481</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Réalisation du site internet de la Ville d&#x27;Orvault.</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition et maintenance d&#x27;une presse numérique, de photocopieurs multifonctions et des logiciels et prestations associés.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-023 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 21-157863</span>
+      <span>Candidate 22-95583</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Commune de Saint-Herblain</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-12-02</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-07-07</span></div>
+    <div class="kv"><b>Gap months</b><span>7.128777923784494</span></div>
+    <div class="kv"><b>CPV</b><span>72267100.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1965774451418546</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.7262374069207184</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3403614575298287</span></div>
+    <div class="kv"><b>GBM score</b><span>0.268029443140068</span></div>
+    <div class="kv"><b>Margin</b><span>0.3403614575298287</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition, maintenance et prestations associées pour l&#x27;infrastructure réseau, TOIP et Visio de la Ville de Saint-Herblain</p></div>
+    <div><h3>Candidate Text</h3><p>Audit sur le SI Famille (portail famille et logiciels métiers associés) de la Ville de Saint-Herblain</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-024 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 20-19624</span>
+      <span>Candidate 20-118393</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>SDIS de la Sarthe</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-02-07</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-09-28</span></div>
+    <div class="kv"><b>Gap months</b><span>7.687253613666228</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2376093620885176</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.5948313622426631</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3218711172916469</span></div>
+    <div class="kv"><b>GBM score</b><span>0.265375649182003</span></div>
+    <div class="kv"><b>Margin</b><span>0.3218711172916469</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>SERVICE INFORMATIQUE DU SDIS72MAINTENANCE DE LA PLATE FORME ANTIVIRALE NAI (RENOUVELLEMENT),PRESTATIONS PONCTUELLES ET ACQUISITIONS DE LICENCES</p></div>
+    <div><h3>Candidate Text</h3><p>SERVICE INFORMATIQUE DU SDIS72RENOUVELLEMENT DES INFRASTRUCTURES DE STOCKAGE DU STORE VIRTUELREMPLACEMENT DU MATERIEL - MISE EN SERVICE - MAINTENANCE</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-025 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 18-86637</span>
+      <span>Candidate 19-87996</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>MAUGES COMMUNAUTE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-06-22</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-06-06</span></div>
+    <div class="kv"><b>Gap months</b><span>11.465177398160314</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0075443351695208</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.0911081909767849</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1154175650535285</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3207649307301446</span></div>
+    <div class="kv"><b>Margin</b><span>0.1154175650535285</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>création du site internet de mauges communauté</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de matériels informatiques</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-026 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 15-145608</span>
+      <span>Candidate 16-73008</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CCIR Pays de la Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-09-24</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-05-20</span></div>
+    <div class="kv"><b>Gap months</b><span>7.851511169513797</span></div>
+    <div class="kv"><b>CPV</b><span>32420000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0075416885373478</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.3593955321944809</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.182488474036692</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2725912925679225</span></div>
+    <div class="kv"><b>Margin</b><span>0.182488474036692</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture d&#x27;équipements réseau et de sécurité, et maintenance associée à Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>Marché de mise en oeuvre d&#x27;un parcours numérique MOOC sur les fondamentaux de la culture numérique</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-027 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 20-23104</span>
+      <span>Candidate 21-11209</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Réseau Canopé</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-02-15</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-01-25</span></div>
+    <div class="kv"><b>Gap months</b><span>11.33377135348226</span></div>
+    <div class="kv"><b>CPV</b><span>72000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0267703044305752</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.0965834428383706</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1535154672602939</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3696134606834587</span></div>
+    <div class="kv"><b>Margin</b><span>0.0046453862950076</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>20-008 Prestations de conception et développement numériques</p></div>
+    <div><h3>Candidate Text</h3><p>Réalisation, aménagement fonctionnel aux besoins et mise à disposition de la plateforme événementielle In-FINE, configuration et intégration des informations In-FINE, prestations techniques et moye..</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-028 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 17-16255</span>
+      <span>Candidate 18-8280</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>LA ROCHE-SUR-YON AGGLOMERATION</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-02-06</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-01-20</span></div>
+    <div class="kv"><b>Gap months</b><span>11.4323258869908</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0058868533982202</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.0856329391151993</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1134686334681769</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3207649307301446</span></div>
+    <div class="kv"><b>Margin</b><span>0.1134686334681769</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>convention de mandat de maîtrise d&#x27;ouvrage pour la construction d&#x27;une extension du pôle numérique</p></div>
+    <div><h3>Candidate Text</h3><p>Renouvellement des solutions de stockage informatique</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-029 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 16-176618</span>
+      <span>Candidate 17-54861</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville d&#x27;Orvault</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-12-09</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-04-21</span></div>
+    <div class="kv"><b>Gap months</b><span>4.369250985545335</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0341246077531848</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.731712658782304</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3148717774091907</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2387101884002842</span></div>
+    <div class="kv"><b>Margin</b><span>0.0748080312559316</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, mise en oeuvre et maintenance d&#x27;une solution de planification et de gestion du temps de travail</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de licences microsoft</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-030 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 22-41834</span>
+      <span>Candidate 23-31575</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2022-03-22</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-03-10</span></div>
+    <div class="kv"><b>Gap months</b><span>11.59658344283837</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.074682435392028</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.108670608848007</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3207649307301446</span></div>
+    <div class="kv"><b>Margin</b><span>0.108670608848007</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>mise à disposition d&#x27;une solution numérique en ligne pour l&#x27;organisation d&#x27;évènements</p></div>
+    <div><h3>Candidate Text</h3><p>rétro-conversion de fiches papier de livres imprimés du service patrimoine</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-031 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 17-3608</span>
+      <span>Candidate 17-132446</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>GRETA LOIRE ATLANTIQUE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-01-09</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-09-20</span></div>
+    <div class="kv"><b>Gap months</b><span>8.344283837056505</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.6003066141042488</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2400766535260622</span></div>
+    <div class="kv"><b>GBM score</b><span>0.4819197762194417</span></div>
+    <div class="kv"><b>Margin</b><span>0.2400766535260622</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition et mise en place d&#x27;un progiciel</p></div>
+    <div><h3>Candidate Text</h3><p>FOURNITURE DE POSTES INFORMATIQUES</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-032 · gbm_only</h2>
+    <div class="meta">
+      <span>Source 15-153604</span>
+      <span>Candidate 16-79410</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Cté de Cnes du pays Fontenay le Comte</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-10-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-06-07</span></div>
+    <div class="kv"><b>Gap months</b><span>7.982917214191852</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0653782661404476</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.6714848883048621</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2807536152253722</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2787554838122397</span></div>
+    <div class="kv"><b>Margin</b><span>0.2807536152253722</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>maîtrise d&#x27;oeuvre pour les travaux de mise en accessibilité des bâtiments erp à Fontenay Le Comte Cedex</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition et mise en oeuvre de progiciels de gestions financière/paie - elections - population</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-033 · composite_only</h2>
+    <div class="meta">
+      <span>Source 19-87996</span>
+      <span>Candidate 19-118070</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>MAUGES COMMUNAUTE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-06-06</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-07-29</span></div>
+    <div class="kv"><b>Gap months</b><span>1.7411300919842312</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>1.0000000000000002</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.2882172579938676</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5120543144984668</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.2879888958855233</span></div>
+    <div class="kv"><b>Candidate count</b><span>3</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture de matériels informatiques</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de matériels informatiques</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-034 · composite_only</h2>
+    <div class="meta">
+      <span>Source 22-42168</span>
+      <span>Candidate 22-141594</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-04-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-10-21</span></div>
+    <div class="kv"><b>Gap months</b><span>6.438896189224704</span></div>
+    <div class="kv"><b>CPV</b><span>72421000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0056982338185514</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.9288217257993868</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3941998132863397</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1890207773789831</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>maintenance et évolution de l&#x27;application mobile vivre à angers</p></div>
+    <div><h3>Candidate Text</h3><p>conception et réalisation quotidienne d&#x27;un panorama presse électronique général</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-035 · composite_only</h2>
+    <div class="meta">
+      <span>Source 24-24049</span>
+      <span>Candidate 24-141111</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU NANTES</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2024-02-28</span></div>
+    <div class="kv"><b>Candidate date</b><span>2024-12-18</span></div>
+    <div class="kv"><b>Gap months</b><span>9.658344283837057</span></div>
+    <div class="kv"><b>CPV</b><span>32510000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0385155481293179</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9342969776609724</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3470546862605044</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0013688129653963</span></div>
+    <div class="kv"><b>Candidate count</b><span>13</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, intégration, maintenance et ingénierie de solutions de systèmes d&#x27;appel malades pour le compte des centres hospitaliers membres du GHT 44</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, installation, paramétrage, intégration, déploiement et maintenance d&#x27;une solution de gestion de stock et préparation du chariot d&#x27;intervention pour les futurs blocs opératoires de l&#x27;Ile de</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-036 · composite_only</h2>
+    <div class="meta">
+      <span>Source 18-21245</span>
+      <span>Candidate 18-127908</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DEPARTEMENT DE LA SARTHE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-02-14</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-09-13</span></div>
+    <div class="kv"><b>Gap months</b><span>6.931668856767411</span></div>
+    <div class="kv"><b>CPV</b><span>72212490.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0981825160295282</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.4</span></div>
+    <div class="kv"><b>s_time</b><span>0.835742444152431</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4232994916484426</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0156779037361409</span></div>
+    <div class="kv"><b>Candidate count</b><span>11</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition et la mise en oeuvre d&#x27;une solution de dématérialisation des marchés publics y compris prestations associées (formation, assistance technique, maintenance)</p></div>
+    <div><h3>Candidate Text</h3><p>Assistance à maîtrise d&#x27;ouvrage (AMO) en vue de l&#x27;accompagnement à la mise en oeuvre du Plan de continuité informatique du système d&#x27;information du Département de la Sarthe</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-037 · composite_only</h2>
+    <div class="meta">
+      <span>Source 19-109269</span>
+      <span>Candidate 20-29934</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-08-02</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-02-28</span></div>
+    <div class="kv"><b>Gap months</b><span>6.898817345597897</span></div>
+    <div class="kv"><b>CPV</b><span>35300000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2706269894504728</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.687910643889619</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3866971072800702</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.076587493954354</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture de pistolets à impulsion électrique, munitions et accessoires pour la police municipale de la ville de nantes</p></div>
+    <div><h3>Candidate Text</h3><p>fourniture de vêtements et chaussures pour les agents de la police municipale, de la police métropolitaine des transports en commun et du service stationnement sur voirie</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-038 · composite_only</h2>
+    <div class="meta">
+      <span>Source 17-100105</span>
+      <span>Candidate 18-38591</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Commune de Saint-Nazaire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-07-20</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-03-21</span></div>
+    <div class="kv"><b>Gap months</b><span>8.015768725361367</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0086704414364059</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6824353920280333</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5336435025097503</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0015325155547349</span></div>
+    <div class="kv"><b>Candidate count</b><span>9</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>17s0056 - renouvellement des infrastructures de stockage informatique</p></div>
+    <div><h3>Candidate Text</h3><p>18s0029- acquisition et maintenance d&#x27;un logiciel de gestion d&#x27;activités pour l&#x27;espace public pour la ville de saint nazaire et la carene (groupement de commande-coordonnateur ville de saint-nazaire)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-039 · composite_only</h2>
+    <div class="meta">
+      <span>Source 22-122955</span>
+      <span>Candidate 23-34018</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DEPARTEMENT DE LA MAYENNE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2022-09-13</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-03-14</span></div>
+    <div class="kv"><b>Gap months</b><span>5.978975032851511</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2422211017603772</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.9945247481384144</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4234085726507356</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0273762593079281</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Valorisation de l&#x27;Espace Naturel Sensible LAC DE HAUTE MAYENNE - Conception et suivi de réalisation de la scénographie de deux parcours d&#x27;interprétation extérieurs</p></div>
+    <div><h3>Candidate Text</h3><p>Lac de Haute Mayenne - Observatoire de la qualité de l&#x27;eau 2023-2026 - Analyses de phytoplancton et interprétation des résultats</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-040 · composite_only</h2>
+    <div class="meta">
+      <span>Source 17-48788</span>
+      <span>Candidate 18-12119</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil régional des Pays de la Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-04-06</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-01-28</span></div>
+    <div class="kv"><b>Gap months</b><span>9.756898817345595</span></div>
+    <div class="kv"><b>CPV</b><span>72200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0083649151105034</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.9233464739378012</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3537643387731264</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0285033085932644</span></div>
+    <div class="kv"><b>Candidate count</b><span>13</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Maintenance et évolutions de l&#x27;infrastructure de sécurité informatique</p></div>
+    <div><h3>Candidate Text</h3><p>Renouvellement et exploitation du système d&#x27;information multimodale DESTINEO en Région des Pays de la Loire - Lot no4: Prestations d&#x27;exploitation</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-041 · composite_only</h2>
+    <div class="meta">
+      <span>Source 15-42765</span>
+      <span>Candidate 15-167650</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CG49</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-03-20</span></div>
+    <div class="kv"><b>Candidate date</b><span>2015-11-03</span></div>
+    <div class="kv"><b>Gap months</b><span>7.490144546649145</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.3503941520167254</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.7590889180902322</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4024101827284119</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1269508318350036</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Stratégie et mise en oeuvre d&#x27;une campagne de communication numérique et réalisation de films thématiques</p></div>
+    <div><h3>Candidate Text</h3><p>Campagne de communication numérique 2016 pour la promotion touristique du département de Maine-et-Loire</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-042 · composite_only</h2>
+    <div class="meta">
+      <span>Source 20-61243</span>
+      <span>Candidate 20-122198</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>ANGERS NANTES OPERA syndicat mixte</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-05-07</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-10-06</span></div>
+    <div class="kv"><b>Gap months</b><span>4.993429697766097</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.7873227297174427</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.8247919404292597</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5717609405084199</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1171967705566021</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>acquisition, mise en oeuvre complète et maintenance d&#x27;un logiciel de planification</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition, mise en oeuvre complète et maintenance d&#x27;un logiciel de billetterie</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-043 · composite_only</h2>
+    <div class="meta">
+      <span>Source 23-69649</span>
+      <span>Candidate 23-70292</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>VENDEE EAU</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2023-05-23</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-05-24</span></div>
+    <div class="kv"><b>Gap months</b><span>0.0328515111695138</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.8859135620496276</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.0</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4000697467173696</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.4000697467173696</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Matériels informatiques (2 lots).</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de matériels informatiques (2 lots).</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-044 · composite_only</h2>
+    <div class="meta">
+      <span>Source 15-162447</span>
+      <span>Candidate 16-49246</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-10-23</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-04-12</span></div>
+    <div class="kv"><b>Gap months</b><span>5.650459921156373</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2335388079574922</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.939772229522558</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4066816401657618</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0256173784610879</span></div>
+    <div class="kv"><b>Candidate count</b><span>22</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>maintenance, hébergement et évolution de la solution logicielle local trust mpe de dématérialisation des marchés publics à Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>mise en oeuvre d&#x27;une solution logicielle de gestion du processus achat incluant la dimension marchés publics, maintenance et prestations associées.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-045 · composite_only</h2>
+    <div class="meta">
+      <span>Source 20-132336</span>
+      <span>Candidate 21-78352</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-11-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-06-09</span></div>
+    <div class="kv"><b>Gap months</b><span>6.997371879106439</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1037198982047565</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.8247919404292597</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.6024999494789798</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0754239229854623</span></div>
+    <div class="kv"><b>Candidate count</b><span>18</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>acquisition et mise en oeuvre d&#x27;une solution logicielle de gestion de la relation aux usagers</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition, maintenance et hébergement d&#x27;un système de contrôle de température dans les unités de production de repas de nantes et de son ccas : solution logicielle,matériels et prestations associés</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-046 · composite_only</h2>
+    <div class="meta">
+      <span>Source 15-185112</span>
+      <span>Candidate 16-172610</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil général de la Vendée</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-12-10</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-11-30</span></div>
+    <div class="kv"><b>Gap months</b><span>11.695137976346912</span></div>
+    <div class="kv"><b>CPV</b><span>72230000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0122577869191909</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.4</span></div>
+    <div class="kv"><b>s_time</b><span>0.7645641699518178</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3754312679096712</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.3754312679096712</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>conception, réalisation et installation de productions multimédias au musée des enfants à La Roche Sur Yon</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition d&#x27;un logiciel de gestion des entretiens d&#x27;évaluation, prestations de mise en oeuvre associées et maintenance</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-047 · composite_only</h2>
+    <div class="meta">
+      <span>Source 22-116324</span>
+      <span>Candidate 23-117420</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Le Mans Métropole - Communauté Urbaine</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-08-31</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-08-24</span></div>
+    <div class="kv"><b>Gap months</b><span>11.76084099868594</span></div>
+    <div class="kv"><b>CPV</b><span>48600000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2293048891509989</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.8904949627682873</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4628804518949214</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1268746435883829</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition et maintenance d&#x27;un système de guidage et de géolocalisation dans le cadre de la collecte des déchets pour 4 ans</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition, installation, calage et maintenance de matériel de projection - Mapping et supports techniques dans le cadre de la Nuit des Chimères pour une durée de 4 ans</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-048 · composite_only</h2>
+    <div class="meta">
+      <span>Source 18-103911</span>
+      <span>Candidate 18-164871</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-07-26</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-11-26</span></div>
+    <div class="kv"><b>Gap months</b><span>4.040735873850197</span></div>
+    <div class="kv"><b>CPV</b><span>32323500.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0913806658292633</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>1.0</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3719832330402421</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0659734771971366</span></div>
+    <div class="kv"><b>Candidate count</b><span>14</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>accord-cadre - evaluation préalable, fourniture, pose, prestations de services associées et maintenance de l&#x27;ensemble des matériels nécessaires à la vidéoprotection des bâtiments publics métropolitain</p></div>
+    <div><h3>Candidate Text</h3><p>conception d&#x27;une maquette numérique avec son support physique (y compris mobilier) et les interfaces numériques (écrans) nécessaires à la visualisation in situ de la métropole nantaise</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-049 · composite_only</h2>
+    <div class="meta">
+      <span>Source 19-101998</span>
+      <span>Candidate 20-52194</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Mairie de Coueron</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-07-04</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-04-14</span></div>
+    <div class="kv"><b>Gap months</b><span>9.362680683311432</span></div>
+    <div class="kv"><b>CPV</b><span>30200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.3146359877500213</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.7809899255365746</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3953700770966511</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1991933728333312</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Refonte de l&#x27;infrastructure du système d&#x27;information de la ville de Couëron</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition de licences informatiques &#x27;Microsoft&#x27; 2020-2022 pour la ville de Couëron</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-050 · composite_only</h2>
+    <div class="meta">
+      <span>Source 16-148980</span>
+      <span>Candidate 17-135696</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Département de la Vendée</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-10-13</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-09-26</span></div>
+    <div class="kv"><b>Gap months</b><span>11.4323258869908</span></div>
+    <div class="kv"><b>CPV</b><span>72320000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0083102067964082</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.4</span></div>
+    <div class="kv"><b>s_time</b><span>0.8685939553219448</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.400057061209229</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1065603105496765</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Assistance à l&#x27;administration de bases de données</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, installation et maintenance de webcams sur des sites vendéens</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-051 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 25-129855</span>
+      <span>Candidate 26-55163</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU NANTES</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2025-11-24</span></div>
+    <div class="kv"><b>Candidate date</b><span>2026-06-04</span></div>
+    <div class="kv"><b>Gap months</b><span>6.307490144546649</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.1107473958160454</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.0527814279456855</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1419569455220372</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2399428764432565</span></div>
+    <div class="kv"><b>Margin</b><span>0.1419569455220372</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Prestation de transcription et rédaction de procès-verbaux à partir de fichiers sons numériques pour le compte du CHU de Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>Tierce maintenance applicative des logiciels PRENEONAT et PEDIALOG au CHU de Nantes (2 lots)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-052 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 22-87044</span>
+      <span>Candidate 23-56091</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>UBS</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2022-06-21</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-04-26</span></div>
+    <div class="kv"><b>Gap months</b><span>10.151116951379764</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2065123253091115</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.3101182654402102</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2398088802182416</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2712771905151348</span></div>
+    <div class="kv"><b>Margin</b><span>0.2398088802182416</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>La présente consultation a pour objet l&#x27;acquisition par l&#x27;IUT de Lorient de l&#x27;UBS d&#x27;une fraiseuse à commande numérique.</p></div>
+    <div><h3>Candidate Text</h3><p>Equipements audiovisuels dans les salles de conseils de l&#x27;UBS</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-053 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 15-146824</span>
+      <span>Candidate 16-9312</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Cholet</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-09-28</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-03-15</span></div>
+    <div class="kv"><b>Gap months</b><span>5.551905387647832</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0943536266694895</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.9288217257993868</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.355229200784168</span></div>
+    <div class="kv"><b>GBM score</b><span>0.247212157452608</span></div>
+    <div class="kv"><b>Margin</b><span>0.355229200784168</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture et installation d&#x27;un système d&#x27;information enfance à Cholet</p></div>
+    <div><h3>Candidate Text</h3><p>travaux de mise en accessibilité des établissements recevant du public (erp) (2016-2019) groupement de commandes-accord cadre à Cholet</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-054 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 17-170763</span>
+      <span>Candidate 18-82638</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>VILLE DE LA ROCHE SUR YON</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-12-04</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-06-15</span></div>
+    <div class="kv"><b>Gap months</b><span>6.340341655716163</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2722396072784689</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.939772229522558</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4202269199281036</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2441110463270699</span></div>
+    <div class="kv"><b>Margin</b><span>0.4202269199281036</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Location maintenance d&#x27;une machine de mise sous pli et d&#x27;une solution d&#x27;impression sur enveloppes haute capacité avec son logiciel - La Roche-sur-Yon</p></div>
+    <div><h3>Candidate Text</h3><p>Extension du système de vidéoprotection - 85000 La Roche-sur-Yon</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-055 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 15-184743</span>
+      <span>Candidate 16-80474</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Com Communes du Pays d&#x27;Ancenis</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-12-11</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-06-15</span></div>
+    <div class="kv"><b>Gap months</b><span>6.14323258869908</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.1665403361023132</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.9780989925536576</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.392813865774224</span></div>
+    <div class="kv"><b>GBM score</b><span>0.239745365423414</span></div>
+    <div class="kv"><b>Margin</b><span>0.392813865774224</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>modification du dossier de réalisation de la zac de l&#x27;aéropôle sur les communes d&#x27;ancenis et de mésangerprocédure adaptée à Ancenis Cedex</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition, mise en oeuvre et maintenance d&#x27;un sytème de gestion intégré pour une mise en réseau des bibliohtèques de la Communauté de Communes du Pays d&#x27;Ancenis</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-056 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 16-18733</span>
+      <span>Candidate 16-183509</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CCRLA</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-02-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-12-23</span></div>
+    <div class="kv"><b>Gap months</b><span>10.4796320630749</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.2347279380277744</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.2498904949627682</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2346274020504131</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2571032491847189</span></div>
+    <div class="kv"><b>Margin</b><span>0.2346274020504131</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>acquisition, installation et maintenance d&#x27;un progiciel pour la gestion comptable et financière à Le Lion D&#x27;Angers</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition, mise en place et maintenance d&#x27;un logiciel métier et déploiement d&#x27;un portail famille pour la communauté de communes de la région du lion d&#x27;angers</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-057 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 25-125277</span>
+      <span>Candidate 26-3165</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>ANGERS LOIRE TOURISME EXPO CONGRES</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-11-13</span></div>
+    <div class="kv"><b>Candidate date</b><span>2026-01-13</span></div>
+    <div class="kv"><b>Gap months</b><span>2.0039421813403417</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.8467874770335315</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.3648707840560666</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.7875933129757526</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2547846382427501</span></div>
+    <div class="kv"><b>Margin</b><span>0.7875933129757526</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, mise en œuvre, maintenance et expertise pour une solution de suivi des prospects, la gestion des exposants et l’administration des plans d’implantation pour les salons de DESTINATION AN...</p></div>
+    <div><h3>Candidate Text</h3><p>SOLUTION DE SUIVI DES PROSPECTS, LA GESTION DES EXPOSANTS ET L’ADMINISTRATION DES PLANS D’IMPLANTATION POUR LES SALONS DE DESTINATION ANGERS (RELANCE)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-058 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 19-110370</span>
+      <span>Candidate 20-38676</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>COMMUNE DE NANTES</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-07-19</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-03-15</span></div>
+    <div class="kv"><b>Gap months</b><span>7.884362680683311</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.6170995647021217</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6933858957512046</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.7493313215835438</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2431214326987212</span></div>
+    <div class="kv"><b>Margin</b><span>0.3814528556380065</span></div>
+    <div class="kv"><b>Candidate count</b><span>9</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>acquisition et installation d&#x27;un logiciel de gestion de l&#x27;accompagnement social, des aides et des prestations de solidarité pour la ville de nantes, son ccas, et nantes métropole.</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition et installation d&#x27;un logiciel de gestion de l&#x27;accompagnement social</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-059 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 18-32259</span>
+      <span>Candidate 19-10579</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville d&#x27;Angers</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-03-07</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-01-21</span></div>
+    <div class="kv"><b>Gap months</b><span>10.512483574244415</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0209101714787785</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.2553657468243538</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1611599967236609</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2702194186802205</span></div>
+    <div class="kv"><b>Margin</b><span>0.1611599967236609</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Prestations pour le déploiement d&#x27;équipements informatiques</p></div>
+    <div><h3>Candidate Text</h3><p>Renouvellement du dispositif de lutrins patrimoniaux dans le centre-ville d&#x27;Angers (Maine-et-Loire)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-060 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 19-113409</span>
+      <span>Candidate 20-37796</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Communauté d&#x27;agglomération du Niortais</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-07-19</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-03-12</span></div>
+    <div class="kv"><b>Gap months</b><span>7.7858081471747695</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.15294155665177</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.7098116513359615</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3209824576621098</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2736644013650423</span></div>
+    <div class="kv"><b>Margin</b><span>0.3209824576621098</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mission de conception et suivi de la réalisation de la scénographie du centre d&#x27;interprétation, sur le site Port-Boinot à Niort, dénommé &quot; Séchoir 3.0 &quot;</p></div>
+    <div><h3>Candidate Text</h3><p>La présente consultation a pour objet :-La réalisation de prestations de Tierce Maintenance Applicative des sites intranet de la Communauté d&#x27;Agglomération du Niortais, de la Ville de Niort et d</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-061 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 20-29934</span>
+      <span>Candidate 20-143279</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-02-28</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-12-08</span></div>
+    <div class="kv"><b>Gap months</b><span>9.32982917214192</span></div>
+    <div class="kv"><b>CPV</b><span>35811200.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0178056845964585</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.2717915024091107</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1641798652110381</span></div>
+    <div class="kv"><b>GBM score</b><span>0.2803225407694824</span></div>
+    <div class="kv"><b>Margin</b><span>0.1641798652110381</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture de vêtements et chaussures pour les agents de la police municipale, de la police métropolitaine des transports en commun et du service stationnement sur voirie</p></div>
+    <div><h3>Candidate Text</h3><p>mise en oeuvre d&#x27;une solution logicielle de conception assistée par ordinateur métal et bois, maintenance et prestations associées</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-062 · gbm_borderline_score</h2>
+    <div class="meta">
+      <span>Source 21-99109</span>
+      <span>Candidate 22-2872</span>
+      <span>GBM LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Centre Hospitalier de Laval (53)</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-07-18</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-01-06</span></div>
+    <div class="kv"><b>Gap months</b><span>5.650459921156373</span></div>
+    <div class="kv"><b>CPV</b><span>30200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0266967980399462</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.6057818659658345</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2507893458054397</span></div>
+    <div class="kv"><b>GBM score</b><span>0.247999903480474</span></div>
+    <div class="kv"><b>Margin</b><span>0.2507893458054397</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture de tous matériels en lien avec l&#x27;informatique</p></div>
+    <div><h3>Candidate Text</h3><p>Maitrise d&#x27;oeuvre (MOE) pour la restructuration du service informatique et la création d&#x27;une salle de prélèvement de cornée au Centre Hospitalier de Laval</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-063 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 17-74587</span>
+      <span>Candidate 18-21245</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Département de la Sarthe</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-05-29</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-02-14</span></div>
+    <div class="kv"><b>Gap months</b><span>8.5742444152431</span></div>
+    <div class="kv"><b>CPV</b><span>72212450.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1393021707271005</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.5784056066579062</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4933571614189617</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8726010412688325</span></div>
+    <div class="kv"><b>Margin</b><span>0.0044507392704189</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, livraison et mise en service régulier d&#x27;un outil de gestion du temps de travail pour les agents du Département de la Sarthe y compris prestations et maintenance associées</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition et la mise en oeuvre d&#x27;une solution de dématérialisation des marchés publics y compris prestations associées (formation, assistance technique, maintenance)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-064 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 22-104764</span>
+      <span>Candidate 23-48532</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>SEMITAN</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2022-07-29</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-04-14</span></div>
+    <div class="kv"><b>Gap months</b><span>8.508541392904073</span></div>
+    <div class="kv"><b>CPV</b><span>72212900.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0099458792024762</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6933858957512046</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5368275316586679</span></div>
+    <div class="kv"><b>GBM score</b><span>0.943388483249952</span></div>
+    <div class="kv"><b>Margin</b><span>0.0043484427383972</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Accord-cadre relatif à de la tierce maintenance applicative (TMA) sur l&#x27;application mobile TAN</p></div>
+    <div><h3>Candidate Text</h3><p>Conception, développement, hébergement et maintenance d&#x27;une solution numérique d&#x27;information et de vente multimodale</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-065 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 19-131601</span>
+      <span>Candidate 19-131092</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>SDIS 44</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-08-29</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-08-30</span></div>
+    <div class="kv"><b>Gap months</b><span>0.0328515111695138</span></div>
+    <div class="kv"><b>CPV</b><span>35111320.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2303667943525437</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.1677617170389838</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4225688072831362</span></div>
+    <div class="kv"><b>GBM score</b><span>0.3944234758065912</span></div>
+    <div class="kv"><b>Margin</b><span>0.0374901167670113</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture d&#x27;extincteurs, de consommables, de pièces détachées, d&#x27;accessoires et de prestations associées</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture de pièces détachées pour réaliser la maintenance en régie des appareils de protection respiratoire de marque MSA</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-066 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 17-171316</span>
+      <span>Candidate 18-79401</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil régional des Pays de la Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2017-12-07</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-06-10</span></div>
+    <div class="kv"><b>Gap months</b><span>6.077529566360052</span></div>
+    <div class="kv"><b>CPV</b><span>72250000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0302189100503142</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.2060884800700831</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4620987385351307</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9307320585042456</span></div>
+    <div class="kv"><b>Margin</b><span>0.0121683251053774</span></div>
+    <div class="kv"><b>Candidate count</b><span>7</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Hébergement et infogérance de la solution de gestion de dossiers électronique de l&#x27;inventaire</p></div>
+    <div><h3>Candidate Text</h3><p>Prestation d&#x27;assistance sur le système d&#x27;information décisionnel, l&#x27;open data et l&#x27;alimentation et la gestion des bases de données</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-067 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 22-39639</span>
+      <span>Candidate 22-123803</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DEPARTEMENT DE LA MAYENNE</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-03-17</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-09-15</span></div>
+    <div class="kv"><b>Gap months</b><span>5.978975032851511</span></div>
+    <div class="kv"><b>CPV</b><span>72212517.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0271349453601687</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.9890494962768288</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5967596049452663</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8752144233271258</span></div>
+    <div class="kv"><b>Margin</b><span>0.0171878228463553</span></div>
+    <div class="kv"><b>Candidate count</b><span>7</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mise en place d&#x27;une plateforme web pour le recueil et la pré-instruction des demandes d&#x27;aide aux pratiques culturelles et sportives dans le cadre de l&#x27;opération Génération Mayenne</p></div>
+    <div><h3>Candidate Text</h3><p>Mise en oeuvre d&#x27;un outil de Learning management system (Lms) et prestations associées</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-068 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 16-57562</span>
+      <span>Candidate 16-70219</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-04-25</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-05-17</span></div>
+    <div class="kv"><b>Gap months</b><span>0.7227332457293035</span></div>
+    <div class="kv"><b>CPV</b><span>72267100.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1126273011757576</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.1184844502847131</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.4290406679826934</span></div>
+    <div class="kv"><b>GBM score</b><span>0.7449949192300906</span></div>
+    <div class="kv"><b>Margin</b><span>0.025890844372781</span></div>
+    <div class="kv"><b>Candidate count</b><span>10</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Maintenance et prestations associées à la suite logicielle Evidian Identity And Acces Management à Angers</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition, maintenance et prestations associées d&#x27;une solution de paiement dématérialisé du stationnement payant sur voirie à Angers</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-069 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 25-76566</span>
+      <span>Candidate 25-135765</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ecole Nationale Supérieure d&#x27;Arts et Métiers</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-07-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2025-12-11</span></div>
+    <div class="kv"><b>Gap months</b><span>5.124835742444152</span></div>
+    <div class="kv"><b>CPV</b><span>48190000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.018283684258141</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.8193166885676741</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.6112284616322678</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9503875355756431</span></div>
+    <div class="kv"><b>Margin</b><span>0.0013217577086166</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture de matériels et logiciels à la plateforme CAPLAB -Relance</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition de produits pour la certification en langue TOEIC pour les étudiants et personnels de l’ENSAM</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-070 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 15-169809</span>
+      <span>Candidate 15-182957</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-11-09</span></div>
+    <div class="kv"><b>Candidate date</b><span>2015-12-04</span></div>
+    <div class="kv"><b>Gap months</b><span>0.8212877792378449</span></div>
+    <div class="kv"><b>CPV</b><span>48814000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.9479573418528516</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.1403854577310556</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.7268814340812619</span></div>
+    <div class="kv"><b>GBM score</b><span>0.7665534862131983</span></div>
+    <div class="kv"><b>Margin</b><span>0.0015051518303461</span></div>
+    <div class="kv"><b>Candidate count</b><span>7</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture, installation, paramétrage, intégration, déploiement et maintenance d&#x27;une solution de gestion informatisée des radiopharmacies de médecine nucléaire du chu de Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>fourniture, installation, paramétrage, intégration, déploiement et maintenance d&#x27;une solution de gestion informatisée des radiopharmacies de médecine nucléaire du chu de nantes à Nantes (rectificatif)</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-071 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 20-135543</span>
+      <span>Candidate 21-143328</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Département de la Vendée</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-11-04</span></div>
+    <div class="kv"><b>Candidate date</b><span>2021-10-25</span></div>
+    <div class="kv"><b>Gap months</b><span>11.662286465177395</span></div>
+    <div class="kv"><b>CPV</b><span>72212325.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0087144312748617</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.7645641699518178</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.494191093434156</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8652454939523634</span></div>
+    <div class="kv"><b>Margin</b><span>0.0013688129653964</span></div>
+    <div class="kv"><b>Candidate count</b><span>3</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Informatisation de la gestion de formulaires réglementaires pour les DT-DICT-ATU</p></div>
+    <div><h3>Candidate Text</h3><p>Prestations de mise à disposition avec hébergement d&#x27;une plateforme de dématérialisation des procédures de passation et exécution des marchés publics</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-072 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 22-171933</span>
+      <span>Candidate 24-43365</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Le Mans Métropole - Communauté Urbaine</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2023-01-01</span></div>
+    <div class="kv"><b>Candidate date</b><span>2024-04-14</span></div>
+    <div class="kv"><b>Gap months</b><span>15.407358738501973</span></div>
+    <div class="kv"><b>CPV</b><span>39300000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.5576746382331395</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.2608409986859396</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.6603963730530836</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8476345340916653</span></div>
+    <div class="kv"><b>Margin</b><span>0.0424332019272886</span></div>
+    <div class="kv"><b>Candidate count</b><span>9</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition de matériels informatiques et techniques pour la Setram</p></div>
+    <div><h3>Candidate Text</h3><p>Acquisition de matériels techniques et informatiques pour la SETRAM</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-073 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 19-176963</span>
+      <span>Candidate 20-66280</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-01-06</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-05-28</span></div>
+    <div class="kv"><b>Gap months</b><span>4.697766097240473</span></div>
+    <div class="kv"><b>CPV</b><span>72212224.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0335075139354508</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.8</span></div>
+    <div class="kv"><b>s_time</b><span>0.7864651773981604</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5083439242269479</span></div>
+    <div class="kv"><b>GBM score</b><span>0.8912071555441062</span></div>
+    <div class="kv"><b>Margin</b><span>0.0450983338392401</span></div>
+    <div class="kv"><b>Candidate count</b><span>6</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Prestations d&#x27;assistance au développement sous typo 3, et maintenance web et prestations complémentaires</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition, mise en place et maintenance d&#x27;une solution logicielle de gestion de relation clientèle</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-074 · gbm_small_margin</h2>
+    <div class="meta">
+      <span>Source 15-173090</span>
+      <span>Candidate 16-70203</span>
+      <span>GBM LINKED</span>
+      <span>Composite LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Université de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-11-16</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-05-17</span></div>
+    <div class="kv"><b>Gap months</b><span>6.011826544021025</span></div>
+    <div class="kv"><b>CPV</b><span>72224000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.065630527192823</span></div>
+    <div class="kv"><b>s_cpv</b><span>1.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6057818659658345</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.5344161510089467</span></div>
+    <div class="kv"><b>GBM score</b><span>0.9492056531169012</span></div>
+    <div class="kv"><b>Margin</b><span>0.0280202360181862</span></div>
+    <div class="kv"><b>Candidate count</b><span>10</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>assistance à maîtrise d&#x27;ouvrage pour l&#x27;accompagnement dans le montage d&#x27;un projet i-site du programme investissement d&#x27;avenir 2 (pia 2) Université à Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>Accord cadre pour l&#x27;assistance méthodologique d&#x27;accompagnement du changement</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-075 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 24-81192</span>
+      <span>Candidate 24-82336</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>SAEM VENDEE - Vendée Globe</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2024-07-12</span></div>
+    <div class="kv"><b>Candidate date</b><span>2024-07-14</span></div>
+    <div class="kv"><b>Gap months</b><span>0.0657030223390276</span></div>
+    <div class="kv"><b>CPV</b><span>35631200.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.347533536577847</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.3374945247481384</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.306010368989281</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.306010368989281</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Suivi des glaces dérivantes pour le Vendée Globe 2024-2025 avec un opérateur économique qui s&#x27;engage à être fournisseur officiel de la SAEM Vendée</p></div>
+    <div><h3>Candidate Text</h3><p>Mise à disposition , installation et maintenance d&#x27;infrastructrures réseaux et de services de télécommunication pour les villages du Vendée Globe 2024-2024</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-076 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 18-178358</span>
+      <span>Candidate 19-147471</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Université d&#x27;Angers</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-12-20</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-09-30</span></div>
+    <div class="kv"><b>Gap months</b><span>9.32982917214192</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.0262790972595909</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.9561979851073148</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3382471803176856</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.035065662626622</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition et installation d&#x27;une machine de découpe plasma à commande numérique</p></div>
+    <div><h3>Candidate Text</h3><p>Maintenance et assistance avec acquisition de licences pour le logiciel CENTREON</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-077 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 17-71407</span>
+      <span>Candidate 19-59985</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-05-24</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-04-17</span></div>
+    <div class="kv"><b>Gap months</b><span>22.766097240473066</span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1838650329752147</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.5565045992115638</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3234789113442161</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0137666950315387</span></div>
+    <div class="kv"><b>Candidate count</b><span>5</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, installation, mise en oeuvre et maintenance d&#x27;une solution de gestion globale (dite hypervision) du nouveau bâtiment du pôle de Médecine Physique et de Réadaptation</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, installation, paramétrage, intégration, déploiement et maintenance d&#x27;une solution de gestion informatisée du temps de travail pour l&#x27;HIPR et l&#x27;HISL</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-078 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 19-16942</span>
+      <span>Candidate 19-158679</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-02-03</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-10-18</span></div>
+    <div class="kv"><b>Gap months</b><span>8.442838370565045</span></div>
+    <div class="kv"><b>CPV</b><span>72318000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0057956206738157</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.9014454664914586</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3173898338587002</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>9.781777857553742e-05</span></div>
+    <div class="kv"><b>Candidate count</b><span>23</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mission de veille de la presse écrite, audiovisuelle et du web sur le thème &quot; jules verne &quot; au profit du musée Jules Verne de Nantes métropole.</p></div>
+    <div><h3>Candidate Text</h3><p>acquisition d&#x27;une solution logicielle de gestion des clauses sociales dans les marchés publics</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-079 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 22-139769</span>
+      <span>Candidate 23-66268</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville de Chemillé en Anjou</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-10-18</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-05-17</span></div>
+    <div class="kv"><b>Gap months</b><span>6.931668856767411</span></div>
+    <div class="kv"><b>CPV</b><span>32550000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0923719680156867</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.5181778361804643</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3218746478506065</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.3218746478506065</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Refonte du système de téléphonie</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, installation et maintenance d&#x27;un système de vidéo-protection sur le territoire de la commune de Chemillé-en-Anjou</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-080 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 16-1046</span>
+      <span>Candidate 16-93714</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>ADEME</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2016-01-18</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-07-02</span></div>
+    <div class="kv"><b>Gap months</b><span>5.45335085413929</span></div>
+    <div class="kv"><b>CPV</b><span>72212500.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0675629384665417</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9123959702146298</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.311746021016947</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0898565473295271</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mise en oeuvre d&#x27;une solution de gestion des colloques en mode saas à Angers</p></div>
+    <div><h3>Candidate Text</h3><p>Evolution de l&#x27;infrastructure informatique de l&#x27;ADEME à Angers</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-081 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 19-90783</span>
+      <span>Candidate 20-16042</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DEPARTEMENT DE LA SARTHE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-06-13</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-01-31</span></div>
+    <div class="kv"><b>Gap months</b><span>7.621550591327201</span></div>
+    <div class="kv"><b>CPV</b><span></span></div>
+    <div class="kv"><b>s_text</b><span>0.1519325031478626</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.1</span></div>
+    <div class="kv"><b>s_time</b><span>0.731712658782304</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3261045407973279</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0009952051704951</span></div>
+    <div class="kv"><b>Candidate count</b><span>9</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Assistance à maitrise d&#x27;ouvrage en vue de l&#x27;acquisition d&#x27;un logiciel de conduite d&#x27;opération sur les domaines de l&#x27;ingénierie routière et bâtimentaire</p></div>
+    <div><h3>Candidate Text</h3><p>ASSISTANCE A MAITRISE D&#x27;OUVRAGE RELATIVE À L&#x27;ACCOMPAGNEMENT À LA TRANSFORMATION NUMERIQUE DU DEPARTEMENT DE LA SARTHE</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-082 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 15-115319</span>
+      <span>Candidate 16-85619</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil régional des Pays de la Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2015-07-27</span></div>
+    <div class="kv"><b>Candidate date</b><span>2016-06-13</span></div>
+    <div class="kv"><b>Gap months</b><span>10.578186596583445</span></div>
+    <div class="kv"><b>CPV</b><span>30230000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0216129944445124</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.9671484888304862</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3093516702632009</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0002500142294533</span></div>
+    <div class="kv"><b>Candidate count</b><span>10</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>équipement informatique des élus du conseil régional et membres du conseil économique social et environnemental à Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture et maintenance des autocommutateurs des lycees publics de la région des pays de la Loire</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-083 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 16-96174</span>
+      <span>Candidate 17-56452</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Conseil régional des Pays de la Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2016-06-30</span></div>
+    <div class="kv"><b>Candidate date</b><span>2017-04-23</span></div>
+    <div class="kv"><b>Gap months</b><span>9.756898817345595</span></div>
+    <div class="kv"><b>CPV</b><span>48810000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.2011183683550453</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6714848883048621</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3382626510004813</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1201589065162962</span></div>
+    <div class="kv"><b>Candidate count</b><span>4</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>SYSTEMES D&#x27;INFORMATION POUR LES LYCEES PUBLICS ET E.R.E.A DE LA REGION DES PAYS DE LA LOIRE</p></div>
+    <div><h3>Candidate Text</h3><p>Location, maintenance et entretien des matériels et logiciels d&#x27;impression pour les services de la Région Pays de la Loire</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-084 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 18-142763</span>
+      <span>Candidate 19-8964</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>DEPARTEMENT DE LA SARTHE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-10-11</span></div>
+    <div class="kv"><b>Candidate date</b><span>2019-01-17</span></div>
+    <div class="kv"><b>Gap months</b><span>3.219448094612352</span></div>
+    <div class="kv"><b>CPV</b><span>79311000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1444620562708512</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.7098116513359615</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2880146325287883</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0015620580640929</span></div>
+    <div class="kv"><b>Candidate count</b><span>9</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Accompagnement à l&#x27;élaboration et la mise en oeuvre de la politique de sécurité du système d&#x27;information du Département de la Sarthe</p></div>
+    <div><h3>Candidate Text</h3><p>Prestations d&#x27;accompagnement à la mis en place d&#x27;un système d&#x27;information décisionnel</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-085 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 23-42778</span>
+      <span>Candidate 23-65504</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CHU de Nantes</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2023-04-01</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-05-14</span></div>
+    <div class="kv"><b>Gap months</b><span>1.4126149802890933</span></div>
+    <div class="kv"><b>CPV</b><span>72212180.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0719951852347064</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.6</span></div>
+    <div class="kv"><b>s_time</b><span>0.2334647393780113</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3235644996766501</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0694842618425015</span></div>
+    <div class="kv"><b>Candidate count</b><span>3</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, Hébergement, Paramétrage, Intégration, Déploiement et Maintenance d&#x27;une Solution de Gestion des Activités de l&#x27;Unité de Thérapie Cellulaire et Génique (UTCG) du CHU de Nantes</p></div>
+    <div><h3>Candidate Text</h3><p>Fourniture, installation et mise en oeuvre d&#x27;une solution d&#x27;Hypervision du nouvel ensemble hospitalo-universitaire dit &#x27;Projet Ile de Nantes&#x27;</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-086 · rejected_composite_top_candidate</h2>
+    <div class="meta">
+      <span>Source 21-24367</span>
+      <span>Candidate 22-94408</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>COMMUNE DE SAINT NAZAIRE</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2021-02-24</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-07-06</span></div>
+    <div class="kv"><b>Gap months</b><span>16.327201051248355</span></div>
+    <div class="kv"><b>CPV</b><span>30230000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0221137089824776</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.8247919404292597</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.3139377832511821</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.3139377832511821</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Acquisition et maintenance des matériels de l&#x27;école numérique</p></div>
+    <div><h3>Candidate Text</h3><p>Mise à disposition d&#x27;une solution de traitement des demandes et des réponses aux Dt-Dict-Atu sur une plateforme dématérialisée</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-087 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 25-73236</span>
+      <span>Candidate 26-23402</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Nantes Université</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-07-01</span></div>
+    <div class="kv"><b>Candidate date</b><span>2026-03-08</span></div>
+    <div class="kv"><b>Gap months</b><span>8.21287779237845</span></div>
+    <div class="kv"><b>CPV</b><span>72224000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0360269036393845</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.6386333771353483</span></div>
+    <div class="kv"><b>s_buyer</b><span>1.0</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2722677605576217</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0081577921985913</span></div>
+    <div class="kv"><b>Candidate count</b><span>2</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Accord-cadre relatif aux prestations d’évaluation, d’expertise et d’appui au montage de projets pour Nantes Université</p></div>
+    <div><h3>Candidate Text</h3><p>Prestations de maintenance des installations de surete, intrusion, telesurveillance, interphonie et acces automatiques de Nantes Universite</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-088 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 17-135696</span>
+      <span>Candidate 18-17886</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Département de la Vendée</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-09-26</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-02-07</span></div>
+    <div class="kv"><b>Gap months</b><span>4.402102496714849</span></div>
+    <div class="kv"><b>CPV</b><span>72315200.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0333096023190449</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.2</span></div>
+    <div class="kv"><b>s_time</b><span>0.3046430135786245</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.2078191142063218</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.2078191142063218</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Fourniture, installation et maintenance de webcams sur des sites vendéens</p></div>
+    <div><h3>Candidate Text</h3><p>Assistance technique et prestations d&#x27;experts sur l&#x27;environnement Microsoft</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-089 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 21-152380</span>
+      <span>Candidate 22-137807</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>GIE des EPL de Vendée</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-11-17</span></div>
+    <div class="kv"><b>Candidate date</b><span>2022-10-14</span></div>
+    <div class="kv"><b>Gap months</b><span>10.873850197109066</span></div>
+    <div class="kv"><b>CPV</b><span>48200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.1438525131569435</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.1787122207621551</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.155026434795469</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.155026434795469</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Location de logiciels de bureautique et d&#x27;applications en ligne de messagerie électronique et de travail collaboratif</p></div>
+    <div><h3>Candidate Text</h3><p>Mise à disposition d&#x27;une solution en ligne de dématérialisation des marchés publics et prestations associées</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-090 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 23-23753</span>
+      <span>Candidate 23-159290</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Angers Loire Métropole</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2023-03-08</span></div>
+    <div class="kv"><b>Candidate date</b><span>2023-12-02</span></div>
+    <div class="kv"><b>Gap months</b><span>8.83705650459921</span></div>
+    <div class="kv"><b>CPV</b><span>72200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0119454358354715</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.0582566798072711</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.0787450724942328</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0787450724942328</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>marché de construction, installation, et maintenance d&#x27;un modèle de déplacement sur le territoire d&#x27;angers loire métropole</p></div>
+    <div><h3>Candidate Text</h3><p>fourniture et pose de signalétiques extérieures des espaces paysagers, naturels et urbains</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-091 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 19-54285</span>
+      <span>Candidate 20-77272</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Université du Maine</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2019-04-06</span></div>
+    <div class="kv"><b>Candidate date</b><span>2020-06-16</span></div>
+    <div class="kv"><b>Gap months</b><span>14.35611038107753</span></div>
+    <div class="kv"><b>CPV</b><span>31710000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0510398373679267</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.3758212877792378</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.1718192650235838</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.1718192650235838</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Imprimante numérique par jet de matière / Appareil de fonctionnalisation de surface par UV laser</p></div>
+    <div><h3>Candidate Text</h3><p>Centre d&#x27;usinage à commande numérique</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-092 · rejected_far_below</h2>
+    <div class="meta">
+      <span>Source 18-103711</span>
+      <span>Candidate 18-143391</span>
+      <span>GBM NOT_LINKED</span>
+      <span>Composite NOT_LINKED</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CMAR Pays de La Loire</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2018-07-22</span></div>
+    <div class="kv"><b>Candidate date</b><span>2018-10-14</span></div>
+    <div class="kv"><b>Gap months</b><span>2.759526938239159</span></div>
+    <div class="kv"><b>CPV</b><span>30200000.0</span></div>
+    <div class="kv"><b>s_text</b><span>0.0066428210335422</span></div>
+    <div class="kv"><b>s_cpv</b><span>0.0</span></div>
+    <div class="kv"><b>s_time</b><span>0.13491020586947</span></div>
+    <div class="kv"><b>s_buyer</b><span>0.6</span></div>
+    <div class="kv"><b>Composite score</b><span>0.0960525388291072</span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span>0.0960525388291072</span></div>
+    <div class="kv"><b>Candidate count</b><span>1</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>FOURNITURE DE MATERIELS INFORMATIQUES</p></div>
+    <div><h3>Candidate Text</h3><p>Prestations de Conseil et de Formation pour les entreprises participant au dispositif régional CAPEA NUMERIQUE - CMAR PDL</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-093 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 22-28144</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Vendée Expansion</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2022-02-23</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>72500000.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mise à disposition d&#x27;une plateforme de marketing conversationnel</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-094 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 25-138044</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ecole Nationale Supérieure d&#x27;Arts et Métiers</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2025-12-17</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>71631300.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Vérification techniques réglementaire obligatoires dans les ERP</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-095 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 21-162413</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville d&#x27;Avrillé</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-12-10</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>32323500.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Travaux d&#x27;extension, de rénovation et d&#x27;entretien du dispositif de vidéoprotection de la ville d&#x27;Avrillé</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-096 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 21-93672</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CA SAUMUR VAL DE LOIRE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2021-07-06</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>32400000.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Investigations complémentaires et Marquage des réseaux enterrés sur le territoire de la CASVL (49)</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-097 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 22-92531</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>CC CHALLANS GOIS COMMUNAUTE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2022-07-06</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>30230000.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>fourniture d&#x27;équipements informatiques pour le nouveau siège de challans gois communauté</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-098 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 17-71305</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>SMICTOM DES PAYS DE VILAINE</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2017-05-22</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>48000000.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Mise à disposition d&#x27;une solution de gestion et de facturation de la redevance incitative du service Déchets</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-099 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 21-22700</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ministère des Affaires étrangères</span></div>
+    <div class="kv"><b>Buyer key</b><span>RAW_SIRET</span></div>
+    <div class="kv"><b>Source date</b><span>2021-02-19</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>72000000.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Prestations intellectuelles informatiques pour les applications du Ministère de l&#x27;Europe et des Affaires Etrangères et ses opérateurs</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article><article class="case">
+  <header>
+    <h2>AUDIT-100 · censored_no_candidate</h2>
+    <div class="meta">
+      <span>Source 20-130599</span>
+      <span>Candidate NONE</span>
+      <span>GBM NO_CANDIDATE</span>
+      <span>Composite NO_CANDIDATE</span>
+    </div>
+  </header>
+  <section class="grid">
+    <div class="kv"><b>Buyer</b><span>Ville d&#x27;Alençon</span></div>
+    <div class="kv"><b>Buyer key</b><span>NAME_FALLBACK</span></div>
+    <div class="kv"><b>Source date</b><span>2020-10-23</span></div>
+    <div class="kv"><b>Candidate date</b><span></span></div>
+    <div class="kv"><b>Gap months</b><span></span></div>
+    <div class="kv"><b>CPV</b><span>45311100.0</span></div>
+    <div class="kv"><b>s_text</b><span></span></div>
+    <div class="kv"><b>s_cpv</b><span></span></div>
+    <div class="kv"><b>s_time</b><span></span></div>
+    <div class="kv"><b>s_buyer</b><span></span></div>
+    <div class="kv"><b>Composite score</b><span></span></div>
+    <div class="kv"><b>GBM score</b><span></span></div>
+    <div class="kv"><b>Margin</b><span></span></div>
+    <div class="kv"><b>Candidate count</b><span>0</span></div>
+  </section>
+  <section class="texts">
+    <div><h3>Source Text</h3><p>Numéro de la consultation : 1_2020047 Travaux d&#x27;électricité et de câblage informatique pour la réhabilitation, l&#x27;aménagement et/ou la construction de bâtiments de la Ville d&#x27;Alençon</p></div>
+    <div><h3>Candidate Text</h3><p>No candidate generated.</p></div>
+  </section>
+  <section class="decision">
+    <strong>Labels:</strong> CORRECT_LINK, WRONG_LINK, MISSED_LINK, CORRECT_REJECTION, INSUFFICIENT_INFORMATION
+  </section>
+</article>
+</main>
+</body>
+</html>

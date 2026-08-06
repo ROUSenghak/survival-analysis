@@ -17,10 +17,17 @@ reports_figures: reports/figures
 reports_tables: reports/tables
 reports_generated: reports/generated
 reports_data_quality: reports/tables/data_quality
+real_linkage_repair_dir: reports/tables/real_linkage_repair
+manual_audit_repair_rule_report: reports/generated/manual_audit_repair_rule_v1.md
 canonical_run_manifest: reports/run_logs/canonical_pipeline_manifest.json
 manual_audit_sample_30: reports/tables/real_linkage_freeze/real_audit_sample_30.csv
 manual_audit_entry_template: reports/tables/real_linkage_freeze/manual_audit_entry_template.csv
 manual_audit_instructions: reports/generated/manual_audit_instructions.md
+manual_audit_validated_workbook: reports/manual_audit/real_audit_sample_100_validated.xlsx
+manual_audit_validated_labels: reports/tables/manual_audit/real_audit_validated_labels.csv
+manual_audit_validation_report: reports/generated/manual_audit_validation_report.md
+manual_audit_failure_analysis_dir: reports/tables/manual_audit/failure_analysis
+manual_audit_failure_analysis_report: reports/generated/manual_audit_failure_analysis.md
 
 archive_root: archive
 

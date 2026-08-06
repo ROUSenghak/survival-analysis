@@ -1,0 +1,19 @@
+{
+  "generated_at_utc": "2026-08-06T13:01:11.105209+00:00",
+  "input": "reports/tables/manual_audit/real_audit_validated_labels.csv",
+  "n_cases": 100,
+  "n_wrong_links": 64,
+  "n_correct_links": 8,
+  "failure_mode_definitions": {
+    "MATERIAL_SCOPE_MISMATCH": "Source and candidate describe different concrete functions, software, equipment, lot, beneficiary, or procurement purpose.",
+    "ADMINISTRATIVE_VERSION_OR_RECTIFICATIF": "The candidate is a rectificatif, notice version/update, cancellation/correction, or same procedure update rather than a distinct successor contract.",
+    "SAME_BUYER_BROAD_DIGITAL_SIGNAL": "The apparent match is mainly driven by same buyer plus generic digital/procurement language.",
+    "HIGH_BUYER_ACTIVITY_AMBIGUITY": "The buyer has many in-scope notices or the source has many candidates, creating many plausible same-buyer distractors.",
+    "NAME_FALLBACK_IDENTITY_RISK": "The pair is blocked by buyer-name fallback rather than a stronger SIRET/SIREN identity.",
+    "HIGH_CPV_FALSE_SECURITY": "The CPV score is high even though the manual label says the procurement objects differ.",
+    "LOW_TEXT_EVIDENCE": "TF-IDF text similarity is low, so the accepted link lacks strong text evidence.",
+    "SMALL_MARGIN_AMBIGUITY": "The top candidate is close to the runner-up; acceptance depends on an ambiguous ranking.",
+    "METHOD_DISAGREEMENT_FALSE_POSITIVE": "Only one maintained method linked the source, and the reviewed proposed link was wrong."
+  },
+  "scientific_caveat": "Stratified/purposive audit; outputs are diagnostic and repair-oriented, not final population precision/recall estimates."
+}

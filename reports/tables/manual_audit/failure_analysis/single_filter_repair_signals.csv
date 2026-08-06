@@ -1,0 +1,10 @@
+candidate_repair_filter,reviewed_links_kept,correct_links_kept,wrong_links_kept,diagnostic_precision_if_filter_used_alone,wrong_links_removed,correct_links_removed
+s_text >= 0.20,28,8,20,0.2857142857142857,44,0
+s_text >= 0.30,15,7,8,0.4666666666666667,56,1
+s_text >= 0.40,13,6,7,0.46153846153846156,57,2
+s_cpv >= 0.80,30,5,25,0.16666666666666666,39,3
+top1_top2_margin >= 0.05,53,7,46,0.1320754716981132,18,1
+buyer_key_type != NAME_FALLBACK,13,3,10,0.23076923076923078,54,5
+n_candidates_for_source < 10,56,7,49,0.125,15,1
+buyer_n_sources < 20,36,5,31,0.1388888888888889,33,3
+not administrative version/rectificatif,64,8,56,0.125,8,0

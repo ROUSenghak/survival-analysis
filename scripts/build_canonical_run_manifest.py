@@ -18,6 +18,8 @@ from boamp.config import ensure_output_dirs, load_config
 from boamp.status import (  # noqa: E402
     BLOCKED_BY_EXTERNAL_CLASSIFICATION,
     BLOCKED_BY_MANUAL_AUDIT,
+    INITIAL_MANUAL_AUDIT_DIAGNOSTIC_AVAILABLE,
+    NOT_SUPPORTED_BY_STRATIFIED_AUDIT_DESIGN,
     PROVISIONAL_LINKAGE_OUTPUT,
     UNKNOWN_REAL_PRECISION_RECALL,
     classification_export_status,
@@ -28,6 +30,7 @@ from boamp.status import (  # noqa: E402
 RUN_ID = "canonical_boamp_linkage_freeze_v1"
 BENCHMARK_VERSION = "v0_4_population_alias_revision"
 CANONICAL_CANDIDATE_GENERATOR = "dur_w6_same_buyer_expected_end_window_top30"
+REPAIR_RULE_VERSION = "manual_audit_repair_v1_text030_initial_no_linked_ref_min4tokens"
 
 
 def git_value(*args: str) -> str | None:
@@ -77,10 +80,15 @@ def main() -> None:
     cfg = load_config(ROOT)
     ensure_output_dirs(cfg)
 
-    audit_path = cfg.paths.manual_audit_sample_30
+    audit_path = (
+        cfg.paths.manual_audit_validated_labels
+        if cfg.paths.manual_audit_validated_labels.exists()
+        else cfg.paths.manual_audit_sample_30
+    )
     classification_path = cfg.paths.external_classification_export
     manual_status = manual_audit_status(audit_path)
     class_status = classification_export_status(classification_path)
+    audit_passed = manual_status.status == "PASS"
 
     outputs = [
         cfg.paths.interim_common_prepared,
@@ -92,6 +100,30 @@ def main() -> None:
         ROOT / "reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv",
         cfg.paths.manual_audit_sample_30,
         cfg.paths.manual_audit_entry_template,
+        ROOT / "reports/manual_audit/real_audit_sample_100.xlsx",
+        ROOT / "reports/manual_audit/real_audit_evidence_100.html",
+        cfg.paths.manual_audit_validated_workbook,
+        cfg.paths.manual_audit_validated_labels,
+        cfg.paths.manual_audit_validation_report,
+        ROOT / "reports/tables/manual_audit/manual_audit_label_summary.csv",
+        ROOT / "reports/tables/manual_audit/manual_audit_stratum_label_summary.csv",
+        ROOT / "reports/tables/manual_audit/manual_audit_quality_checks.json",
+        cfg.paths.manual_audit_failure_analysis_report,
+        cfg.paths.manual_audit_failure_analysis_dir / "failure_analysis_manifest.json",
+        cfg.paths.manual_audit_failure_analysis_dir / "manual_audit_cases_with_failure_flags.csv",
+        cfg.paths.manual_audit_failure_analysis_dir / "wrong_link_failure_mode_summary.csv",
+        cfg.paths.manual_audit_failure_analysis_dir / "feature_summary_by_manual_label.csv",
+        cfg.paths.manual_audit_failure_analysis_dir / "method_diagnostic_precision.csv",
+        cfg.paths.manual_audit_failure_analysis_dir / "stratum_failure_summary.csv",
+        cfg.paths.manual_audit_failure_analysis_dir / "single_filter_repair_signals.csv",
+        cfg.paths.manual_audit_repair_rule_report,
+        cfg.paths.real_linkage_repair_dir / "repair_rule_v1_manifest.json",
+        cfg.paths.real_linkage_repair_dir / "repair_rule_v1_real_link_summary.csv",
+        cfg.paths.real_linkage_repair_dir / "repair_rule_v1_audit_diagnostic.csv",
+        cfg.paths.real_linkage_repair_dir / f"primary_gbm_{REPAIR_RULE_VERSION}_links.csv",
+        cfg.paths.real_linkage_repair_dir / f"composite_balanced_{REPAIR_RULE_VERSION}_links.csv",
+        cfg.paths.processed_boamp_only / f"boamp_only_survival_primary_gbm_{REPAIR_RULE_VERSION}.csv",
+        cfg.paths.processed_boamp_only / f"boamp_only_survival_composite_balanced_{REPAIR_RULE_VERSION}.csv",
         cfg.paths.reports_data_quality / "corpus_freeze_manifest.json",
     ]
     synthetic_outputs = [
@@ -123,11 +155,15 @@ def main() -> None:
         "generated_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
         "project_status": {
             "canonical_real_layer": "boamp_only",
-            "real_precision_recall_status": UNKNOWN_REAL_PRECISION_RECALL,
+            "real_precision_recall_status": (
+                NOT_SUPPORTED_BY_STRATIFIED_AUDIT_DESIGN if audit_passed else UNKNOWN_REAL_PRECISION_RECALL
+            ),
             "event_censoring_status": PROVISIONAL_LINKAGE_OUTPUT,
             "manual_audit_gate": manual_status.__dict__,
             "classification_gate": class_status.__dict__,
-            "survival_analysis_gate": BLOCKED_BY_MANUAL_AUDIT,
+            "survival_analysis_gate": (
+                INITIAL_MANUAL_AUDIT_DIAGNOSTIC_AVAILABLE if audit_passed else BLOCKED_BY_MANUAL_AUDIT
+            ),
             "technology_specific_gate": BLOCKED_BY_EXTERNAL_CLASSIFICATION,
         },
         "git": {
@@ -155,6 +191,9 @@ def main() -> None:
             "PYTHONPATH=src .venv/bin/python scripts/build_linkage_algorithm_diagnostic_curves.py",
             "PYTHONPATH=src .venv/bin/python scripts/test_synthetic_to_real_transfer.py",
             "PYTHONPATH=src .venv/bin/python scripts/build_real_audit_sample.py",
+            "PYTHONPATH=src .venv/bin/python scripts/validate_manual_audit_results.py",
+            "PYTHONPATH=src .venv/bin/python scripts/analyze_manual_audit_failures.py",
+            "PYTHONPATH=src .venv/bin/python scripts/apply_manual_audit_repair_rule.py",
             "PYTHONPATH=src .venv/bin/python scripts/build_canonical_run_manifest.py",
         ],
     }
