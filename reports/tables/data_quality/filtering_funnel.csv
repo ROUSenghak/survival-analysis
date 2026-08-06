@@ -1,0 +1,10 @@
+step,records,notes
+raw_monthly_json_files,139,201501..202607
+prepared_common_rows,84623,data/interim/boamp_common_prepared.csv
+unique_notice_ids_prepared,84623,notice_id grain check
+appel_offre_rows,58292,notice-type selection
+digital_ict_appel_offre_rows,3380,digital CPV or keyword scope
+canonical_boamp_only_sources,3380,frozen source table
+sources_with_nonmissing_buyer_key,3380,eligible for linkage/censoring
+candidate_pairs,10862,dur_w6_same_buyer_expected_end_window_top30
+balanced_composite_links,1003,"transparent baseline, not ground truth"

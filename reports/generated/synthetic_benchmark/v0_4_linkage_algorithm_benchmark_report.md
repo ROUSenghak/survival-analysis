@@ -46,6 +46,39 @@ is much more selective. Compared with the current weighted composite, gradient b
 precision by **5.5x** and end-to-end F1 by
 **2.2x**.
 
+## Score Diagnostics: ROC, Precision-Recall, Threshold F1, And GBM Loss
+
+Because the synthetic benchmark has known truth, the algorithm evaluation can report full
+candidate-pair discrimination curves as well as rank-1 threshold behavior. These are benchmark-truth
+diagnostics only; they do not measure real BOAMP precision or recall.
+
+![Candidate-pair ROC curves](reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png)
+
+![Candidate-pair precision-recall curves](reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png)
+
+| Algorithm | ROC-AUC | Average precision | Frozen precision | Frozen end-to-end recall | Frozen end-to-end F1 |
+| --- | --- | --- | --- | --- | --- |
+| Current weighted composite | 0.840 | 0.090 | 0.130 | 0.225 | 0.165 |
+| Fellegi-Sunter style | 0.837 | 0.157 | 0.113 | 0.147 | 0.128 |
+| Logistic regression | 0.962 | 0.294 | 0.339 | 0.238 | 0.280 |
+| Gradient boosting | 0.978 | 0.766 | 0.719 | 0.235 | 0.354 |
+
+The ROC curves show broad pair separability; the precision-recall curves are more informative under the
+low true-match prevalence of the candidate-pair universe. Gradient boosting has the strongest average
+precision and the highest frozen-threshold rank-1 F1.
+
+![Rank-1 F1 threshold curves](reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png)
+
+The threshold curves mark each algorithm's frozen acceptance threshold. They show that the selected
+gradient-boosting threshold is at the held-out F1 peak in this grid, while logistic regression is close
+to its peak but at much lower precision.
+
+![Gradient boosting loss curve](reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png)
+
+The gradient-boosting staged log-loss falls smoothly on both the training and calibration worlds. The
+calibration curve remains above training loss, as expected, but does not show late-stage instability over
+the 160 boosting stages used by the frozen benchmark model.
+
 ## Candidate Generation Is The Binding Constraint
 
 End-to-end performance is much lower than fixed-candidate performance because most truth links never
@@ -185,3 +218,8 @@ be widened or redesigned.
 - Summary table: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/summary_metrics.csv`
 - Scenario table: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_summary_metrics.csv`
 - Bias diagnostics: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_slices.csv`
+- ROC curve points: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curve_points.csv`
+- Precision-recall curve points: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curve_points.csv`
+- Rank-1 F1 threshold curve: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curve.csv`
+- GBM loss curve: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.csv`
+- Diagnostic curve summary: `reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/diagnostic_curve_summary.csv`

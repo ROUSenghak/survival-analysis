@@ -56,7 +56,11 @@ ax.set_xlabel('months since publication'); ax.set_ylabel('S(t) — not yet renew
 ax.set_title('Time to observed renewal, Layer 1, by linkage decision rule')
 ax.set_xlim(0, 60); ax.grid(alpha=.3)
 fig.tight_layout(); fig.savefig(FIG / 'km_by_linkage_rule.png', dpi=150)
-fig.savefig(FIG / 'km_by_linkage_rule.pdf'); plt.close(fig)
+fig.savefig(
+    FIG / 'km_by_linkage_rule.pdf',
+    metadata={'CreationDate': None, 'ModDate': None},
+)
+plt.close(fig)
 
 # ------------------------------------------------- subgroup KM + logrank (primary)
 sub_rows = []

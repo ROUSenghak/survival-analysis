@@ -1,0 +1,12 @@
+column,n_missing,missing_rate,n_distinct
+notice_id,0,0.0,84623
+publication_date,0,0.0,3958
+buyer_name_normalized,0,0.0,4492
+buyer_siret_clean,61585,0.7277572291221063,1689
+buyer_siren_clean,61585,0.7277572291221063,1506
+objet_clean,1,1.181711827753684e-05,60423
+cpv_clean,14438,0.1706155536910769,3145
+declared_duration_months,70403,0.8319605780934262,106
+duration_quality_flag,0,0.0,4
+notice_type_normalized,0,0.0,3
+is_digital_scope,0,0.0,2

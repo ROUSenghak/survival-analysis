@@ -1,0 +1,5 @@
+exclusion,n_records,consequence
+non_appel_offre_or_non_digital_scope,81243,not eligible as source notices
+missing_buyer_key,0,excluded from event/censoring dataset
+sources_with_no_candidates,1375,"operationally censored, not confirmed non-renewal"
+rank1_below_balanced_threshold,1002,candidate rejected by transparent baseline

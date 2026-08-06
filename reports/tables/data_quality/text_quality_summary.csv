@@ -1,0 +1,2 @@
+population,n,text_missing_rate,text_length_p25,text_length_p50,text_length_p75,token_count_p50,exact_text_reuse_rate
+prepared_common,84623,1.181711827753684e-05,70.0,98.0,133.0,15.0,0.5143282559115134

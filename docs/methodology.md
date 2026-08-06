@@ -451,3 +451,20 @@ unversioned.
    and 1,215/3,380 in Layer 2 have no generated candidate — blocking recall is
    the binding constraint in both layers.
 7. No completed manual validation labels yet.
+8. The provisional primary practical method is gradient boosting only under the
+   predefined synthetic benchmark assumptions and operational criteria. It is
+   not a final real-BOAMP algorithm ranking.
+
+## 10. Scientific Gates and External Classification
+
+Real precision and recall remain `UNKNOWN_REAL_PRECISION_RECALL` until the
+manual audit package has completed human labels. Event/censoring datasets written
+before that point are `PROVISIONAL_LINKAGE_OUTPUT`: an unlinked notice is treated
+as administratively censored, not as a confirmed non-renewal.
+
+Technology-specific survival, trend, and change-point analyses remain
+`BLOCKED_BY_EXTERNAL_CLASSIFICATION` until the teammate-owned classification
+export exists and passes the contract in
+`docs/classification_input_contract.md`. Unmatched notices must remain
+`UNCLASSIFIED`; this repository must not train a replacement classifier or create
+fake production labels.

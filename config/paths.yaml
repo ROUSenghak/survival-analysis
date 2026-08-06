@@ -1,8 +1,9 @@
 # All paths are relative to the repository root. Resolved by src/boamp/config.py.
 
-raw_boamp_dir: data/raw/boamp/pdl                       # 140 monthly JSON files (PDL 2015-01 .. 2026-07)
+raw_boamp_dir: data/raw/boamp/pdl                       # 139 monthly JSON files (PDL 2015-01 .. 2026-07)
 raw_enrichment_dir: data/raw/buyer_siren_enrichment_m1  # 3 HF parquet files (see pipeline.enrichment)
 raw_procurement_profiles: data/raw/procurement_profiles/profils-acheteurs.csv
+external_classification_export: data/raw/external/technology_classification/technology_classification_export.csv
 
 interim_flattened: data/interim/boamp_raw_flattened.csv
 interim_common_prepared: data/interim/boamp_common_prepared.csv
@@ -15,6 +16,11 @@ processed_comparison: data/processed/comparison
 reports_figures: reports/figures
 reports_tables: reports/tables
 reports_generated: reports/generated
+reports_data_quality: reports/tables/data_quality
+canonical_run_manifest: reports/run_logs/canonical_pipeline_manifest.json
+manual_audit_sample_30: reports/tables/real_linkage_freeze/real_audit_sample_30.csv
+manual_audit_entry_template: reports/tables/real_linkage_freeze/manual_audit_entry_template.csv
+manual_audit_instructions: reports/generated/manual_audit_instructions.md
 
 archive_root: archive
 

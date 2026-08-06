@@ -5,7 +5,7 @@ Everything uses the canonical package code and config/pipeline.yaml. No paramete
 is re-derived here; thresholds are asserted against the frozen values.
 """
 from __future__ import annotations
-import json, sys, warnings
+import json, subprocess, sys, warnings
 from pathlib import Path
 import numpy as np, pandas as pd
 
@@ -24,6 +24,18 @@ from boamp.survival.datasets import build_survival_dataset
 
 cfg = load_config(ROOT)
 P = cfg.pipeline
+
+
+def git_value(*args: str) -> str | None:
+    try:
+        return subprocess.check_output(
+            ['git', *args],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        return None
 
 clean = pd.read_csv(ROOT / 'data/interim/boamp_common_prepared.csv', low_memory=False)
 for c in ['publication_date', 'start_date', 'end_diffusion_date', 'response_deadline',
@@ -136,7 +148,12 @@ for name, lk in link_sets.items():
           f'censoring={1 - sv.event.mean():.4f}')
 
 pairs.to_csv(OUT / 'real_candidate_pairs_reproduced.csv', index=False)
-json.dump({'window_months': int(window), 'n_sources': len(sources),
+json.dump({'run_id': 'real_linkage_freeze',
+           'repository_commit': git_value('rev-parse', 'HEAD'),
+           'repository_branch': git_value('branch', '--show-current'),
+           'benchmark_version_consulted': 'v0_4_population_alias_revision',
+           'candidate_generator': 'dur_w6_same_buyer_expected_end_window_top30',
+           'window_months': int(window), 'n_sources': len(sources),
            'n_pairs': len(pairs), 'thresholds': {k: float(v) for k, v in derived.items()},
            'survival_paths': sv_paths,
            'study_end_date': str(info['study_end_date'])},

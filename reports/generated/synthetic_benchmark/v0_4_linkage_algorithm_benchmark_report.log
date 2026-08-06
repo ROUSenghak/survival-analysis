@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.22)  4 AUG 2026 14:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.6.22)  6 AUG 2026 10:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -337,23 +337,46 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {/home/senghakrou/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/pair_f1_by_mode.png>]
-<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png, id=20, 783.67781pt x 386.6445pt>
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png, id=20, 495.8525pt x 364.1605pt>
+File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png Graphic file (type png)
+<use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png>
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png  used on input line 87.
+(pdftex.def)             Requested size: 465.41786pt x 341.81082pt.
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png, id=21, 495.8525pt x 364.1605pt>
+File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png Graphic file (type png)
+<use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png>
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png  used on input line 94.
+(pdftex.def)             Requested size: 465.41786pt x 341.81082pt.
+ [2 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png>]
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png, id=30, 568.1225pt x 364.1605pt>
+File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png Graphic file (type png)
+<use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png>
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png  used on input line 123.
+(pdftex.def)             Requested size: 465.41786pt x 298.34126pt.
+ [3 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png>]
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png, id=38, 495.8525pt x 364.1605pt>
+File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png Graphic file (type png)
+<use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png>
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png  used on input line 133.
+(pdftex.def)             Requested size: 465.41786pt x 341.81082pt.
+ [4 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png>]
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png, id=45, 783.67781pt x 386.6445pt>
 File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png Graphic file (type png)
 <use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png>
-Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png  used on input line 116.
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png  used on input line 179.
 (pdftex.def)             Requested size: 465.41786pt x 229.6286pt.
- [2] [3 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png>]
-<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png, id=36, 710.95613pt x 350.05782pt>
+ [5 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png>] [6 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_pair_f1.png>]
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png, id=62, 710.95613pt x 350.05782pt>
 File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png Graphic file (type png)
 <use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png>
-Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png  used on input line 169.
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png  used on input line 232.
 (pdftex.def)             Requested size: 465.41786pt x 229.16402pt.
-<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png, id=37, 573.19144pt x 313.9228pt>
+<reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png, id=63, 573.19144pt x 313.9228pt>
 File: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png Graphic file (type png)
 <use reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png>
-Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png  used on input line 181.
+Package pdftex.def Info: reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png  used on input line 244.
 (pdftex.def)             Requested size: 465.41786pt x 254.89877pt.
- [4 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png>] [5 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png>] [6{/home/senghakrou/.TinyTeX/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] (reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.aux)
+ [7 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_candidate_count_bin.png>] [8 <./reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_by_buyer_key_type_heatmap.png>] [9{/home/senghakrou/.TinyTeX/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [10] (reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-06-18>
@@ -362,18 +385,18 @@ Package rerunfilecheck Info: File `v0_4_linkage_algorithm_benchmark_report.out' 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 11344 strings out of 469115
- 186614 string characters out of 5458670
- 623271 words of memory out of 5000000
- 40219 multiletter control sequences out of 15000+600000
+ 11387 strings out of 469115
+ 190291 string characters out of 5458670
+ 627880 words of memory out of 5000000
+ 40252 multiletter control sequences out of 15000+600000
  632479 words of font info for 56 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 74i,9n,79p,412b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,9n,79p,412b,560s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></home/senghakrou/.TinyTeX/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf (6 pages, 365286 bytes).
+Output written on reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf (10 pages, 726185 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
- 34 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

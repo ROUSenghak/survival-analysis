@@ -1,0 +1,268 @@
+{
+  "run_id": "canonical_boamp_linkage_freeze_v1",
+  "generated_at_utc": "2026-08-06T09:37:16.708685+00:00",
+  "project_status": {
+    "canonical_real_layer": "boamp_only",
+    "real_precision_recall_status": "UNKNOWN_REAL_PRECISION_RECALL",
+    "event_censoring_status": "PROVISIONAL_LINKAGE_OUTPUT",
+    "manual_audit_gate": {
+      "status": "BLOCKED_BY_MANUAL_AUDIT",
+      "reason": "manual audit labels are blank",
+      "path": "/home/senghakrou/survival-analysis/reports/tables/real_linkage_freeze/real_audit_sample_30.csv"
+    },
+    "classification_gate": {
+      "status": "BLOCKED_BY_EXTERNAL_CLASSIFICATION",
+      "reason": "external technological classification export is absent",
+      "path": "/home/senghakrou/survival-analysis/data/raw/external/technology_classification/technology_classification_export.csv"
+    },
+    "survival_analysis_gate": "BLOCKED_BY_MANUAL_AUDIT",
+    "technology_specific_gate": "BLOCKED_BY_EXTERNAL_CLASSIFICATION"
+  },
+  "git": {
+    "branch": "restructure/two-layer",
+    "head": "22e104be483901cdbd78798003e64e6f8ad67b83",
+    "status_porcelain": "M README.md\n M config/paths.yaml\n M docs/methodology.md\n M reports/figures/real_linkage_freeze/km_by_linkage_rule.pdf\n M reports/generated/real_linkage_freeze_decision.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.aux\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.log\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex\n M reports/tables/real_linkage_freeze/freeze_manifest.json\n M reports/tables/real_linkage_freeze/real_audit_sample_100.csv\n M reports/tables/real_linkage_freeze/real_candidate_generator_sensitivity.csv\n M reports/tables/real_linkage_freeze/synthetic_to_real_transfer_test.csv\n M reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md\n M scripts/build_linkage_algorithm_benchmark_report.py\n M scripts/build_real_audit_sample.py\n M scripts/freeze_real_linkage.py\n M scripts/real_survival_analysis.py\n M scripts/test_synthetic_to_real_transfer.py\n M src/boamp/config.py\n?? canonical/\n?? data/processed/boamp_only/boamp_only_survival_baseline_composite_balanced.csv\n?? data/processed/boamp_only/boamp_only_survival_gradient_boosting_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_logistic_regression_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_primary_gbm.csv\n?? docs/classification_input_contract.md\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png\n?? reports/generated/manual_audit_instructions.md\n?? reports/run_logs/canonical_pipeline_manifest.json\n?? reports/tables/data_quality/\n?? reports/tables/real_linkage_freeze/adaptive_task_inventory.csv\n?? reports/tables/real_linkage_freeze/manual_audit_entry_template.csv\n?? reports/tables/real_linkage_freeze/real_audit_sample_30.csv\n?? reports/tables/real_linkage_freeze/real_linkage_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_manifest.json\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_primary_gbm_links.csv\n?? reports/tables/real_linkage_freeze/real_supervised_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_supervised_rank1_scored.csv\n?? reports/tables/real_linkage_freeze/real_supervised_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_supervised_transfer_links.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/diagnostic_curve_summary.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curve_points.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curve_points.csv\n?? scripts/build_canonical_run_manifest.py\n?? scripts/build_linkage_algorithm_diagnostic_curves.py\n?? scripts/check_boamp_corpus_quality.py\n?? src/boamp/data/classification.py\n?? src/boamp/status.py\n?? tests/test_classification.py\n?? tests/test_manual_audit_package.py\n?? tests/test_scientific_gates.py"
+  },
+  "configuration": {
+    "seed": 20260713,
+    "candidate_generator": "dur_w6_same_buyer_expected_end_window_top30",
+    "benchmark_version": "v0_4_population_alias_revision",
+    "thresholds": {
+      "gbm_primary": 0.2309637726207583,
+      "composite_balanced": 0.3431669423310381,
+      "composite_strict": 0.44206956893514254
+    }
+  },
+  "config_files": [
+    {
+      "path": "config/pipeline.yaml",
+      "exists": true,
+      "rows": null,
+      "bytes": 5971,
+      "sha256": "7df6f1175d8fee674caf1ab78088599068418cca89a89c7adb7e91576e84872a",
+      "git_tracked": true
+    },
+    {
+      "path": "config/paths.yaml",
+      "exists": true,
+      "rows": null,
+      "bytes": 2256,
+      "sha256": "c04fd137b5fff68b5bea99dacc5a235eec2570297f62d55d41869f15cbc21bca",
+      "git_tracked": true
+    },
+    {
+      "path": "config/synthetic/benchmark_defaults_v0_4.yaml",
+      "exists": true,
+      "rows": null,
+      "bytes": 1980,
+      "sha256": "fa0fa485452fb26242a55c35339574c3594b599aaad7196bc19a32a7e1be05d6",
+      "git_tracked": true
+    },
+    {
+      "path": "config/synthetic/scenarios/v0_4/central_provisional.yaml",
+      "exists": true,
+      "rows": null,
+      "bytes": 13015,
+      "sha256": "6a62cbdce78584d0dfb5cbd83a02c375db025b70afba49eff0a314f3c37bcd83",
+      "git_tracked": true
+    }
+  ],
+  "canonical_index": [
+    {
+      "path": "canonical/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 2089,
+      "sha256": "5ffc4789b9c17eb9f4cd86dcb2d667197db28372656fe79f6b2390d785092a46",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/config/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 655,
+      "sha256": "27e9e6a8e457435e06d0d092c065a405241392bf79d66f411591c3b79800c04b",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/data/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 1096,
+      "sha256": "e29b81c3eec832480e0f51d2228bd94e3ea89e63c5c4370b31321345bf7816d8",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/synthetic_benchmark/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 1201,
+      "sha256": "2e76cbce66edf7dc607be78f356c305fe516604d5f9235bb7443e0308c16ba98",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/linkage/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 1116,
+      "sha256": "82cb6c49620472c339d27e6da9b271b2fc75b461fc61dd69160cfd2d70fece7b",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/audit/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 667,
+      "sha256": "ca3e1fc2ae7df5aba1bdb2eb19e4a718239f157aae9efd2828033ad3d2f5cbf2",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/classification/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 735,
+      "sha256": "223cfc043e015e4b04c51ef2c08ceb5f58eb6ba9b2a7ff37ad4c4fba2bd58f9b",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/downstream/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 659,
+      "sha256": "a356f5763e10ed04be1d005bdc13b45f0358624cebddf0b14c83f30a18264db1",
+      "git_tracked": false
+    },
+    {
+      "path": "canonical/reports/README.md",
+      "exists": true,
+      "rows": null,
+      "bytes": 858,
+      "sha256": "652a250eec4a7799ff3a0057268019bd3d2d97d9fe35aa3660ddb722306f304b",
+      "git_tracked": false
+    }
+  ],
+  "canonical_outputs": [
+    {
+      "path": "data/interim/boamp_common_prepared.csv",
+      "exists": true,
+      "rows": 84623,
+      "bytes": 125633083,
+      "sha256": "b8bb2eb0089165c2ea0921de2ae6ff86d7197b02a7a3988525befd353343b946",
+      "git_tracked": false
+    },
+    {
+      "path": "data/processed/boamp_only/boamp_only_sources.csv",
+      "exists": true,
+      "rows": 3380,
+      "bytes": 1302447,
+      "sha256": "4b840e20b75991146a73f17821f0be8c935daf6ed55ae658395cbc478c5d1825",
+      "git_tracked": true
+    },
+    {
+      "path": "data/processed/boamp_only/boamp_only_candidate_pairs.csv",
+      "exists": true,
+      "rows": 10862,
+      "bytes": 2495151,
+      "sha256": "70305b083008f540f16fb000dc9cf375206087086be39d2669f190534471d046",
+      "git_tracked": true
+    },
+    {
+      "path": "data/processed/boamp_only/boamp_only_links_balanced.csv",
+      "exists": true,
+      "rows": 1003,
+      "bytes": 263961,
+      "sha256": "82453922c5eb4d04464b017290cadfae83ad71d3d838260b89420f3dea117b4d",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/tables/real_linkage_freeze/real_candidate_pairs_reproduced.csv",
+      "exists": true,
+      "rows": 10862,
+      "bytes": 2495151,
+      "sha256": "70305b083008f540f16fb000dc9cf375206087086be39d2669f190534471d046",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/tables/real_linkage_freeze/real_primary_gbm_links.csv",
+      "exists": true,
+      "rows": 411,
+      "bytes": 158526,
+      "sha256": "40c30b5b7f4a87d119a9a403bed7de4f6680506df26edf1f57844d00c34c9949",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv",
+      "exists": true,
+      "rows": 5,
+      "bytes": 1870,
+      "sha256": "d898aeed1b8a62bc305e5259fdfab2685e98aa0296b3bf01dfb924e446a8d16f",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_freeze/real_audit_sample_30.csv",
+      "exists": true,
+      "rows": 30,
+      "bytes": 17711,
+      "sha256": "93cb4e428d314e1a8bdaae5b290b547c1cdc494e8fa6ec97d5f3b8b5a2c74122",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/real_linkage_freeze/manual_audit_entry_template.csv",
+      "exists": true,
+      "rows": 0,
+      "bytes": 507,
+      "sha256": "685a5fcf1daf109db9c1cfe3fbe3e8dfc2998535c96c268f23a3f3025b0730d9",
+      "git_tracked": false
+    },
+    {
+      "path": "reports/tables/data_quality/corpus_freeze_manifest.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 5236,
+      "sha256": "582d7ddbfcff4a5f4b8df8aed6f5974132b3e2906e9be34eb552ae928167eabe",
+      "git_tracked": false
+    }
+  ],
+  "synthetic_benchmark_outputs": [
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/generation_manifest.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 17662,
+      "sha256": "91e3324e716a4256ad6ba2082751b7d8706f9e4e6cf45670ac5848a9562a626c",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_decisions.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 18780,
+      "sha256": "9878860491f204a40ead63e30ea44dad850130a6d38fbddd4fe009d99452d933",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/summary_metrics.csv",
+      "exists": true,
+      "rows": 4,
+      "bytes": 1189,
+      "sha256": "7a49d40c61080cdf255032ca8f177098ec89979ec2ce4c36483aff1d2651291c",
+      "git_tracked": true
+    },
+    {
+      "path": "reports/tables/synthetic_benchmark/v0_4_population_alias_revision/validation_framework/replay_replicates.json",
+      "exists": true,
+      "rows": null,
+      "bytes": 8682,
+      "sha256": "ad0bf1ba62045f8efe2796caf5328c30bd23357698ae8e01e62e0195e59339da",
+      "git_tracked": true
+    }
+  ],
+  "reproduction_commands": [
+    "PYTHONPATH=src .venv/bin/python scripts/check_boamp_corpus_quality.py",
+    "PYTHONPATH=src .venv/bin/python scripts/freeze_real_linkage.py",
+    "PYTHONPATH=src .venv/bin/python scripts/build_linkage_algorithm_diagnostic_curves.py",
+    "PYTHONPATH=src .venv/bin/python scripts/test_synthetic_to_real_transfer.py",
+    "PYTHONPATH=src .venv/bin/python scripts/build_real_audit_sample.py",
+    "PYTHONPATH=src .venv/bin/python scripts/build_canonical_run_manifest.py"
+  ]
+}

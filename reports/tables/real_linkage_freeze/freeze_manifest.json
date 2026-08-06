@@ -1,4 +1,9 @@
 {
+  "run_id": "real_linkage_freeze",
+  "repository_commit": "22e104be483901cdbd78798003e64e6f8ad67b83",
+  "repository_branch": "restructure/two-layer",
+  "benchmark_version_consulted": "v0_4_population_alias_revision",
+  "candidate_generator": "dur_w6_same_buyer_expected_end_window_top30",
   "window_months": 6,
   "n_sources": 3380,
   "n_pairs": 10862,

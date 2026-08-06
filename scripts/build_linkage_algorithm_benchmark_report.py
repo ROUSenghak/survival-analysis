@@ -174,6 +174,7 @@ def load_outputs() -> dict[str, pd.DataFrame]:
         "bias": "bias_gap_summary.csv",
         "metadata": "world_candidate_metadata.csv",
         "recall_slices": "recall_slices.csv",
+        "diagnostic_curves": "diagnostic_curve_summary.csv",
     }
     return {name: pd.read_csv(TABLE_DIR / filename) for name, filename in files.items()}
 
@@ -263,11 +264,41 @@ def prepare_tables(outputs: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
     for col in ["Mean blocking recall", "Min", "Max"]:
         scenario_meta[col] = scenario_meta[col].map(lambda v: f"{v:.3f}")
 
+    diagnostics = outputs["diagnostic_curves"].copy()
+    diagnostics["Algorithm"] = diagnostics["algorithm"].map(ALGORITHM_LABELS)
+    diagnostic_table = diagnostics[
+        [
+            "Algorithm",
+            "roc_auc_candidate_pairs",
+            "average_precision_candidate_pairs",
+            "frozen_rank1_pair_precision",
+            "frozen_rank1_pair_recall_end_to_end",
+            "frozen_rank1_pair_f1_end_to_end",
+        ]
+    ].rename(
+        columns={
+            "roc_auc_candidate_pairs": "ROC-AUC",
+            "average_precision_candidate_pairs": "Average precision",
+            "frozen_rank1_pair_precision": "Frozen precision",
+            "frozen_rank1_pair_recall_end_to_end": "Frozen end-to-end recall",
+            "frozen_rank1_pair_f1_end_to_end": "Frozen end-to-end F1",
+        }
+    )
+    for col in [
+        "ROC-AUC",
+        "Average precision",
+        "Frozen precision",
+        "Frozen end-to-end recall",
+        "Frozen end-to-end F1",
+    ]:
+        diagnostic_table[col] = diagnostic_table[col].map(lambda v: f"{v:.3f}")
+
     return {
         "summary": summary_table,
         "thresholds": threshold_table,
         "scenario": scenario_table,
         "scenario_meta": scenario_meta,
+        "diagnostics": diagnostic_table,
     }
 
 
@@ -342,6 +373,34 @@ Interpretation: logistic regression and gradient boosting have nearly identical 
 is much more selective. Compared with the current weighted composite, gradient boosting improves
 precision by **{gb['pair_precision'] / comp['pair_precision']:.1f}x** and end-to-end F1 by
 **{gb['pair_f1_end_to_end'] / comp['pair_f1_end_to_end']:.1f}x**.
+
+## Score Diagnostics: ROC, Precision-Recall, Threshold F1, And GBM Loss
+
+Because the synthetic benchmark has known truth, the algorithm evaluation can report full
+candidate-pair discrimination curves as well as rank-1 threshold behavior. These are benchmark-truth
+diagnostics only; they do not measure real BOAMP precision or recall.
+
+![Candidate-pair ROC curves]({rel(FIGURE_DIR / 'roc_curves.png')})
+
+![Candidate-pair precision-recall curves]({rel(FIGURE_DIR / 'precision_recall_curves.png')})
+
+{markdown_table(tables['diagnostics'])}
+
+The ROC curves show broad pair separability; the precision-recall curves are more informative under the
+low true-match prevalence of the candidate-pair universe. Gradient boosting has the strongest average
+precision and the highest frozen-threshold rank-1 F1.
+
+![Rank-1 F1 threshold curves]({rel(FIGURE_DIR / 'rank1_f1_threshold_curves.png')})
+
+The threshold curves mark each algorithm's frozen acceptance threshold. They show that the selected
+gradient-boosting threshold is at the held-out F1 peak in this grid, while logistic regression is close
+to its peak but at much lower precision.
+
+![Gradient boosting loss curve]({rel(FIGURE_DIR / 'gbm_loss_curve.png')})
+
+The gradient-boosting staged log-loss falls smoothly on both the training and calibration worlds. The
+calibration curve remains above training loss, as expected, but does not show late-stage instability over
+the 160 boosting stages used by the frozen benchmark model.
 
 ## Candidate Generation Is The Binding Constraint
 
@@ -450,6 +509,11 @@ be widened or redesigned.
 - Summary table: `{rel(TABLE_DIR / 'summary_metrics.csv')}`
 - Scenario table: `{rel(TABLE_DIR / 'scenario_summary_metrics.csv')}`
 - Bias diagnostics: `{rel(TABLE_DIR / 'recall_slices.csv')}`
+- ROC curve points: `{rel(TABLE_DIR / 'roc_curve_points.csv')}`
+- Precision-recall curve points: `{rel(TABLE_DIR / 'precision_recall_curve_points.csv')}`
+- Rank-1 F1 threshold curve: `{rel(TABLE_DIR / 'rank1_f1_threshold_curve.csv')}`
+- GBM loss curve: `{rel(TABLE_DIR / 'gbm_loss_curve.csv')}`
+- Diagnostic curve summary: `{rel(TABLE_DIR / 'diagnostic_curve_summary.csv')}`
 """
 
 
@@ -537,6 +601,33 @@ benchmark ranking and the least risky of the tested options for downstream survi
 Compared with the current weighted composite, gradient boosting improves precision by
 \textbf{{{gb['pair_precision'] / comp['pair_precision']:.1f}x}} and end-to-end F1 by
 \textbf{{{gb['pair_f1_end_to_end'] / comp['pair_f1_end_to_end']:.1f}x}}.
+
+\section*{{Score Diagnostics: ROC, Precision-Recall, Threshold F1, And GBM Loss}}
+
+Because the synthetic benchmark has known truth, the algorithm evaluation can report full candidate-pair
+discrimination curves as well as rank-1 threshold behavior. These are benchmark-truth diagnostics only;
+they do not measure real BOAMP precision or recall.
+
+{latex_figure('roc_curves.png', 'Candidate-pair ROC curves. Gradient boosting and logistic regression separate candidate pairs best by ROC-AUC.', 'fig:roc-curves')}
+
+{latex_figure('precision_recall_curves.png', 'Candidate-pair precision-recall curves. Average precision is more diagnostic than ROC-AUC under low true-match prevalence.', 'fig:pr-curves')}
+
+{latex_table(tables['diagnostics'], 'Curve diagnostics and frozen-threshold rank-1 performance.', 'tab:curve-diagnostics')}
+
+The ROC curves show broad pair separability; the precision-recall curves are more informative under the
+low true-match prevalence of the candidate-pair universe. Gradient boosting has the strongest average
+precision and the highest frozen-threshold rank-1 F1.
+
+{latex_figure('rank1_f1_threshold_curves.png', 'Rank-1 end-to-end F1 over acceptance thresholds. Points mark the frozen thresholds used in the benchmark.', 'fig:rank1-threshold')}
+
+The threshold curves show that the selected gradient-boosting threshold is at the held-out F1 peak in
+this grid, while logistic regression is close to its peak but at much lower precision.
+
+{latex_figure('gbm_loss_curve.png', 'Gradient boosting staged log-loss on fit and calibration worlds.', 'fig:gbm-loss')}
+
+The gradient-boosting staged log-loss falls smoothly on both the training and calibration worlds. The
+calibration curve remains above training loss, as expected, but does not show late-stage instability over
+the 160 boosting stages used by the frozen benchmark model.
 
 \section*{{Candidate Generation Is The Binding Constraint}}
 
@@ -649,6 +740,11 @@ broader threshold supports recall sensitivity?
 \item Summary table: \path{{{rel(TABLE_DIR / 'summary_metrics.csv')}}}
 \item Scenario table: \path{{{rel(TABLE_DIR / 'scenario_summary_metrics.csv')}}}
 \item Bias diagnostics: \path{{{rel(TABLE_DIR / 'recall_slices.csv')}}}
+\item ROC curve points: \path{{{rel(TABLE_DIR / 'roc_curve_points.csv')}}}
+\item Precision-recall curve points: \path{{{rel(TABLE_DIR / 'precision_recall_curve_points.csv')}}}
+\item Rank-1 F1 threshold curve: \path{{{rel(TABLE_DIR / 'rank1_f1_threshold_curve.csv')}}}
+\item GBM loss curve: \path{{{rel(TABLE_DIR / 'gbm_loss_curve.csv')}}}
+\item Diagnostic curve summary: \path{{{rel(TABLE_DIR / 'diagnostic_curve_summary.csv')}}}
 \end{{itemize}}
 
 \end{{document}}

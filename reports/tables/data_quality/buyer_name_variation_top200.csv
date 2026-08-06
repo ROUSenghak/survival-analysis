@@ -1,0 +1,201 @@
+buyer_key,n_sources,n_names,buyer_key_type
+SIRET:17440005100010,28,11,RAW_SIRET
+SIRET:11000201100044,5,5,RAW_SIRET
+SIRET:12001201800111,6,4,RAW_SIRET
+SIRET:25440253000011,4,4,RAW_SIRET
+SIRET:23440003400026,85,3,RAW_SIRET
+SIRET:22440002800011,27,3,RAW_SIRET
+SIRET:24490001500011,15,3,RAW_SIRET
+SIRET:21440143200015,10,3,RAW_SIRET
+SIRET:18009202500121,4,3,RAW_SIRET
+SIRET:18440128900022,4,3,RAW_SIRET
+SIRET:92084215000012,4,3,RAW_SIRET
+SIRET:18440128900386,3,3,RAW_SIRET
+SIRET:22850001300658,39,2,RAW_SIRET
+SIRET:24720013200014,30,2,RAW_SIRET
+SIRET:22720002900014,24,2,RAW_SIRET
+SIRET:22530001100015,21,2,RAW_SIRET
+SIRET:21440184600016,19,2,RAW_SIRET
+SIRET:39172288100052,14,2,RAW_SIRET
+SIRET:21440109300015,13,2,RAW_SIRET
+SIRET:22490001900015,12,2,RAW_SIRET
+SIRET:19753472000010,8,2,RAW_SIRET
+SIRET:83095506800044,8,2,RAW_SIRET
+SIRET:13002974700016,7,2,RAW_SIRET
+SIRET:45151864100035,7,2,RAW_SIRET
+SIRET:13003051300019,6,2,RAW_SIRET
+SIRET:21440162200011,6,2,RAW_SIRET
+SIRET:52926090300016,6,2,RAW_SIRET
+SIRET:25850022200033,5,2,RAW_SIRET
+SIRET:31468496000045,5,2,RAW_SIRET
+SIRET:54665016900057,5,2,RAW_SIRET
+SIRET:20004131700013,4,2,RAW_SIRET
+SIRET:20007187600011,4,2,RAW_SIRET
+SIRET:26490003600015,4,2,RAW_SIRET
+SIRET:26720016000013,4,2,RAW_SIRET
+SIRET:18004301001485,3,2,RAW_SIRET
+SIRET:20003329800015,3,2,RAW_SIRET
+SIRET:20004248900019,3,2,RAW_SIRET
+SIRET:20005433600017,3,2,RAW_SIRET
+SIRET:20007326000016,3,2,RAW_SIRET
+SIRET:25490130900032,3,2,RAW_SIRET
+SIRET:25720243200015,3,2,RAW_SIRET
+SIRET:12006401900074,2,2,RAW_SIRET
+SIRET:13001954000025,2,2,RAW_SIRET
+SIRET:17440430100015,2,2,RAW_SIRET
+SIRET:18440132100015,2,2,RAW_SIRET
+SIRET:20002377800018,2,2,RAW_SIRET
+SIRET:20006895500018,2,2,RAW_SIRET
+SIRET:20008776100015,2,2,RAW_SIRET
+SIRET:21440043400012,2,2,RAW_SIRET
+SIRET:24440045300035,2,2,RAW_SIRET
+SIRET:24720009000014,2,2,RAW_SIRET
+SIRET:52411092100037,2,2,RAW_SIRET
+SIRET:53820845500021,2,2,RAW_SIRET
+SIRET:53961650800021,2,2,RAW_SIRET
+SIRET:80355563000018,2,2,RAW_SIRET
+NAME:nantes metropole,182,1,NAME_FALLBACK
+NAME:chu de nantes,70,1,NAME_FALLBACK
+NAME:conseil regional des pays de la loire,70,1,NAME_FALLBACK
+NAME:angers loire metropole,61,1,NAME_FALLBACK
+NAME:universite de nantes,53,1,NAME_FALLBACK
+SIRET:24440040400129,53,1,RAW_SIRET
+NAME:departement de la sarthe,52,1,NAME_FALLBACK
+NAME:ch le mans,44,1,NAME_FALLBACK
+NAME:conseil departemental loire-atlantique,42,1,NAME_FALLBACK
+NAME:conseil departemental de la mayenne,37,1,NAME_FALLBACK
+NAME:gie sesam vitale,37,1,NAME_FALLBACK
+NAME:ville de nantes,36,1,NAME_FALLBACK
+NAME:semitan,30,1,NAME_FALLBACK
+NAME:universite d angers,29,1,NAME_FALLBACK
+NAME:departement de la vendee,28,1,NAME_FALLBACK
+NAME:gpm de nantes - st nazaire,28,1,NAME_FALLBACK
+NAME:sdis 44,27,1,NAME_FALLBACK
+NAME:commune de nantes,24,1,NAME_FALLBACK
+NAME:commune de saint-nazaire,24,1,NAME_FALLBACK
+SIRET:19490970100303,24,1,RAW_SIRET
+NAME:ctre hosp universitaire angers,23,1,NAME_FALLBACK
+NAME:commune de saint-herblain,22,1,NAME_FALLBACK
+NAME:departement de maine-et-loire,21,1,NAME_FALLBACK
+NAME:conseil departemental loire atlantique,20,1,NAME_FALLBACK
+NAME:ville d orvault,20,1,NAME_FALLBACK
+NAME:cnieg,19,1,NAME_FALLBACK
+NAME:departement de la mayenne,18,1,NAME_FALLBACK
+NAME:sdis 85,17,1,NAME_FALLBACK
+NAME:ville d angers,17,1,NAME_FALLBACK
+NAME:ville de bouguenais,17,1,NAME_FALLBACK
+NAME:conseil general de loire-atlantique,16,1,NAME_FALLBACK
+NAME:vendee eau,16,1,NAME_FALLBACK
+NAME:le mans metropole - communaute urbaine,15,1,NAME_FALLBACK
+NAME:ville de saint nazaire,15,1,NAME_FALLBACK
+NAME:ecole centrale de nantes,14,1,NAME_FALLBACK
+NAME:sdis49,14,1,NAME_FALLBACK
+NAME:communaute d agglomeration du niortais,13,1,NAME_FALLBACK
+NAME:gie des epl de vendee,13,1,NAME_FALLBACK
+NAME:la roche-sur-yon agglomeration,13,1,NAME_FALLBACK
+NAME:rectorat de l academie de nantes,13,1,NAME_FALLBACK
+NAME:ville du mans,13,1,NAME_FALLBACK
+NAME:cap atlantique,12,1,NAME_FALLBACK
+NAME:ccir pays de la loire,12,1,NAME_FALLBACK
+NAME:chd vendee,12,1,NAME_FALLBACK
+NAME:le mans metropole,12,1,NAME_FALLBACK
+NAME:ministere des affaires etrangeres,12,1,NAME_FALLBACK
+NAME:arafer,11,1,NAME_FALLBACK
+NAME:cte de cnes du pays d ancenis,11,1,NAME_FALLBACK
+NAME:sdis de la sarthe,11,1,NAME_FALLBACK
+NAME:ademe,10,1,NAME_FALLBACK
+NAME:la cite des congres de nantes,10,1,NAME_FALLBACK
+NAME:mairie de coueron,10,1,NAME_FALLBACK
+SIRET:24440064400013,10,1,RAW_SIRET
+NAME:agce pour l enst fr a l etranger,9,1,NAME_FALLBACK
+NAME:carene,9,1,NAME_FALLBACK
+NAME:cdc du pays de saint gilles cx de vie,9,1,NAME_FALLBACK
+NAME:cmar pays de la loire,9,1,NAME_FALLBACK
+NAME:commune de saint nazaire,9,1,NAME_FALLBACK
+NAME:laval agglomeration,9,1,NAME_FALLBACK
+NAME:vendee expansion,9,1,NAME_FALLBACK
+NAME:ville de carquefou,9,1,NAME_FALLBACK
+SIRET:21720181300011,9,1,RAW_SIRET
+NAME:conseil general de la vendee,8,1,NAME_FALLBACK
+NAME:metropole nantes metropole,8,1,NAME_FALLBACK
+NAME:montrevault-sur-evre,8,1,NAME_FALLBACK
+NAME:spr pays de la loire,8,1,NAME_FALLBACK
+NAME:universite du maine,8,1,NAME_FALLBACK
+NAME:ville de laval,8,1,NAME_FALLBACK
+SIRET:77560485300041,8,1,RAW_SIRET
+NAME:centre hospitalier de laval 53,7,1,NAME_FALLBACK
+NAME:e-collectivites vendee,7,1,NAME_FALLBACK
+NAME:mauges communaute,7,1,NAME_FALLBACK
+NAME:sdis de la mayenne,7,1,NAME_FALLBACK
+NAME:semitan mandataire de nantes metropole,7,1,NAME_FALLBACK
+NAME:sm megalis,7,1,NAME_FALLBACK
+NAME:ville de cholet,7,1,NAME_FALLBACK
+NAME:ville de sable sur sarthe,7,1,NAME_FALLBACK
+NAME:agence regionale pays de la loire ti,6,1,NAME_FALLBACK
+NAME:audencia eesc,6,1,NAME_FALLBACK
+NAME:centre hospitalier de cholet,6,1,NAME_FALLBACK
+NAME:cg49,6,1,NAME_FALLBACK
+NAME:chu angers etablissement support du groupement hospitalier de territoire de maine et loire,6,1,NAME_FALLBACK
+NAME:communaute communes parthenay-gatine,6,1,NAME_FALLBACK
+NAME:communaute de communes de grand lieu,6,1,NAME_FALLBACK
+NAME:communaute urbaine d alencon,6,1,NAME_FALLBACK
+NAME:commune de mauges sur loire,6,1,NAME_FALLBACK
+NAME:crous de nantes,6,1,NAME_FALLBACK
+NAME:dirisi,6,1,NAME_FALLBACK
+NAME:oniris,6,1,NAME_FALLBACK
+NAME:regie dept passages d eau de vendee,6,1,NAME_FALLBACK
+NAME:reseau canope,6,1,NAME_FALLBACK
+NAME:societe publique regionale abbaye de fontevraud,6,1,NAME_FALLBACK
+NAME:ville de la roche sur yon,6,1,NAME_FALLBACK
+NAME:ville de saumur,6,1,NAME_FALLBACK
+NAME:ville des sables d olonne,6,1,NAME_FALLBACK
+SIRET:26530023600014,6,1,RAW_SIRET
+SIRET:28720026500018,6,1,RAW_SIRET
+NAME:angers loire metropole 49,5,1,NAME_FALLBACK
+NAME:angers nantes opera syndicat mixte,5,1,NAME_FALLBACK
+NAME:ca pornic agglo pays de retz,5,1,NAME_FALLBACK
+NAME:cc ocean marais de monts,5,1,NAME_FALLBACK
+NAME:cc vendee grand littoral,5,1,NAME_FALLBACK
+NAME:centre hospitalier de saint-nazaire,5,1,NAME_FALLBACK
+NAME:chu d angers,5,1,NAME_FALLBACK
+NAME:commune de pornic,5,1,NAME_FALLBACK
+NAME:commune de reze,5,1,NAME_FALLBACK
+NAME:commune de saint jean de monts,5,1,NAME_FALLBACK
+NAME:cte de communes de la region de blain,5,1,NAME_FALLBACK
+NAME:dir ouest,5,1,NAME_FALLBACK
+NAME:ecole des mines de nantes,5,1,NAME_FALLBACK
+NAME:insee,5,1,NAME_FALLBACK
+NAME:lycee polyvalent leonard de vinci,5,1,NAME_FALLBACK
+NAME:sdis 49,5,1,NAME_FALLBACK
+NAME:territoire d energie loire-atlantique,5,1,NAME_FALLBACK
+NAME:universite de rennes 1,5,1,NAME_FALLBACK
+NAME:universite gustave eiffel,5,1,NAME_FALLBACK
+NAME:vendee grand littoral,5,1,NAME_FALLBACK
+NAME:ville de reze,5,1,NAME_FALLBACK
+NAME:ville de thouare-sur-loire,5,1,NAME_FALLBACK
+SIRET:12000601000058,5,1,RAW_SIRET
+SIRET:13002591900015,5,1,RAW_SIRET
+SIRET:23350001600040,5,1,RAW_SIRET
+SIRET:24440061000055,5,1,RAW_SIRET
+NAME:caisse des depots,4,1,NAME_FALLBACK
+NAME:cci de maine et loire,4,1,NAME_FALLBACK
+NAME:cci nantes saint-nazaire,4,1,NAME_FALLBACK
+NAME:cci pays de la loire,4,1,NAME_FALLBACK
+NAME:centre hospitalier de laval,4,1,NAME_FALLBACK
+NAME:centre hospitalier paul chapron,4,1,NAME_FALLBACK
+NAME:cesame - ch de sainte gemmes sur loire,4,1,NAME_FALLBACK
+NAME:chambre agriculture pays de la loire,4,1,NAME_FALLBACK
+NAME:com d agglo reg nazairienne estuaire,4,1,NAME_FALLBACK
+NAME:communaute de cnes terres de montaigu,4,1,NAME_FALLBACK
+NAME:communaute de communes sud vendee littoral,4,1,NAME_FALLBACK
+NAME:commune de la baule,4,1,NAME_FALLBACK
+NAME:concarneau cornouaille agglomeration,4,1,NAME_FALLBACK
+NAME:dir interdepartementale routes ouest,4,1,NAME_FALLBACK
+NAME:institut 4 10,4,1,NAME_FALLBACK
+NAME:mairie de reze,4,1,NAME_FALLBACK
+NAME:mairie de saint-herblain,4,1,NAME_FALLBACK
+NAME:si energies de maine et loire,4,1,NAME_FALLBACK
+NAME:st gilles croix de vie agglomeration,4,1,NAME_FALLBACK
+NAME:syndicat departemental d energie,4,1,NAME_FALLBACK
+NAME:ubs,4,1,NAME_FALLBACK
+NAME:uniha gcs,4,1,NAME_FALLBACK

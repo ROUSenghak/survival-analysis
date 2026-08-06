@@ -1,7 +1,8 @@
 # Frozen linkage configuration and transition to real BOAMP
 
-Date: 2026-08-05
+Date: 2026-08-05; GBM-primary strategy update: 2026-08-06
 Repository commit at freeze: `fbb4be2cbaafe53bff6fedcd7cc5b8d74ee77a26`
+Repository commit at GBM-primary strategy update: `22e104be483901cdbd78798003e64e6f8ad67b83`
 Branch: `restructure/two-layer`
 Benchmark version consulted: `v0_4_population_alias_revision`
 
@@ -93,11 +94,11 @@ as linkage uncertainty rather than resolved by choice.
 
 ---
 
-## 3. The supervised models cannot be transferred to real BOAMP
+## 3. Benchmark-supported real linkage strategy
 
 `scripts/test_synthetic_to_real_transfer.py`. Real BOAMP has no renewal labels, so
-a supervised linker can only reach it by transfer from synthetic training. That
-transfer fails on covariate shift concentrated in one feature:
+a supervised linker can only reach it by transfer from synthetic training. The
+current evidence shows material transfer risk concentrated in one feature:
 
 | feature | synthetic mean | real mean | ratio |
 |---|---|---|---|
@@ -108,14 +109,40 @@ transfer fails on covariate shift concentrated in one feature:
 | gap_months | 5.94 | 7.65 | 0.78 |
 | n_candidates_for_source | 10.2 | 10.9 | 0.94 |
 
-Applied to real candidate pairs at their synthetic calibration thresholds, the
-GBM accepts 333 rank-1 links (9.9% link rate) and logistic regression 356 (10.5%),
-against 1,003 (29.7%) for the transparent composite rule. The models learned to
-lean on a text signal roughly 3.6× stronger than the real corpus provides.
+The transfer script now mirrors the v0.4 benchmark model specification and uses
+the frozen benchmark threshold table (`algorithm_thresholds.csv`). Applied to the
+same real candidate pairs, gradient boosting accepts 411 rank-1 links (12.2%)
+and logistic regression accepts 889 (26.3%), against 1,003 (29.7%) for the
+transparent composite balanced rule. The models learned in a candidate
+environment where the text signal is roughly 3.6× stronger than the real corpus
+provides.
 
-**Consequence: the real primary linkage rule must be the transparent composite
-rule.** This is not a ranking claim about the algorithms; it is a statement that
-the benchmark cannot license a supervised linker for real use.
+The labelled synthetic benchmark also now has the requested diagnostic metrics
+and plots under
+`reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/`
+and
+`reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/`:
+`roc_curve_points.csv`, `precision_recall_curve_points.csv`,
+`rank1_f1_threshold_curve.csv`, `gbm_loss_curve.csv`,
+`diagnostic_curve_summary.csv`, `roc_curves.png`,
+`precision_recall_curves.png`, `rank1_f1_threshold_curves.png`, and
+`gbm_loss_curve.png`. These are benchmark-truth diagnostics only.
+
+**Consequence: gradient boosting is now the provisional primary practical
+real-linkage method under the frozen benchmark assumption.** More precisely, it
+is the **best practical method under the predefined synthetic benchmark
+assumptions and operational criteria**. This is not a claim that GBM is the real
+truth or that its real precision/recall are known. It is a benchmark-supported
+modelling choice: the synthetic benchmark was built to compare methods under
+known hidden truth, GBM is the strongest held-out method, and there is no
+labelled-real evidence that invalidates it. The transparent composite balanced
+rule is retained as the auditable baseline, strict composite without POTENTIAL
+links is retained as the conservative rule, broad composite is retained as
+recall sensitivity, and logistic regression remains a supervised comparator.
+Canonical strategy artifacts are:
+`real_linkage_strategy_summary.csv`, `real_linkage_strategy_manifest.json`,
+`real_primary_gbm_links.csv`, `real_linkage_method_agreement.csv`, and
+`real_linkage_strategy_survival_headline.csv`.
 
 ---
 
@@ -199,20 +226,23 @@ models' advantage by an amount bounded below by zero and above by the full margi
 and no algorithm ranking should be quoted from it without correcting CPV
 generation.** It is not established that the whole advantage is artifact.
 
-**This does not affect the real-BOAMP decision.** Supervised linkers stay excluded
-from real use for reasons in §3 that no CPV correction touches: real BOAMP has no
-labels to train on, and synthetic-to-real transfer fails on a 3.56x `s_text` shift.
+**This does not validate real BOAMP accuracy.** Supervised linkers remain
+unlabelled on real BOAMP, and §3 shows a 3.56x `s_text` shift. The correct use is
+GBM as the benchmark-supported primary practical rule, plus sensitivity analysis
+and manual-audit prioritisation, not a real precision/recall claim.
 
 ---
 
 ## 6. Real BOAMP results
 
-### 6a. Frozen decision rules
-| rule | threshold | tier filter | links | link rate |
-|---|---|---|---|---|
-| **primary** `primary_balanced` | 0.343167 | none | 1,003 | 29.7% |
-| **conservative** `conservative_strict` | 0.442070 | POTENTIAL dropped | 422 | 12.5% |
-| **baseline** `baseline_broad` | 0.278387 | none | 1,504 | 44.5% |
+### 6a. Frozen real-linkage strategy
+| role | method | threshold | tier filter | links | link rate |
+|---|---|---|---|---|---|
+| **primary practical** | gradient boosting | 0.230964 | synthetic rank-1 threshold | 411 | 12.2% |
+| **transparent baseline** | composite balanced | 0.343167 | none | 1,003 | 29.7% |
+| **conservative** | composite strict | 0.442070 | POTENTIAL dropped | 422 | 12.5% |
+| **recall sensitivity** | composite broad | 0.278387 | none | 1,504 | 44.5% |
+| **supervised sensitivity** | logistic regression | 0.745678 | synthetic rank-1 threshold | 889 | 26.3% |
 
 ### 6b. Linkage integrity (`linkage_integrity_checks.json`)
 Clean: 0 self-links, 0 non-forward links, 0 non-positive gaps, 0 sources with more
@@ -223,17 +253,19 @@ does not resolve. Of 3,380 eligible sources, 2,005 have at least one candidate a
 1,002 sources had a rank-1 candidate rejected below threshold; 327 accepted links
 are ambiguous (POTENTIAL, margin < 0.05).
 
-### 6c. Survival under the three rules (`survival_headline_by_rule.csv`)
+### 6c. Survival under the real-linkage strategy (`real_linkage_strategy_survival_headline.csv`)
 
-| rule | events | event rate | censoring | median | RMST(60m) | S(12m) | S(24m) |
+| role | events | event rate | censoring | median | RMST(60m) | S(12m) | S(24m) |
 |---|---|---|---|---|---|---|---|
-| conservative | 422 | 12.5% | 87.5% | not reached | 52.93 | 0.879 | 0.871 |
-| **primary** | 1,003 | 29.7% | 70.3% | not reached | **43.51** | 0.721 | 0.691 |
-| baseline | 1,504 | 44.5% | 55.5% | not reached | 35.43 | 0.589 | 0.537 |
+| **primary GBM** | 411 | 12.2% | 87.8% | not reached | **53.20** | 0.884 | 0.874 |
+| transparent composite baseline | 1,003 | 29.7% | 70.3% | not reached | 43.51 | 0.721 | 0.691 |
+| conservative composite | 422 | 12.5% | 87.5% | not reached | 52.93 | 0.879 | 0.871 |
+| broad composite sensitivity | 1,504 | 44.5% | 55.5% | not reached | 35.43 | 0.589 | 0.537 |
+| logistic sensitivity | 889 | 26.3% | 73.7% | not reached | 45.76 | 0.786 | 0.724 |
 
-Median survival is not reached under any rule. RMST(60m) spans **35.4 to 52.9
-months** across the three rules — the single largest source of uncertainty in the
-analysis, and larger than any covariate effect below.
+Median survival is not reached under any rule. RMST(60m) spans **35.4 to 53.2
+months** across the strategy and sensitivity rules — the single largest source
+of uncertainty in the analysis, and larger than any covariate effect below.
 
 ### 6d. Cox regression stability (`cox_hazard_ratio_stability.csv`)
 Fitted separately under each rule (concordance 0.589–0.624).
@@ -252,7 +284,7 @@ Sign-stable across all three rules:
 division 32, and the OTHER/missing CPV groups. Those directions are linkage
 artifacts and must not be interpreted.
 
-Subgroup Kaplan-Meier under the primary rule
+Subgroup Kaplan-Meier under the composite balanced baseline
 (`survival_subgroups_by_rule.csv`): RAW_SIRET buyers renew faster than
 NAME_FALLBACK buyers (event rate 32.3% vs 28.8%, RMST 41.77 vs 44.08, log-rank
 p = 0.032), but the same contrast is **sign-unstable in Cox across the three
@@ -292,21 +324,29 @@ Smaller gradients: RAW_SIRET 32.3% vs NAME_FALLBACK 28.8%; imputed duration 31.1
 vs observed 23.1%; CPV present 30.5% vs missing 24.4%.
 
 ### 6f. Audit sample (`real_audit_sample_100.csv`)
-100 cases, seed 20260713, six strata: accepted high-confidence (18), accepted
-borderline (16), accepted ambiguous margin (16), rejected top candidate (18),
-rejected far below threshold (12), no candidate generated (20). Each row carries
-both texts, all four sub-scores, the margin, the candidate count, the reason code
-and the rule version, with blank reviewer columns. **No real precision or recall is
-claimed anywhere in this document, because this sample has zero completed labels.**
+100 cases, seed 20260713, eight strategy strata: GBM and composite agree (18),
+GBM only (14), composite only (18), GBM borderline score (12), GBM small margin
+(12), rejected composite top candidate (12), rejected far below (6), and no
+candidate generated (8). Each row carries source/candidate texts, composite and
+GBM decisions, scores, margins, candidate count, reason code and blank reviewer
+columns. **No real precision or recall is claimed anywhere in this document,
+because this sample has zero completed labels.**
+
+The canonical initial review package for the current freeze is the smaller
+`real_audit_sample_30.csv` plus `manual_audit_entry_template.csv` and
+`reports/generated/manual_audit_instructions.md`. The 100-case file is retained
+as broader noncanonical review evidence.
 
 ---
 
 ## 7. Claims and limitations
 
-**Supported.** The real Layer 1 pipeline reproduces exactly and is threshold-frozen.
-Under the primary rule the observed-renewal event rate is 29.7% with 70.3%
-censoring and RMST(60m) = 43.5 months. The direction of the CPV-72, CPV-48 and
-publication-year effects is stable across all three linkage rules.
+**Supported.** The real Layer 1 candidate generator reproduces exactly and the
+strategy thresholds are frozen. Under the benchmark-supported primary practical
+GBM rule the observed-renewal event rate is 12.2% with 87.8% censoring and
+RMST(60m) = 53.2 months. The transparent composite baseline remains available at
+29.7% event rate for sensitivity and interpretation. The direction of the CPV-72,
+CPV-48 and publication-year effects is stable across the three composite rules.
 
 **Correction — the bit-exact replay claim does not currently verify.** The
 recorded `replay_replicates.json` reports PASS for all 51 artifacts, but that was
@@ -321,10 +361,11 @@ survive a different NumPy build. Replay therefore needs the pinned
 `requirements-lock.txt` environment to be re-verified; until then "all artifacts
 replay" is a recorded historical result, not a currently reproducible one.
 
-**Not supported.** Any real BOAMP precision or recall. Any algorithm ranking (§5).
-Any transfer of a supervised linker to real BOAMP (§3). Any causal reading of the
-duration coefficients. Any claim that 29.7% is the true renewal prevalence — it is
-the output of one decision rule among several that span 12.5%–44.5%.
+**Not supported.** Any real BOAMP precision or recall. Any real-BOAMP algorithm
+ranking (§3 and §5). Any claim that the supervised transfer layers are correct or
+incorrect without manual labels. Any causal reading of the duration coefficients.
+Any claim that 12.2% or 29.7% is the true renewal prevalence — each is the output
+of one decision rule among several that span 12.2%–44.5%.
 
 **Gates that remain failed, and why that is correct.**
 `READY_FOR_FINAL_ALGORITHM_RANKING` and
@@ -345,9 +386,10 @@ limitation attached — no ranking may be quoted until CPV generation is correct
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/freeze_real_linkage.py
 PYTHONPATH=src .venv/bin/python scripts/real_candidate_generator_sensitivity.py
+PYTHONPATH=src .venv/bin/python scripts/test_synthetic_to_real_transfer.py
 PYTHONPATH=src .venv/bin/python scripts/build_real_audit_sample.py
 PYTHONPATH=src .venv/bin/python scripts/real_survival_analysis.py
-PYTHONPATH=src .venv/bin/python scripts/test_synthetic_to_real_transfer.py
+PYTHONPATH=src .venv/bin/python scripts/build_linkage_algorithm_diagnostic_curves.py
 PYTHONPATH=src .venv/bin/python scripts/evaluate_synthetic_candidate_generators.py
 PYTHONPATH=src .venv/bin/python scripts/cpv_anomaly_ablation.py
 PYTHONPATH=src .venv/bin/python scripts/correct_unique_scenario_evidence.py
@@ -355,4 +397,5 @@ PYTHONPATH=src .venv/bin/python scripts/correct_unique_scenario_evidence.py
 
 Outputs: `reports/tables/real_linkage_freeze/`,
 `reports/figures/real_linkage_freeze/`,
-`data/processed/boamp_only/boamp_only_survival_{primary_balanced,conservative_strict,baseline_broad}.csv`.
+`data/processed/boamp_only/boamp_only_survival_primary_gbm.csv`, and
+`data/processed/boamp_only/boamp_only_survival_{baseline_composite_balanced,conservative_strict,baseline_broad}.csv`.

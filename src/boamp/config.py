@@ -70,6 +70,6 @@ def ensure_output_dirs(cfg: SimpleNamespace) -> None:
     for key in [
         "processed_dir", "processed_boamp_only", "processed_enriched",
         "processed_comparison", "reports_figures", "reports_tables",
-        "reports_generated",
+        "reports_generated", "reports_data_quality",
     ]:
         getattr(cfg.paths, key).mkdir(parents=True, exist_ok=True)

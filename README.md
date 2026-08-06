@@ -4,6 +4,10 @@ Time-to-renewal analysis of French public procurement notices (BOAMP), built as
 **two controlled, comparable layers** that differ in exactly one thing — buyer
 identity:
 
+Canonical entrypoint: [`canonical/`](canonical/). It is a lightweight index of
+the clean pipeline, canonical outputs, and active scientific gates; it does not
+duplicate large data files.
+
 | Layer | Name | Formerly | Buyer identity |
 |---|---|---|---|
 | 1 | `boamp_only` | M0 | BOAMP-native only: SIRET > SIREN > normalized name |
@@ -117,7 +121,7 @@ identity gains come from the exact name+department alias bridge. All quality
 estimates in 03 are model-based or synthetic, each labeled with its evidence
 class.
 
-## Frozen linkage configuration (2026-08-05)
+## Frozen linkage configuration (2026-08-05; GBM-primary strategy 2026-08-06)
 
 The linkage configuration used for the real analysis is frozen and documented in
 [reports/generated/real_linkage_freeze_decision.md](reports/generated/real_linkage_freeze_decision.md),
@@ -126,19 +130,40 @@ with artifacts in `reports/tables/real_linkage_freeze/`. Summary:
 - **Candidate generator:** unchanged canonical duration-anchored ±6-month window.
   Wider windows (9/12/18m) and the duration-free forward-24m route are retained as
   a pre-registered sensitivity set, not as the primary rule.
-- **Primary rule:** transparent composite score at the frozen balanced threshold
-  (1,003 links, 29.7%). **Conservative:** strict threshold with POTENTIAL links
-  dropped (422, 12.5%). **Baseline:** broad threshold (1,504, 44.5%).
-- **The supervised linkers are not used on real BOAMP.** There are no real labels
-  to train on, and synthetic-to-real transfer fails on covariate shift concentrated
-  in `s_text` (synthetic mean 3.56x real).
-- **Algorithm ranking is not claimed.** Gradient boosting leads the v0.4 benchmark,
+- **Provisional primary practical method:** gradient boosting trained on the
+  frozen v0.4 synthetic benchmark and applied to the canonical real candidate
+  pairs with the frozen benchmark threshold (411 links, 12.2%). It is the
+  **best practical method under the predefined synthetic benchmark assumptions
+  and operational criteria**, not a claim of real precision/recall or final
+  BOAMP accuracy.
+- **Transparent baseline:** composite balanced score
+  (1,003 links, 29.7%). **Conservative:** strict composite threshold with
+  POTENTIAL links dropped (422, 12.5%). **Recall sensitivity:** broad composite
+  threshold (1,504, 44.5%). Logistic regression is retained as a supervised
+  comparator (889, 26.3%).
+- **Manual audit remains required.** There are no real labels to train on, and
+  synthetic-to-real transfer is uncertain because covariate shift is concentrated
+  in `s_text` (synthetic mean 3.56x real). The audit should prioritize
+  GBM-only, composite-only, both-agree and borderline cases.
+- **Algorithm ranking is not claimed for real BOAMP.** Gradient boosting leads the v0.4 benchmark,
   but exact CPV codes are invented (~39,300 distinct per world against 3,145 real),
   which inflates part of that margin; see the decision document §5. The ranking is
-  not needed for the real analysis, since supervised linkers are excluded from real
-  use for the reason above.
+  used as controlled synthetic evidence, not as known real-BOAMP performance.
 - `moderate` is a byte-identical duplicate of `central_provisional`; unique
   evidence is 41 artifacts across 5 scenarios and 16 evaluation worlds, not 51/6/20.
+
+Canonical freeze support added for this repair pass:
+
+- Run manifest: `reports/run_logs/canonical_pipeline_manifest.json`.
+- Corpus quality/freeze evidence: `reports/tables/data_quality/`.
+- Canonical 30-case manual audit package:
+  `reports/tables/real_linkage_freeze/real_audit_sample_30.csv`,
+  `reports/tables/real_linkage_freeze/manual_audit_entry_template.csv`, and
+  `reports/generated/manual_audit_instructions.md`.
+- External classification contract:
+  `docs/classification_input_contract.md`. Until the teammate export exists and
+  passes validation, technology-specific survival, trend, and change-point
+  analyses remain `BLOCKED_BY_EXTERNAL_CLASSIFICATION`.
 
 ## Synthetic benchmark v0.4 (`population_alias_revision`)
 
@@ -166,6 +191,9 @@ config and report is unchanged and still replays from its own configuration.
   composite, Fellegi-Sunter style): `notebooks/14_linkage_algorithm_benchmark_v0_4.ipynb`,
   tables under `.../v0_4_population_alias_revision/linkage_algorithm_benchmark/`, report
   `reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.{md,tex,pdf}`.
+  The labelled-truth outputs include `summary_metrics.csv` plus curve diagnostics
+  from `scripts/build_linkage_algorithm_diagnostic_curves.py`: ROC,
+  precision-recall, rank-1 F1-threshold and GBM staged-loss tables/figures.
   Paired world-level comparisons with bootstrap intervals:
   `.../v0_4_population_alias_revision/seed_stability/`. The v0.3 notebook and report keep
   their original unversioned filenames and are untouched.

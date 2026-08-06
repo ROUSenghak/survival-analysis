@@ -1,0 +1,15 @@
+{
+  "run_id": "real_linkage_strategy_gbm_primary",
+  "repository_commit": "22e104be483901cdbd78798003e64e6f8ad67b83",
+  "repository_branch": "restructure/two-layer",
+  "benchmark_version": "v0_4_population_alias_revision",
+  "candidate_generator": "dur_w6_same_buyer_expected_end_window_top30",
+  "primary_practical_model": "gradient_boosting",
+  "primary_threshold": 0.2309637726207583,
+  "transparent_baseline": "composite_balanced",
+  "conservative_rule": "composite_strict_no_potential",
+  "real_precision_recall_status": "UNKNOWN",
+  "manual_audit_required": true,
+  "strategy_summary_path": "reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv",
+  "strategy_survival_path": "reports/tables/real_linkage_freeze/real_linkage_strategy_survival_headline.csv"
+}

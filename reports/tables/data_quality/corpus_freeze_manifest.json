@@ -1,0 +1,32 @@
+{
+  "run_id": "canonical_boamp_corpus_quality_v1",
+  "generated_at_utc": "2026-08-06T09:33:24.232102+00:00",
+  "git_head": "22e104be483901cdbd78798003e64e6f8ad67b83",
+  "git_status_porcelain": "M README.md\n M config/paths.yaml\n M docs/methodology.md\n M reports/figures/real_linkage_freeze/km_by_linkage_rule.pdf\n M reports/generated/real_linkage_freeze_decision.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.aux\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.log\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.md\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.pdf\n M reports/generated/synthetic_benchmark/v0_4_linkage_algorithm_benchmark_report.tex\n M reports/tables/real_linkage_freeze/freeze_manifest.json\n M reports/tables/real_linkage_freeze/real_audit_sample_100.csv\n M reports/tables/real_linkage_freeze/real_candidate_generator_sensitivity.csv\n M reports/tables/real_linkage_freeze/synthetic_to_real_transfer_test.csv\n M reports/tables/synthetic_benchmark/v0_4_population_alias_revision/readiness/readiness_assessment.md\n M scripts/build_linkage_algorithm_benchmark_report.py\n M scripts/build_real_audit_sample.py\n M scripts/freeze_real_linkage.py\n M scripts/real_survival_analysis.py\n M scripts/test_synthetic_to_real_transfer.py\n M src/boamp/config.py\n?? data/processed/boamp_only/boamp_only_survival_baseline_composite_balanced.csv\n?? data/processed/boamp_only/boamp_only_survival_gradient_boosting_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_logistic_regression_synthetic_v0_4_transfer.csv\n?? data/processed/boamp_only/boamp_only_survival_primary_gbm.csv\n?? docs/classification_input_contract.md\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curves.png\n?? reports/figures/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curves.png\n?? reports/generated/manual_audit_instructions.md\n?? reports/run_logs/canonical_pipeline_manifest.json\n?? reports/tables/data_quality/\n?? reports/tables/real_linkage_freeze/adaptive_task_inventory.csv\n?? reports/tables/real_linkage_freeze/manual_audit_entry_template.csv\n?? reports/tables/real_linkage_freeze/real_audit_sample_30.csv\n?? reports/tables/real_linkage_freeze/real_linkage_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_manifest.json\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_summary.csv\n?? reports/tables/real_linkage_freeze/real_linkage_strategy_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_primary_gbm_links.csv\n?? reports/tables/real_linkage_freeze/real_supervised_method_agreement.csv\n?? reports/tables/real_linkage_freeze/real_supervised_rank1_scored.csv\n?? reports/tables/real_linkage_freeze/real_supervised_survival_headline.csv\n?? reports/tables/real_linkage_freeze/real_supervised_transfer_links.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/diagnostic_curve_summary.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curve_points.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curve.csv\n?? reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curve_points.csv\n?? scripts/build_canonical_run_manifest.py\n?? scripts/build_linkage_algorithm_diagnostic_curves.py\n?? scripts/check_boamp_corpus_quality.py\n?? src/boamp/data/classification.py\n?? src/boamp/status.py\n?? tests/test_classification.py\n?? tests/test_manual_audit_package.py\n?? tests/test_scientific_gates.py",
+  "raw_month_coverage": {
+    "n_raw_month_files": 139,
+    "first_month": "201501",
+    "last_month": "202607",
+    "n_expected_months_between_first_last": 139,
+    "missing_months_between_first_last": []
+  },
+  "canonical_layer": "boamp_only",
+  "counts": {
+    "prepared_common_rows": 84623,
+    "prepared_unique_notice_ids": 84623,
+    "sources": 3380,
+    "candidate_pairs": 10862,
+    "balanced_composite_links": 1003
+  },
+  "outputs": [
+    "reports/tables/data_quality/filtering_funnel.csv",
+    "reports/tables/data_quality/missingness_summary.csv",
+    "reports/tables/data_quality/buyer_identifier_quality.csv",
+    "reports/tables/data_quality/buyer_name_variation_top200.csv",
+    "reports/tables/data_quality/buyer_activity_concentration.csv",
+    "reports/tables/data_quality/cpv_quality_by_division.csv",
+    "reports/tables/data_quality/text_quality_summary.csv",
+    "reports/tables/data_quality/duration_quality.csv",
+    "reports/tables/data_quality/exclusions_summary.csv"
+  ]
+}

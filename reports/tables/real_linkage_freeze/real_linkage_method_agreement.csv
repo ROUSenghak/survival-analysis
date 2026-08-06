@@ -1,0 +1,16 @@
+method,n_accepted,link_rate,only_a,only_b
+primary_gbm,411,0.12159763313609467,,
+baseline_composite_balanced,1003,0.2967455621301775,,
+conservative_composite_strict,422,0.12485207100591716,,
+sensitivity_logistic_regression,889,0.26301775147928996,,
+sensitivity_composite_broad,1504,0.44497041420118344,,
+primary_gbm__AND__sensitivity_logistic_regression,404,0.11952662721893491,7.0,485.0
+primary_gbm__AND__sensitivity_composite_broad,373,0.11035502958579882,38.0,1131.0
+baseline_composite_balanced__AND__primary_gbm,352,0.10414201183431952,651.0,59.0
+baseline_composite_balanced__AND__conservative_composite_strict,422,0.12485207100591716,581.0,0.0
+baseline_composite_balanced__AND__sensitivity_logistic_regression,648,0.19171597633136095,355.0,241.0
+baseline_composite_balanced__AND__sensitivity_composite_broad,1003,0.2967455621301775,0.0,501.0
+conservative_composite_strict__AND__primary_gbm,260,0.07692307692307693,162.0,151.0
+conservative_composite_strict__AND__sensitivity_logistic_regression,369,0.1091715976331361,53.0,520.0
+conservative_composite_strict__AND__sensitivity_composite_broad,422,0.12485207100591716,0.0,1082.0
+sensitivity_composite_broad__AND__sensitivity_logistic_regression,796,0.23550295857988165,708.0,93.0

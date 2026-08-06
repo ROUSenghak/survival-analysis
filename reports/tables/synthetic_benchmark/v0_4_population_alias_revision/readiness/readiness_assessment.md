@@ -1,5 +1,12 @@
 # Synthetic Benchmark Readiness Assessment
 
+Canonical repair note (2026-08-06): this file is retained as generated
+readiness evidence from its recorded source state. Controlled synthetic
+algorithm comparison may be used with the documented v0.4 limitations, but final
+algorithm ranking, validated benchmark release, and real-BOAMP precision/recall
+claims remain unsupported. `moderate` is byte-identical to
+`central_provisional` and must be excluded from unique cross-scenario counts.
+
 This is a validated synthetic benchmark only to the readiness level supported above. It cannot prove real BOAMP precision, recall, renewal prevalence, survival estimates, or algorithm ranking.
 
 Benchmark version: `v0_4_population_alias_revision`

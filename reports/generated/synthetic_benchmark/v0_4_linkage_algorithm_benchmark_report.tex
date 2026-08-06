@@ -76,6 +76,69 @@ Compared with the current weighted composite, gradient boosting improves precisi
 \textbf{5.5x} and end-to-end F1 by
 \textbf{2.2x}.
 
+\section*{Score Diagnostics: ROC, Precision-Recall, Threshold F1, And GBM Loss}
+
+Because the synthetic benchmark has known truth, the algorithm evaluation can report full candidate-pair
+discrimination curves as well as rank-1 threshold behavior. These are benchmark-truth diagnostics only;
+they do not measure real BOAMP precision or recall.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{reports/figures/synthetic\_benchmark/v0\_4\_population\_alias\_revision/linkage\_algorithm\_benchmark/roc\_curves.png}
+\caption{Candidate-pair ROC curves. Gradient boosting and logistic regression separate candidate pairs best by ROC-AUC.}
+\label{fig:roc-curves}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{reports/figures/synthetic\_benchmark/v0\_4\_population\_alias\_revision/linkage\_algorithm\_benchmark/precision\_recall\_curves.png}
+\caption{Candidate-pair precision-recall curves. Average precision is more diagnostic than ROC-AUC under low true-match prevalence.}
+\label{fig:pr-curves}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Curve diagnostics and frozen-threshold rank-1 performance.}
+\label{tab:curve-diagnostics}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Algorithm & ROC-AUC & Average precision & Frozen precision & Frozen end-to-end recall & Frozen end-to-end F1 \\
+\midrule
+Current weighted composite & 0.840 & 0.090 & 0.130 & 0.225 & 0.165 \\
+Fellegi-Sunter style & 0.837 & 0.157 & 0.113 & 0.147 & 0.128 \\
+Logistic regression & 0.962 & 0.294 & 0.339 & 0.238 & 0.280 \\
+Gradient boosting & 0.978 & 0.766 & 0.719 & 0.235 & 0.354 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+The ROC curves show broad pair separability; the precision-recall curves are more informative under the
+low true-match prevalence of the candidate-pair universe. Gradient boosting has the strongest average
+precision and the highest frozen-threshold rank-1 F1.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{reports/figures/synthetic\_benchmark/v0\_4\_population\_alias\_revision/linkage\_algorithm\_benchmark/rank1\_f1\_threshold\_curves.png}
+\caption{Rank-1 end-to-end F1 over acceptance thresholds. Points mark the frozen thresholds used in the benchmark.}
+\label{fig:rank1-threshold}
+\end{figure}
+
+The threshold curves show that the selected gradient-boosting threshold is at the held-out F1 peak in
+this grid, while logistic regression is close to its peak but at much lower precision.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{reports/figures/synthetic\_benchmark/v0\_4\_population\_alias\_revision/linkage\_algorithm\_benchmark/gbm\_loss\_curve.png}
+\caption{Gradient boosting staged log-loss on fit and calibration worlds.}
+\label{fig:gbm-loss}
+\end{figure}
+
+The gradient-boosting staged log-loss falls smoothly on both the training and calibration worlds. The
+calibration curve remains above training loss, as expected, but does not show late-stage instability over
+the 160 boosting stages used by the frozen benchmark model.
+
 \section*{Candidate Generation Is The Binding Constraint}
 
 End-to-end performance is much lower than fixed-candidate performance because most truth links never
@@ -267,6 +330,11 @@ broader threshold supports recall sensitivity?
 \item Summary table: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/summary_metrics.csv}
 \item Scenario table: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/scenario_summary_metrics.csv}
 \item Bias diagnostics: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/recall_slices.csv}
+\item ROC curve points: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/roc_curve_points.csv}
+\item Precision-recall curve points: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/precision_recall_curve_points.csv}
+\item Rank-1 F1 threshold curve: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/rank1_f1_threshold_curve.csv}
+\item GBM loss curve: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/gbm_loss_curve.csv}
+\item Diagnostic curve summary: \path{reports/tables/synthetic_benchmark/v0_4_population_alias_revision/linkage_algorithm_benchmark/diagnostic_curve_summary.csv}
 \end{itemize}
 
 \end{document}
